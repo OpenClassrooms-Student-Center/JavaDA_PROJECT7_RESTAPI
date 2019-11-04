@@ -1,7 +1,7 @@
 # spring-boot
 ## Technical:
 
-1. Framework: Spring boot v2.0.4
+1. Framework: Spring Boot v2.0.4
 2. Java 8
 3. Thymeleaf
 4. Bootstrap v.4.3.1
@@ -17,13 +17,13 @@
 4. Create database with name "demo" as configuration in application.properties
 5. Run sql script to create table doc/data.sql
 
-## Implement a feature:
+## Implement a Feature
 1. Create mapping domain class and place in package com.nnk.springboot.domain
 2. Create repository class and place in package com.nnk.springboot.repositories
 3. Create controller class and place in package com.nnk.springboot.controllers
 4. Create view files and place in src/main/resource/templates
 
-## Write unit test
+## Write Unit Test
 1. Create unit test and place in package com.nnk.springboot in folder test > java
 
 ## Security
