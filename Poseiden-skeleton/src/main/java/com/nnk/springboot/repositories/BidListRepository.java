@@ -1,6 +1,6 @@
 package com.nnk.springboot.repositories;
 
-import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.model.BidList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
