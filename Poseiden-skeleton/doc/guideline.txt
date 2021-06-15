@@ -18,7 +18,7 @@
 5. Run sql script to create table doc/data.sql
 
 ## Implement a feature:
-1. Create mapping domain class and place in package com.nnk.springboot.domain
+1. Create mapping domain class and place in package com.nnk.springboot.model
 2. Create repository class and place in package com.nnk.springboot.repositories
 3. Create controller class and place in package com.nnk.springboot.controllers
 4. Create view files and place in src/main/resource/templates
