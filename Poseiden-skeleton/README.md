@@ -18,7 +18,7 @@
 5. Run sql script to create table doc/data.sql
 
 ## Implement a Feature
-1. Create mapping domain class and place in package com.nnk.springboot.domain
+1. Create mapping domain class and place in package com.nnk.springboot.model
 2. Create repository class and place in package com.nnk.springboot.repositories
 3. Create controller class and place in package com.nnk.springboot.controllers
 4. Create view files and place in src/main/resource/templates
@@ -29,3 +29,15 @@
 ## Security
 1. Create user service to load user from  database and place in package com.nnk.springboot.services
 2. Add configuration class and place in package com.nnk.springboot.config
+
+## DataBase local
+
+```
+$ docker run -p 3306:3306 --name projet_7 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=demo -d mysql:latest
+```
+
+## DataBase production
+
+```
+$ docker run -p 3307:3306 --name projet_7_prod -e MYSQL_ROOT_PASSWORD=admin -e MYSQL_DATABASE=test -d mysql:latest
+```
