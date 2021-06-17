@@ -1,8 +1,10 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.model.User;
 import com.nnk.springboot.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
-@AllArgsConstructor
+
 @Controller
 public class UserController {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("/user/list")
     public String home(Model model)
