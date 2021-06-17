@@ -7,30 +7,28 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User   {
+@Table(name = "Users")
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotBlank(message = "Username is mandatory")
+
     private String username;
 
-    @NotBlank(message = "Password is mandatory")
+
     private String password;
 
-    @NotBlank(message = "FullName is mandatory")
     private String fullname;
 
-    @NotBlank(message = "Role is mandatory")
     private String role;
 
 
