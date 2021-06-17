@@ -1,6 +1,8 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.repositories.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,12 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@AllArgsConstructor
 @Controller
 @RequestMapping("app")
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
     @GetMapping("login")
     public ModelAndView login(){

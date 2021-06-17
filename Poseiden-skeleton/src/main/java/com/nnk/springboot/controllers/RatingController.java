@@ -1,6 +1,8 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.interfaces.RatingService;
 import com.nnk.springboot.model.Rating;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@AllArgsConstructor
 @Controller
 public class RatingController {
     // TODO: Inject Rating service
+    private final RatingService ratingService;
 
     @RequestMapping("/rating/list")
     public String home(Model model)

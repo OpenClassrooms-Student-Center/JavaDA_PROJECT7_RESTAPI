@@ -1,6 +1,8 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.interfaces.RuleNameService;
 import com.nnk.springboot.model.RuleName;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@AllArgsConstructor
 @Controller
 public class RuleNameController {
     // TODO: Inject RuleName service
+    private final RuleNameService ruleNameService;
 
     @RequestMapping("/ruleName/list")
     public String home(Model model)

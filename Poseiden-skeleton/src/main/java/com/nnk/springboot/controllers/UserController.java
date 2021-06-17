@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.interfaces.UserService;
 import com.nnk.springboot.model.User;
 import com.nnk.springboot.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 @Controller
 public class UserController {
 
+    private final UserService userService;
     private final UserRepository userRepository;
 
     @RequestMapping("/user/list")
