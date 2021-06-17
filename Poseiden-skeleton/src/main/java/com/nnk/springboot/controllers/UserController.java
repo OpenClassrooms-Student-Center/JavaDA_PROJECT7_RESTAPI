@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 
@@ -23,6 +24,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
     @RequestMapping("/user/list")
     public String home(Model model)
     {
@@ -30,6 +32,7 @@ public class UserController {
         return "user/list";
     }
 
+    @RolesAllowed("ADMIN")
     @GetMapping("/user/add")
     public String addUser(User bid) {
         return "user/add";
