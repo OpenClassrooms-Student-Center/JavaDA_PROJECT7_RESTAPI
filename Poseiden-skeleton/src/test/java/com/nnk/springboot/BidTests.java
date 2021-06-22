@@ -95,9 +95,9 @@ public class BidTests {
 		BidList bid = bidListRepository.findBidListIdByAccount("Account Test");
 		Optional<BidList> bidList = bidListRepository.findById(bid.getBidListId());
 		Assert.assertTrue(bidList.isPresent());
-
-
 	}
+
+
 	@Test
 	public void validateBidListTest_Throw_AmountFormatException() {
 		//given
@@ -121,7 +121,5 @@ public class BidTests {
 		bidList.setType(bid.getType());
 		//when
 		assertThrows(NumberFormatException.class, () ->bidListService.updateBid(id, bidList));
-
-
 	}
 }

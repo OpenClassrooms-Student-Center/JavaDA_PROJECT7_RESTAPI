@@ -17,6 +17,31 @@
 			<!--
 			TODO: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point
 			 -->
+			<div th:if="${param.error}">
+				<p class="text-danger" th:text="${param.error}"></p>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="curveId" class="form-label">CurveId</label>
+					<input th:field="*{curveId}" type="number" class="form-control" id="curveId" required placeholder="curveId">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="term" class="form-label">Term</label>
+					<input th:field="*{term}" type="number" class="form-control" id="term" required placeholder="Term">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="value" class="form-label">Value</label>
+					<input th:field="*{value}" type="number" class="form-control" id="value" required placeholder="Value">
+				</div>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-danger mb-3" role="button" href="/curvePoint/list">Cancel</a>
+				<button type="submit" value="UpdateCurvePoint" class="btn btn-primary mb-3">Update CurvePoint</button>
+			</div>
 		</form>
 	</div>
 

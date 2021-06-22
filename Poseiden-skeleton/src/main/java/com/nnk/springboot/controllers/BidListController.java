@@ -30,7 +30,6 @@ public class BidListController {
 
     @RequestMapping("/bidList/list")
     public String home(Model model) {
-        // TODO: call service find all bids to show to the view
         log.info("home: show bidList/list");
         model.addAttribute("bidLists", bidListRepository.findAll());
         return "bidList/list";
@@ -44,7 +43,6 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid AddBidListForm addBidListForm, RedirectAttributes redirectAttributes) {
-        // TODO: check data valid and save to db, after saving return bid list
         log.info("validate: account; " + addBidListForm.getAccount() + " type; " + addBidListForm.getType() + " quantity; " + addBidListForm.getBidQuantity());
 
         try {
