@@ -37,8 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/bidList/**","/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/user/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/bidList/**","/curvePoint/**", "/rating/**", "/ruleName/**", "/trade/**")
+                .hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/user/**")
+                .hasAnyAuthority("ADMIN")
                 .and().formLogin()
                 .defaultSuccessUrl("/bidList/list")
                 .and().logout()
