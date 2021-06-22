@@ -14,11 +14,35 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/curvePoint/validate}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
 			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
 			 -->
-
+			<div th:if="${param.error}">
+				<p class="text-danger" th:text="${param.error}"></p>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="curveId" class="form-label">CurveId</label>
+					<input name="curveId" type="number" class="form-control" id="curveId" required placeholder="curveId">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="term" class="form-label">Term</label>
+					<input name="term" type="number" class="form-control" id="term" required placeholder="Term">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="value" class="form-label">Value</label>
+					<input name="value" type="number" class="form-control" id="value" required placeholder="Value">
+				</div>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-danger mb-3" role="button" href="/curvePoint/list">Cancel</a>
+				<button type="submit" value="AddCurvePoint" class="btn btn-primary mb-3">Add CurvePoint</button>
+			</div>
 		</form>
 	</div>
 
