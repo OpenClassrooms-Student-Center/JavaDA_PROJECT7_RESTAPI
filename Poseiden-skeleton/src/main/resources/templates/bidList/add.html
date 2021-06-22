@@ -1,25 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Add New Bid</h2>
-	</div>
+    <div class="row">
+        <h2>Add New Bid</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
-			 -->
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" th:action="@{/bidList/validate}" method="post" class="form-horizontal"
+              style="width: 100%">
+            <div th:if="${param.error}">
+                <p class="text-danger" th:text="${param.error}"></p>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="account" class="form-label">Account</label>
+                    <input name="account" type=text class="form-control" id="account" required placeholder="Account">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <input name="type" type=text class="form-control" id="type" required placeholder="Type">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="bidQuantity" class="form-label">Bid quantity</label>
+                    <input name="bidQuantity" type=text class="form-control" id="bidQuantity" required placeholder="Bid quantity">
+                </div>
+            </div>
+			<div class="col-auto">
+                <a class="btn btn-danger mb-3" role="button" href="/bidList/list">Cancel</a>
+				<button type="submit" value="AddBidList" class="btn btn-primary mb-3">AddBidList</button>
+			</div>
+        </form>
+    </div>
 
 </div>
 </body>
