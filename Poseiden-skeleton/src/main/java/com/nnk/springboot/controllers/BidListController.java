@@ -42,15 +42,9 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid AddBidListForm addBidListForm, RedirectAttributes redirectAttributes) {
-        log.info("validate: account; " + addBidListForm.getAccount() + " type; " + addBidListForm.getType() + " quantity; " + addBidListForm.getBidQuantity());
-
-        try {
-            bidListService.validate(addBidListForm);
-        } catch (NumberFormatException e) {
-            redirectAttributes.addAttribute("error", e.getMessage());
-            return "redirect:/bidList/add";
-        }
+    public String validate(@Valid BidList bidList) {
+        log.info("validate: account; " + bidList.getAccount() + " type; " + bidList.getType() + " quantity; " + bidList.getBidQuantity());
+        bidListService.validate(bidList);
 
         return "redirect:/bidList/list";
     }
@@ -63,17 +57,13 @@ public class BidListController {
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, RedirectAttributes redirectAttributes) {
         log.info("updateBid: " + id);
         if(result.hasErrors()){
           redirectAttributes.addAttribute("error", true);
         }
-        try {
-            bidListService.updateBid(id, bidList);
-        } catch (NumberFormatException e) {
-            redirectAttributes.addAttribute("error", e.getMessage());
-            return "redirect:/bidList/update/" + id;
-        }
+        bidListService.updateBid(id, bidList);
+
         return "redirect:/bidList/list";
     }
 

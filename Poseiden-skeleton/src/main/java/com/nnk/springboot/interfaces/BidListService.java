@@ -8,9 +8,9 @@ import com.nnk.springboot.model.BidList;
 
 public interface BidListService {
 
-    void validate(AddBidListForm addBidListForm) throws NumberFormatException;
+    void validate(BidList bidList) ;
 
-    void updateBid(Integer id, BidList bidList) throws NumberFormatException;
+    void updateBid(Integer id, BidList bidList) ;
 
     void deleteBid(Integer id);
 }
