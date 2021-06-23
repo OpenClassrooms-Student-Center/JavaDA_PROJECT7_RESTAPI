@@ -20,7 +20,6 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @Controller
 public class RatingController {
-    // TODO: Inject Rating service
 
     private final RatingRepository ratingRepository;
     private final RatingService ratingService;

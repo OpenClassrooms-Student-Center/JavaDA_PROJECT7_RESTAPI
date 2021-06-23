@@ -10,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @RunWith(SpringRunner.class)
@@ -95,8 +91,4 @@ public class RatingTests {
 		Optional<Rating> rating = ratingRepository.findById(ratingId.getId());
 		Assert.assertTrue(rating.isPresent());
 	}
-
-
-
-
 }
