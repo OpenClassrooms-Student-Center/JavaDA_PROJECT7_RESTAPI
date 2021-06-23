@@ -18,6 +18,49 @@
 			<!--
 			TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName
 			 -->
+			<div th:if="${param.error}">
+				<p class="text-danger" th:text="${param.error}"></p>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="name" class="form-label">Name</label>
+					<input th:field="*{name}" type=text class="form-control" id="name" required placeholder="Name">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="description" class="form-label">Description</label>
+					<input th:field="*{description}" type=text class="form-control" id="description" required placeholder="Description">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="json" class="form-label">Json</label>
+					<input th:field="*{json}" type=text class="form-control" id="json" required placeholder="Json">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="template" class="form-label">Template</label>
+					<input th:field="*{template}" type=text class="form-control" id="template" required placeholder="Template">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="sqlStr" class="form-label">Sql</label>
+					<input th:field="*{sqlStr}" type=text class="form-control" id="sqlStr" required placeholder="Sql">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="sqlPart" class="form-label">Sql Part</label>
+					<input th:field="*{sqlPart}" type=text class="form-control" id="sqlPart" required placeholder="Sql Part">
+				</div>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-danger mb-3" role="button" href="/ruleName/list">Cancel</a>
+				<button type="submit" value="UpdateRuleName" class="btn btn-primary mb-3">Update Rule</button>
+			</div>
 
 		</form>
 	</div>

@@ -14,10 +14,55 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/ruleName/validate}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
 			TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
 			 -->
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="name" class="form-label">Name</label>
+					<input name="name" type=text class="form-control" id="name" required
+						   placeholder="Name">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="description" class="form-label">Description</label>
+					<input name="description" type=text class="form-control" id="description" required
+						   placeholder="Description">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="json" class="form-label">Json</label>
+					<input name="json" type=text class="form-control" id="json" required
+						   placeholder="Json">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="template" class="form-label">Template</label>
+					<input name="template" type=text class="form-control" id="template" required
+						   placeholder="Template">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="sqlStr" class="form-label">Sql</label>
+					<input name="sqlStr" type=text class="form-control" id="sqlStr" required
+						   placeholder="Sql">
+				</div>
+			</div><div class="row mb-3">
+				<div class="mb-3">
+					<label for="sqlPart" class="form-label">SqlPart</label>
+					<input name="sqlPart" type=text class="form-control" id="sqlPart" required
+						   placeholder="SqlPart">
+				</div>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-danger mb-3" role="button" href="/ruleName/list">Cancel</a>
+				<button type="submit" value="AddRuleName" class="btn btn-primary mb-3">Add Rule</button>
+			</div>
 
 		</form>
 	</div>
