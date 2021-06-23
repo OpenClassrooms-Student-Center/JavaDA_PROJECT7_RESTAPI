@@ -18,6 +18,37 @@
 			<!--
 			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
 			 -->
+			<div th:if="${param.error}">
+				<p class="text-danger" th:text="${param.error}"></p>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="moodysRating" class="form-label">Moody's rating</label>
+					<input th:field="*{moodysRating}" type=text class="form-control" id="moodysRating" required placeholder="Moody's rating">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="sandPRating" class="form-label">Sand P rating</label>
+					<input th:field="*{sandPRating}" type=text class="form-control" id="sandPRating" required placeholder="Sand P rating">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="fitchRating" class="form-label">Fitch rating</label>
+					<input th:field="*{fitchRating}" type=text class="form-control" id="fitchRating" required placeholder="Fitch rating">
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="mb-3">
+					<label for="orderNumber" class="form-label">Order number</label>
+					<input th:field="*{orderNumber}" type="number" class="form-control" id="orderNumber" required placeholder="Order number">
+				</div>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-danger mb-3" role="button" href="/rating/list">Cancel</a>
+				<button type="submit" value="UpdateRating" class="btn btn-primary mb-3">Update Rating</button>
+			</div>
 		</form>
 	</div>
 

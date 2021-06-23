@@ -60,8 +60,9 @@ public class BidTests {
 		bid = bidListRepository.save(bid);
 		// Delete
 		Integer id = bid.getBidListId();
-		assertDoesNotThrow(() ->bidListService.deleteBid(id));
+		bidListService.deleteBid(id);
 		Optional<BidList> bidList = bidListRepository.findById(id);
+
 		Assert.assertFalse(bidList.isPresent());
 
 
@@ -77,7 +78,7 @@ public class BidTests {
 		BidList bidList = new BidList("Account", "Type Test", 20);
 
 		//when
-		assertDoesNotThrow(() ->bidListService.updateBid(id, bidList));
+		bidListService.updateBid(id, bidList);
 
 		//then
 		Assert.assertEquals(bid.getBidQuantity(), 20d, 20d);
@@ -86,40 +87,14 @@ public class BidTests {
 	@Test
 	public void validateBidListTest() {
 		//given
-		AddBidListForm addBidList = new AddBidListForm("Account Test", "Type Test", "20");
+		BidList addBidList = new BidList("Account Test", "Type Test", 20);
 
 		//when
-		assertDoesNotThrow(() ->bidListService.validate(addBidList));
+		bidListService.validate(addBidList);
 
 		//then
 		BidList bid = bidListRepository.findBidListIdByAccount("Account Test");
 		Optional<BidList> bidList = bidListRepository.findById(bid.getBidListId());
 		Assert.assertTrue(bidList.isPresent());
-	}
-
-
-	@Test
-	public void validateBidListTest_Throw_AmountFormatException() {
-		//given
-		AddBidListForm addBidList = new AddBidListForm("Account Test", "Type Test", "aze");
-
-		//when
-		assertThrows(NumberFormatException.class, () ->bidListService.validate(addBidList));
-
-
-	}
-	@Test
-	public void updateBidListTest_Throw_AmountFormatException() {
-		//given
-		BidList bid = new BidList("Account", "Type Test", 10);
-		bid = bidListRepository.save(bid);
-		Integer id = bid.getBidListId();
-
-		BidList bidList = new BidList();
-		bidList.setBidListId(id);
-		bidList.setAccount(bid.getAccount());
-		bidList.setType(bid.getType());
-		//when
-		assertThrows(NumberFormatException.class, () ->bidListService.updateBid(id, bidList));
 	}
 }

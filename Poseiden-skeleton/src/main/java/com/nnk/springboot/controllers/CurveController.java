@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.exceptions.NumberFormatException;
-import com.nnk.springboot.forms.AddCurvePointForm;
 import com.nnk.springboot.interfaces.CurveService;
 import com.nnk.springboot.model.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
@@ -42,47 +41,32 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid AddCurvePointForm curvePoint, RedirectAttributes redirectAttributes) {
-        // TODO: check data valid and save to db, after saving return Curve list
+    public String validate(@Valid CurvePoint curvePoint) {
         log.info("validate: CurveId; " + curvePoint.getCurveId() + " Term; " + curvePoint.getTerm() + " Value; " + curvePoint.getValue());
-
-        try {
-            curveService.validateCurvePoint(curvePoint);
-        } catch (NumberFormatException e) {
-            redirectAttributes.addAttribute("error", e.getMessage());
-            return "redirect:/curvePoint/validate";
-        }
-
+        curveService.validateCurvePoint(curvePoint);
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
         log.info("showUpdateForm: " + id);
         model.addAttribute("curvePoint", curvePointRepository.findCurvePointById(id));
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, RedirectAttributes redirectAttributes) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint, BindingResult result, RedirectAttributes redirectAttributes) {
         log.info("updateBid: " + id);
         if(result.hasErrors()){
             redirectAttributes.addAttribute("error", true);
         }
-        try {
-            curveService.updateCurvePoint(id, curvePoint);
-        } catch (NumberFormatException e) {
-            redirectAttributes.addAttribute("error", e.getMessage());
-            return "redirect:/curvePoint/update/" + id;
-        }
+        curveService.updateCurvePoint(id, curvePoint);
+
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
         log.info("deleteBid:" + id);
         curveService.deleteCurvePoint(id);
         return "redirect:/curvePoint/list";

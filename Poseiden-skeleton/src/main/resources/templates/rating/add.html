@@ -1,26 +1,58 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Add New Rating</h2>
-	</div>
+    <div class="row">
+        <h2>Add New Rating</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
-			 -->
+    <div class="row">
+        <form action="#" th:action="@{/rating/validate}" method="post" class="form-horizontal" style="width: 100%">
 
-		</form>
-	</div>
+            <div th:if="${param.error}">
+                <p class="text-danger" th:text="${param.error}"></p>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="moodysRating" class="form-label">Moody's rating</label>
+                    <input name="moodysRating" type=text class="form-control" id="moodysRating" required
+                           placeholder="Moody's rating">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="sandPRating" class="form-label">Sand P rating</label>
+                    <input name="sandPRating" type=text class="form-control" id="sandPRating" required
+                           placeholder="Sand P rating">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="fitchRating" class="form-label">Fitch rating</label>
+                    <input name="fitchRating" type=text class="form-control" id="fitchRating" required
+                           placeholder="Fitch Rating">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3">
+                    <label for="orderNumber" class="form-label">Order number</label>
+                    <input name="orderNumber" type="number" class="form-control" id="orderNumber" required
+                           placeholder="Order number">
+                </div>
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-danger mb-3" role="button" href="/rating/list">Cancel</a>
+                <button type="submit" value="AddRating" class="btn btn-primary mb-3">Add Rating</button>
+            </div>
+        </form>
+    </div>
 
 </div>
 </body>
