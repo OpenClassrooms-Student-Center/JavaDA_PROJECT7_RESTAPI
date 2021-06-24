@@ -71,7 +71,7 @@ public class RuleNameController {
 
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id) {
-        log.info("deleteRuleName:" + id);
+        log.info("delete RuleName:" + id);
         ruleNameService.deleteRuleName(id);
         return "redirect:/ruleName/list";
     }

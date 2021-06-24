@@ -7,8 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface BidListRepository extends JpaRepository<BidList, Integer> {
 
-    @Query("select bidList from BidList bidList where bidList.BidListId = :BidListId")
-    BidList findBidListByBidListId(int BidListId);
+    BidList findBidListById(int id);
 
     BidList findBidListIdByAccount(String account);
 }

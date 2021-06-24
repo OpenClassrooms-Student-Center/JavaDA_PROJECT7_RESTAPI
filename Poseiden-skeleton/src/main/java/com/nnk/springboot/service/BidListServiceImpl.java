@@ -2,8 +2,6 @@ package com.nnk.springboot.service;
 
 
 
-import com.nnk.springboot.exceptions.NumberFormatException;
-import com.nnk.springboot.forms.AddBidListForm;
 import com.nnk.springboot.interfaces.BidListService;
 import com.nnk.springboot.model.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
@@ -31,13 +29,13 @@ public class BidListServiceImpl implements BidListService {
     @Override
     public void updateBid(Integer id, BidList bidList){
 
-        bidList.setBidListId(id);
+        bidList.setId(id);
         bidListRepository.save(bidList);
     }
 
     @Override
     public void deleteBid(Integer id) {
-        BidList bidList = bidListRepository.findBidListByBidListId(id);
+        BidList bidList = bidListRepository.findBidListById(id);
         bidListRepository.delete(bidList);
     }
 }

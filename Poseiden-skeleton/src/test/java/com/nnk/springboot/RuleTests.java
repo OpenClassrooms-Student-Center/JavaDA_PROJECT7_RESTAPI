@@ -77,7 +77,7 @@ public class RuleTests {
 	}
 
 	@Test
-	public void validateRatingTest() {
+	public void validateRuleTest() {
 		//given
 		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 

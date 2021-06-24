@@ -38,13 +38,13 @@
             </thead>
             <tbody>
                 <tr th:each="bidList : ${bidLists}">
-                    <td th:text="${bidList.getBidListId()}"></td>
+                    <td th:text="${bidList.getId()}"></td>
                     <td th:text="${bidList.getAccount()}"></td>
                     <td th:text="${bidList.getType()}"></td>
                     <td th:text="${bidList.getBidQuantity()}"></td>
                     <td class="text-center">
-                        <a th:href="@{/bidList/update/{id}(id=${bidList.getBidListId()})}">Edit</a>&nbsp;|&nbsp;
-                        <a th:href="@{/bidList/delete/{id}(id=${bidList.getBidListId()})}">Delete</a>
+                        <a th:href="@{/bidList/update/{id}(id=${bidList.getId()})}">Edit</a>&nbsp;|&nbsp;
+                        <a th:href="@{/bidList/delete/{id}(id=${bidList.getId()})}">Delete</a>
                     </td>
                 </tr>
             </tbody>

@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.id})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<div th:if="${param.error}">
 				<p class="text-danger" th:text="${param.error}"></p>
 			</div>

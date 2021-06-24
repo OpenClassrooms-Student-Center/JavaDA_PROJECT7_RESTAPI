@@ -18,7 +18,7 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int tradeId;
+    private int id;
 
     private String account;
     private String type;

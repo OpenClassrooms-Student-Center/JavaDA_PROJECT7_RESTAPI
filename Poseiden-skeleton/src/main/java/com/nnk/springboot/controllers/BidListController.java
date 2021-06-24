@@ -1,8 +1,6 @@
 package com.nnk.springboot.controllers;
 
 
-import com.nnk.springboot.exceptions.NumberFormatException;
-import com.nnk.springboot.forms.AddBidListForm;
 import com.nnk.springboot.interfaces.BidListService;
 import com.nnk.springboot.model.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
@@ -52,7 +50,7 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         log.info("showUpdateForm: " + id);
-        model.addAttribute("bidList", bidListRepository.findBidListByBidListId(id));
+        model.addAttribute("bidList", bidListRepository.findBidListById(id));
         return "bidList/update";
     }
 
