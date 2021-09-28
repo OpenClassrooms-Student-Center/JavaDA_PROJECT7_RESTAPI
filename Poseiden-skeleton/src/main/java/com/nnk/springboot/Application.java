@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+@EnableSwagger2
 @ComponentScan(basePackages = {"com.nnk.springboot.repositories"})
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class})
 public class Application {
