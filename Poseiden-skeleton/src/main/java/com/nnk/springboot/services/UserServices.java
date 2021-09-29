@@ -1,6 +1,10 @@
 package com.nnk.springboot.services;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,7 +32,10 @@ public class UserServices implements UserDetailsService {
 			throw new UsernameNotFoundException(username);	
 		}
 		
-				return (UserDetails) user;
+		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole());
+		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), Collections.singletonList(grantedAuthority));
+		
+				return userDetails;
 	}
 
 }
