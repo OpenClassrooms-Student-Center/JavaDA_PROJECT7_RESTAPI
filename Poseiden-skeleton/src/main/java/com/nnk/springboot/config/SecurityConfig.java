@@ -1,4 +1,4 @@
-package com.nnk.springboot.security;
+package com.nnk.springboot.config;
 
 import javax.sql.DataSource;
 
@@ -18,13 +18,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private DataSource dataSource;
-
 	
 	@Autowired
 	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.jdbcAuthentication()
-			.dataSource(dataSource);				
+			.dataSource(dataSource)
+			.passwordEncoder(passwordEncoder());	
 	}
 	
 	
@@ -36,11 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/user/**").permitAll()
 			.and()
 			.formLogin()
+			.loginPage("/login")
 			.defaultSuccessUrl("/bidList/list")
 			.and()
 			.logout()
-			.logoutUrl("/logout")
-			.logoutSuccessUrl("/signin")
+			.logoutUrl("/app-logout")
+			.logoutSuccessUrl("/")
 			.permitAll();
 
 	}
