@@ -4,7 +4,6 @@ import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +44,7 @@ public class BidListController {
     	if (!result.hasErrors()) {
 			bidListRepository.save(bid);
     		Application.LOG.info(bid + " Was save at: " + LocalDateTime.now());
-			model.addAttribute("bid", bidListRepository.findAll());
+			model.addAttribute("bidList", bidListRepository.findAll());
 				return "redirect:/bidList/list";
 		}
         return "bidList/add";
@@ -67,10 +66,9 @@ public class BidListController {
     		return"bidList/update";
 		}
     	
-    	BidList bid = bidListRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bid Id:" + id));
-    	bid.setBidListId(id);
-    	bidListRepository.save(bid);
-    	model.addAttribute("bid", bidListRepository.findAll());
+    	bidList.setBidListId(id);
+    	bidListRepository.save(bidList);
+    	model.addAttribute("bidList", bidListRepository.findAll());
     		return "redirect:/bidList/list";
     }
 

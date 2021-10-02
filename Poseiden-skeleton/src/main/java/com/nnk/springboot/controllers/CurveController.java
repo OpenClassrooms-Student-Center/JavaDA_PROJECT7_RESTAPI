@@ -48,7 +48,6 @@ public class CurveController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get CurvePoint by Id and to model then show to the form
     	CurvePoint curve = curveRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
-    	curve.setId(id);
     	model.addAttribute("curve", curve);
         return "curvePoint/update";
     }
@@ -61,10 +60,11 @@ public class CurveController {
     		return "curvePoint/update";
     		
 		}
+    	
     	curvePoint.setId(id);
     	curveRepository.save(curvePoint);
     	model.addAttribute("curves", curveRepository.findAll());
-        return "redirect:/curvePoint/list";
+    		return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
