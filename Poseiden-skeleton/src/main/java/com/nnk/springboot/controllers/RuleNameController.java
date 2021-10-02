@@ -40,7 +40,7 @@ public class RuleNameController {
 			ruleRepository.save(ruleName);
 				return "redirect:/ruleName/list";
 		}
-        return "ruleName/add";
+        	return "ruleName/add";
     }
 
     @GetMapping("/ruleName/update/{id}")
@@ -70,6 +70,6 @@ public class RuleNameController {
     	RuleName rule = ruleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
     	ruleRepository.delete(rule);
     	model.addAttribute("rules", ruleRepository.findAll());
-        return "redirect:/ruleName/list";
+        	return "redirect:/ruleName/list";
     }
 }

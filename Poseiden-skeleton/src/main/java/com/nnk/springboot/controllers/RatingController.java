@@ -42,11 +42,11 @@ public class RatingController {
     	if (!result.hasErrors()) {
     		ratingRepository.save(rating);
     		model.addAttribute("rating", ratingRepository.findAll());
-    		return "redirect:/rating/add";
+    			return "redirect:/rating/add";
 			
 		}
-        return "rating/add";
-    }
+        	return "rating/add";
+    }	
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
