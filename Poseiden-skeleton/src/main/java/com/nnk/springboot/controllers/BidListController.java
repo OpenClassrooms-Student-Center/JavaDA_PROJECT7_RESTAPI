@@ -1,8 +1,10 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 
@@ -40,6 +44,7 @@ public class BidListController {
         // TODO: check data valid and save to db, after saving return bid list
     	if (!result.hasErrors()) {
 			bidListRepository.save(bid);
+    		Application.LOG.info(bid + " Was save at: " + LocalDateTime.now());
 			model.addAttribute("bid", bidListRepository.findAll());
 				return "redirect:/bidList/list";
 		}
