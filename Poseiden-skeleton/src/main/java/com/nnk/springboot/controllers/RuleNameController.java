@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 
@@ -38,6 +41,7 @@ public class RuleNameController {
         // TODO: check data valid and save to db, after saving return RuleName list
     	if (!result.hasErrors()) {
 			ruleRepository.save(ruleName);
+			Application.LOG.info("ruleName id: " + ruleName.getId() + " Was save at: " + LocalDateTime.now());
 				return "redirect:/ruleName/list";
 		}
         	return "ruleName/add";
@@ -47,6 +51,7 @@ public class RuleNameController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
     	RuleName ruleName = ruleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
+		Application.LOG.info("ruleName id: " + ruleName.getId() + " Was show in form at: " + LocalDateTime.now());
     	model.addAttribute("rule", ruleName);
         	return "ruleName/update";
     }
@@ -60,6 +65,7 @@ public class RuleNameController {
 		}
     	ruleName.setId(id);
     	ruleRepository.save(ruleName);
+		Application.LOG.info("ruleName id: " + ruleName.getId() + " Was update at: " + LocalDateTime.now());
     	model.addAttribute("rules", ruleRepository.findAll());
         	return "redirect:/ruleName/list";
     }
@@ -69,6 +75,7 @@ public class RuleNameController {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
     	RuleName rule = ruleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
     	ruleRepository.delete(rule);
+		Application.LOG.info("ruleName id: " + rule.getId() + " Was delete at: " + LocalDateTime.now());
     	model.addAttribute("rules", ruleRepository.findAll());
         	return "redirect:/ruleName/list";
     }

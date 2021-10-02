@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.Application;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDateTime;
 
 import javax.validation.Valid;
 
@@ -39,6 +42,7 @@ public class TradeController {
         // TODO: check data valid and save to db, after saving return Trade list
     	if (!result.hasErrors()) {
     		tradeRepository.save(trade);
+			Application.LOG.info("trade id: " + trade.getTradeId() + " Was save at: " + LocalDateTime.now());
     		model.addAttribute("trade", tradeRepository.findAll());
             	return "redirect:/trade/add";
 		}
@@ -49,6 +53,7 @@ public class TradeController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Trade by Id and to model then show to the form
     	Trade trade = tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
+		Application.LOG.info("trade id: " + trade.getTradeId() + " Was show in form at: " + LocalDateTime.now());
     	model.addAttribute("trade", trade);
         	return "trade/update";
     }
@@ -63,6 +68,7 @@ public class TradeController {
     	
     	trade.setTradeId(id);
     	tradeRepository.save(trade);
+		Application.LOG.info("trade id: " + trade.getTradeId() + " Was update at: " + LocalDateTime.now());
     	model.addAttribute("trade", tradeRepository.findAll());
     		return "redirect:/trade/list";
     }
@@ -73,6 +79,7 @@ public class TradeController {
         // TODO: Find Trade by Id and delete the Trade, return to Trade list
     	Trade trade = tradeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
     	tradeRepository.delete(trade);
+		Application.LOG.info("trade id: " + trade.getTradeId() + " Was delete at: " + LocalDateTime.now());
     	model.addAttribute("trade", tradeRepository.findAll());
     		return "redirect:/trade/list";
     }
