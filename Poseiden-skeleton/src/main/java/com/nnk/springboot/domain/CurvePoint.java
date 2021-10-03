@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import java.sql.Timestamp;
 
 
@@ -25,9 +27,13 @@ public class CurvePoint {
 	@Id
     @GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
+    @NotNull(message = "CurveId is mandatory")
+    @Positive
 	private Integer curveId;
 	private Timestamp asOfDate;
+    @NotNull(message = "Term is mandatory")
 	private Double term;
+    @NotNull(message = "Value is mandatory")
 	private Double value;
 	private Timestamp creationDate;
 	

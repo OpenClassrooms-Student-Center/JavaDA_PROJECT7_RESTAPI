@@ -3,6 +3,8 @@ package com.nnk.springboot.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -21,9 +23,14 @@ public class Rating {
 	
     @GeneratedValue(strategy= GenerationType.AUTO)
 	private Integer id;
+    @NotBlank(message = "MoodysRating is mandatory")
 	private String moodysRating;
+    @NotBlank(message = "SandPRating is mandatory")
 	private String sandPRating;
+    @NotBlank(message = "FitchRating is mandatory")
 	private String fitchRating;
+    @NotNull(message = "OrderNumber is mandatory")
+    @Positive
 	private Integer orderNumber;
 	
     // TODO: Map columns in data table RATING with corresponding java fields
