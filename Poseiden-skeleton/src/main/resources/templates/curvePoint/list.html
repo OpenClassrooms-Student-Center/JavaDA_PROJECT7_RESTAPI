@@ -10,11 +10,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+			<a href="/bidlist/list">Bid List</a>&nbsp;|&nbsp;
+			<a href="/curvepoint/list">Curve Points</a>&nbsp;|&nbsp;
 			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
 			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a>
+			<a href="/rulename/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
@@ -25,7 +25,7 @@
 	</div>
 	<div class="row"><h2>Curve Point List</h2></div>
 	<div class="row">
-		<a href="/curvePoint/add" class="btn btn-primary btn-sm">Add New</a>
+		<a href="/curvepoint/add" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -37,7 +37,16 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all CurvePoint to the table, the action column will have Edit & Delete buttons -->
+			<tr th:each="curvePoint : ${curvePoints}">
+				<td style="width: 10%" th:text="${curvePoint.curveId}"></td>
+				<td th:text="${curvePoint.id}"></td>
+				<td th:text="${curvePoint.term}"></td>
+				<td th:text="${curvePoint.value}"></td>
+				<td style="width: 15%" class="text-center">
+					<a th:href="@{/curvepoint/update/{id}(id=${curvePoint.id})}">Edit</a>&nbsp;|&nbsp;
+					<a th:href="@{/curvepoint/delete/{id}(id=${curvePoint.id})}">Delete</a>
+				</td>
+			</tr>
 			</tbody>
 		</table>
 	</div>
