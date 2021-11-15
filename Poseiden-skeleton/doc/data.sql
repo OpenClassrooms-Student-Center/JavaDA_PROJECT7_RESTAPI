@@ -72,7 +72,7 @@ CREATE TABLE Rating (
                         PRIMARY KEY (Id)
 );
 
-CREATE TABLE RuleName (
+CREATE TABLE Rule (
                           Id tinyint(4) NOT NULL AUTO_INCREMENT,
                           name VARCHAR(125),
                           description VARCHAR(125),

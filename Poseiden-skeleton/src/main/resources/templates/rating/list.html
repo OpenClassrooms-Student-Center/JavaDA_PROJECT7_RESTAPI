@@ -14,7 +14,7 @@
 			<a href="/rating/list">Curve Points</a>&nbsp;|&nbsp;
 			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
 			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a>
+			<a href="/Rule/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
@@ -30,16 +30,17 @@
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>MoodysRating</th>
-					<th>SandPRating</th>
-					<th>FitchRating</th>
+					<th>Moodys</th>
+					<th>SandP</th>
+					<th>Fitch</th>
 					<th>Order</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
 			<tr th:each="rating : ${ratings}">
-				<td style="width: 10%" th:text="${rating.getMoodys()}"></td>
+				<td style="width: 10%" th:text="${rating.getId()}"></td>
+				<td th:text="${rating.getMoodys()}"></td>
 				<td th:text="${rating.getSandP()}"></td>
 				<td th:text="${rating.getFitch()}"></td>
 				<td th:text="${rating.getOrder()}"></td>

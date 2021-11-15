@@ -18,12 +18,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * The type Rating controller.
+ */
 @Controller
 @AllArgsConstructor
 public class RatingController {
     private static Logger logger = LoggerFactory.getLogger(RatingController.class);
     private RatingService ratingService;
 
+    /**
+     * Home string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
@@ -32,26 +41,47 @@ public class RatingController {
         return "rating/list";
     }
 
+    /**
+     * Add rating form string.
+     *
+     * @param rating the rating
+     * @return the string
+     */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
         return "rating/add";
     }
 
+    /**
+     * Validate string.
+     *
+     * @param rating the rating
+     * @param result the result
+     * @param model  the model
+     * @return the string
+     */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        logger.info("validate curvePoint");
+        logger.info("validate rating");
         if (!result.hasErrors()) {
             logger.info("add rating {}", rating);
             List<Rating> ratings = ratingService.saveOrUpdate(rating);
-            logger.info("saved curvePoint {}", ratings);
+            logger.info("saved rating {}", ratings);
             model.addAttribute("ratings", ratings);
             return "redirect:/rating/list";
         }
 
-        logger.error("curvePoint validate error");
+        logger.error("rating validate error");
         return "rating/add";
     }
 
+    /**
+     * Show update form string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.info("find rating by id {}", id);
@@ -59,6 +89,15 @@ public class RatingController {
         return "rating/update";
     }
 
+    /**
+     * Update rating string.
+     *
+     * @param id     the id
+     * @param rating the rating
+     * @param result the result
+     * @param model  the model
+     * @return the string
+     */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
@@ -71,9 +110,16 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
+    /**
+     * Delete rating string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        logger.info("delete curvePoint by Id {}", id);
+        logger.info("delete rating by Id {}", id);
         List<Rating> ratings = ratingService.delete(id);
         model.addAttribute("ratings", ratings);
         return "redirect:/rating/list";
