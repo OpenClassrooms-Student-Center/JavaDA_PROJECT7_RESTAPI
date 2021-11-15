@@ -23,7 +23,7 @@ import java.net.URI;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CurvePointTest {
+public class CurvePointIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,7 +31,7 @@ public class CurvePointTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testList() throws Exception {
         final String baseUrl = "http://localhost:"+port+"/curvepoint/list/";
         URI uri = new URI(baseUrl);
@@ -43,19 +43,7 @@ public class CurvePointTest {
     }
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
-    public void testAddCurvePoint() throws Exception {
-        final String baseUrl = "http://localhost:"+port+"/curvepoint/list/";
-        URI uri = new URI(baseUrl);
-        CurvePoint curvePoint = new CurvePoint(1,2,3);
-        ResponseEntity<String> result = this.restTemplate.postForEntity(uri, curvePoint, String.class);
-
-        Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, result.getBody().contains("<td style=\"width: 10%\">1</td>"));
-    }
-
-    @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testCurvePointValidate() throws Exception {
 
         final String baseUrl = "http://localhost:"+port+"/curvepoint/validate/";
@@ -77,7 +65,7 @@ public class CurvePointTest {
     }
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testCurvePointValidateWithError() throws Exception {
 
         final String baseUrl = "http://localhost:"+port+"/curvepoint/validate/";
@@ -98,7 +86,7 @@ public class CurvePointTest {
     }
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testGetUpdateCurvePoint() throws Exception {
         final String baseUrl = "http://localhost:"+port+"/curvepoint/update/1";
         URI uri = new URI(baseUrl);
@@ -108,7 +96,7 @@ public class CurvePointTest {
     }
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testUpdateCurvePoint() throws Exception {
         final String baseUrl = "http://localhost:"+port+"/curvepoint/update/1";
         URI uri = new URI(baseUrl);
@@ -128,7 +116,7 @@ public class CurvePointTest {
     }
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testUpdateCurvePointWithError() throws Exception {
         final String baseUrl = "http://localhost:"+port+"/curvepoint/update/1";
         URI uri = new URI(baseUrl);
@@ -147,7 +135,7 @@ public class CurvePointTest {
     }
 
     @Test
-    @Sql({"/schema.sql","/data.sql"})
+    @Sql({"/schema.sql", "/curvepoint-data.sql"})
     public void testDeleteCurvePoint() throws Exception {
         final String baseUrl = "http://localhost:"+port+"/curvepoint/delete/1";
         URI uri = new URI(baseUrl);

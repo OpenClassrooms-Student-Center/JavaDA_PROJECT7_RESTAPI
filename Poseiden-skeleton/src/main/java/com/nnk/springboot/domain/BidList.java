@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class BidList {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private Integer BidListId;
     private String account;

@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Trade {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer tradeId;
     private String account;
     private String type;

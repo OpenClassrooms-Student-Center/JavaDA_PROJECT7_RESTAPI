@@ -27,7 +27,8 @@ public class CurveController {
     /**
      * The Curve point service.
      */
-    CurvePointService curvePointService;
+
+    private CurvePointService curvePointService;
 
     /**
      * Home string.

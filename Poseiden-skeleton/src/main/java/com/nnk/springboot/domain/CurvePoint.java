@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class CurvePoint {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     @NotNull(message = "CurevId is mandatory")
     private Integer curveId;

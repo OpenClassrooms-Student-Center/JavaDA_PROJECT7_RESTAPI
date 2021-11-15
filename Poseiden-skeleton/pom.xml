@@ -133,6 +133,11 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
+						<configuration>
+							<excludes>
+								<exclude>**/domain/*</exclude>
+							</excludes>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

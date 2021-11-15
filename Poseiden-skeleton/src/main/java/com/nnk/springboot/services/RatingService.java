@@ -8,5 +8,5 @@ import java.util.List;
 /**
  * The interface Curve point service.
  */
-public interface CurvePointService extends CrudService<CurvePoint>  {
+public interface RatingService extends CrudService<Rating> {
 }

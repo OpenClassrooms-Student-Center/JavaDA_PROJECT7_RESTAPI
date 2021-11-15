@@ -10,14 +10,47 @@
 <div class="container">
 
 	<div class="row">
-		<h2>Update Rating</h2>
+		<h2>Update </h2>
 	</div>
 
 	<div class="row">
 		<form action="#" th:action="@{/rating/update/{id}(id=${rating.id})}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
-			 -->
+			<div class="form-group">
+				<label for="moodys" class="col-sm-2 control-label">Moodys </label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{moodys}" id="moodys" placeholder="Moodys " class="col-4">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="sandP" class="col-sm-2 control-label">sandP </label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sandP}" id="sandP" placeholder="sandP " class="col-4">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="fitch" class="col-sm-2 control-label">Fitch </label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{fitch}" id="fitch" placeholder="Fitch " class="col-4">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="order" class="col-sm-2 control-label">Order</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{order}" id="order" placeholder="order" class="col-4">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" href="/rating/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add ">
+				</div>
+			</div>
 		</form>
 	</div>
 

@@ -65,11 +65,10 @@ CREATE TABLE CurvePoint (
 
 CREATE TABLE Rating (
                         Id tinyint(4) NOT NULL AUTO_INCREMENT,
-                        moodysRating VARCHAR(125),
-                        sandPRating VARCHAR(125),
-                        fitchRating VARCHAR(125),
-                        orderNumber tinyint,
-
+                        moodys VARCHAR(125),
+                        sandP VARCHAR(125),
+                        fitch VARCHAR(125),
+                        order tinyint,
                         PRIMARY KEY (Id)
 );
 
