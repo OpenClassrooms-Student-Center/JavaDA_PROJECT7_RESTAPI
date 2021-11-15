@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Bid</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/templates/bid/validate}" th:object="${bid}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="account" class="col-sm-2 control-label">Account</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{account}" id="account" placeholder="Account" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{fullname}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="type" class="col-sm-2 control-label">Type</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{type}" id="type" placeholder="Type" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="bidQuantity" class="col-sm-2 control-label">Bid Quantity</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{bidQuantity}" id="bidQuantity" placeholder="Bid Quantity" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{username}"></p>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
