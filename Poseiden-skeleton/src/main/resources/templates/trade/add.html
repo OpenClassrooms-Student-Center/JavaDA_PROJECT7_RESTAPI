@@ -15,10 +15,132 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/trade/validate}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Trade, there are 2 buttons: Save data and Cancel to the list Trade
-			 -->
-
+			<div class="form-group">
+				<label for="tradeId" class="col-sm-2 control-label">TradeId</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{tradeId}" id="tradeId" placeholder="tradeId" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="account" class="col-sm-2 control-label">account</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{type}" id="account" placeholder="account" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="type" class="col-sm-2 control-label">type</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{type}" id="type" placeholder="type" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="buyQuantity" class="col-sm-2 control-label">buyQuantity</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{buyQuantity}" id="buyQuantity" placeholder="buyQuantity" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sellQuantity" class="col-sm-2 control-label">sellQuantity</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{sellQuantity}" id="sellQuantity" placeholder="sellQuantity" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="buyPrice" class="col-sm-2 control-label">buyPrice</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{buyPrice}" id="buyPrice" placeholder="buyPrice" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sellPrice" class="col-sm-2 control-label">sellPrice</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sellPrice}" id="sellPrice" placeholder="sellPrice" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="benchmark" class="col-sm-2 control-label">benchmark</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{benchmark}" id="benchmark" placeholder="benchmark" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="tradeDate" class="col-sm-2 control-label">tradeDate</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{tradeDate}" id="tradeDate" placeholder="tradeDate" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="security" class="col-sm-2 control-label">security</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{security}" id="security" placeholder="security" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="status" class="col-sm-2 control-label">status</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{status}" id="status" placeholder="status" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="trader" class="col-sm-2 control-label">trader</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{trader}" id="trader" placeholder="trader" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="book" class="col-sm-2 control-label">book</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{book}" id="book" placeholder="book" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="creationName" class="col-sm-2 control-label">creationName</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{creationName}" id="creationName" placeholder="creationName" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="creationDate" class="col-sm-2 control-label">creationDate</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{creationDate}" id="creationDate" placeholder="creationDate" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="revisionName" class="col-sm-2 control-label">revisionName</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{revisionName}" id="revisionName" placeholder="revisionName" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="revisionDate" class="col-sm-2 control-label">revisionDate</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{revisionDate}" id="revisionDate" placeholder="revisionDate" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dealName" class="col-sm-2 control-label">dealName</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{dealName}" id="dealName" placeholder="dealName" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="dealType" class="col-sm-2 control-label">dealType</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{dealType}" id="dealType" placeholder="dealType" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sourceListId" class="col-sm-2 control-label">sourceListId</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sourceListId}" id="sourceListId" placeholder="sourceListId" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="side" class="col-sm-2 control-label">side</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{side}" id="side" placeholder="side" class="col-4">
+				</div>
+			</div>
 		</form>
 	</div>
 

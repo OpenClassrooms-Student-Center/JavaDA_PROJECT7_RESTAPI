@@ -10,9 +10,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Rule service.
+ */
 @Service
 @AllArgsConstructor
 public class RuleServiceImpl extends AbstractCrudService<Rule> implements RuleService {
+    /**
+     * The Repository.
+     */
     RuleRepository repository;
 
     @Override

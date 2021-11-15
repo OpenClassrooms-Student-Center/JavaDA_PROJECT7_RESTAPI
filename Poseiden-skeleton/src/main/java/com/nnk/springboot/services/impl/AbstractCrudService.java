@@ -10,7 +10,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * The type Abstract crud service.
+ *
+ * @param <T> the type parameter
+ */
 public abstract class AbstractCrudService<T> implements CrudService<T> {
+    /**
+     * Gets repository.
+     *
+     * @return the repository
+     */
     protected abstract JpaRepository<T, Integer> getRepository();
     @Override
     public List<T> delete(Integer id) {

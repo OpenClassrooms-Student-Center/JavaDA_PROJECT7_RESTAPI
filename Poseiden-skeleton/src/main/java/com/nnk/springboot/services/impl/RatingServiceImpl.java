@@ -7,9 +7,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Rating service.
+ */
 @Service
 @AllArgsConstructor
 public class RatingServiceImpl extends AbstractCrudService<Rating> implements RatingService {
+    /**
+     * The Repository.
+     */
     RatingRepository repository;
 
     @Override

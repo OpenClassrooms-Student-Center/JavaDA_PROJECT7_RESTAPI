@@ -16,12 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * The type Rule controller.
+ */
 @Controller
 @AllArgsConstructor
 public class RuleController {
     private static Logger logger = LoggerFactory.getLogger(RuleController.class);
     private RuleService ruleService;
 
+    /**
+     * Home string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @RequestMapping("/rule/list")
     public String home(Model model)
     {
@@ -30,11 +39,25 @@ public class RuleController {
         return "rule/list";
     }
 
+    /**
+     * Add rule form string.
+     *
+     * @param rule the rule
+     * @return the string
+     */
     @GetMapping("/rule/add")
     public String addRuleForm(Rule rule) {
         return "rule/add";
     }
 
+    /**
+     * Validate string.
+     *
+     * @param rule   the rule
+     * @param result the result
+     * @param model  the model
+     * @return the string
+     */
     @PostMapping("/rule/validate")
     public String validate(@Valid Rule rule, BindingResult result, Model model) {
         logger.info("validate rule");
@@ -50,6 +73,13 @@ public class RuleController {
         return "rule/add";
     }
 
+    /**
+     * Show update form string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/rule/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.info("find rule by id {}", id);
@@ -57,6 +87,15 @@ public class RuleController {
         return "rule/update";
     }
 
+    /**
+     * Update rule string.
+     *
+     * @param id     the id
+     * @param rule   the rule
+     * @param result the result
+     * @param model  the model
+     * @return the string
+     */
     @PostMapping("/rule/update/{id}")
     public String updateRule(@PathVariable("id") Integer id, @Valid Rule rule,
                              BindingResult result, Model model) {
@@ -69,6 +108,13 @@ public class RuleController {
         return "redirect:/rule/list";
     }
 
+    /**
+     * Delete rule string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/rule/delete/{id}")
     public String deleteRule(@PathVariable("id") Integer id, Model model) {
         logger.info("delete rule by Id {}", id);

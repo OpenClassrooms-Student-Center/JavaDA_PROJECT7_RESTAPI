@@ -14,9 +14,24 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
-			 -->
+			<div class="form-group">
+				<label for="account" class="col-sm-2 control-label">account</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{type}" id="account" placeholder="account" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="type" class="col-sm-2 control-label">type</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{type}" id="type" placeholder="type" class="col-4">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="buyQuantity" class="col-sm-2 control-label">buyQuantity</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{buyQuantity}" id="buyQuantity" placeholder="buyQuantity" class="col-4">
+				</div>
+			</div>
 		</form>
 	</div>
 
