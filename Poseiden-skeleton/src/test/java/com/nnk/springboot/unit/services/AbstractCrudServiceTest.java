@@ -1,4 +1,4 @@
-package com.nnk.springboot.unit.service;
+package com.nnk.springboot.unit.services;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.impl.AbstractCrudService;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.Mockito;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

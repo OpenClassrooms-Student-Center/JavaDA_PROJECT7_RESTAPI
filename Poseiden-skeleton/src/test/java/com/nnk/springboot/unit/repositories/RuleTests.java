@@ -1,4 +1,4 @@
-package com.nnk.springboot.unit.repositorie;
+package com.nnk.springboot.unit.repositories;
 
 import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.repositories.RuleRepository;

@@ -1,11 +1,8 @@
-package com.nnk.springboot.unit.controller;
+package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.controllers.TradeController;
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
-import com.nnk.springboot.services.TradeService;
-import com.nnk.springboot.services.impl.TradeServiceImpl;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

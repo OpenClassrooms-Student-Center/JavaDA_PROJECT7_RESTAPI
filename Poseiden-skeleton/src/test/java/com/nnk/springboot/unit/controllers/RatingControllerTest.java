@@ -1,4 +1,4 @@
-package com.nnk.springboot.unit.controller;
+package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.controllers.RatingController;
 import com.nnk.springboot.domain.Rating;

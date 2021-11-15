@@ -1,4 +1,4 @@
-package com.nnk.springboot.unit.controller;
+package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.controllers.RuleController;
 import com.nnk.springboot.domain.Rule;

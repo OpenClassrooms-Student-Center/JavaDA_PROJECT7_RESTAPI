@@ -1,4 +1,4 @@
-package com.nnk.springboot.unit.repositorie;
+package com.nnk.springboot.unit.repositories;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;

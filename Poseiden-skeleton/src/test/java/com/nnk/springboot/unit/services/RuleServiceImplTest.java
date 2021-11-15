@@ -1,10 +1,7 @@
-package com.nnk.springboot.unit.service;
+package com.nnk.springboot.unit.services;
 
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.RuleRepository;
-import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.services.impl.RuleServiceImpl;
-import com.nnk.springboot.services.impl.TradeServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,15 +9,15 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.mockito.Mockito.mock;
 
-public class TradeServiceImplTest {
+public class RuleServiceImplTest {
 
-    TradeRepository repository ;
-    TradeServiceImpl service;
+    RuleRepository repository ;
+    RuleServiceImpl service;
 
     @BeforeEach
     void init(){
-        repository = mock(TradeRepository.class);
-        service = new TradeServiceImpl(repository);
+        repository = mock(RuleRepository.class);
+        service = new RuleServiceImpl(repository);
     }
 
     @Test
