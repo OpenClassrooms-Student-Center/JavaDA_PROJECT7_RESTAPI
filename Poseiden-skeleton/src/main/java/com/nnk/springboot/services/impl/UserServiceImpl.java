@@ -25,4 +25,9 @@ public class UserServiceImpl extends AbstractCrudService<User> implements UserSe
     protected JpaRepository<User, Integer> getRepository() {
         return repository;
     }
+
+    @Override
+    public User findUserByUsername(String userName) {
+        return repository.findUserByUsername(userName);
+    }
 }

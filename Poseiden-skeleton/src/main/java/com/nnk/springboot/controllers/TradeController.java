@@ -25,7 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TradeController {
     private static Logger logger = LoggerFactory.getLogger(TradeController.class);
-    private TradeService tradeService;
+    private final TradeService tradeService;
 
     /**
      * Home string.

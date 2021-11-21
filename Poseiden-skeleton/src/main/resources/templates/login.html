@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Spring Boot </title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+</head>
+<body>
+<h3> Login </h3>
+<div class="container">
+            <form class="form-signin" th:action="@{/login}" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <p th:if="${param.error}" class="error">Invalid user or password</p>
+        <p>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control"
+                   placeholder="Username" required autofocus/>
+        </p>
+        <p>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="Password" required autofocus/>
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+</div>
+</body>
+</html>

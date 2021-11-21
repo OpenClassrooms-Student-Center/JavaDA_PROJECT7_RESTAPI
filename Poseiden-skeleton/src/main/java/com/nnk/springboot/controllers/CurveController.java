@@ -5,6 +5,7 @@ import com.nnk.springboot.services.CurvePointService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +29,7 @@ public class CurveController {
      * The Curve point service.
      */
 
-    private CurvePointService curvePointService;
+    private final CurvePointService curvePointService;
 
     /**
      * Home string.
@@ -36,6 +37,7 @@ public class CurveController {
      * @param model the model
      * @return the string
      */
+    @PreAuthorize("hasRole('USER')")
     @RequestMapping("/curvepoint/list")
     public String list(Model model)
     {
@@ -50,6 +52,7 @@ public class CurveController {
      * @param curvePoint the curve point
      * @return the string
      */
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/curvepoint/add")
     public String addCurvePoint(CurvePoint curvePoint) {
         return "curvepoint/add";
@@ -63,6 +66,7 @@ public class CurveController {
      * @param model      the model
      * @return the string
      */
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/curvepoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         logger.info("validate curvePoint");
@@ -85,6 +89,7 @@ public class CurveController {
      * @param model the model
      * @return the string
      */
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/curvepoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         logger.info("find curvePoint by id {}", id);
@@ -101,6 +106,7 @@ public class CurveController {
      * @param model      the model
      * @return the string
      */
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/curvepoint/update/{id}")
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
@@ -120,6 +126,7 @@ public class CurveController {
      * @param model the model
      * @return the string
      */
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/curvepoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
         logger.info("delete curvePoint by Id {}", id);

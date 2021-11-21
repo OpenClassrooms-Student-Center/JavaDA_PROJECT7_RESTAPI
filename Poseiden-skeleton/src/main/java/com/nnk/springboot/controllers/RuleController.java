@@ -23,7 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RuleController {
     private static Logger logger = LoggerFactory.getLogger(RuleController.class);
-    private RuleService ruleService;
+    private final RuleService ruleService;
 
     /**
      * Home string.
