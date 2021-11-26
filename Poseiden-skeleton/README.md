@@ -15,7 +15,7 @@
     - View: src/main/resources
     - Static: src/main/resource/static
 4. Create database with name "demo" as configuration in application.properties
-5. Run sql script to create table doc/data.sql
+5. Run sql script to create table doc/curvepoint-data.sql
 
 ## Implement a Feature
 1. Create mapping domain class and place in package com.nnk.springboot.domain

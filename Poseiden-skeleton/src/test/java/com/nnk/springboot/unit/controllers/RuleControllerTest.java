@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = RuleController.class)
 @AutoConfigureMockMvc(secure = false)
-public class RuleControllerTest {
+public class RuleControllerTest extends AbstractControllerTest {
     @MockBean
     RuleService ruleService;
 

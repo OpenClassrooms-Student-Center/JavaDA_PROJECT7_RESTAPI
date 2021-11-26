@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = TradeController.class)
 @AutoConfigureMockMvc(secure = false)
-public class TradeControllerTest {
+public class TradeControllerTest extends AbstractControllerTest {
     @MockBean
     TradeService tradeService;
 

@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = RatingController.class)
 @AutoConfigureMockMvc(secure = false)
-public class RatingControllerTest {
+public class RatingControllerTest extends AbstractControllerTest {
     @MockBean
     RatingService ratingService;
 

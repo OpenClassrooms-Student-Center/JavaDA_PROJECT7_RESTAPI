@@ -15,6 +15,7 @@ public class Rating {
     private String moodys;
     private String sandP;
     private String fitch;
+    @Column(name="orderName")
     private Integer order;
 
     public Rating(String moodys, String sandP, String fitch, int order) {

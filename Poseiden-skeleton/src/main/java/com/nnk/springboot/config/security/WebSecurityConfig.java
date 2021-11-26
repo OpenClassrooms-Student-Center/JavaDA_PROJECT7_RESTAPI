@@ -26,11 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Override protected void configure(HttpSecurity http) throws Exception {
-        http
+
+        http.csrf().disable()
                 .addFilterBefore(jwtRequestFilter,
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/css/**", "/login").permitAll()
+                .antMatchers("/css/**", "/login", "/authenticate", "/api/**","/actuator/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")

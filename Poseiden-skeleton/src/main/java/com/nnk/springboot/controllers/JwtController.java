@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * The type Rating controller.
  */
-@Controller
+@RestController
 @AllArgsConstructor
 public class JwtController {
     private final JwtService jwtService;

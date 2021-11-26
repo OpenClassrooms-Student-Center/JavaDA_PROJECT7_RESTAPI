@@ -1,5 +1,6 @@
 package com.nnk.springboot.unit.controllers;
 
+import com.nnk.springboot.config.security.JwtTokenUtil;
 import com.nnk.springboot.controllers.BidController;
 import com.nnk.springboot.domain.Bid;
 import com.nnk.springboot.services.BidService;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,7 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = BidController.class)
 @AutoConfigureMockMvc(secure = false)
-public class BidControllerTest {
+public class BidControllerTest extends AbstractControllerTest {
+
     @MockBean
     BidService bidService;
 
