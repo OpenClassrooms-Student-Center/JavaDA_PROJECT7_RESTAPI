@@ -1,15 +1,70 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
-
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 @Entity
+@Getter
+@Setter
 @Table(name = "bidlist")
+@NoArgsConstructor
+@ToString
 public class BidList {
-    // TODO: Map columns in data table BIDLIST with corresponding java fields
+	
+	public BidList(String account, String type, Double bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BidListId")
+    private Integer BidListId;
+
+    @NotEmpty(message = "Account is mandatory")
+    private String account;
+
+    @NotEmpty(message = "Type is mandatory")
+    private String type;
+
+    @NotNull(message = "Bid quantity is mandatory")
+    @Min(value = 0, message = "bidQuantity must be positive")
+    @Column(name = "bidQuantity")
+    private Double bidQuantity;
+
+    private Double askQuantity;
+    private Double bid;
+    private Double ask;
+    private String benchmark;
+    private Timestamp bidListDate;
+    private String commentary;
+    private String security;
+    private String status;
+    private String trader;
+    private String book;
+    private String creationName;
+    private Timestamp creationDate;
+    private String revisionName;
+    private Timestamp revisionDate;
+    private String dealName;
+    private String dealType;
+    private String sourceListId;
+    private String side;
+
 }
