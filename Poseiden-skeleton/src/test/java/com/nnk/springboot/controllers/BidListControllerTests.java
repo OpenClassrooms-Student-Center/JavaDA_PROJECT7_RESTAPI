@@ -64,7 +64,7 @@ class BidListControllerTests {
 
 	@Test
 	@WithMockUser
-	void testValidate() throws Exception {
+	void testValidateAlreadyExistException() throws Exception {
 		when(bidListService.createBidList(Mockito.any(BidList.class))).thenThrow(AlreadyExistException.class);
 		mockMvc.perform(post("/bidList/validate").with(csrf().asHeader()).param("account", "test").param("type", "test")
 				.param("bidQuantity", "10.0")).andExpect(status().isFound())
@@ -73,7 +73,7 @@ class BidListControllerTests {
 	
 	@Test
 	@WithMockUser
-	void testValidateAlreadyExistException() throws Exception {
+	void testValidate() throws Exception {
 		mockMvc.perform(post("/bidList/validate").with(csrf().asHeader()).param("account", "test").param("type", "test")
 				.param("bidQuantity", "10.0")).andExpect(status().isFound())
 				.andExpect(view().name("redirect:/bidList/list"));
@@ -124,8 +124,8 @@ class BidListControllerTests {
 	@WithMockUser
 	void testUpdateBid() throws Exception {
 		BidList bidList = new BidList();
-		when(bidListService.updateBidList(bidList, 0)).thenReturn(bidList);
-		mockMvc.perform(post("/bidList/update/0").with(csrf().asHeader()).param("id", "1").param("account", "test")
+		when(bidListService.updateBidList(bidList, 1)).thenReturn(bidList);
+		mockMvc.perform(post("/bidList/update/1").with(csrf().asHeader()).param("id", "1").param("account", "test")
 				.param("type", "test").param("bidQuantity", "10.0"))
 				.andExpect(status().isFound())
 				.andExpect(view().name("redirect:/bidList/list"))
