@@ -41,8 +41,7 @@ public class CurveController {
         } else {
         curvePointService.createCurvePoint(curvePoint);
         return "redirect:/curvePoint/list";
-        }
-        
+        }      
     }
 
     @GetMapping("/curvePoint/update/{id}")

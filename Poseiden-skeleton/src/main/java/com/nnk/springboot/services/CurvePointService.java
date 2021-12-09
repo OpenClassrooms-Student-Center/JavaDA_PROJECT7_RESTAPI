@@ -38,7 +38,7 @@ public class CurvePointService {
 	}
 	
 	public CurvePoint findById(int id) {
-		return curvePointRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("BidList does not exists"));
+		return curvePointRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("CurvePoint does not exists"));
 	}
 	
 	public void deleteById(int id) {
