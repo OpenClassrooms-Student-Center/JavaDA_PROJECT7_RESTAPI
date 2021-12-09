@@ -55,9 +55,15 @@ class RatingServiceTest {
 
 	@Test
 	final void testCreateRating() {
-		when(ratingRepository.save(rating)).thenReturn(rating);
-		ratingService.createRating(rating);
-		verify(ratingRepository).save(rating);
+		Rating rating2 = new Rating();
+		rating2.setId(1);
+		rating2.setMoodysRating("Mood");
+		rating2.setSandPRating("Sand");
+		rating2.setFitchRating("Fitch");
+		rating2.setOrderNumber(1);
+		when(ratingRepository.save(rating2)).thenReturn(rating2);
+		ratingService.createRating(rating2);
+		verify(ratingRepository).save(rating2);
 	}
 
 	@Test
@@ -97,7 +103,7 @@ class RatingServiceTest {
 
 	@Test
 	final void testDeleteById() {
-		ratingRepository.deleteById(1);
+		ratingService.deleteById(1);
 		verify(ratingRepository).deleteById(1);
 	}
 

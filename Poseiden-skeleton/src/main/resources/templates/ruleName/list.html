@@ -32,15 +32,30 @@
 					<th>Id</th>
 					<th>Name</th>
 					<th>Description</th>
-					<th>json</th>
-					<th>template</th>
-					<th>sql</th>
-					<th>sqlPart</th>
+					<th>Json</th>
+					<th>Template</th>
+					<th>SqlStr</th>
+					<th>SqlPart</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all RuleName to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:if="${#lists.isEmpty(ruleNameList)}">
+					<td colspan="5">You don't have any rule name registered</td>
+				</tr>
+				<tr th:each="ruleName: ${ruleNameList}">
+					<td><span th:text="${ruleName.id}"> Rule Name Id </span></td>
+					<td><span th:text="${ruleName.name}"> Name </span></td>
+					<td><span th:text="${ruleName.description}"> Description </span></td>
+					<td><span th:text="${ruleName.json}"> Json </span></td>
+					<td><span th:text="${ruleName.template}"> Template </span></td>
+					<td><span th:text="${ruleName.sqlStr}"> SqlStr </span></td>
+					<td><span th:text="${ruleName.sqlPart}"> SqlPart </span></td>
+					<td>
+						<a th:href="@{/ruleName/update/{id}(id=${ruleName.id})}">Edit</a>&nbsp;|&nbsp;
+						<a th:href="@{/ruleName/delete/{id}(id=${ruleName.id})}">Delete</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
