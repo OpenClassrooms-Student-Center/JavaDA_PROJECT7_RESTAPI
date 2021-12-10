@@ -135,8 +135,8 @@ class RatingControllerTest {
 	@WithMockUser
 	final void testDeleteRating() throws Exception {
 		mockMvc.perform(get("/rating/delete/0").with(csrf().asHeader()))
-		.andExpect(status().isFound())
-		.andExpect(view().name("redirect:/rating/list"));
+			.andExpect(status().isFound())
+			.andExpect(view().name("redirect:/rating/list"));
 	}
 
 }

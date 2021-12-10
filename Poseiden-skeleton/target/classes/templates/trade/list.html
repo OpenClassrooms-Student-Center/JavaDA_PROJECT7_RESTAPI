@@ -37,7 +37,19 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all Trade to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:if="${#lists.isEmpty(tradeList)}">
+					<td colspan="5">You don't have any bit list registered</td>
+				</tr>
+				<tr th:each="trade: ${tradeList}">
+					<td><span th:text="${trade.tradeId}"> Trade Id </span></td>
+					<td><span th:text="${trade.account}"> Account </span></td>
+					<td><span th:text="${trade.type}"> Type </span></td>
+					<td><span th:text="${trade.buyQuantity}"> Buy Quantity </span></td>
+					<td>
+						<a th:href="@{/trade/update/{id}(id=${trade.tradeId})}">Edit</a>&nbsp;|&nbsp;
+						<a th:href="@{/trade/delete/{id}(id=${trade.tradeId})}">Delete</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
