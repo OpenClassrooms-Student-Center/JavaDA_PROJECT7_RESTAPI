@@ -42,7 +42,8 @@ class HomeControllerTest {
 			.andExpect(view().name("home"));
 	}
 
-	@Test@WithMockUser(roles = "admin")
+	@Test
+	@WithMockUser(authorities = "ADMIN")
 	final void testAdminHome() throws Exception {
 		mockMvc.perform(get("/admin/home").with(csrf().asHeader())).andExpect(status().isFound())
 		.andExpect(view().name("redirect:/bidList/list"));
