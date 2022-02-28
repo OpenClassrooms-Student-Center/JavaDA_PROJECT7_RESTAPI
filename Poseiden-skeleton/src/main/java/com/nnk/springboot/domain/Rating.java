@@ -81,5 +81,11 @@ public class Rating {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Rating [moodysRating=" + moodysRating + ", sandPRating=" + sandPRating + ", fitchRating=" + fitchRating
+				+ ", orderNumber=" + orderNumber + "]";
+	}
 	
 }

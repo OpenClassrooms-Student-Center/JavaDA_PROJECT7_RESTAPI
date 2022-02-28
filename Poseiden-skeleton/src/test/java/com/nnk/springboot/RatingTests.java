@@ -1,7 +1,9 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.services.RatingService;
+
+import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,30 +19,30 @@ import java.util.Optional;
 public class RatingTests {
 
 	@Autowired
-	private RatingRepository ratingRepository;
+	private RatingService ratingService;
 
 	@Test
 	public void ratingTest() {
 		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
 		// Save
-		rating = ratingRepository.save(rating);
+		rating = ratingService.saveRating(rating);
 		Assert.assertNotNull(rating.getId());
 		Assert.assertTrue(rating.getOrderNumber() == 10);
 
 		// Update
 		rating.setOrderNumber(20);
-		rating = ratingRepository.save(rating);
+		rating = ratingService.saveRating(rating);
 		Assert.assertTrue(rating.getOrderNumber() == 20);
 
 		// Find
-		List<Rating> listResult = ratingRepository.findAll();
+		List<Rating> listResult = Lists.newArrayList(ratingService.findAllRatings());
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = rating.getId();
-		ratingRepository.delete(rating);
-		Optional<Rating> ratingList = ratingRepository.findById(id);
+		ratingService.deleteRating(rating);
+		Optional<Rating> ratingList = ratingService.findRatingById(id);
 		Assert.assertFalse(ratingList.isPresent());
 	}
 }
