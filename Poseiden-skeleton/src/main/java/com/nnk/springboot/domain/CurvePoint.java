@@ -104,5 +104,10 @@ public class CurvePoint {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	@Override
+	public String toString() {
+		return "CurvePoint [curveId=" + curveId + ", term=" + term + ", value=" + value + "]";
+	}
+		
 }
