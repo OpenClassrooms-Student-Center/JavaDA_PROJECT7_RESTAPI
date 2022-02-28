@@ -293,5 +293,11 @@ public class BidList {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "BidList [account=" + account + ", type=" + type + ", bidQuantity="
+				+ bidQuantity + "]";
+	}
 	
 }
