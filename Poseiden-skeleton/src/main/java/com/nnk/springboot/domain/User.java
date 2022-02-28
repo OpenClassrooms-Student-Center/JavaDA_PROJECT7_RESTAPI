@@ -3,19 +3,26 @@ package com.nnk.springboot.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "Id")
     private Integer id;
     @NotBlank(message = "Username is mandatory")
+    @Length(max = 125, message = "must have 125 caracters max")
     private String username;
     @NotBlank(message = "Password is mandatory")
+    @Length(max = 125, message = "must have 125 caracters max")
     private String password;
     @NotBlank(message = "FullName is mandatory")
+    @Length(max = 125, message = "must have 125 caracters max")
     private String fullname;
     @NotBlank(message = "Role is mandatory")
+    @Length(max = 125, message = "must have 125 caracters max")
     private String role;
 
     public Integer getId() {
