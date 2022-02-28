@@ -91,7 +91,8 @@ public class RuleName {
 		this.sqlPart = sqlPart;
 	}
 
-	public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
+	public RuleName(String name, String description, String json, String template, String sqlStr, 
+			String sqlPart) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -104,6 +105,12 @@ public class RuleName {
 	public RuleName() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "RuleName [name=" + name + ", description=" + description + ", json=" + json + ", template=" + template
+				+ ", sqlStr=" + sqlStr + ", sqlPart=" + sqlPart + "]";
 	}
 	
 }

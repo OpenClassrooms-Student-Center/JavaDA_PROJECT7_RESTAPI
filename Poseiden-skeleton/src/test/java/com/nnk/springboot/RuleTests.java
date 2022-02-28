@@ -1,7 +1,9 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.services.RuleNameService;
+
+import org.assertj.core.util.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,30 +19,30 @@ import java.util.Optional;
 public class RuleTests {
 
 	@Autowired
-	private RuleNameRepository ruleNameRepository;
+	private RuleNameService ruleNameService;
 
 	@Test
 	public void ruleTest() {
 		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
-		rule = ruleNameRepository.save(rule);
+		rule = ruleNameService.saveRuleName(rule);
 		Assert.assertNotNull(rule.getId());
 		Assert.assertTrue(rule.getName().equals("Rule Name"));
 
 		// Update
 		rule.setName("Rule Name Update");
-		rule = ruleNameRepository.save(rule);
+		rule = ruleNameService.saveRuleName(rule);
 		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
 
 		// Find
-		List<RuleName> listResult = ruleNameRepository.findAll();
+		List<RuleName> listResult = Lists.newArrayList(ruleNameService.findAllRuleNames());
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = rule.getId();
-		ruleNameRepository.delete(rule);
-		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
+		ruleNameService.deleteRuleName(rule);
+		Optional<RuleName> ruleList = ruleNameService.findRuleNameById(id);
 		Assert.assertFalse(ruleList.isPresent());
 	}
 }
