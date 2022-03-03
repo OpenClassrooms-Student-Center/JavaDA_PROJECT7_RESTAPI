@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Required;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import java.sql.Timestamp;
@@ -31,6 +32,7 @@ public class BidList {
 	private String type;
 	
 	@Column(name = "bidQuantity")
+	@NotNull(message = "must not be null")
 	@Digits(integer=4, fraction = 2, message = "must be in the form 0000.00")
 	private Double bidQuantity;
 	
