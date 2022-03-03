@@ -1,12 +1,10 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -32,10 +30,12 @@ public class CurvePoint {
 	@Past
 	private Timestamp asOfDate;
 	
+	@NotNull(message = "must not be null")
 	@Column(name = "term")
 	@Digits(integer = 4, fraction = 2, message = "must be in the form 0000.00")
 	private Double term;
 	
+	@NotNull(message = "must not be null")
 	@Column(name = "value")
 	@Digits(integer = 4, fraction = 2, message = "must be in the form 0000.00")
 	private Double value;
@@ -69,7 +69,7 @@ public class CurvePoint {
 		this.asOfDate = asOfDate;
 	}
 
-	public double getTerm() {
+	public Double getTerm() {
 		return term;
 	}
 

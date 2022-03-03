@@ -1,27 +1,70 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8" />
 <title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+	<div class="container">
 
-	<div class="row">
-		<h2>Add New Curve Point</h2>
+		<div class="row">
+			<div class="col-md-4 mx-auto">
+				<h2>Add New Curve Point</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4 mx-auto">
+				<form action="#" th:action="@{/curvePoint/validate}"
+					th:object="${curvePoint}" method="post" class="form-horizontal"
+					style="width: 100%">
+					<div class="form-group">
+						<Label for="curveId" class="col-sm-4 control-label">Curve Id</Label>
+
+						<div class="col-sm-12">
+							<input type="text" th:field=*{curveId} id="curveId"
+								placeholder="Curve Id" class="form-control">
+
+							<p class="text-danger" th:if="${#fields.hasErrors('curveId')}"
+								th:errors="*{curveId}">Curve Id error</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<Label for="term" class="col-sm-2 control-label">Term</Label>
+
+						<div class="col-sm-12">
+							<input type="number" min="0.01" step="0.01" th:field=*{term} id="term"
+								placeholder="Term" class="form-control" style="-moz-appearance: textfield;">
+
+							<p class="text-danger" th:if="${#fields.hasErrors('term')}"
+								th:errors="*{term}">Term error</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<Label for="value" class="col-sm-2 control-label">Value</Label>
+
+						<div class="col-sm-12">
+							<input type="number" min="0.01" step="0.01" th:field=*{value} id="value"
+								placeholder="Value" class="form-control" style="-moz-appearance: textfield;">
+
+							<p class="text-danger" th:if="${#fields.hasErrors('value')}"
+								th:errors="*{value}">Value error</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<a class="btn btn-danger btn-sm" href="/curvePoint/list">Cancel</a>
+							<input class="btn btn-primary btn-sm" type="submit"
+								value="Add CurvePoint">
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
 	</div>
-
-	<div class="row">
-		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
-			 -->
-
-		</form>
-	</div>
-
-</div>
 </body>
 </html>
