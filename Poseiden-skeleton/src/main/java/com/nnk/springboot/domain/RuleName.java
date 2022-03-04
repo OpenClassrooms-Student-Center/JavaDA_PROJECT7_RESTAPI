@@ -15,23 +15,27 @@ public class RuleName {
 	@Column(name = "Id")
 	private Integer id;
 	
+	@NotBlank(message = "Name is mandatory")
 	@Column(name = "name")
-	@NotBlank
 	private String name;
 	
+	@NotBlank(message = "Description is mandatory")
 	@Column(name = "description")
-	@NotBlank
 	private String description;
 	
+	@NotBlank(message = "json is mandatory")
 	@Column(name = "json")
 	private String json;
 	
+	@NotBlank(message = "template is mandatory")
 	@Column(name = "template")
 	private String template;
 	
+	@NotBlank(message = "sql is mandatory")
 	@Column(name = "sqlStr")
 	private String sqlStr;
 	
+	@NotBlank(message = "sqlPart is mandatory")
 	@Column(name = "sqlPart")
 	private String sqlPart;
 
