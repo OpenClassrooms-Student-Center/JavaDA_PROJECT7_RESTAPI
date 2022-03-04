@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Length;
@@ -14,23 +15,24 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "Trade")
 public class Trade {
-    // TODO: Map columns in data table TRADE with corresponding java fields
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Digits(integer = 4, fraction = 0)
 	@Column(name = "tradeId")
 	private Integer tradeId;
 	
-	@NotBlank
-	@Length(max = 30)
+	@NotBlank(message = "Account is mandatory")
+	@Length(max = 30, message = "must have 30 characters max")
 	@Column(name = "account")
 	private String account;
 	
-	@NotBlank
-	@Length(max = 30)
+	@NotBlank(message = "Type is mandatory")
+	@Length(max = 30, message = "must have 30 characters max")
 	@Column(name = "type")
 	private String type;
 	
+	@NotNull(message = "must not be null")
+	@Digits(integer=4, fraction = 2, message = "must be in the form 0000.00")
 	@Column(name = "buyQuantity")
 	private Double buyQuantity;
 	
@@ -123,7 +125,7 @@ public class Trade {
 		this.type = type;
 	}
 
-	public double getBuyQuantity() {
+	public Double getBuyQuantity() {
 		return buyQuantity;
 	}
 
@@ -267,10 +269,11 @@ public class Trade {
 		this.side = side;
 	}
 
-	public Trade(String account, String type) {
+	public Trade(String account, String type, Double buyQuantity) {
 		super();
 		this.account = account;
 		this.type = type;
+		this.buyQuantity = buyQuantity;
 	}
 
 	public Trade() {
@@ -280,7 +283,7 @@ public class Trade {
 
 	@Override
 	public String toString() {
-		return "Trade [account=" + account + ", type=" + type + "]";
+		return "Trade [account=" + account + ", type=" + type + ", buy quantity=" + buyQuantity + "]";
 	}
 	
 }
