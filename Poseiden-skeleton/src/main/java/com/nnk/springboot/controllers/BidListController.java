@@ -87,6 +87,7 @@ public class BidListController {
 		}
 		bidList.setBidListId(id);
 		bidListService.saveBidList(bidList);
+		model.addAttribute("bidLists", bidListService.findAllBidLists());
 		return "redirect:/bidList/list";
 	}
 
@@ -100,7 +101,7 @@ public class BidListController {
 	public String deleteBid(@PathVariable("id") Integer id, Model model) {
 		BidList bidList = bidListService.findBidListById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
 		bidListService.deleteBidList(bidList);
-		model.addAttribute("bidList", bidList);
+		model.addAttribute("bidLists", bidListService.findAllBidLists());
 		return "redirect:/bidList/list";
 	}
 }

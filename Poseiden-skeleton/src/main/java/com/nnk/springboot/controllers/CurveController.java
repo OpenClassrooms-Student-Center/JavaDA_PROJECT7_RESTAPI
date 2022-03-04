@@ -87,6 +87,7 @@ public class CurveController {
 		}
 		curvePoint.setId(id);
 		curvePointService.saveCurvePoint(curvePoint);
+		model.addAttribute("curvePoints", curvePointService.findAllCurvePoints());
         return "redirect:/curvePoint/list";
     }
 
@@ -100,7 +101,7 @@ public class CurveController {
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
     	CurvePoint curvePoint = curvePointService.findCurvePointById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
 		curvePointService.deleteCurvePoint(curvePoint);
-		model.addAttribute("curvePoint", curvePoint);
+		model.addAttribute("curvePoints", curvePointService.findAllCurvePoints());
         return "redirect:/curvePoint/list";
     }
 }
