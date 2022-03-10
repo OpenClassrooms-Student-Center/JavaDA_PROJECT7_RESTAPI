@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -14,15 +15,20 @@ public class User {
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     @Length(max = 125, message = "must have 125 caracters max")
+    @Column(name = "username")
     private String username;
     @NotBlank(message = "Password is mandatory")
+    @Pattern(regexp = "(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "must contain at least 8 characters with a lowercase, an uppercase, a number and a special character (#?!@$%^&*-)")
     @Length(max = 125, message = "must have 125 caracters max")
+    @Column(name = "password")
     private String password;
     @NotBlank(message = "FullName is mandatory")
     @Length(max = 125, message = "must have 125 caracters max")
+    @Column(name = "fullname")
     private String fullname;
     @NotBlank(message = "Role is mandatory")
     @Length(max = 125, message = "must have 125 caracters max")
+    @Column(name = "role")
     private String role;
 
     public Integer getId() {
