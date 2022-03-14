@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.dao.DataAccessResourceFailureException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -10,36 +9,35 @@ import javax.validation.constraints.Past;
 
 import java.sql.Timestamp;
 
-
 @Entity
 @Table(name = "CurvePoint")
 public class CurvePoint {
-    // TODO: Map columns in data table CURVEPOINT with corresponding java fields
+	// TODO: Map columns in data table CURVEPOINT with corresponding java fields
 	@Id
 	@Digits(integer = 4, fraction = 0)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
 	private Integer id;
-	
+
 	@NotNull(message = "must not be null")
 	@Digits(integer = 4, fraction = 0, message = "must be an integer number")
 	@Column(name = "CurveId")
 	private Integer curveId;
-	
+
 	@Column(name = "asOfDate")
 	@Past
 	private Timestamp asOfDate;
-	
+
 	@NotNull(message = "must not be null")
 	@Column(name = "term")
 	@Digits(integer = 4, fraction = 2, message = "must be in the form 0000.00")
 	private Double term;
-	
+
 	@NotNull(message = "must not be null")
 	@Column(name = "value")
 	@Digits(integer = 4, fraction = 2, message = "must be in the form 0000.00")
 	private Double value;
-	
+
 	@CreationTimestamp
 	@Past
 	@Column(name = "creationDate")
@@ -58,7 +56,11 @@ public class CurvePoint {
 	}
 
 	public void setCurveId(Integer curveId) {
-		this.curveId = curveId;
+		if (curveId > 0) {
+			this.curveId = curveId;
+		} else {
+			this.curveId = null;
+		}
 	}
 
 	public Timestamp getAsOfDate() {
@@ -74,7 +76,11 @@ public class CurvePoint {
 	}
 
 	public void setTerm(Double term) {
-		this.term = term;
+		if (term > 0) {
+			this.term = term;
+		} else {
+			this.term = null;
+		}
 	}
 
 	public Double getValue() {
@@ -82,7 +88,11 @@ public class CurvePoint {
 	}
 
 	public void setValue(Double value) {
-		this.value = value;
+		if (value > 0) {
+			this.value = value;
+		} else {
+			this.value = null;
+		}
 	}
 
 	public Timestamp getCreationDate() {
@@ -109,5 +119,5 @@ public class CurvePoint {
 	public String toString() {
 		return "CurvePoint [curveId=" + curveId + ", term=" + term + ", value=" + value + "]";
 	}
-		
+
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-public class CurveController {
+public class CurvePointController {
     @Autowired
     private CurvePointService curvePointService;
 
@@ -65,7 +65,7 @@ public class CurveController {
 	 */
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-    	CurvePoint curvePoint = curvePointService.findCurvePointById(id).orElseThrow(() -> new IllegalArgumentException("Invalid bidList Id:" + id));
+    	CurvePoint curvePoint = curvePointService.findCurvePointById(id).orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
 		model.addAttribute("curvePoint", curvePoint);
         return "curvePoint/update";
     }
