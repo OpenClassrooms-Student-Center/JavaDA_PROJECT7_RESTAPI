@@ -1,7 +1,6 @@
 package com.nnk.springboot.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -14,96 +13,96 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "BidList")
 public class BidList {
-    // TODO: Map columns in data table BIDLIST with corresponding java fields
+	// TODO: Map columns in data table BIDLIST with corresponding java fields
 	@Id
-	@Digits(integer=4, fraction=0)
+	@Digits(integer = 4, fraction = 0)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BidListId")
 	private Integer BidListId;
-	
+
 	@NotBlank(message = "Account is mandatory")
-	@Length(max=30, message = "must have 30 characters max")
+	@Length(max = 30, message = "must have 30 characters max")
 	@Column(name = "account")
 	private String account;
-	
+
 	@NotBlank(message = "Type is mandatory")
-	@Length(max=30, message = "must have 30 characters max")
+	@Length(max = 30, message = "must have 30 characters max")
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "bidQuantity")
 	@NotNull(message = "must not be null")
-	@Digits(integer=4, fraction = 2, message = "must be in the form 0000.00")
+	@Digits(integer = 4, fraction = 2, message = "must be in the form 0000.00")
 	private Double bidQuantity;
-	
+
 	@Column(name = "askQuantity")
-	@Digits(integer=4, fraction = 2)
+	@Digits(integer = 4, fraction = 2)
 	private Double askQuantity;
-	
+
 	@Column(name = "bid")
-	@Digits(integer=4, fraction = 2)
+	@Digits(integer = 4, fraction = 2)
 	private Double bid;
-	
+
 	@Column(name = "ask")
-	@Digits(integer=4, fraction = 2)
+	@Digits(integer = 4, fraction = 2)
 	private Double ask;
-	
+
 	@Column(name = "benchmark")
 	@Length(max = 125)
 	private String benchmark;
-	
+
 	@Column(name = "bidListDate")
 	@Past
 	private Timestamp bidListDate;
-	
+
 	@Column(name = "commentary")
 	@Length(max = 125)
 	private String commentary;
-	
+
 	@Column(name = "security")
 	@Length(max = 125)
 	private String security;
-	
+
 	@Column(name = "status")
 	@Length(max = 10)
 	private String status;
-	
+
 	@Column(name = "trader")
 	@Length(max = 125)
 	private String trader;
-	
+
 	@Column(name = "book")
 	@Length(max = 125)
 	private String book;
-	
+
 	@Column(name = "creationName")
 	@Length(max = 125)
 	private String creationName;
-	
+
 	@Column(name = "creationDate")
 	@Past
 	private Timestamp creationDate;
-	
+
 	@Column(name = "revisionName")
 	@Length(max = 125)
 	private String revisionName;
-	
+
 	@Column(name = "revisionDate")
 	@Past
 	private Timestamp revisionDate;
-	
+
 	@Column(name = "dealName")
 	@Length(max = 125)
 	private String dealName;
-	
+
 	@Column(name = "dealType")
 	@Length(max = 125)
 	private String dealType;
-	
+
 	@Column(name = "sourceListId")
 	@Length(max = 125)
 	private String sourceListId;
-	
+
 	@Column(name = "side")
 	@Length(max = 125)
 	private String side;
@@ -137,7 +136,11 @@ public class BidList {
 	}
 
 	public void setBidQuantity(Double bidQuantity) {
-		this.bidQuantity = bidQuantity;
+		if (bidQuantity > 0) {
+			this.bidQuantity = bidQuantity;
+		} else {
+			this.bidQuantity = null;
+		}
 	}
 
 	public Double getAskQuantity() {
@@ -301,5 +304,5 @@ public class BidList {
 		return "BidList [account=" + account + ", type=" + type + ", bidQuantity="
 				+ bidQuantity + "]";
 	}
-	
+
 }
