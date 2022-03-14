@@ -11,7 +11,6 @@ import org.springframework.dao.DataAccessResourceFailureException;
 
 import java.sql.Timestamp;
 
-
 @Entity
 @Table(name = "Trade")
 public class Trade {
@@ -20,83 +19,83 @@ public class Trade {
 	@Digits(integer = 4, fraction = 0)
 	@Column(name = "tradeId")
 	private Integer tradeId;
-	
+
 	@NotBlank(message = "Account is mandatory")
 	@Length(max = 30, message = "must have 30 characters max")
 	@Column(name = "account")
 	private String account;
-	
+
 	@NotBlank(message = "Type is mandatory")
 	@Length(max = 30, message = "must have 30 characters max")
 	@Column(name = "type")
 	private String type;
-	
+
 	@NotNull(message = "must not be null")
-	@Digits(integer=4, fraction = 2, message = "must be in the form 0000.00")
+	@Digits(integer = 4, fraction = 2, message = "must be in the form 0000.00")
 	@Column(name = "buyQuantity")
 	private Double buyQuantity;
-	
+
 	@Column(name = "sellQuantity")
 	private Double sellQuantity;
-	
+
 	@Column(name = "buyPrice")
 	private Double buyPrice;
-	
+
 	@Column(name = "sellPrice")
 	private Double sellPrice;
-	
+
 	@Past
 	@Column(name = "tradeDate")
 	private Timestamp tradeDate;
-	
+
 	@Length(max = 125)
 	@Column(name = "security")
 	private String security;
-	
+
 	@Length(max = 10)
 	@Column(name = "status")
 	private String status;
-	
+
 	@Length(max = 125)
 	@Column(name = "trader")
 	private String trader;
-	
+
 	@Length(max = 125)
 	@Column(name = "benchmark")
 	private String benchmark;
-	
+
 	@Length(max = 125)
 	@Column(name = "book")
 	private String book;
-	
+
 	@Length(max = 125)
 	@Column(name = "creationName")
 	private String creationName;
-	
+
 	@Past
 	@Column(name = "creationDate")
 	private Timestamp creationDate;
-	
+
 	@Length(max = 125)
 	@Column(name = "revisionName")
 	private String revisionName;
-	
+
 	@Past
 	@Column(name = "revisionDate")
 	private Timestamp revisionDate;
-	
+
 	@Length(max = 125)
 	@Column(name = "dealName")
 	private String dealName;
-	
+
 	@Length(max = 125)
 	@Column(name = "dealType")
 	private String dealType;
-	
+
 	@Length(max = 125)
 	@Column(name = "sourceListId")
 	private String sourceListId;
-	
+
 	@Length(max = 125)
 	@Column(name = "side")
 	private String side;
@@ -130,7 +129,9 @@ public class Trade {
 	}
 
 	public void setBuyQuantity(Double buyQuantity) {
-		this.buyQuantity = buyQuantity;
+		if (buyQuantity > 0) {
+			this.buyQuantity = buyQuantity;
+		}
 	}
 
 	public Double getSellQuantity() {
@@ -285,5 +286,5 @@ public class Trade {
 	public String toString() {
 		return "Trade [account=" + account + ", type=" + type + ", buy quantity=" + buyQuantity + "]";
 	}
-	
+
 }
