@@ -14,19 +14,19 @@ public class Rating {
 	@Digits(integer = 4, fraction = 0)
 	@Column(name = "Id")
 	private Integer id;
-	
+
 	@NotBlank(message = "MoodysRating is mandatory")
 	@Column(name = "moodysRating")
 	private String moodysRating;
-	
+
 	@NotBlank(message = "SandRating is mandatory")
 	@Column(name = "sandPRating")
 	private String sandPRating;
-	
+
 	@NotBlank(message = "FitchRating is mandatory")
 	@Column(name = "fitchRating")
 	private String fitchRating;
-	
+
 	@NotNull(message = "must not be null")
 	@Column(name = "orderNumber")
 	private Integer orderNumber;
@@ -68,7 +68,11 @@ public class Rating {
 	}
 
 	public void setOrderNumber(Integer orderNumber) {
-		this.orderNumber = orderNumber;
+		if (orderNumber > 0) {
+			this.orderNumber = orderNumber;
+		} else {
+			this.orderNumber = null;
+		}
 	}
 
 	public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
@@ -89,5 +93,5 @@ public class Rating {
 		return "Rating [moodysRating=" + moodysRating + ", sandPRating=" + sandPRating + ", fitchRating=" + fitchRating
 				+ ", orderNumber=" + orderNumber + "]";
 	}
-	
+
 }
