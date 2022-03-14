@@ -19,6 +19,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
@@ -109,8 +110,30 @@ public class RuleNameControllerTest {
 	
 	@Test
 	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_DeleteARuleName() throws Exception {
+		// saves a rule to delete in database
+		RuleName ruleName = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		ruleName = ruleNameService.saveRuleName(ruleName);
+		
+		// deletes the rule from database
+		mockMvc.perform(get("/ruleName/delete/{id}", ruleName.getId()))
+			.andExpect(status().is3xxRedirection())
+			.andExpect(redirectedUrl("/ruleName/list"));		
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotDeleteARuleName_withInvalidId() throws Exception {
+		
+		// tries to delete a rule from database with invalid Id
+		mockMvc.perform(get("/ruleName/delete/{id}", 0))
+			.andExpect(status().is5xxServerError());		
+	}
+	
+	@Test
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
 	public void test_AddANewValidRuleName() throws Exception {
-		// creates an invalid rule to add to database
+		// creates a rule to add to database
 		RuleName ruleName = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 		
 		// tries to add the rule to database
@@ -201,5 +224,14 @@ public class RuleNameControllerTest {
 		
 		// deletes the rule to update
 		ruleNameService.deleteRuleName(ruleName);
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotUpdateRuleName_withInvalidId() throws Exception {
+		// tries to update a rule with invalid Id
+		mockMvc
+			.perform(get("/ruleName/update/{id}", 0))
+			.andExpect(status().is5xxServerError());
 	}
 }

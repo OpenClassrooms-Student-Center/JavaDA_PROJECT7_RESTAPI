@@ -20,6 +20,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.services.UserService;
@@ -120,6 +121,15 @@ public class UserControllerTest {
 		mockMvc.perform(get("/user/delete/{id}", user.getId()))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("/user/list"));
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "adminTest", password = "Passw0rd!", authorities = "ADMIN")
+	public void test_NotDeleteAnUser_withInvalidId() throws Exception {
+		
+		// tries to delete a user from database with invalid Id
+		mockMvc.perform(get("/user/delete/{id}", 0))
+			.andExpect(status().is5xxServerError());		
 	}
 	
 	@Test
@@ -225,5 +235,14 @@ public class UserControllerTest {
 				.param("role", user.getRole()))
 			.andExpect(model().hasErrors())
 			.andExpect(view().name("user/add"));
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "adminTest", password = "Passw0rd!", authorities = "ADMIN")
+	public void test_NotUpdateUser_withInvalidId() throws Exception {
+		// tries to update a user with invalid Id
+		mockMvc
+			.perform(get("/user/update/{id}", 0))
+			.andExpect(status().is5xxServerError());
 	}
 }

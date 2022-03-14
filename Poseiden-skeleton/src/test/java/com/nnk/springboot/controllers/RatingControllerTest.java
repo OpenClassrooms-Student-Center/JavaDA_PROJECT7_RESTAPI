@@ -19,6 +19,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
@@ -119,6 +120,15 @@ public class RatingControllerTest {
 			.andExpect(redirectedUrl("/rating/list"));		
 	}
 	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotDeleteARating_withInvalidId() throws Exception {
+		
+		// tries to delete a rating from database with invalid Id
+		mockMvc.perform(get("/rating/delete/{id}", 0))
+			.andExpect(status().is5xxServerError());		
+	}
+	
 	@Test
 	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
 	public void test_AddANewValidRating() throws Exception {
@@ -205,5 +215,14 @@ public class RatingControllerTest {
 		
 		// deletes the rating to update
 		ratingService.deleteRating(rating);
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotUpdateRating_withInvalidId() throws Exception {
+		// tries to update a rating with invalid Id
+		mockMvc
+			.perform(get("/rating/update/{id}", 0))
+			.andExpect(status().is5xxServerError());
 	}
 }

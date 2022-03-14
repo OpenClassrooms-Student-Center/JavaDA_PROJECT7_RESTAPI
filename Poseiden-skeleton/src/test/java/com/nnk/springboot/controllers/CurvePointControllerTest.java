@@ -19,6 +19,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurvePointService;
@@ -119,6 +120,14 @@ public class CurvePointControllerTest {
 			.andExpect(redirectedUrl("/curvePoint/list"));		
 	}
 	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotDeleteACurvePoint_withInvalidId() throws Exception {
+		
+		// tries to delete a curvePoint from database with invalid Id
+		mockMvc.perform(get("/curvePoint/delete/{id}", 0))
+			.andExpect(status().is5xxServerError());		
+	}
 	
 	@Test
 	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
@@ -202,5 +211,14 @@ public class CurvePointControllerTest {
 		
 		// deletes the curvePoint to update
 		curvePointService.deleteCurvePoint(curvePoint);
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotUpdateCurvePoint_withInvalidId() throws Exception {
+		// tries to update a curvePoint with invalid Id
+		mockMvc
+			.perform(get("/curvePoint/update/{id}", 0))
+			.andExpect(status().is5xxServerError());
 	}
 }

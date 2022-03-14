@@ -19,6 +19,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
@@ -107,7 +108,7 @@ public class TradeControllerTest {
 		// deletes the trade from the database
 		tradeService.deleteTrade(trade);
 	}
-	//
+	
 	@Test
 	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
 	public void test_DeleteATrade() throws Exception {
@@ -119,6 +120,15 @@ public class TradeControllerTest {
 		mockMvc.perform(get("/trade/delete/{id}", trade.getTradeId()))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("/trade/list"));
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotDeleteATrade_withInvalidId() throws Exception {
+		
+		// tries to delete a trade from database with invalid Id
+		mockMvc.perform(get("/trade/delete/{id}", 0))
+			.andExpect(status().is5xxServerError());		
 	}
 	
 	@Test
@@ -203,5 +213,14 @@ public class TradeControllerTest {
 		
 		// deletes the trade to update
 		tradeService.deleteTrade(trade);
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotUpdateTrade_withInvalidId() throws Exception {
+		// tries to update a bidList with invalid Id
+		mockMvc
+			.perform(get("/trade/update/{id}", 0))
+			.andExpect(status().is5xxServerError());
 	}
 }

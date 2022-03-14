@@ -19,6 +19,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
@@ -120,6 +121,14 @@ public class BidListControllerTest {
 			.andExpect(redirectedUrl("/bidList/list"));		
 	}
 	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotDeleteABidList_withInvalidId() throws Exception {
+		
+		// tries to delete a bidList from database with invalid Id
+		mockMvc.perform(get("/bidList/delete/{id}", 0))
+			.andExpect(status().is5xxServerError());		
+	}
 	
 	@Test
 	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
@@ -204,6 +213,15 @@ public class BidListControllerTest {
 		
 		// deletes the bidList to update
 		bidListService.deleteBidList(bid);
+	}
+	
+	@Test(expected = NestedServletException.class)
+	@WithMockUser(username = "userTest", password = "Passw0rd!", authorities = "USER")
+	public void test_NotUpdateBidList_withInvalidId() throws Exception {
+		// tries to update a bidList with invalid Id
+		mockMvc
+			.perform(get("/bidList/update/{id}", 0))
+			.andExpect(status().is5xxServerError());
 	}
 	
 }
