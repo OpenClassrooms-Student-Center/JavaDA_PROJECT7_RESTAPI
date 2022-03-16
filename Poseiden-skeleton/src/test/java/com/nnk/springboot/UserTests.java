@@ -1,8 +1,6 @@
 package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.services.TradeService;
 import com.nnk.springboot.services.UserService;
 
 import org.assertj.core.util.Lists;
@@ -25,7 +23,7 @@ public class UserTests {
 
 	@Test
 	public void userTest() {
-		User user = new User("UserName", "password", "UserTestName", "USER");
+		User user = new User("UserName", "Passw0rd!", "UserTestName", "USER");
 
 		// Save
 		user = userService.saveUser(user);
