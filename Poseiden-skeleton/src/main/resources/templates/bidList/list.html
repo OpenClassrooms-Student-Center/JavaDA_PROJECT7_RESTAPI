@@ -17,8 +17,8 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
+			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.getUserPrincipal().getName()}]] </b>
+			<form th:action="@{/logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
 		</div>
@@ -37,7 +37,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:each="bidList : ${bidLists}">
+					<td th:text="${bidList.BidListId}">Id</td>
+					<td th:text="${bidList.account}"></td>
+					<td th:text="${bidList.type}"></td>
+					<td th:text="${bidList.bidQuantity}"></td>
+					<td>
+						<a th:href="@{/bidList/update/{id}(id=${bidList.BidListId})}">Edit</a>&nbsp;|&nbsp; 
+						<a th:href="@{/bidList/delete/{id}(id=${bidList.BidListId})}">Delete</a>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

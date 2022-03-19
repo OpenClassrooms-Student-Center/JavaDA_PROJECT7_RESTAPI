@@ -17,8 +17,8 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
+			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.getUserPrincipal().getName()}]] </b>
+			<form th:action="@{/logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
 		</div>
@@ -37,6 +37,17 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr th:each="curvePoint : ${curvePoints}">
+					<td th:text="${curvePoint.id}"></td>
+					<td th:text="${curvePoint.curveId}"></td>
+					<td th:text="${curvePoint.term}"></td>
+					<td th:text="${curvePoint.value}"></td>
+					<td>
+						<a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}">Edit</a>&nbsp;|&nbsp; 
+						<a th:href="@{/curvePoint/delete/{id}(id=${curvePoint.id})}">Delete</a>
+					</td>
+				
+				</tr>
 			<!-- TODO: Show all CurvePoint to the table, the action column will have Edit & Delete buttons -->
 			</tbody>
 		</table>
