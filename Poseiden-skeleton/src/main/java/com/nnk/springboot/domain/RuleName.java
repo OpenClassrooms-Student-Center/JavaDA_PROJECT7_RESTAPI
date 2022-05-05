@@ -1,11 +1,44 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
+import javax.validation.constraints.Size;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "rulename")
 public class RuleName {
-    // TODO: Map columns in data table RULENAME with corresponding java fields
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id")
+    Integer id;
+
+    @Column(name = "name")
+    @Size(max = 125)
+    String name;
+
+    @Column(name = "description")
+    @Size(max = 125)
+    String description;
+
+    @Column(name = "json")
+    @Size(max = 125)
+    String json;
+
+    @Column(name = "template")
+    @Size(max = 512)
+    String template;
+
+    @Column(name = "sqlStr")
+    @Size(max = 125)
+    String sqlStr;
+
+    @Column(name = "sqlPart")
+    @Size(max = 125)
+    String sqlPart;
+
 }
