@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h2>Update Trade</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
+			<!--
+			TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
+			 -->
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
