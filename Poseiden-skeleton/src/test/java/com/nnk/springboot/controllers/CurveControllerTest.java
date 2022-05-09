@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import javax.persistence.EntityNotFoundException;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ class CurveControllerTest {
 	@MockBean
 	private UserDetailsServiceImpl userDetailsServiceImpl;
 	
-	@Before
+	@BeforeEach
 	void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
 	}
@@ -85,8 +85,8 @@ class CurveControllerTest {
 		CurvePoint curvePoint = new CurvePoint();
 		curvePoint.setId(1);
 		curvePoint.setCurveId(2);
-		curvePoint.setTerm​(5.0);
-		curvePoint.setValue​(10.0);
+		curvePoint.setTerm(5.0);
+		curvePoint.setValue(10.0);
 		when(curvePointService.findById(1)).thenReturn(curvePoint);
 		mockMvc.perform(get("/curvePoint/update/1").with(csrf().asHeader()))
 				.andExpect(status().isOk())

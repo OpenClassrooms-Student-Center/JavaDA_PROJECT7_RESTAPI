@@ -8,8 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -35,12 +35,14 @@ public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BidListId")
-    private Integer BidListId;
+    private Integer bidListId;
 
     @NotEmpty(message = "Account is mandatory")
+    @NotBlank
     private String account;
 
     @NotEmpty(message = "Type is mandatory")
+    @NotBlank
     private String type;
 
     @NotNull(message = "Bid quantity is mandatory")

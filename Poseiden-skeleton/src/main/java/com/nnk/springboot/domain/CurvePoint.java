@@ -1,16 +1,19 @@
 package com.nnk.springboot.domain;
 
-import org.hibernate.validator.constraints.Length;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 
 @Entity
@@ -20,8 +23,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class CurvePoint {
 	
-	public CurvePoint(Integer CurveId, Double term, Double value) {
-		this.CurveId​ = CurveId;
+	public CurvePoint(Integer curveId, Double term, Double value) {
+		this.curveId​ = curveId;
 		this.term​ = term;
 		this.value​ = value;
 	}
@@ -33,7 +36,7 @@ public class CurvePoint {
 	@NotNull
 	@Min(value = 0, message = "curveId must be positive")
 	@Column(name = "CurveId", nullable = false)
-	private Integer CurveId​;
+	private Integer curveId​;
 	
 	private Timestamp asOfDate​; 
 	
@@ -47,12 +50,12 @@ public class CurvePoint {
 	
 	private Timestamp creationDate​; 
 	
-	public void setCurveId(Integer CurveId) {
-		this.CurveId​ = CurveId;
+	public void setCurveId(Integer curveId) {
+		this.curveId​ = curveId;
 	}
 	
 	public Integer getCurveId() {
-		return CurveId​;
+		return curveId​;
 	}
 	
 	public void setTerm(Double term) {
