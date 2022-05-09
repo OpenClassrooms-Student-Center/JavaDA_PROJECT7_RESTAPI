@@ -15,10 +15,54 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of RuleName, there are 2 buttons: Save data and Cancel to the list RuleName
-			 -->
-
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{name}" placeholder="Name" class="col-4" >
+					<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="description" class="col-sm-2 control-label">Description</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{description}" placeholder="Description" class="col-4" >
+					<p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="json" class="col-sm-2 control-label">Json</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{json}" placeholder="Jsong" class="col-4" >
+					<p class="text-danger" th:if="${#fields.hasErrors('json')}" th:errors="*{json}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="template" class="col-sm-2 control-label">Template</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{template}" placeholder="Template" class="col-4" >
+					<p class="text-danger" th:if="${#fields.hasErrors('template')}" th:errors="*{template}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sqlStr" class="col-sm-2 control-label">SqlStr</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sqlStr}" placeholder="SqlStr" class="col-4" >
+					<p class="text-danger" th:if="${#fields.hasErrors('sqlStr')}" th:errors="*{sqlStr}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sqlPart" class="col-sm-2 control-label">SqlPart</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sqlPart}" placeholder="SqlPart" class="col-4" >
+					<p class="text-danger" th:if="${#fields.hasErrors('sqlPart')}" th:errors="*{sqlPart}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" href="/ruleName/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add RuleName">
+				</div>
+			</div>
 		</form>
 	</div>
 
