@@ -1,5 +1,8 @@
 package com.nnk.springboot.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -15,8 +18,10 @@ public class User {
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
-    @NotBlank(message = "Role is mandatory")
-    private String role;
+    
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -49,12 +54,14 @@ public class User {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
-
-    public String getRole() {
-        return role;
+    
+    public Set<Role> getRoles() {
+    	return roles;
+    }
+    
+    public void setRoles(Set<Role> roles) {
+    	this.roles = roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+
 }
