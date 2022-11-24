@@ -47,9 +47,6 @@ public class BidListPointServiceImpl implements IBidListService {
     @Override
     @Transactional
     public BidList saveBidList(BidList curvePoint) {
-	// Assigning by default role "User" (id = 1)
-	//Role defaultRole = roleService.getRoleById(1);
-	//user.addRole(defaultRole);
     	return bidListRepository.save(curvePoint);
     }
 

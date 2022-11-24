@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import com.nnk.springboot.services.UserDetailsServiceImpl;
 
@@ -18,22 +19,24 @@ import com.nnk.springboot.services.UserDetailsServiceImpl;
  */
 @Configuration
 @EnableWebSecurity
-@SuppressWarnings("deprecation")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 	auth.authenticationProvider(authenticationProvider());
     }
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-
-	http.csrf().disable().authorizeRequests().antMatchers("/").permitAll().antMatchers("/home").permitAll().and()
-		.formLogin().loginProcessingUrl("/j_spring_security_check").defaultSuccessUrl("/home", true)
-		.failureUrl("/login?error=true").permitAll().and().exceptionHandling().accessDeniedPage("/403").and()
-		.rememberMe().key("uniqueAndSecret").and()
-		.logout(logout -> logout.logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID"));
+    
+    // @todo add oAuth
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    	return 	http.csrf().disable().authorizeRequests().antMatchers("/").permitAll().antMatchers("/home").permitAll().and()
+    			.formLogin().loginProcessingUrl("/j_spring_security_check").defaultSuccessUrl("/home", true)
+    			.failureUrl("/login?error=true").permitAll().and().exceptionHandling().accessDeniedPage("/403").and()
+    			.rememberMe().key("uniqueAndSecret").and()
+    			.logout(logout -> logout.logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID")).build();
     }
+    
+   
 
 //    .loginPage("/login")
     @Override

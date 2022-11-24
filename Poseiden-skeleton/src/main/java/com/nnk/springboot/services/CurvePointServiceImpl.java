@@ -45,10 +45,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
     @Override
     @Transactional
     public CurvePoint saveCurvePoint(CurvePoint curvePoint) {
-	// Assigning by default role "User" (id = 1)
-	//Role defaultRole = roleService.getRoleById(1);
-	//user.addRole(defaultRole);
-	return curvePointRepository.save(curvePoint);
+    	return curvePointRepository.save(curvePoint);
     }
 
     @Override
