@@ -46,8 +46,8 @@ public class BidListPointServiceImpl implements IBidListService {
 
     @Override
     @Transactional
-    public BidList saveBidList(BidList curvePoint) {
-    	return bidListRepository.save(curvePoint);
+    public BidList saveBidList(BidList bidList) {
+    	return bidListRepository.save(bidList);
     }
 
     @Override
