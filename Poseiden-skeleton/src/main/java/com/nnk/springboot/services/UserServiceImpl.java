@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nnk.springboot.domain.Role;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 
@@ -18,30 +17,30 @@ public class UserServiceImpl implements IUserService {
 //    private IRoleService roleService;
 
     public UserServiceImpl(UserRepository userRepository
-    		//IRoleService roleService
-    		) {
-    	this.userRepository = userRepository;
+    // IRoleService roleService
+    ) {
+	this.userRepository = userRepository;
 //    	this.roleService = roleService;
     }
-    
+
     @Override
     @Transactional
     public Iterable<User> getUsers() {
-    	return userRepository.findAll();
+	return userRepository.findAll();
     }
 
     @Override
     @Transactional
     public Optional<User> getUserById(Integer id) {
-    	return userRepository.findById(id);
+	return userRepository.findById(id);
     }
 
     @Override
     @Transactional
     public User saveUser(User user) {
 	// Assigning by default role "User" (id = 1)
-	//Role defaultRole = roleService.getRoleById(1);
-	//user.addRole(defaultRole);
+	// Role defaultRole = roleService.getRoleById(1);
+	// user.addRole(defaultRole);
 	return userRepository.save(user);
     }
 
@@ -51,5 +50,4 @@ public class UserServiceImpl implements IUserService {
 	userRepository.deleteById(id);
     }
 
-    
 }

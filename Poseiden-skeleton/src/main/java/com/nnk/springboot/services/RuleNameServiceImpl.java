@@ -5,52 +5,46 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nnk.springboot.domain.Role;
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.RoleRepository;
 import com.nnk.springboot.repositories.RuleNameRepository;
-import com.nnk.springboot.repositories.TradeRepository;
-import com.nnk.springboot.repositories.UserRepository;
 
 /*
  * Service for handling User related operations
  */
 @Service
 public class RuleNameServiceImpl implements IRuleNameService {
-    
-	private RuleNameRepository ruleNameRepository;
+
+    private RuleNameRepository ruleNameRepository;
 
     public RuleNameServiceImpl(RuleNameRepository ruleNameRepository) {
-    	this.ruleNameRepository = ruleNameRepository;
+	this.ruleNameRepository = ruleNameRepository;
     }
 
     @Override
     @Transactional
     public Iterable<RuleName> getRuleNames() {
-    	return ruleNameRepository.findAll();
+	return ruleNameRepository.findAll();
     }
 
     @Override
     @Transactional
     public Optional<RuleName> getRuleNameById(Integer id) {
-    	return ruleNameRepository.findById(id);
+	return ruleNameRepository.findById(id);
     }
 
     @Override
     @Transactional
     public RuleName saveRuleName(RuleName rulename) {
 	// Assigning by default role "User" (id = 1)
-	//Role defaultRole = roleService.getRoleById(1);
-	//user.addRole(defaultRole);
+	// Role defaultRole = roleService.getRoleById(1);
+	// user.addRole(defaultRole);
 	return ruleNameRepository.save(rulename);
     }
 
     @Override
     @Transactional
     public void deleteRuleNameById(Integer id) {
-    	ruleNameRepository.deleteById(id);
+	ruleNameRepository.deleteById(id);
     }
 
 }
