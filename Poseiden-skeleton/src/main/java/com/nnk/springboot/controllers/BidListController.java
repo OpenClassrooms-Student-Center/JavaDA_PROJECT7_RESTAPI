@@ -20,8 +20,6 @@ public class BidListController {
     public String home(Model model)
     {
         // TODO: call service find all bids to show to the view
-        // pour rien
-        Int i = 3;
         return "bidList/list";
     }
 
