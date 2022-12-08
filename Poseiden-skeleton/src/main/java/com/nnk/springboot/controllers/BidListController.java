@@ -1,5 +1,8 @@
 package com.nnk.springboot.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -11,14 +14,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.services.IBidListService;
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
+    private IBidListService bidListService;
+
+    public BidListController(IBidListService bidListService) {
+	this.bidListService = bidListService;
+    }
 
     @RequestMapping("/bidList/list")
     public String home(Model model) {
-	// TODO: call service find all bids to show to the view
+
+	List<BidList> bidListResult = new ArrayList<BidList>();
+	this.bidListService.getBidLists().forEach(bidListResult::add);
+	model.addAttribute("bidList", bidListResult);
+
 	return "bidList/list";
     }
 
@@ -29,26 +41,51 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-	// TODO: check data valid and save to db, after saving return bid list
-	return "bidList/add";
+	if (result.hasErrors()) {
+	    return "bidList/add";
+	}
+
+	this.bidListService.saveBidList(bid);
+
+	return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-	// TODO: get Bid by Id and to model then show to the form
+	BidList bidListResult = this.bidListService.getBidListById(id).get();
+
+	model.addAttribute("bidList", bidListResult);
+
 	return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
-	// TODO: check required fields, if valid call service to update Bid and return
-	// list Bid
+	if (result.hasErrors()) {
+	    return "bidList/update";
+	}
+
+	// Save also updates automatically with Entity Framework
+	bidList.setBidListId(id);
+	this.bidListService.saveBidList(bidList);
+
+	// Retrieve the BidList with updated values
+	List<BidList> bidListResult = new ArrayList<BidList>();
+	this.bidListService.getBidLists().forEach(bidListResult::add);
+	model.addAttribute("bidList", bidListResult);
+
 	return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-	// TODO: Find Bid by Id and delete the bid, return to Bid list
+	this.bidListService.deleteBidListById(id);
+
+	// Retrieve the BidList with updated values
+	List<BidList> bidListResult = new ArrayList<BidList>();
+	this.bidListService.getBidLists().forEach(bidListResult::add);
+	model.addAttribute("bidList", bidListResult);
+
 	return "redirect:/bidList/list";
     }
 }

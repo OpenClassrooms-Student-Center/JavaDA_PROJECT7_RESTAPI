@@ -1,17 +1,9 @@
 package com.nnk.springboot.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -29,9 +21,8 @@ public class User {
     private String fullname;
 
     // Créer le set au niveau d'UserDetailsImpl
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @NotBlank(message = "Role is mandatory")
+    private String role;
 
     public Integer getId() {
 	return id;
@@ -65,12 +56,12 @@ public class User {
 	this.fullname = fullname;
     }
 
-    public Set<Role> getRoles() {
-	return roles;
+    public String getRole() {
+	return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-	this.roles = roles;
+    public void setRole(String role) {
+	this.role = role;
     }
 
 }
