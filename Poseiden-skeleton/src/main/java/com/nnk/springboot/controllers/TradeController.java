@@ -15,16 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.ITradeService;
-import com.nnk.springboot.validator.TradeValidator;
 
 @Controller
 public class TradeController {
     private ITradeService tradeService;
-    private TradeValidator tradeValidator;
 
-    public TradeController(ITradeService tradeService, TradeValidator tradeValidator) {
+    public TradeController(ITradeService tradeService) {
 	this.tradeService = tradeService;
-	this.tradeValidator = tradeValidator;
     }
 
     @RequestMapping("/trade/list")
@@ -43,7 +40,6 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-	tradeValidator.validate(trade, result);
 	if (result.hasErrors()) {
 	    return "trade/add";
 	}
@@ -54,7 +50,7 @@ public class TradeController {
 	this.tradeService.getTrades().forEach(tradeListResult::add);
 
 	model.addAttribute("tradeList", tradeListResult);
-	return "trade/add";
+	return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/update/{id}")
@@ -67,7 +63,6 @@ public class TradeController {
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade, BindingResult result, Model model) {
-	tradeValidator.validate(trade, result);
 	if (result.hasErrors()) {
 	    return "trade/update";
 	}

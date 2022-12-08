@@ -15,16 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.IBidListService;
-import com.nnk.springboot.validator.BidValidator;
 
 @Controller
 public class BidListController {
     private IBidListService bidListService;
-    private BidValidator bidValidator;
 
-    public BidListController(IBidListService bidListService, BidValidator bidValidator) {
+    public BidListController(IBidListService bidListService) {
 	this.bidListService = bidListService;
-	this.bidValidator = bidValidator;
     }
 
     @RequestMapping("/bidList/list")
@@ -44,14 +41,13 @@ public class BidListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
-	bidValidator.validate(bid, result);
 	if (result.hasErrors()) {
 	    return "bidList/add";
 	}
 
 	this.bidListService.saveBidList(bid);
 
-	return "bidList/add";
+	return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
@@ -65,12 +61,12 @@ public class BidListController {
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList, BindingResult result, Model model) {
-	bidValidator.validate(bidList, result);
 	if (result.hasErrors()) {
 	    return "bidList/update";
 	}
 
 	// Save also updates automatically with Entity Framework
+	bidList.setBidListId(id);
 	this.bidListService.saveBidList(bidList);
 
 	// Retrieve the BidList with updated values

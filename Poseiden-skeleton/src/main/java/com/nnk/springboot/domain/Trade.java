@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,9 +20,11 @@ public class Trade {
     @Column(name = "TradeId")
     private int tradeId;
 
+    @NotBlank(message = "Account is mandatory")
     @Column(name = "account")
     private String account;
 
+    @NotBlank(message = "Type is mandatory")
     @Column(name = "type")
     private String type;
 
