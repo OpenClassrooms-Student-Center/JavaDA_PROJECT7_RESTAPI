@@ -1,4 +1,4 @@
-package com.nnk.springboot.security.security;
+package com.nnk.springboot.security;
 
 import com.nnk.springboot.domain.User;
 import org.springframework.security.core.GrantedAuthority;

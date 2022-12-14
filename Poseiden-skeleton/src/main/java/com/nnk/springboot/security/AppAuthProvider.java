@@ -1,4 +1,4 @@
-package com.nnk.springboot.security.security;
+package com.nnk.springboot.security;
 
 import com.nnk.springboot.service.impl.UserServiceImpl;
 import org.springframework.security.authentication.BadCredentialsException;

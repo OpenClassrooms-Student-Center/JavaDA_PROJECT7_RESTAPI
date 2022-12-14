@@ -3,15 +3,13 @@ package com.nnk.springboot.service.impl;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.security.security.UserPrincipal;
+import com.nnk.springboot.security.UserPrincipal;
 import com.nnk.springboot.service.IUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
