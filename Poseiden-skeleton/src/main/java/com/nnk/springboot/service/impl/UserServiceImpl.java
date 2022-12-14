@@ -3,16 +3,21 @@ package com.nnk.springboot.service.impl;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.security.security.UserPrincipal;
 import com.nnk.springboot.service.IUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService, UserDetailsService {
+
 
     private static final Logger logger = LogManager.getLogger("UserServiceImpl");
 
@@ -43,6 +48,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        User user = userRepository.findUserByUsername(username);
+        UserPrincipal userPrincipal = new UserPrincipal(user);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+
+        return userPrincipal;
+
     }
 }
