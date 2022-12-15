@@ -2,11 +2,12 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
 
-public interface IUserService{
+public interface IUserService extends UserDetailsService {
 
     /**
      * get all users

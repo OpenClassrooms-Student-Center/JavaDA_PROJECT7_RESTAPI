@@ -8,41 +8,28 @@ import com.nnk.springboot.service.IUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * contain all business service methods for UserService
+ */
+@Service
+public class UserServiceImpl implements IUserService {
 
-public class UserServiceImpl implements IUserService, UserDetailsService {
-
-
+    /**
+     * SLF4J/LOG4J LOGGER instance.
+     */
     private static final Logger logger = LogManager.getLogger("UserServiceImpl");
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-
-    @Override
-    public List<User> findAll() {
-
-        return userRepository.findAll();
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @Override
-    public User findById(Integer id) throws DataNotFoundException {
-        return userRepository.findById(id).orElseThrow(() -> new DataNotFoundException("No User with id " + id + "  found "));
-    }
-
-    @Override
-    public void save(User user) {
-        userRepository.save(user);
-
-    }
-
-    @Override
-    public void delete(User user) {
-        userRepository.delete(user);
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -52,8 +39,39 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
-
+        logger.debug("getting userPrincipal");
         return userPrincipal;
 
     }
+
+
+    @Override
+    public List<User> findAll() {
+        logger.debug("getting all users");
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findById(Integer id) throws DataNotFoundException {
+        logger.debug("fetching user by id:{}", id);
+        return userRepository.findById(id).orElseThrow(() -> {
+            logger.debug("Invalid user Id: {} ", id);
+            return new DataNotFoundException("No User with id " + id + "  found ");
+        });
+    }
+
+    @Override
+    public void save(User user) {
+        logger.debug("saving user{}", user.getFullname());
+        userRepository.save(user);
+
+    }
+
+    @Override
+    public void delete(User user) {
+        logger.debug("deleting user:{}", user.getFullname());
+        userRepository.delete(user);
+    }
+
+
 }

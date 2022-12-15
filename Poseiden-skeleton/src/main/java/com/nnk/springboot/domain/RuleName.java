@@ -13,6 +13,15 @@ public class RuleName {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    String name;
+    String description;
+    String json;
+    String template;
+    String sqlStr;
+    String sqlPart;
+
+
+
     public RuleName(String ruleName, String description, String json, String template, String sql, String sqlPart) {
     }
 
@@ -27,14 +36,7 @@ public class RuleName {
     public void setId(Long id) {
         this.id = id;
     }
-// TODO: Map columns in data table RULENAME with corresponding java fields
 
-    String name;
-    String description;
-    String json;
-    String template;
-    String sqlStr;
-    String sqlPart;
 
     public String getName() {
         return name;

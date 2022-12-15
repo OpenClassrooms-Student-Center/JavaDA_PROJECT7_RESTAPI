@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(&quot;app&quot;)
+//@RequestMapping(&quot;app&quot;)
 <span class="nc" id="L12">public class LoginController {</span>
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping(&quot;login&quot;)
+    @GetMapping(&quot;/login&quot;)
     public ModelAndView login() {
 <span class="nc" id="L19">        ModelAndView mav = new ModelAndView();</span>
 <span class="nc" id="L20">        mav.setViewName(&quot;login&quot;);</span>

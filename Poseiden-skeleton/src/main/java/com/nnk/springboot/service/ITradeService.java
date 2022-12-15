@@ -19,7 +19,7 @@ public interface ITradeService {
      * @param id
      * @return
      */
-    User findById(Integer id) throws DataNotFoundException;
+    Trade findById(Integer id) throws DataNotFoundException;
 
     /**
      * save given trade
