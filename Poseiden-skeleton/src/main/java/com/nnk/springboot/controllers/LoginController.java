@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("app")
+//@RequestMapping("app")
 public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
