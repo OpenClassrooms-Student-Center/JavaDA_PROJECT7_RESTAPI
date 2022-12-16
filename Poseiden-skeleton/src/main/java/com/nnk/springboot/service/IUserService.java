@@ -2,13 +2,17 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.web.dto.UserRegistrationDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
 
-public interface IUserService extends UserDetailsService {
+public interface IUserService  {
+
+
+    User saveUser(UserRegistrationDto registrationDto, String newPassword);
 
     /**
      * get all users

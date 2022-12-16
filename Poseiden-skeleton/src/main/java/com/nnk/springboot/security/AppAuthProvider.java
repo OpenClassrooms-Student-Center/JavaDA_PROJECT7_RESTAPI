@@ -1,5 +1,6 @@
 package com.nnk.springboot.security;
 
+import com.nnk.springboot.service.IUserDetailService;
 import com.nnk.springboot.service.impl.UserServiceImpl;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AppAuthProvider extends DaoAuthenticationProvider {
 
 
-    UserServiceImpl userService;
+    IUserDetailService userDetailService;
 
     PasswordEncoder encoder;
 
@@ -21,7 +22,7 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;
         String name = auth.getName();
         String password = auth.getCredentials().toString();
-        UserDetails user = userService.loadUserByUsername(name);
+        UserDetails user = userDetailService.loadUserByUsername(name);
 
         if (user != null && encoder.matches(password , user.getPassword()) ) {
             return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());

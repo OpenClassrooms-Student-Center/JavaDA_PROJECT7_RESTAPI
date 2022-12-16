@@ -1,17 +1,24 @@
 package com.nnk.springboot.service.impl;
 
+import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.security.UserPrincipal;
 import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.web.dto.UserRegistrationDto;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Role;
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +26,7 @@ import java.util.Optional;
  * contain all business service methods for UserService
  */
 @Service
+@Transactional
 public class UserServiceImpl implements IUserService {
 
     /**
@@ -35,18 +43,43 @@ public class UserServiceImpl implements IUserService {
     /**
      * {@inheritDoc}
      */
+    @Transactional
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUsername(username);
-        UserPrincipal userPrincipal = new UserPrincipal(user);
+    public User saveUser(UserRegistrationDto registrationDto, String newPassword) throws UsernameNotFoundException {
+        if (userExist(registrationDto.getUsername())) {
+            throw new UsernameNotFoundException(
+                    "This full name : " + registrationDto.getFullname()+ " is present in database");
+        } else {
 
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
+            User user = new User(registrationDto.getUsername(),
+                    registrationDto.getFullname(),
+                    newPassword,registrationDto.getRole());
+
+            return userRepository.save(user);
         }
-        logger.debug("getting userPrincipal");
-        return userPrincipal;
+    }
+
+    private boolean userExist(String username) {
+        return userRepository.existsByUsername(username);
 
     }
+
+
+//    /**
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//
+//        User user = userRepository.findUserByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("Invalid username and password.");
+//        }
+//        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
+//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+//                Collections.singletonList(authority));
+//
+//    }
 
     /**
      * {@inheritDoc}

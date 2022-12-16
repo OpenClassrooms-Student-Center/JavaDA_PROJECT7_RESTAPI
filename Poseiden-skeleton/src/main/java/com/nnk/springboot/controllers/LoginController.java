@@ -1,15 +1,26 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.IUserService;
+import com.nnk.springboot.web.dto.UserRegistrationDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 @Controller
-
 public class LoginController {
 
 
@@ -19,24 +30,32 @@ public class LoginController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping("/**")
-    @RolesAllowed("USER")
-    public String getUser() {
-        return "user/list";
-    }
+    private IUserService userService;
 
+    /**
+     * @passwordEncoder cryptage password
+     */
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
-    @RequestMapping("/admin")
-    @RolesAllowed("ADMIN")
-    public String getAdmin() {
-        return "Welcome, Admin";
-    }
-
-    @RequestMapping("/*")
-    public String getGithub()
-    {
-        return "Welcome Github user!";
-    }
+//    @RequestMapping("/**")
+//    @RolesAllowed("USER")
+//    public String getUser() {
+//        return "user/list";
+//    }
+//
+//
+//    @RequestMapping("/admin")
+//    @RolesAllowed("ADMIN")
+//    public String getAdmin() {
+//        return "Welcome, Admin";
+//    }
+//
+//    @RequestMapping("/*")
+//    public String getGithub()
+//    {
+//        return "Welcome Github user!";
+//    }
 
     @GetMapping("/login")
     public ModelAndView login() {
@@ -61,4 +80,36 @@ public class LoginController {
         mav.setViewName("403");
         return mav;
     }
+
+
+
+
+//    @ModelAttribute("user")
+//    public UserRegistrationDto userRegistrationDto(){
+//
+//        return new UserRegistrationDto();
+//    }
+//
+//    /**
+//     * endpoint to get show form registration
+//     * @return registration page
+//     */
+//    @GetMapping("/registration")
+//    public ModelAndView showRegistrationForm() {
+//       ModelAndView modelAndView =new ModelAndView("registration");
+//        return modelAndView;
+//    }
+//
+//    /**
+//     * @param registrationDto String userName, String fullname, String password
+//     * endpoint to post parameter new contact
+//     * @return registration?success page
+//     */
+//    @PostMapping("/registration")
+//    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+//        String cryptedPassword = passwordEncoder.encode(registrationDto.getPassword());
+//        userService.saveUser(registrationDto, cryptedPassword);
+//        return "redirect:/registration?success";
+//    }
+
 }
