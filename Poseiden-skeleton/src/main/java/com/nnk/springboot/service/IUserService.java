@@ -3,6 +3,7 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
@@ -27,6 +28,16 @@ public interface IUserService extends UserDetailsService {
      * @param user
      */
     void save(User user);
+
+
+    /**
+     * update given user
+     * @param user
+     */
+    public void update(User user) throws UsernameNotFoundException ;
+
+
+
 
 
 

@@ -2,7 +2,9 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
@@ -27,6 +29,12 @@ public interface IRuleNameService {
          */
         void save(RuleName ruleName);
 
+
+        /**
+         * update given ruleName
+         * @param ruleName
+         */
+        public void update(RuleName ruleName) throws UsernameNotFoundException;
 
 
         /**

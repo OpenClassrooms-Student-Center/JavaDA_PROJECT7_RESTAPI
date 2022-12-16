@@ -1,18 +1,42 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
+
 @Controller
-//@RequestMapping("app")
+
 public class LoginController {
 
-    @Autowired
+
     private UserRepository userRepository;
+
+    public LoginController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @RequestMapping("/**")
+    @RolesAllowed("USER")
+    public String getUser() {
+        return "user/list";
+    }
+
+
+    @RequestMapping("/admin")
+    @RolesAllowed("ADMIN")
+    public String getAdmin() {
+        return "Welcome, Admin";
+    }
+
+    @RequestMapping("/*")
+    public String getGithub()
+    {
+        return "Welcome Github user!";
+    }
 
     @GetMapping("/login")
     public ModelAndView login() {
@@ -21,7 +45,7 @@ public class LoginController {
         return mav;
     }
 
-    @GetMapping("secure/article-details")
+    @GetMapping("/secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
         mav.addObject("users", userRepository.findAll());
@@ -29,10 +53,10 @@ public class LoginController {
         return mav;
     }
 
-    @GetMapping("error")
+    @GetMapping("/error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();
-        String errorMessage= "You are not authorized for the requested data.";
+        String errorMessage = "You are not authorized for the requested data.";
         mav.addObject("errorMsg", errorMessage);
         mav.setViewName("403");
         return mav;

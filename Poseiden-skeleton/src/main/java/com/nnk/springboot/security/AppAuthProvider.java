@@ -15,6 +15,7 @@ public class AppAuthProvider extends DaoAuthenticationProvider {
     UserServiceImpl userService;
 
     PasswordEncoder encoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;

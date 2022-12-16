@@ -21,12 +21,16 @@ public interface IBidListService {
     BidList findById(Integer id) throws DataNotFoundException;
 
     /**
-     * save given BidList
+     * save given bidList
      * @param bidList
      */
     void save(BidList bidList);
 
-
+    /**
+     * update given bidList
+     * @param bidList
+     */
+    void update(BidList bidList) throws DataNotFoundException;
 
     /**
      * delete given bidList

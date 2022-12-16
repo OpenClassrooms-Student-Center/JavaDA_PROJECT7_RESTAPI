@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.exception.DataNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
@@ -27,7 +28,11 @@ public interface IRatingService {
      */
     void save(Rating rating);
 
-
+    /**
+     * update rating user
+     * @param rating
+     */
+    void update(Rating rating) throws UsernameNotFoundException;
 
     /**
      * delete given rating

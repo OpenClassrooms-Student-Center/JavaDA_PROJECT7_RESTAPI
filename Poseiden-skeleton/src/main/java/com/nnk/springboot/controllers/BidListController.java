@@ -52,4 +52,8 @@ public class BidListController {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
         return "redirect:/bidList/list";
     }
+
+
+
+    //nouvelle classe ou ici on fai les controllers pour postman => API
 }
