@@ -18,18 +18,35 @@ import java.security.Principal;
 import java.util.Optional;
 
 
+/**
+ * Bid List Controller
+ */
 @Controller
 public class BidListController {
 
+    /**
+     * SLF4J Logger instance.
+     */
     private static final Logger logger = LogManager.getLogger("BidListController");
 
 
+    /**
+     * IBidListService Logger instance.
+     */
     private IBidListService bidListService;
 
+    /**
+     * @param bidListService
+     */
     public BidListController(IBidListService bidListService) {
         this.bidListService = bidListService;
     }
 
+    /**
+     * @param model
+     * @param principal
+     * @return
+     */
     @RequestMapping("/bidList/list")
     public String home(Model model, Principal principal) {
         // TODO: call service find all bids to show to the view
@@ -38,12 +55,22 @@ public class BidListController {
         return "bidList/list";
     }
 
+    /**
+     * @param bid
+     * @return
+     */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
         logger.info("@GetMapping(\"/bidList/add\")");
         return "bidList/add";
     }
 
+    /**
+     * @param bid
+     * @param result
+     * @param model
+     * @return
+     */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         logger.info("@PostMapping(\"/bidList/validate\")");
@@ -57,6 +84,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     * @throws DataNotFoundException
+     */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/update/{id}\")");
@@ -69,6 +102,14 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /**
+     * @param id
+     * @param bidList
+     * @param result
+     * @param model
+     * @return
+     * @throws DataNotFoundException
+     */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, BidList bidList,
                             BindingResult result, Model model) throws DataNotFoundException {
@@ -83,6 +124,12 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     * @throws DataNotFoundException
+     */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/delete/{id}\"");
