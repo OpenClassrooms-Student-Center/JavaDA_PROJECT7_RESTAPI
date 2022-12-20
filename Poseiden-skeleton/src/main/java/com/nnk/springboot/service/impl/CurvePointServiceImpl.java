@@ -57,7 +57,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
      */
     @Override
     public void update(CurvePoint curvePoint) throws DataNotFoundException {
-        logger.debug("update curvePoint:{}", curvePoint.getId());
+        logger.debug("update curvePoint:{}", curvePoint.getCurveId());
         Optional<CurvePoint> isAlreadyRating = curvePointRepository.findById(curvePoint.getCurveId());
         if (isAlreadyRating.isPresent()) {
             curvePointRepository.save(curvePoint);

@@ -41,8 +41,8 @@ public class BidListServiceImpl implements IBidListService {
      * {@inheritDoc}
      */
     @Override
-    public BidList findById(Integer id) throws DataNotFoundException {
-        return bidListRepository.findById(id).orElseThrow(() -> new DataNotFoundException(" No User with id " + id + " found "));
+    public Optional<BidList> findById(Integer id) throws DataNotFoundException {
+        return bidListRepository.findById(id);
     }
 
     /**
@@ -58,14 +58,16 @@ public class BidListServiceImpl implements IBidListService {
      * {@inheritDoc}
      */
     @Override
-    public void update(BidList bidList) throws DataNotFoundException {
-        logger.debug("update bidList:{}", bidList.getBid());
-        Optional<BidList> isAlreadyBidList = bidListRepository.findById(bidList.getId().intValue());
-        if (isAlreadyBidList.isPresent()) {
-            bidListRepository.save(bidList);
-        } else {
-            throw new DataNotFoundException("No bidList " + bidList + " present in dataBase ");
-        }
+    public BidList update(BidList bid) {
+        logger.debug("update bidList:{}", bid.getBid());
+        return bidListRepository.save(bid);
+
+//        Optional<BidList> isAlreadyBidList = bidListRepository.findById(bidList.getBidListId());
+//        if (isAlreadyBidList.isPresent()) {
+//            bidListRepository.save(bidList);
+//        } else {
+//            throw new DataNotFoundException("No bidList " + bidList + " present in dataBase ");
+//        }
     }
 
     /**
@@ -75,11 +77,6 @@ public class BidListServiceImpl implements IBidListService {
     public void delete(BidList bidList) {
         bidListRepository.delete(bidList);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-
 
 
 }

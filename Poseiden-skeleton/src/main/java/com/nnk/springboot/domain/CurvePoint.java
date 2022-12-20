@@ -14,7 +14,11 @@ public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    Integer curveId;
+    Timestamp asOfDate;
+    Double term;
+    Double value;
+    Timestamp creationDate;
 
     public CurvePoint(int i, double v, double v1) {
 
@@ -24,20 +28,7 @@ public class CurvePoint {
 
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-// TODO: Map columns in data table CURVEPOINT with corresponding java fields
-
-    Integer curveId;
-    Timestamp asOfDate;
-    Double term;
-    Double value;
-    Timestamp creationDate;
 
     public Integer getCurveId() {
         return curveId;

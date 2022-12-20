@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 
 @Controller
@@ -33,7 +34,7 @@ public class BidListController {
     public String home(Model model, Principal principal) {
         // TODO: call service find all bids to show to the view
         logger.info("@RequestMapping(\"/bidList/list\")");
-        model.addAttribute("sortedlist", bidListService.findAll());
+        model.addAttribute("bidList", bidListService.findAll());
         return "bidList/list";
     }
 
@@ -57,23 +58,36 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/update/{id}\")");
+        Optional<BidList> bidList = bidListService.findById(id);
+       if(bidList.isPresent()){
+           model.addAttribute("Error", "This "+ bidList + " is present");
+       }
+
+        model.addAttribute("bidList", bidList.get());
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
-                            BindingResult result, Model model) {
+    public String updateBid(@PathVariable("id") Integer id, BidList bidList,
+                            BindingResult result, Model model) throws DataNotFoundException {
         logger.info("@PostMapping(\"/bidList/update/{id}\")");
+        if (result.hasErrors()) {
+            logger.error("result error :{}", result.getFieldError());
+            return "bidList/update";
+        }
+        bidList.setBidListId(id);
+        bidListService.save(bidList);
+        model.addAttribute("bidList", bidListService.findAll());
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/delete/{id}\"");
-        BidList bidList = bidListService.findById(id);
-        bidListService.delete(bidList);
+        Optional<BidList> bidList = bidListService.findById(id);
+        bidListService.delete(bidList.get());
         model.addAttribute("bids", bidListService.findAll());
         return "redirect:/bidList/list";
     }

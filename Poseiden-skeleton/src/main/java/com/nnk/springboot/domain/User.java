@@ -8,13 +8,12 @@ import javax.validation.constraints.Pattern;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
 
     @NotBlank(message = "Username is mandatory")
-
     @Pattern(regexp= "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
             message = "Invalid password ! Password must contain at least 8 character, one or more uppercase, number and special character." +
                     "example 1gimmY!sax")

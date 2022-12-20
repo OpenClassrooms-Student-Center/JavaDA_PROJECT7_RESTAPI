@@ -28,7 +28,7 @@ public class Rating {
     public void setId(Long id) {
         this.id = id;
     }
-// TODO: Map columns in data table RATING with corresponding java fields
+
 
     String moodysRating;
     String sandPRating;

@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.exception.DataNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IBidListService {
 
@@ -15,10 +16,11 @@ public interface IBidListService {
 
     /**
      * find BidList by id
+     *
      * @param id
      * @return
      */
-    BidList findById(Integer id) throws DataNotFoundException;
+    Optional<BidList> findById(Integer id) throws DataNotFoundException;
 
     /**
      * save given bidList
@@ -28,9 +30,11 @@ public interface IBidListService {
 
     /**
      * update given bidList
+     *
      * @param bidList
+     * @return
      */
-    void update(BidList bidList) throws DataNotFoundException;
+    BidList update(BidList bidList) ;
 
     /**
      * delete given bidList

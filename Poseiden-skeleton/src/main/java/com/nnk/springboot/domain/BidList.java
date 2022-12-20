@@ -1,26 +1,32 @@
 package com.nnk.springboot.domain;
 
-import org.springframework.beans.factory.annotation.Required;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "bidlist")
 public class BidList {
-    // TODO: Map columns in data table BID LIST with corresponding java fields
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer bidListId;
 
-    Integer BidListId;
-    String account;
-    String type;
+    @NotBlank
+    @NonNull
+    private String account;
+
+    @NotBlank
+    @NonNull
+   private String type;
+
+    @NotNull
+    @Digits(fraction = 0, integer = 22)
+    @NonNull
     Double bidQuantity;
     Double askQuantity;
     Double bid;
@@ -48,20 +54,12 @@ public class BidList {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Integer getBidListId() {
-        return BidListId;
+        return bidListId;
     }
 
     public void setBidListId(Integer bidListId) {
-        BidListId = bidListId;
+        this.bidListId = bidListId;
     }
 
     public String getAccount() {
