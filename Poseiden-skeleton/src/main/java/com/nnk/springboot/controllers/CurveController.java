@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.service.ICurvePointService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class CurveController {
@@ -27,39 +29,49 @@ public class CurveController {
 
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
-    {
-        // TODO: find all Curve Point, add to model
+    public String home(Model model, Principal principal) {
+        logger.info("@RequestMapping(\"/curvePointList\")");
+        model.addAttribute("sortedList", curvePointService.findAll());
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid) {
+        logger.info("@GetMapping(\"/curvePoint/add\")");
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
-        return "curvePoint/add";
+        logger.info("@PostMapping(\"/curvePoint/validate\")");
+        /**form data validation*/
+        if (result.hasErrors()) {
+            return "/curvePoint/add";
+        }
+        /**save in to dataBase:*/
+        curvePointService.save(curvePoint);
+        //redirection do not use the current Model
+        return "redirect:curvePoint/add";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+        logger.info("@GetMapping(\"/curvePoint/update/{id}\")");
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+                            BindingResult result, Model model) {
+        logger.info("@PostMapping(\"/curvePoint/update/{id}\")");
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
+    public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
+       CurvePoint curvePoint = curvePointService.findById(id);
+       curvePointService.delete(curvePoint);
+       model.addAttribute("curvePoints", curvePointService.findAll());
         return "redirect:/curvePoint/list";
     }
 }
