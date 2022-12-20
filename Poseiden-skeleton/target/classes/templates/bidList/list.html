@@ -16,9 +16,9 @@
             <a href="/trade/list">Trade</a>&nbsp;|&nbsp;
             <a href="/ruleName/list">Rule</a>
 
-            <form th:action="@{/logout}" method="post">
-                <input type="submit"> Logout </input>
-            </form>
+<!--            <form th:action="@{/logout}" method="post">-->
+<!--                <input type="submit"> Logout </input>-->
+<!--            </form>-->
         </div>
         <div class="col-6 text-right">
             Logged in user: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
