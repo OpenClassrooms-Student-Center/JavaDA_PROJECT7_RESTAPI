@@ -1,6 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.service.ICurvePointService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +16,15 @@ import javax.validation.Valid;
 
 @Controller
 public class CurveController {
-    // TODO: Inject Curve Point service
+
+    private static final Logger logger = LogManager.getLogger("BidListController");
+
+    private ICurvePointService curvePointService;
+
+    public CurveController(ICurvePointService curvePointService) {
+        this.curvePointService = curvePointService;
+    }
+
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model)

@@ -9,5 +9,9 @@
 <p>
     <a href="/login">Login</a> or create one <a href="/user/list">User management</a>
 </p>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit"> Logout </input>
+</form>
 </body>
 </html>

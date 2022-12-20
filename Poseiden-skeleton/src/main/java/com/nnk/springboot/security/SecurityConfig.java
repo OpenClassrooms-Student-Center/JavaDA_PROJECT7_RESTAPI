@@ -16,7 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private IUserDetailService userDetailService;
 
     public SecurityConfig(IUserDetailService userDetailService) {
@@ -47,7 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers(
                         "/registration/**",
-                        "/login/**",
                         "/js/**",
                         "/css/**",
                         "/img/**").permitAll()
@@ -63,18 +61,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/403");
 
 
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers("/css/**", "/static/**", "/img/**")
-                .antMatchers("/h2-console/**");
-
-    }
+//    @Override
+//    public void configure(WebSecurity web) {
+//        web.ignoring()
+//                .antMatchers("/css/**", "/static/**", "/img/**")
+//                .antMatchers("/h2-console/**");
+//
+//    }
 
 
 //    private UserPrincipal userPrincipal;

@@ -75,4 +75,11 @@ public class BidListServiceImpl implements IBidListService {
     public void delete(BidList bidList) {
         bidListRepository.delete(bidList);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+
+
+
 }

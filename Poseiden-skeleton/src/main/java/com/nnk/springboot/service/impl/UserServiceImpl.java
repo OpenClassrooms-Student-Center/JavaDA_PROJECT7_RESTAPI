@@ -45,7 +45,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Transactional
     @Override
-    public User saveUser(UserRegistrationDto registrationDto, String newPassword) throws UsernameNotFoundException {
+    public User saveUser(UserRegistrationDto registrationDto, String password) throws UsernameNotFoundException {
         if (userExist(registrationDto.getUsername())) {
             throw new UsernameNotFoundException(
                     "This full name : " + registrationDto.getFullname()+ " is present in database");
@@ -53,7 +53,11 @@ public class UserServiceImpl implements IUserService {
 
             User user = new User(registrationDto.getUsername(),
                     registrationDto.getFullname(),
-                    newPassword,registrationDto.getRole());
+                    password,registrationDto.getRole());
+
+//            User user = new User(registrationDto.getUsername(),
+//                    registrationDto.getFullname(),
+//                    password);
 
             return userRepository.save(user);
         }

@@ -1,10 +1,8 @@
 package com.nnk.springboot.domain;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-import org.springframework.context.annotation.Role;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -14,11 +12,13 @@ public class User {
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
+
     @NotBlank(message = "Username is mandatory")
-//    @Pattern(regexp= "^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[!@#&()-[{}]:;',?/*~$^+=<>_])(?=/S+$).{8,60}$",
-//            message = "Invalid password ! Password must contain at least 8 character, one or more uppercase, number and special character." +
-//                    "example 1gimmY!sax")
-    //org.passay
+
+    @Pattern(regexp= "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$",
+            message = "Invalid password ! Password must contain at least 8 character, one or more uppercase, number and special character." +
+                    "example 1gimmY!sax")
+//    org.passay
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
@@ -35,6 +35,13 @@ public class User {
     public User() {
 
     }
+
+    public User(String username, String fullname, String password) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+    }
+
 
 
     public Integer getId() {

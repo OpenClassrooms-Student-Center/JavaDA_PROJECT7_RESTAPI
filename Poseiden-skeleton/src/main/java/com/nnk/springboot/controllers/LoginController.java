@@ -32,11 +32,7 @@ public class LoginController {
 
     private IUserService userService;
 
-    /**
-     * @passwordEncoder cryptage password
-     */
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
 
 //    @RequestMapping("/**")
 //    @RolesAllowed("USER")
@@ -81,35 +77,5 @@ public class LoginController {
         return mav;
     }
 
-
-
-
-//    @ModelAttribute("user")
-//    public UserRegistrationDto userRegistrationDto(){
-//
-//        return new UserRegistrationDto();
-//    }
-//
-//    /**
-//     * endpoint to get show form registration
-//     * @return registration page
-//     */
-//    @GetMapping("/registration")
-//    public ModelAndView showRegistrationForm() {
-//       ModelAndView modelAndView =new ModelAndView("registration");
-//        return modelAndView;
-//    }
-//
-//    /**
-//     * @param registrationDto String userName, String fullname, String password
-//     * endpoint to post parameter new contact
-//     * @return registration?success page
-//     */
-//    @PostMapping("/registration")
-//    public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-//        String cryptedPassword = passwordEncoder.encode(registrationDto.getPassword());
-//        userService.saveUser(registrationDto, cryptedPassword);
-//        return "redirect:/registration?success";
-//    }
 
 }

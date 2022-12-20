@@ -38,4 +38,6 @@ public interface IBidListService {
      */
     void delete(BidList bidList);
 
+
+
 }
