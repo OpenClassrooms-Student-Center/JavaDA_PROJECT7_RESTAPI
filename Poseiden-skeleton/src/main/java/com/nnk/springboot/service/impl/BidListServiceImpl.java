@@ -62,12 +62,6 @@ public class BidListServiceImpl implements IBidListService {
         logger.debug("update bidList:{}", bid.getBid());
         return bidListRepository.save(bid);
 
-//        Optional<BidList> isAlreadyBidList = bidListRepository.findById(bidList.getBidListId());
-//        if (isAlreadyBidList.isPresent()) {
-//            bidListRepository.save(bidList);
-//        } else {
-//            throw new DataNotFoundException("No bidList " + bidList + " present in dataBase ");
-//        }
     }
 
     /**

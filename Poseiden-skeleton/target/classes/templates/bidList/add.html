@@ -21,17 +21,17 @@
 
 			<div class="form-group">
 				<label for = "account" class = "col-sm-2 col-form-label mr-0">Account</label>
-				<input th:field="*{account}" type = "text" class = "form-control" placeholder = "Account">
+				<input th:field="*{account}" id="account" type = "text" class = "form-control" placeholder = "Account">
 				<span class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></span>
 			</div>
 			<div class="form-group">
 				<label for = "type" class = "col-sm-2 col-form-label mr-0">Type</label>
-				<input th:field="*{type}" type = "text" class = "form-control" placeholder = "Type">
+				<input th:field="*{type}" id="type" type = "text" class = "form-control" placeholder = "Type">
 				<span class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
 			</div>
 			<div class="form-group">
 				<label for = "bidQuantity" class = "col-sm-2 col-form-label mr-0">Bid Quantity</label>
-				<input th:field="*{bidQuantity}" type = "text" class = "form-control" placeholder = "Bid Quantity">
+				<input th:field="*{bidQuantity}" id="bidQuantity" type = "text" class = "form-control" placeholder = "Bid Quantity">
 				<span class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></span>
 			</div>
 			<a href="/bidList/list" class = "btn btn-danger mt-2">Cancel</a>
@@ -39,7 +39,9 @@
 
 
 		</form>
+		</form>
 	</div>
+
 
 </div>
 </body>

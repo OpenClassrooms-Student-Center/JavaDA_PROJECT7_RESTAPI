@@ -46,7 +46,7 @@
                 <td th:text="${bid.bidListId}"></td>
                 <td th:text="${bid.account}"></td>
                 <td th:text="${bid.type}"></td>
-                <td th:text="${bid.bidQuantity}"></td>
+                <td style="width: 15%" class="text-center"th:text="${bid.bidQuantity}"></td>
                 <td style="width: 15%" class="text-center">
                     <a th:href="@{/bidList/update/{id}(id=${bid.bidListId})}" class = "btn btn-info">Edit</a></a>
                     <a th:href="@{/bidList/delete/{id}(id=${bid.bidListId})}" class = "btn btn-danger">Delete</a>
