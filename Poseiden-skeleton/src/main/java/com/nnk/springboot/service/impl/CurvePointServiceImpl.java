@@ -40,8 +40,13 @@ public class CurvePointServiceImpl implements ICurvePointService {
      * {@inheritDoc}
      */
     @Override
-    public CurvePoint findById(Integer id) throws DataNotFoundException {
-        return curvePointRepository.findById(id).orElseThrow(() -> new DataNotFoundException("No User with id " + id + " found "));
+    public Optional<CurvePoint> findById(Integer id) throws DataNotFoundException {
+        logger.debug("find bidById:{}", id);
+        return Optional.ofNullable(curvePointRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Invalid bid Id: {} ", id);
+            return new DataNotFoundException("No User with id " + id + " found ");
+        }));
     }
 
     /**
@@ -49,6 +54,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
      */
     @Override
     public void save(CurvePoint curvePoint) {
+        logger.debug("save curvePoint:{}", curvePoint.getCurveId());
         curvePointRepository.save(curvePoint);
     }
 
@@ -56,14 +62,10 @@ public class CurvePointServiceImpl implements ICurvePointService {
      * {@inheritDoc}
      */
     @Override
-    public void update(CurvePoint curvePoint) throws DataNotFoundException {
-        logger.debug("update curvePoint:{}", curvePoint.getCurveId());
-        Optional<CurvePoint> isAlreadyRating = curvePointRepository.findById(curvePoint.getCurveId());
-        if (isAlreadyRating.isPresent()) {
-            curvePointRepository.save(curvePoint);
-        } else {
-            throw new DataNotFoundException("No curvePoint " + curvePoint + " present in dataBase ");
-        }
+    public CurvePoint update(CurvePoint curvePoint) throws DataNotFoundException {
+        logger.debug("update curvePoint:{}", curvePoint.getId());
+        return curvePointRepository.save(curvePoint);
+
     }
 
     /**
@@ -71,6 +73,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
      */
     @Override
     public void delete(CurvePoint curvePoint) {
-    curvePointRepository.delete(curvePoint);
+        logger.debug("delete curvePoint:{}", curvePoint.getCurveId());
+        curvePointRepository.delete(curvePoint);
     }
 }

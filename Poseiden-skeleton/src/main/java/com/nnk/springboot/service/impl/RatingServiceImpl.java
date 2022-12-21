@@ -72,6 +72,7 @@ public class RatingServiceImpl implements IRatingService {
      */
     @Override
     public void delete(Rating rating) {
-    ratingRepository.delete(rating);
+        logger.debug("delete rating:{}", rating.getId());
+        ratingRepository.delete(rating);
     }
 }

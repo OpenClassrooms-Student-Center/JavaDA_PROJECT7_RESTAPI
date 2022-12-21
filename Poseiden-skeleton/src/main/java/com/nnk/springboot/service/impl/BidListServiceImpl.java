@@ -42,15 +42,21 @@ public class BidListServiceImpl implements IBidListService {
      */
     @Override
     public Optional<BidList> findById(Integer id) throws DataNotFoundException {
-        return bidListRepository.findById(id);
+        logger.debug("find bidById:{}", id);
+        return Optional.ofNullable(bidListRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Invalid bid Id: {} ", id);
+            return new DataNotFoundException("Invalid bid Id:" + id);
+        }));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void save(BidList bidList) {
-        bidListRepository.save(bidList);
+    public void save(BidList bid) {
+        logger.debug("save bidList:{}", bid.getBid());
+        bidListRepository.save(bid);
     }
 
 
@@ -59,7 +65,7 @@ public class BidListServiceImpl implements IBidListService {
      */
     @Override
     public BidList update(BidList bid) {
-        logger.debug("update bidList:{}", bid.getBid());
+        logger.debug("update bid:{}", bid.getBid());
         return bidListRepository.save(bid);
 
     }
@@ -68,8 +74,9 @@ public class BidListServiceImpl implements IBidListService {
      * {@inheritDoc}
      */
     @Override
-    public void delete(BidList bidList) {
-        bidListRepository.delete(bidList);
+    public void delete(BidList bid) {
+        logger.debug("delete bid:{}", bid.getBid());
+        bidListRepository.delete(bid);
     }
 
 

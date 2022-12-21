@@ -3,6 +3,9 @@ package com.nnk.springboot.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -14,21 +17,48 @@ public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    Integer curveId;
-    Timestamp asOfDate;
-    Double term;
-    Double value;
-    Timestamp creationDate;
+    private Integer id;
+    @NotNull
+    @Min(value = -128)
+    @Max(value = 127)
+    private Integer curveId;
+    private Timestamp asOfDate;
+    @Min(1)
+    @NotNull
+    private Double term;
+    @Min(1)
+    @NotNull
+    private Double value;
+    private Timestamp creationDate;
 
     public CurvePoint(int i, double v, double v1) {
 
+    }
+
+    public CurvePoint(Integer id, Integer curveId, Double term, Double value) {
+        this.id = id;
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
+
+    public CurvePoint(Integer curveId, Double term, Double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
     }
 
     public CurvePoint() {
 
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getCurveId() {
         return curveId;

@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.exception.DataNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ICurvePointService {
 
@@ -15,10 +16,11 @@ public interface ICurvePointService {
 
     /**
      * find CurvePoint by id
+     *
      * @param id
      * @return
      */
-    CurvePoint findById(Integer id) throws DataNotFoundException;
+    Optional<CurvePoint> findById(Integer id) throws DataNotFoundException;
 
     /**
      * save given rating
@@ -28,9 +30,11 @@ public interface ICurvePointService {
 
     /**
      * update given curvePoint
+     *
      * @param curvePoint
+     * @return
      */
-    void update(CurvePoint curvePoint) throws DataNotFoundException;
+    CurvePoint update(CurvePoint curvePoint) throws DataNotFoundException;
 
     /**
      * delete given curvePoint

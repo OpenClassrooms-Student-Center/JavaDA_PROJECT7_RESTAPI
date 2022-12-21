@@ -31,9 +31,10 @@ public class BidListController {
 
 
     /**
-     * IBidListService Logger instance.
+     * IBidListService instance.
      */
     private IBidListService bidListService;
+
 
     /**
      * @param bidListService
@@ -49,7 +50,6 @@ public class BidListController {
      */
     @RequestMapping("/bidList/list")
     public String home(Model model, Principal principal) {
-        // TODO: call service find all bids to show to the view
         logger.info("@RequestMapping(\"/bidList/list\")");
         model.addAttribute("bidList", bidListService.findAll());
         return "bidList/list";
@@ -87,16 +87,16 @@ public class BidListController {
     /**
      * @param id
      * @param model
-     * @return
+     * @return bidList update form
      * @throws DataNotFoundException
      */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/update/{id}\")");
         Optional<BidList> bidList = bidListService.findById(id);
-       if(bidList.isPresent()){
-           model.addAttribute("Error", "This "+ bidList + " is present");
-       }
+        if (bidList.isPresent()) {
+            model.addAttribute("Error", "This " + bidList + " is present");
+        }
 
         model.addAttribute("bidList", bidList.get());
         return "bidList/update";
