@@ -41,8 +41,11 @@ public class RatingServiceImpl implements IRatingService {
      * {@inheritDoc}
      */
     @Override
-    public Rating findById(Integer id) throws DataNotFoundException {
-        return ratingRepository.findById(id).orElseThrow(() -> new DataNotFoundException(" No User with id " + id + " found "));
+    public Optional<Rating> findById(Integer id) throws DataNotFoundException {
+        return Optional.ofNullable(ratingRepository.findById(id).orElseThrow(() -> {
+            logger.error("Invalid Rating Id: {} ", id);
+            return new DataNotFoundException(" No User with id " + id + " found ");
+        }));
     }
 
     /**
@@ -50,6 +53,7 @@ public class RatingServiceImpl implements IRatingService {
      */
     @Override
     public void save(Rating rating) {
+        logger.error("save rating: {} ", rating);
         ratingRepository.save(rating);
     }
 

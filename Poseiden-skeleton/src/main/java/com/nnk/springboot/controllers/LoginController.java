@@ -20,12 +20,21 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
+/**
+ * Login Controller
+ */
 @Controller
 public class LoginController {
 
 
+    /**
+     *
+     */
     private UserRepository userRepository;
 
+    /**
+     * @param userRepository
+     */
     public LoginController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -60,6 +69,14 @@ public class LoginController {
         return mav;
     }
 
+    @RequestMapping("/loginsuccess")
+    public ModelAndView getInfo() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/");
+        return mav;
+    }
+
+
     @GetMapping("/secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
@@ -68,7 +85,7 @@ public class LoginController {
         return mav;
     }
 
-    @GetMapping("/error")
+    @GetMapping("/403")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();
         String errorMessage = "You are not authorized for the requested data.";

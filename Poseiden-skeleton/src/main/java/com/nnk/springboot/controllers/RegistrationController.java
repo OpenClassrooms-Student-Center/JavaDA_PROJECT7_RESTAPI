@@ -11,13 +11,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * Registration Controller
+ */
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
 
 
+    /**
+     * IUserService instance
+     */
     private IUserService userService;
 
+    /**
+     * @param userService
+     */
     public RegistrationController(IUserService userService) {
         this.userService = userService;
     }

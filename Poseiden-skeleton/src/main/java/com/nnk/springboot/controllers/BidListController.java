@@ -8,10 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -133,12 +130,17 @@ public class BidListController {
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/delete/{id}\"");
-        Optional<BidList> bidList = bidListService.findById(id);
-        bidListService.delete(bidList.get());
+        Optional<BidList> bid = bidListService.findById(id);
+        bidListService.delete(bid.get());
         model.addAttribute("bids", bidListService.findAll());
         return "redirect:/bidList/list";
     }
 
 
+    @PostMapping("/bidList/addRest")
+    public String addRestBid(@RequestBody BidList bidList) {
+        bidListService.save(bidList);
+        return "success";
+    }
     //nouvelle classe ou ici on fai les controllers pour postman => API
 }

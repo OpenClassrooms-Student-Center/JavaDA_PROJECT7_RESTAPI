@@ -1,9 +1,8 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rating")
@@ -12,7 +11,16 @@ public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
+    @NotBlank(message = "Moody's Rating required")
+    private String moodysRating;
+    @NotBlank(message = "Sand Rating required")
+    private String sandRating;
+    @NotBlank(message = "fitch Rating required")
+    private String fitchRating;
+    @Min(1)
+    private Integer orderNumber;
+
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, int i) {
     }
@@ -21,19 +29,15 @@ public class Rating {
 
     }
 
-    public Long getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-
-    String moodysRating;
-    String sandPRating;
-    String fitchRating;
-    Integer orderNumber;
 
     public String getMoodysRating() {
         return moodysRating;
@@ -43,12 +47,12 @@ public class Rating {
         this.moodysRating = moodysRating;
     }
 
-    public String getSandPRating() {
-        return sandPRating;
+    public String getSandRating() {
+        return sandRating;
     }
 
-    public void setSandPRating(String sandPRating) {
-        this.sandPRating = sandPRating;
+    public void setSandRating(String sandRating) {
+        this.sandRating = sandRating;
     }
 
     public String getFitchRating() {

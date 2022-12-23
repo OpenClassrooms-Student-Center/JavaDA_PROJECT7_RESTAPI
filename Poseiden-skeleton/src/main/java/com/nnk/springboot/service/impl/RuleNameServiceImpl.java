@@ -1,7 +1,6 @@
 package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import com.nnk.springboot.service.IRuleNameService;
@@ -35,6 +34,7 @@ public class RuleNameServiceImpl implements IRuleNameService {
      */
     @Override
     public List<RuleName> findAll() {
+        logger.info("Find all RuleName ");
         return ruleNameRepository.findAll();
     }
 
@@ -42,8 +42,13 @@ public class RuleNameServiceImpl implements IRuleNameService {
      * {@inheritDoc}
      */
     @Override
-    public RuleName findById(Integer id) throws DataNotFoundException {
-        return ruleNameRepository.findById(id).orElseThrow(() -> new DataNotFoundException("No User with id " + id + " found "));
+    public Optional<RuleName> findById(Integer id) throws DataNotFoundException {
+        logger.info("Find all RuleName by id ", id);
+        return Optional.ofNullable(ruleNameRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Invalid Rating Id: {} ", id);
+            return new DataNotFoundException(" No User with id " + id + " found ");
+        }));
     }
 
     /**
@@ -51,6 +56,7 @@ public class RuleNameServiceImpl implements IRuleNameService {
      */
     @Override
     public void save(RuleName ruleName) {
+        logger.error("save rating: {} ", ruleName);
         ruleNameRepository.save(ruleName);
 
     }
@@ -74,6 +80,7 @@ public class RuleNameServiceImpl implements IRuleNameService {
      */
     @Override
     public void delete(RuleName ruleName) {
+        logger.debug("delete rating:{}", ruleName.getId());
         ruleNameRepository.delete(ruleName);
     }
 }

@@ -1,12 +1,11 @@
 package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IRuleNameService {
 
@@ -18,10 +17,11 @@ public interface IRuleNameService {
 
         /**
          * find user by id
+         *
          * @param id
          * @return
          */
-        RuleName findById(Integer id) throws DataNotFoundException;
+        Optional<RuleName> findById(Integer id) throws DataNotFoundException;
 
         /**
          * save given trade

@@ -5,6 +5,7 @@ import com.nnk.springboot.exception.DataNotFoundException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IRatingService {
 
@@ -17,10 +18,11 @@ public interface IRatingService {
 
     /**
      * find rating by id
+     *
      * @param id
      * @return
      */
-    Rating findById(Integer id) throws DataNotFoundException;
+    Optional<Rating> findById(Integer id) throws DataNotFoundException;
 
     /**
      * save given rating

@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 
@@ -10,49 +12,48 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
-
-    public Trade(String tradeAccount, String type) {
-    }
+    @Column(name = "trade_id")
+    private Integer tradeId;
+    @NotBlank(message = "name account")
+    private String account;
+    @NotBlank(message = "name type required")
+    private String type;
+    @Min(1)
+    private double buyQuantity;
 
     public Trade() {
 
     }
 
-    public Long getId() {
-        return id;
+    public Trade(String account, String type, double buyQuantity) {
+        this.account = account;
+        this.type = type;
+        this.buyQuantity = buyQuantity;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Trade(String tradeAccount, String type) {
+
     }
 
 
+    private Double sellQuantity;
+    private Double buyPrice;
+    private Double sellPrice;
+    private String benchmark;
+    private Timestamp tradeDate;
+    private String security;
+    private String status;
+    private String trader;
+    private String book;
+    private String creationName;
+    private Timestamp creationDate;
+    private String revisionName;
+    private Timestamp revisionDate;
+    private String dealName;
+    private String dealType;
+    private String sourceListId;
+    private String side;
 
-// TODO: Map columns in data table TRADE with corresponding java fields
-
-    Integer tradeId;
-    String account;
-    String type;
-    Double buyQuantity;
-    Double sellQuantity;
-    Double buyPrice;
-    Double sellPrice;
-    String benchmark;
-    Timestamp tradeDate;
-    String security;
-    String status;
-    String trader;
-    String book;
-    String creationName;
-    Timestamp creationDate;
-    String revisionName;
-    Timestamp revisionDate;
-    String dealName;
-    String dealType;
-    String sourceListId;
-    String side;
 
     public Integer getTradeId() {
         return tradeId;
@@ -78,11 +79,11 @@ public class Trade {
         this.type = type;
     }
 
-    public Double getBuyQuantity() {
+    public double getBuyQuantity() {
         return buyQuantity;
     }
 
-    public void setBuyQuantity(Double buyQuantity) {
+    public void setBuyQuantity(double buyQuantity) {
         this.buyQuantity = buyQuantity;
     }
 

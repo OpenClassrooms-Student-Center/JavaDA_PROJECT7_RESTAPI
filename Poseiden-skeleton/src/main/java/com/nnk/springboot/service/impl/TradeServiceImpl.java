@@ -42,8 +42,13 @@ public class TradeServiceImpl implements ITradeService {
      * {@inheritDoc}
      */
     @Override
-    public Trade findById(Integer id) throws DataNotFoundException {
-        return tradeRepository.findById(id).orElseThrow(() -> new DataNotFoundException("No User with id " + id + " found "));
+    public Optional<Trade> findById(Integer id) throws DataNotFoundException {
+        logger.debug("find bidById:{}", id);
+        return Optional.ofNullable(tradeRepository.findById(id).orElseThrow(()
+                -> {
+            logger.error("Invalid bid Id: {} ", id);
+            return new DataNotFoundException("No User with id " + id + " found ");
+        }));
     }
 
     /**
@@ -51,6 +56,7 @@ public class TradeServiceImpl implements ITradeService {
      */
     @Override
     public void save(Trade trade) {
+        logger.debug("save trade:{}", trade.getTradeId());
         tradeRepository.save(trade);
     }
 
@@ -74,7 +80,7 @@ public class TradeServiceImpl implements ITradeService {
      */
     @Override
     public void delete(Trade trade) {
+        logger.debug("delete trade:{}", trade.getTradeId());
         tradeRepository.delete(trade);
-
     }
 }

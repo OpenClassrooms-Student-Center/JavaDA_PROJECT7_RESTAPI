@@ -69,22 +69,6 @@ public class UserServiceImpl implements IUserService {
     }
 
 
-//    /**
-//     * {@inheritDoc}
-//     */
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//
-//        User user = userRepository.findUserByUsername(username);
-//        if (user == null) {
-//            throw new UsernameNotFoundException("Invalid username and password.");
-//        }
-//        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-//                Collections.singletonList(authority));
-//
-//    }
-
     /**
      * {@inheritDoc}
      */

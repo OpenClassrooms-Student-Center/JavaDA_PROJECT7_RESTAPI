@@ -24,6 +24,9 @@ public class BidListServiceImpl implements IBidListService {
 
     private final BidListRepository bidListRepository;
 
+    /**
+     * @param bidListRepository
+     */
     public BidListServiceImpl(BidListRepository bidListRepository) {
         this.bidListRepository = bidListRepository;
     }
