@@ -137,10 +137,6 @@ public class BidListController {
     }
 
 
-    @PostMapping("/bidList/addRest")
-    public String addRestBid(@RequestBody BidList bidList) {
-        bidListService.save(bidList);
-        return "success";
-    }
+
     //nouvelle classe ou ici on fai les controllers pour postman => API
 }
