@@ -72,8 +72,13 @@ public class CurvePointServiceImpl implements ICurvePointService {
      * {@inheritDoc}
      */
     @Override
-    public void delete(CurvePoint curvePoint) {
-        logger.debug("delete curvePoint:{}", curvePoint.getCurveId());
-        curvePointRepository.delete(curvePoint);
+    public void delete(Integer curvePoint) {
+        logger.debug("delete curvePoint:{}", curvePoint);
+        CurvePoint deletecurvePoint = curvePointRepository.findById(curvePoint).orElseThrow(() -> {
+            throw new DataNotFoundException("Id " + curvePoint + " Not Present in Data Base");
+        });
+//        Optional<BidList> deleteBid = bidListRepository.findById(bid);
+//        bidListRepository.deleteById(deleteBid.get().getBidListId());
+        curvePointRepository.deleteById(deletecurvePoint.getCurveId());
     }
 }

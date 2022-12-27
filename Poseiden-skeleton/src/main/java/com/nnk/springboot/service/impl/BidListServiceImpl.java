@@ -59,7 +59,9 @@ public class BidListServiceImpl implements IBidListService {
     @Override
     public void save(BidList bid) {
         logger.debug("save bidList:{}", bid.getBid());
+
         bidListRepository.save(bid);
+
     }
 
 

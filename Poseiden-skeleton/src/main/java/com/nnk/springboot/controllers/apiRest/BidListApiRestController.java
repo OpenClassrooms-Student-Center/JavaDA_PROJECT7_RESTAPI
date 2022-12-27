@@ -18,7 +18,7 @@ public class BidListApiRestController {
     /**
      * SLF4J Logger instance.
      */
-    private static final Logger logger = LogManager.getLogger("BidListApiRest");
+    private static final Logger logger = LogManager.getLogger("BidListApiRestController");
 
 
     private IBidListService bidListService;
@@ -45,11 +45,11 @@ public class BidListApiRestController {
     }
 
     @PostMapping("/bidList/api")
-    public String addRestBid(@RequestBody BidList bidList) {
+    public BidList addRestBid(@RequestBody BidList bidList) {
         logger.info("@PostMapping(\"/bidList/api\")");
         bidListService.save(bidList);
         //TODO: cette metode return BidLIst Object
-        return "add " + bidList.getBidListId() + " success";
+        return bidList;
     }
 
     @PutMapping("/bidList/api/{bidListId}")

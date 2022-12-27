@@ -36,12 +36,12 @@ public interface ICurvePointService {
      */
     CurvePoint update(CurvePoint curvePoint) throws DataNotFoundException;
 
+
+
+
     /**
      * delete given curvePoint
      * @param curvePoint
      */
-    void delete(CurvePoint curvePoint);
-
-
-
+    void delete(Integer curvePoint);
 }
