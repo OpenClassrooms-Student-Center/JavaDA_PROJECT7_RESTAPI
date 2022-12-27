@@ -69,7 +69,17 @@ public class BidListServiceImpl implements IBidListService {
     @Override
     public BidList update(BidList bid) {
         logger.debug("update bid:{}", bid.getBid());
-        return bidListRepository.save(bid);
+        BidList uploadBid = bidListRepository.findById(bid.getBidListId()).orElseThrow(() -> {
+            logger.error("This bidId:{} not found!", bid.getBidListId());
+            throw new DataNotFoundException("This bid doesn't exit with this id : " + bid.getBidListId() + " , from getBidById, BidListService.");
+        });
+        logger.info("Bid successfully found by its id(from getBidById,BidListService).");
+
+        uploadBid.setAccount(bid.getAccount());
+        uploadBid.setType(bid.getType());
+        uploadBid.setBidQuantity(bid.getBidQuantity());
+
+        return bidListRepository.save(uploadBid);
 
     }
 
@@ -77,9 +87,14 @@ public class BidListServiceImpl implements IBidListService {
      * {@inheritDoc}
      */
     @Override
-    public void delete(BidList bid) {
-        logger.debug("delete bid:{}", bid.getBid());
-        bidListRepository.delete(bid);
+    public void delete(Integer bid) {
+        logger.debug("delete bid:{}", bid);
+        BidList deleteBid = bidListRepository.findById(bid).orElseThrow(() -> {
+            throw new DataNotFoundException("Id " + bid + " Not Present in Data Base");
+        });
+//        Optional<BidList> deleteBid = bidListRepository.findById(bid);
+//        bidListRepository.deleteById(deleteBid.get().getBidListId());
+        bidListRepository.deleteById(deleteBid.getBidListId());
     }
 
 

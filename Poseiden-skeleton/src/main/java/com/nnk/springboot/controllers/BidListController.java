@@ -131,7 +131,7 @@ public class BidListController {
     public String deleteBid(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/bidList/delete/{id}\"");
         Optional<BidList> bid = bidListService.findById(id);
-        bidListService.delete(bid.get());
+        bidListService.delete(id);
         model.addAttribute("bids", bidListService.findAll());
         return "redirect:/bidList/list";
     }

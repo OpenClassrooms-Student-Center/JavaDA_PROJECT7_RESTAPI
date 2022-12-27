@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class BidListApiRest {
+public class BidListApiRestController {
 
     /**
      * SLF4J Logger instance.
@@ -23,7 +23,7 @@ public class BidListApiRest {
 
     private IBidListService bidListService;
 
-    public BidListApiRest(IBidListService bidListService) {
+    public BidListApiRestController(IBidListService bidListService) {
         this.bidListService = bidListService;
     }
 
@@ -36,6 +36,11 @@ public class BidListApiRest {
     @GetMapping("/bidList/api/{id}")
     public ResponseEntity<Optional<BidList>> showRestBidById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/bidList/api/{id}\")");
+        Optional<BidList> bid = bidListService.findById(id);
+        if (bid.isEmpty()) {
+            throw new DataNotFoundException("Id not present");
+
+        }
         return new ResponseEntity<>(bidListService.findById(id), HttpStatus.OK);
     }
 
@@ -43,23 +48,23 @@ public class BidListApiRest {
     public String addRestBid(@RequestBody BidList bidList) {
         logger.info("@PostMapping(\"/bidList/api\")");
         bidListService.save(bidList);
+        //TODO: cette metode return BidLIst Object
         return "add " + bidList.getBidListId() + " success";
     }
 
-    @PutMapping("/bidList/api/{id}")
-    public String uploadRestBid(@RequestBody BidList bidList, @PathVariable int id) throws DataNotFoundException {
-        logger.info("@PutMapping(\"/bidList/api/{id}\")");
-        Optional<BidList> uploadBid = bidListService.findById(id);
-        bidListService.update(uploadBid.get());
-        return "Id " + id + " as modified";
+    @PutMapping("/bidList/api/{bidListId}")
+    public BidList uploadRestBid(@RequestBody BidList bidList, @PathVariable int bidListId) {
+        logger.info("@PutMapping(\"/bidList/api/{}\")  Id " + bidListId + " as modified", bidListId);
+
+        return bidListService.update(bidList);
     }
 
-    @DeleteMapping("/bidList/api/{id}")
-    public String deleteRestBid(@RequestBody BidList bidList, @PathVariable int id) throws DataNotFoundException {
-        logger.info("@DeleteMapping(\"/bidList/api/{id}\")");
-        Optional<BidList> deleteBid = bidListService.findById(id);
-        bidListService.delete(deleteBid.get());
-        return "delete bid id: " + id + " success";
+    @DeleteMapping("/bidList/api/{bidListId}")
+    public String deleteRestBid(@PathVariable int bidListId) throws DataNotFoundException {
+        logger.info("@DeleteMapping(\"/bidList/api/{bidListId}\")");
+
+        bidListService.delete(bidListId);
+        return "delete bid id: " + bidListId + " success";
     }
 
 }

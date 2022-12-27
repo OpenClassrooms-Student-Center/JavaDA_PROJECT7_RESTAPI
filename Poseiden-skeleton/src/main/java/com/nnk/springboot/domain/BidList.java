@@ -16,18 +16,15 @@ public class BidList {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bidListId;
 
-    @NotBlank
-    @NonNull
+    @NotBlank(message = "Account is mandatory")
     private String account;
 
-    @NotBlank
-    @NonNull
-   private String type;
+    @NotBlank(message = "Type is mandatory")
+    private String type;
 
-    @NotNull
+//    @NotBlank(message = "BidQuantity is mandatory")
     @Digits(fraction = 0, integer = 22)
-    @NonNull
-    Double bidQuantity;
+    private Double bidQuantity;
     Double askQuantity;
     Double bid;
     Double ask;
