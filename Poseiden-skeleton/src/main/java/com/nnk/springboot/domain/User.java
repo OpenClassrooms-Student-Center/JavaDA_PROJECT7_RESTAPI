@@ -1,5 +1,7 @@
 package com.nnk.springboot.domain;
 
+import util.Password;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -14,9 +16,8 @@ public class User {
     @NotBlank(message = "Username is mandatory")
     private String username;
 
-    @NotEmpty(message = "{validation.password.NotEmpty}")
-//    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$", message = "{validation.password.Pattern}")
-//    org.passay
+    @Password
+    @NotEmpty(message = "the password should contain at least 8 characters, 1 uppercase, 1 number and 1 special character")
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
