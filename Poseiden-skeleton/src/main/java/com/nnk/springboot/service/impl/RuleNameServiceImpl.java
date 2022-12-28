@@ -1,5 +1,6 @@
 package com.nnk.springboot.service.impl;
 
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
@@ -63,9 +64,11 @@ public class RuleNameServiceImpl implements IRuleNameService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void update(RuleName ruleName) throws UsernameNotFoundException {
+    public RuleName update(RuleName ruleName) throws UsernameNotFoundException {
         logger.debug("update ruleName:{}", ruleName.getName());
         Optional<RuleName> isAlreadyUser = ruleNameRepository.findById(ruleName.getId().intValue());
         if (isAlreadyUser.isPresent()) {
@@ -73,14 +76,18 @@ public class RuleNameServiceImpl implements IRuleNameService {
         } else {
             throw new UsernameNotFoundException("No ruleName " + ruleName + " present in dataBase ");
         }
+        return ruleName;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(RuleName ruleName) {
-        logger.debug("delete rating:{}", ruleName.getId());
-        ruleNameRepository.delete(ruleName);
+    public void delete(Integer ruleNameId) {
+        logger.debug("delete rating:{}", ruleNameId);
+        RuleName deleteRuleName = ruleNameRepository.findById(ruleNameId).orElseThrow(() -> {
+            throw new DataNotFoundException("Id ruleName: " + ruleNameId + " Not Present in Data Base");
+        });
+        ruleNameRepository.deleteById(ruleNameId);
     }
 }

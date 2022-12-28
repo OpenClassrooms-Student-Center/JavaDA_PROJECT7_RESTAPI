@@ -33,8 +33,8 @@ public class RuleNameController {
     /**
      * @param ruleNameService
      */
-    public RuleNameController(IRuleNameService ruleNameService){
-        this.ruleNameService= ruleNameService;
+    public RuleNameController(IRuleNameService ruleNameService) {
+        this.ruleNameService = ruleNameService;
     }
 
 
@@ -45,7 +45,7 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model) {
         logger.info("@RequestMapping(\"/ruleName/list\")");
-        model.addAttribute("ruleNames",ruleNameService.findAll());
+        model.addAttribute("ruleNames", ruleNameService.findAll());
         return "ruleName/list";
     }
 
@@ -80,7 +80,7 @@ public class RuleNameController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/ruleName/update/{id}\")");
         Optional<RuleName> ruleNames = ruleNameService.findById(id);
-        if(ruleNames.isPresent()){
+        if (ruleNames.isPresent()) {
             model.addAttribute("error", "This " + ruleNames.get() + "is present");
         }
         model.addAttribute("ruleName", ruleNames.get());
@@ -104,8 +104,7 @@ public class RuleNameController {
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/ruleName/delete/{id}\"");
-        Optional<RuleName> ruleName = ruleNameService.findById(id);
-        ruleNameService.delete(ruleName.get());
+        ruleNameService.delete(id);
         model.addAttribute("ruleNames", ruleNameService.findAll());
         return "redirect:/ruleName/list";
     }

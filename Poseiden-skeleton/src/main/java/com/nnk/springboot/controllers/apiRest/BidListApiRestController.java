@@ -60,7 +60,6 @@ public class BidListApiRestController {
     public BidList addRestBid(@RequestBody BidList bidList) {
         logger.info("@PostMapping(\"/bidList/api\")");
         bidListService.save(bidList);
-        //TODO: cette metode return BidLIst Object
         return bidList;
     }
 

@@ -32,14 +32,16 @@ public interface IRuleNameService {
 
         /**
          * update given ruleName
+         *
          * @param ruleName
+         * @return
          */
-        public void update(RuleName ruleName) throws UsernameNotFoundException;
+        public RuleName update(RuleName ruleName) throws UsernameNotFoundException;
 
 
         /**
          * delete given trade
          * @param ruleName
          */
-        void delete(RuleName ruleName);
+        void delete(Integer ruleName);
 }
