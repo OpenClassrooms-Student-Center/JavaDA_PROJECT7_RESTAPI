@@ -82,7 +82,7 @@ public class BidListApiRestController {
         logger.info("@DeleteMapping(\"/bidList/api/{bidListId}\")");
 
         bidListService.delete(bidListId);
-        return "delete bid id: " + bidListId + " success";
+        return "delete bid by id: " + bidListId + " success";
     }
 
 }

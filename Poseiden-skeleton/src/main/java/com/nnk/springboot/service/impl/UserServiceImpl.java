@@ -1,24 +1,17 @@
 package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.IUserService;
 import com.nnk.springboot.web.dto.UserRegistrationDto;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,12 +75,12 @@ public class UserServiceImpl implements IUserService {
      * {@inheritDoc}
      */
     @Override
-    public User findById(Integer id) throws DataNotFoundException {
+    public Optional<User> findById(Integer id) throws DataNotFoundException {
         logger.debug("fetching user by id:{}", id);
-        return userRepository.findById(id).orElseThrow(() -> {
+        return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -> {
             logger.debug("Invalid user Id: {} ", id);
             return new DataNotFoundException("No User with id " + id + "  found ");
-        });
+        }));
     }
 
     /**
@@ -102,9 +95,11 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void update(User user) throws UsernameNotFoundException {
+    public User update(User user) throws UsernameNotFoundException {
         logger.debug("update user:{}", user.getFullname());
         Optional<User> isAlreadyUser = userRepository.findById(user.getId());
         if (isAlreadyUser.isPresent()) {
@@ -112,15 +107,20 @@ public class UserServiceImpl implements IUserService {
         } else {
             throw new UsernameNotFoundException("No User " + user + " present in dataBase ");
         }
+        return user;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(User user) {
-        logger.debug("deleting user:{}", user.getFullname());
-        userRepository.delete(user);
+    public void delete(int userId) {
+        logger.debug("deleting user:{}", userId);
+        User deleteUser = userRepository.findById(userId).orElseThrow(() -> {
+            throw new DataNotFoundException("Id " + userId + " Not Present in Data Base");
+        });
+
+        userRepository.deleteById(deleteUser.getId());
     }
 
 

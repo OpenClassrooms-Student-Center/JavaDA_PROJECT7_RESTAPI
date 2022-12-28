@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Trade Rest Controller
+ */
 @RestController
 public class TradeApiRestController {
 
@@ -65,6 +68,10 @@ public class TradeApiRestController {
     }
 
 
+    /**
+     * @param trade
+     * @return update trade
+     */
     @PutMapping("/trade/api")
     public Trade uploadRestTrade(@RequestBody Trade trade) {
         logger.info("@PutMapping(\"/trade/api/{}\")  Id " + trade + " as modified", trade.getTradeId());
@@ -82,7 +89,7 @@ public class TradeApiRestController {
         logger.info("@DeleteMapping(\"/trade/api/{tradeId}\")");
 
         tradeService.delete(tradeId);
-        return "delete bid id: " + tradeId + " success";
+        return "delete bid by id: " + tradeId + " success";
     }
 
 
