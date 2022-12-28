@@ -1,5 +1,6 @@
 package com.nnk.springboot.service.impl;
 
+import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RatingRepository;
@@ -59,24 +60,25 @@ public class RatingServiceImpl implements IRatingService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void update(Rating rating) throws UsernameNotFoundException {
+    public Rating update(Rating rating) throws DataNotFoundException {
         logger.debug("update rating:{}", rating.getId());
-        Optional<Rating> isAlreadyRating = ratingRepository.findById(rating.getId().intValue());
-        if (isAlreadyRating.isPresent()) {
-            ratingRepository.save(rating);
-        } else {
-            throw new UsernameNotFoundException("No rating " + rating + " present in dataBase ");
-        }
+        return ratingRepository.save(rating);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(Rating rating) {
-        logger.debug("delete rating:{}", rating.getId());
-        ratingRepository.delete(rating);
+    public void delete(Integer rating) {
+        logger.debug("delete rating:{}", rating);
+        Rating deleteRating = ratingRepository.findById(rating).orElseThrow(() -> {
+            throw new DataNotFoundException("Id " + rating + " Not Present in Data Base");
+        });
+
+        ratingRepository.deleteById(deleteRating.getId());
     }
 }

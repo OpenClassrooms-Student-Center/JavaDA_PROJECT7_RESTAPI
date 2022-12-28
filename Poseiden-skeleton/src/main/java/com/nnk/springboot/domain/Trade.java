@@ -25,6 +25,9 @@ public class Trade {
 
     }
 
+
+
+
     public Trade(String account, String type, double buyQuantity) {
         this.account = account;
         this.type = type;

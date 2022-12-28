@@ -32,14 +32,16 @@ public interface IRatingService {
 
     /**
      * update rating user
+     *
      * @param rating
+     * @return
      */
-    void update(Rating rating) throws UsernameNotFoundException;
+    Rating update(Rating rating) throws DataNotFoundException;
 
     /**
-     * delete given rating
+     * delete given rating by rating id
      * @param rating
      */
-    void delete(Rating rating);
+    void delete(Integer rating);
 
 }

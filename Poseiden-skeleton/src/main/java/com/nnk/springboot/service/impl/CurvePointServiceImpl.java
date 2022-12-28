@@ -79,6 +79,6 @@ public class CurvePointServiceImpl implements ICurvePointService {
         });
 //        Optional<BidList> deleteBid = bidListRepository.findById(bid);
 //        bidListRepository.deleteById(deleteBid.get().getBidListId());
-        curvePointRepository.deleteById(deletecurvePoint.getCurveId());
+        curvePointRepository.deleteById(deletecurvePoint.getId());
     }
 }

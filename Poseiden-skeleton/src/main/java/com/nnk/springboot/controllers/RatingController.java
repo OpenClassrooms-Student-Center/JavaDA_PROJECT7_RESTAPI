@@ -118,8 +118,8 @@ public class RatingController {
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/rating/delete/{id}\"");
-        Optional<Rating> rating = ratingService.findById(id);
-        ratingService.delete(rating.get());
+
+        ratingService.delete(id);
         model.addAttribute("ratings", ratingService.findAll());
         return "redirect:/rating/list";
     }

@@ -27,12 +27,20 @@ public class BidListApiRestController {
         this.bidListService = bidListService;
     }
 
+    /**
+     * @return
+     */
     @GetMapping("/bidList/api")
     public ResponseEntity<List<BidList>> showRestBid() {
         logger.info("@RequestMapping(\"/bidList/api\")");
         return new ResponseEntity<>(bidListService.findAll(), HttpStatus.OK);
     }
 
+    /**
+     * @param id
+     * @return bid httpStatus.Ok
+     * @throws DataNotFoundException
+     */
     @GetMapping("/bidList/api/{id}")
     public ResponseEntity<Optional<BidList>> showRestBidById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/bidList/api/{id}\")");
@@ -44,6 +52,10 @@ public class BidListApiRestController {
         return new ResponseEntity<>(bidListService.findById(id), HttpStatus.OK);
     }
 
+    /**
+     * @param bidList
+     * @return add bidList
+     */
     @PostMapping("/bidList/api")
     public BidList addRestBid(@RequestBody BidList bidList) {
         logger.info("@PostMapping(\"/bidList/api\")");
@@ -52,13 +64,19 @@ public class BidListApiRestController {
         return bidList;
     }
 
-    @PutMapping("/bidList/api/{bidListId}")
-    public BidList uploadRestBid(@RequestBody BidList bidList, @PathVariable int bidListId) {
-        logger.info("@PutMapping(\"/bidList/api/{}\")  Id " + bidListId + " as modified", bidListId);
+
+    @PutMapping("/bidList/api")
+    public BidList uploadRestBid(@RequestBody BidList bidList) {
+        logger.info("@PutMapping(\"/bidList/api/{}\")  Id " + bidList + " as modified", bidList.getBidListId());
 
         return bidListService.update(bidList);
     }
 
+    /**
+     * @param bidListId
+     * @return
+     * @throws DataNotFoundException
+     */
     @DeleteMapping("/bidList/api/{bidListId}")
     public String deleteRestBid(@PathVariable int bidListId) throws DataNotFoundException {
         logger.info("@DeleteMapping(\"/bidList/api/{bidListId}\")");

@@ -10,7 +10,6 @@ public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private Integer id;
     @NotBlank(message = "Moody's Rating required")
     private String moodysRating;
@@ -21,6 +20,12 @@ public class Rating {
     @Min(1)
     private Integer orderNumber;
 
+    public Rating(String moodysRating, String sandRating, String fitchRating, Integer orderNumber) {
+        this.moodysRating = moodysRating;
+        this.sandRating = sandRating;
+        this.fitchRating = fitchRating;
+        this.orderNumber = orderNumber;
+    }
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, int i) {
     }

@@ -127,8 +127,8 @@ public class TradeController {
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/trade/delete/{id}\"");
-        Optional<Trade> trade = tradeService.findById(id);
-        tradeService.delete(trade.get());
+
+        tradeService.delete(id);
         model.addAttribute("trades", tradeService.findAll());
         return "redirect:/trade/list";
     }

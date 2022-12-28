@@ -1,5 +1,6 @@
 package com.nnk.springboot.service.impl;
 
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.TradeRepository;
@@ -63,9 +64,11 @@ public class TradeServiceImpl implements ITradeService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void update(Trade trade) throws UsernameNotFoundException {
+    public Trade update(Trade trade) throws UsernameNotFoundException {
         logger.debug("update trade:{}", trade.getBook());
         Optional<Trade> isAlreadyUser = tradeRepository.findById(trade.getTradeId());
         if (isAlreadyUser.isPresent()) {
@@ -73,14 +76,19 @@ public class TradeServiceImpl implements ITradeService {
         } else {
             throw new UsernameNotFoundException("No trade " + trade + " present in dataBase ");
         }
+        return trade;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(Trade trade) {
-        logger.debug("delete trade:{}", trade.getTradeId());
-        tradeRepository.delete(trade);
+    public void delete(Integer trade) {
+        logger.debug("delete trade:{}", trade);
+        Trade deleteTrade = tradeRepository.findById(trade).orElseThrow(() -> {
+            throw new DataNotFoundException("Id " + trade + " Not Present in Data Base");
+        });
+
+        tradeRepository.deleteById(deleteTrade.getTradeId());
     }
 }

@@ -94,8 +94,7 @@ public class BidListServiceImpl implements IBidListService {
         BidList deleteBid = bidListRepository.findById(bid).orElseThrow(() -> {
             throw new DataNotFoundException("Id " + bid + " Not Present in Data Base");
         });
-//        Optional<BidList> deleteBid = bidListRepository.findById(bid);
-//        bidListRepository.deleteById(deleteBid.get().getBidListId());
+
         bidListRepository.deleteById(deleteBid.getBidListId());
     }
 

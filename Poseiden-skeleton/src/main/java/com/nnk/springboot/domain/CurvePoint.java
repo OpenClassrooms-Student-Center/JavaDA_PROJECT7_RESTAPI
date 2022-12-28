@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 
 
 @Entity
-@Data
 @Table(name = "curvepoint")
 public class CurvePoint {
 

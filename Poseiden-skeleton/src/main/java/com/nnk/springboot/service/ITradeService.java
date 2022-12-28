@@ -35,14 +35,15 @@ public interface ITradeService {
      * update given trade
      *
      * @param trade
+     * @return
      */
-    void update(Trade trade) throws UsernameNotFoundException;
+    Trade update(Trade trade) throws UsernameNotFoundException;
 
     /**
      * delete given trade
      *
      * @param trade
      */
-    void delete(Trade trade);
+    void delete(Integer trade);
 
 }

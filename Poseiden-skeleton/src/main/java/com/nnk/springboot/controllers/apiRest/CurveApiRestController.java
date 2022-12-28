@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *  RestController Curve
+ */
 @RestController
 public class CurveApiRestController {
 
@@ -23,8 +26,14 @@ public class CurveApiRestController {
     private static final Logger logger = LogManager.getLogger("CurveApiRestController");
 
 
+    /**
+     * Instance of ICurvePointService
+     */
     private ICurvePointService curvePointService;
 
+    /**
+     * @param curvePointService
+     */
     public CurveApiRestController(ICurvePointService curvePointService) {
         this.curvePointService = curvePointService;
     }
@@ -55,9 +64,9 @@ public class CurveApiRestController {
         return  curvePoint ;
     }
 
-    @PutMapping("/curvePoint/api/{curvePointId}")
-    public CurvePoint uploadRestCurvePoint(@RequestBody CurvePoint curvePoint, @PathVariable int curvePointId) {
-        logger.info("@PutMapping(\"/curvePoint/api/{}\")  Id " + curvePointId + " as modified", curvePointId);
+    @PutMapping("/curvePoint/api")
+    public CurvePoint uploadRestCurvePoint(@RequestBody CurvePoint curvePoint) {
+        logger.info("@PutMapping(\"/curvePoint/api/{}\")  Id " + curvePoint.getId()+ " as modified", curvePoint.getId());
         curvePointService.update(curvePoint);
         return curvePoint;
     }

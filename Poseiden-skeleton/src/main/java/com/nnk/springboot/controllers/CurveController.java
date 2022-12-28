@@ -129,7 +129,7 @@ public class CurveController {
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) throws DataNotFoundException {
         logger.info("@GetMapping(\"/curvePoint/delete/{id}\"");
-        Optional<CurvePoint> curvePoint = curvePointService.findById(id);
+//        Optional<CurvePoint> curvePoint = curvePointService.findById(id);
        curvePointService.delete(id);
        model.addAttribute("curvePoints", curvePointService.findAll());
         return "redirect:/curvePoint/list";
