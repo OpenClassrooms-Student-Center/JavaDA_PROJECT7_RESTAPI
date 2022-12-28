@@ -88,6 +88,6 @@ public class RuleNameServiceImpl implements IRuleNameService {
         RuleName deleteRuleName = ruleNameRepository.findById(ruleNameId).orElseThrow(() -> {
             throw new DataNotFoundException("Id ruleName: " + ruleNameId + " Not Present in Data Base");
         });
-        ruleNameRepository.deleteById(ruleNameId);
+        ruleNameRepository.deleteById(deleteRuleName.getId());
     }
 }
