@@ -115,6 +115,14 @@
 			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -141,7 +149,17 @@
 			<artifactId>passay</artifactId>
 			<version>1.0</version>
 		</dependency>
-	</dependencies>
+<!--		<dependency>-->
+<!--			<groupId>io.github.hakky54</groupId>-->
+<!--			<artifactId>logcaptor</artifactId>-->
+<!--			<version>2.7.10</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

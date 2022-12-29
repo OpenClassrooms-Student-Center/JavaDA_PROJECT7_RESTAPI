@@ -51,8 +51,7 @@ public class BidList {
         this.bidQuantity = bidQuantity;
     }
 
-    public BidList(String accountTest, String typeTest, double v) {
-    }
+
 
     public BidList() {
 

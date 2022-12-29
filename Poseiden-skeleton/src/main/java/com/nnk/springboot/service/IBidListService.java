@@ -3,7 +3,6 @@ package com.nnk.springboot.service;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.exception.DataNotFoundException;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +24,11 @@ public interface IBidListService {
 
     /**
      * save given bidList
+     *
      * @param bidList
+     * @return
      */
-    void save(BidList bidList);
+    BidList save(BidList bidList);
 
     /**
      * update given bidList
