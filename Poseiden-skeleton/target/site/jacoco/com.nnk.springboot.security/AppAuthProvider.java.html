@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppAuthProvider.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.security</a> &gt; <span class="el_source">AppAuthProvider.java</span></div><h1>AppAuthProvider.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.security;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppAuthProvider.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.security</a> &gt; <span class="el_source">AppAuthProvider.java</span></div><h1>AppAuthProvider.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.security;
 
+import com.nnk.springboot.service.IUserDetailService;
 import com.nnk.springboot.service.impl.UserServiceImpl;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,30 +10,31 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-<span class="nc" id="L12">public class AppAuthProvider extends DaoAuthenticationProvider {</span>
+<span class="nc" id="L13">public class AppAuthProvider extends DaoAuthenticationProvider {</span>
 
 
-    UserServiceImpl userService;
+    IUserDetailService userDetailService;
 
     PasswordEncoder encoder;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-<span class="nc" id="L20">        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;</span>
-<span class="nc" id="L21">        String name = auth.getName();</span>
-<span class="nc" id="L22">        String password = auth.getCredentials().toString();</span>
-<span class="nc" id="L23">        UserDetails user = userService.loadUserByUsername(name);</span>
+<span class="nc" id="L22">        UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken) authentication;</span>
+<span class="nc" id="L23">        String name = auth.getName();</span>
+<span class="nc" id="L24">        String password = auth.getCredentials().toString();</span>
+<span class="nc" id="L25">        UserDetails user = userDetailService.loadUserByUsername(name);</span>
 
-<span class="nc bnc" id="L25" title="All 4 branches missed.">        if (user != null &amp;&amp; encoder.matches(password , user.getPassword()) ) {</span>
-<span class="nc" id="L26">            return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());</span>
+<span class="nc bnc" id="L27" title="All 4 branches missed.">        if (user != null &amp;&amp; encoder.matches(password , user.getPassword()) ) {</span>
+<span class="nc" id="L28">            return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());</span>
         }
 
-<span class="nc" id="L29">        throw new BadCredentialsException(&quot;Username/Password does not match for &quot; + auth.getPrincipal());</span>
+<span class="nc" id="L31">        throw new BadCredentialsException(&quot;Username/Password does not match for &quot; + auth.getPrincipal());</span>
 
     }
 
     @Override
     public boolean supports(Class&lt;?&gt; authentication) {
-<span class="nc" id="L35">        return authentication.equals(UsernamePasswordAuthenticationToken.class);</span>
+<span class="nc" id="L37">        return authentication.equals(UsernamePasswordAuthenticationToken.class);</span>
     }
 
 

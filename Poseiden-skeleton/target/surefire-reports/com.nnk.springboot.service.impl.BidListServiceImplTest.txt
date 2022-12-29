@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.nnk.springboot.service.impl.BidListServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.565 s - in com.nnk.springboot.service.impl.BidListServiceImplTest

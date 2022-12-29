@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleName.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">RuleName.java</span></div><h1>RuleName.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleName.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">RuleName.java</span></div><h1>RuleName.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = &quot;rulename&quot;)
@@ -11,77 +10,89 @@ public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = &quot;id&quot;, nullable = false)
-    private Long id;
+    private Integer id;
+    @NotBlank(message = &quot;name required&quot;)
+    private String name;
+    @NotBlank(message = &quot;name description&quot;)
+    private String description;
+    @NotBlank(message = &quot;name json&quot;)
+    private String json;
+    @NotBlank(message = &quot;name template&quot;)
+    private String template;
+    @NotBlank(message = &quot;name sqlStr&quot;)
+    private String sqlStr;
+    @NotBlank(message = &quot;name sqlPart&quot;)
+    private String sqlPart;
 
-<span class="nc" id="L16">    public RuleName(String ruleName, String description, String json, String template, String sql, String sqlPart) {</span>
-<span class="nc" id="L17">    }</span>
 
-<span class="nc" id="L19">    public RuleName() {</span>
+<span class="nc" id="L28">    public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {</span>
+<span class="nc" id="L29">        this.name = name;</span>
+<span class="nc" id="L30">        this.description = description;</span>
+<span class="nc" id="L31">        this.json = json;</span>
+<span class="nc" id="L32">        this.template = template;</span>
+<span class="nc" id="L33">        this.sqlStr = sqlStr;</span>
+<span class="nc" id="L34">        this.sqlPart = sqlPart;</span>
+<span class="nc" id="L35">    }</span>
 
-<span class="nc" id="L21">    }</span>
+<span class="nc" id="L37">    public RuleName() {</span>
 
-    public Long getId() {
-<span class="nc" id="L24">        return id;</span>
+<span class="nc" id="L39">    }</span>
+
+    public Integer getId() {
+<span class="nc" id="L42">        return id;</span>
     }
 
-    public void setId(Long id) {
-<span class="nc" id="L28">        this.id = id;</span>
-<span class="nc" id="L29">    }</span>
-// TODO: Map columns in data table RULENAME with corresponding java fields
+    public void setId(Integer id) {
+<span class="nc" id="L46">        this.id = id;</span>
+<span class="nc" id="L47">    }</span>
 
-    String name;
-    String description;
-    String json;
-    String template;
-    String sqlStr;
-    String sqlPart;
 
     public String getName() {
-<span class="nc" id="L40">        return name;</span>
+<span class="nc" id="L51">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="nc" id="L44">        this.name = name;</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L55">        this.name = name;</span>
+<span class="nc" id="L56">    }</span>
 
     public String getDescription() {
-<span class="nc" id="L48">        return description;</span>
+<span class="nc" id="L59">        return description;</span>
     }
 
     public void setDescription(String description) {
-<span class="nc" id="L52">        this.description = description;</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L63">        this.description = description;</span>
+<span class="nc" id="L64">    }</span>
 
     public String getJson() {
-<span class="nc" id="L56">        return json;</span>
+<span class="nc" id="L67">        return json;</span>
     }
 
     public void setJson(String json) {
-<span class="nc" id="L60">        this.json = json;</span>
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L71">        this.json = json;</span>
+<span class="nc" id="L72">    }</span>
 
     public String getTemplate() {
-<span class="nc" id="L64">        return template;</span>
+<span class="nc" id="L75">        return template;</span>
     }
 
     public void setTemplate(String template) {
-<span class="nc" id="L68">        this.template = template;</span>
-<span class="nc" id="L69">    }</span>
+<span class="nc" id="L79">        this.template = template;</span>
+<span class="nc" id="L80">    }</span>
 
     public String getSqlStr() {
-<span class="nc" id="L72">        return sqlStr;</span>
+<span class="nc" id="L83">        return sqlStr;</span>
     }
 
     public void setSqlStr(String sqlStr) {
-<span class="nc" id="L76">        this.sqlStr = sqlStr;</span>
-<span class="nc" id="L77">    }</span>
+<span class="nc" id="L87">        this.sqlStr = sqlStr;</span>
+<span class="nc" id="L88">    }</span>
 
     public String getSqlPart() {
-<span class="nc" id="L80">        return sqlPart;</span>
+<span class="nc" id="L91">        return sqlPart;</span>
     }
 
     public void setSqlPart(String sqlPart) {
-<span class="nc" id="L84">        this.sqlPart = sqlPart;</span>
-<span class="nc" id="L85">    }</span>
+<span class="nc" id="L95">        this.sqlPart = sqlPart;</span>
+<span class="nc" id="L96">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

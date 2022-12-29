@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurveApiRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers.apiRest</a> &gt; <span class="el_source">CurveApiRestController.java</span></div><h1>CurveApiRestController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers.apiRest;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.service.ICurvePointService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ *  RestController Curve
+ */
+@RestController
+public class CurveApiRestController {
+
+
+    /**
+     * SLF4J Logger instance.
+     */
+<span class="nc" id="L26">    private static final Logger logger = LogManager.getLogger(&quot;CurveApiRestController&quot;);</span>
+
+
+    /**
+     * Instance of ICurvePointService
+     */
+    private ICurvePointService curvePointService;
+
+    /**
+     * @param curvePointService
+     */
+<span class="nc" id="L37">    public CurveApiRestController(ICurvePointService curvePointService) {</span>
+<span class="nc" id="L38">        this.curvePointService = curvePointService;</span>
+<span class="nc" id="L39">    }</span>
+
+
+    @GetMapping(&quot;/curvePoint/api&quot;)
+    public ResponseEntity&lt;List&lt;CurvePoint&gt;&gt; showRestCurvePoint() {
+<span class="nc" id="L44">        logger.info(&quot;@RequestMapping(\&quot;/curvePoint/api\&quot;)&quot;);</span>
+<span class="nc" id="L45">        return new ResponseEntity&lt;&gt;(curvePointService.findAll(), HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/curvePoint/api/{id}&quot;)
+    public ResponseEntity&lt;Optional&lt;CurvePoint&gt;&gt; showRestCurvePointById(@PathVariable int id) throws DataNotFoundException {
+<span class="nc" id="L50">        logger.info(&quot;@RequestMapping(\&quot;/curvePoint/api{id}\&quot;)&quot;);</span>
+<span class="nc" id="L51">        Optional&lt;CurvePoint&gt; curvePoint = curvePointService.findById(id);</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (curvePoint.isEmpty()) {</span>
+<span class="nc" id="L53">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
+
+        }
+<span class="nc" id="L56">        return new ResponseEntity&lt;&gt;(curvePointService.findById(id), HttpStatus.OK);</span>
+    }
+
+    @PostMapping(&quot;/curvePoint/api&quot;)
+    public CurvePoint addRestCurvePoint(@RequestBody CurvePoint curvePoint) {
+<span class="nc" id="L61">        logger.info(&quot;@PostMapping(\&quot;/curvePoint/api\&quot;)&quot;);</span>
+<span class="nc" id="L62">        curvePointService.save(curvePoint);</span>
+
+<span class="nc" id="L64">        return  curvePoint ;</span>
+    }
+
+    @PutMapping(&quot;/curvePoint/api&quot;)
+    public CurvePoint uploadRestCurvePoint(@RequestBody CurvePoint curvePoint) {
+<span class="nc" id="L69">        logger.info(&quot;@PutMapping(\&quot;/curvePoint/api/{}\&quot;)  Id &quot; + curvePoint.getId()+ &quot; as modified&quot;, curvePoint.getId());</span>
+<span class="nc" id="L70">        curvePointService.update(curvePoint);</span>
+<span class="nc" id="L71">        return curvePoint;</span>
+    }
+
+    @DeleteMapping(&quot;/curvePoint/api/{curvePointId}&quot;)
+    public String deleteRestCurvePoint(@PathVariable int curvePointId) throws DataNotFoundException {
+<span class="nc" id="L76">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+
+<span class="nc" id="L78">        curvePointService.delete(curvePointId);</span>
+<span class="nc" id="L79">        return &quot;delete bid id: &quot; + curvePointId + &quot; success&quot;;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

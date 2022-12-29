@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingApiRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers.apiRest</a> &gt; <span class="el_source">RatingApiRestController.java</span></div><h1>RatingApiRestController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers.apiRest;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.service.IRatingService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+public class RatingApiRestController {
+
+    /**
+     * SLF4J Logger instance.
+     */
+<span class="nc" id="L22">    private static final Logger logger = LogManager.getLogger(&quot;RatingApiRestController&quot;);</span>
+
+
+    private IRatingService ratingService;
+
+<span class="nc" id="L27">    public RatingApiRestController(IRatingService ratingService) {</span>
+<span class="nc" id="L28">        this.ratingService = ratingService;</span>
+<span class="nc" id="L29">    }</span>
+
+
+    /**
+     * @return
+     */
+    @GetMapping(&quot;/ratings/api&quot;)
+    public ResponseEntity&lt;List&lt;Rating&gt;&gt; showRestRating() {
+<span class="nc" id="L37">        logger.info(&quot;@RequestMapping(\&quot;/ratings/api\&quot;)&quot;);</span>
+<span class="nc" id="L38">        return new ResponseEntity&lt;&gt;(ratingService.findAll(), HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param id
+     * @return rating httpStatus.Ok
+     * @throws DataNotFoundException
+     */
+    @GetMapping(&quot;/rating/api/{id}&quot;)
+    public ResponseEntity&lt;Optional&lt;Rating&gt;&gt; showRestRatingById(@PathVariable int id) throws DataNotFoundException {
+<span class="nc" id="L48">        logger.info(&quot;@RequestMapping(\&quot;/rating/api/{id}\&quot;)&quot;);</span>
+<span class="nc" id="L49">        Optional&lt;Rating&gt; rating = ratingService.findById(id);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (rating.isEmpty()) {</span>
+<span class="nc" id="L51">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
+
+        }
+<span class="nc" id="L54">        return new ResponseEntity&lt;&gt;(ratingService.findById(id), HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param rating
+     * @return add bidList
+     */
+    @PostMapping(&quot;/rating/api&quot;)
+    public Rating addRestRating(@RequestBody Rating rating) {
+<span class="nc" id="L63">        logger.info(&quot;@PostMapping(\&quot;/rating/api\&quot;)&quot;);</span>
+<span class="nc" id="L64">        ratingService.save(rating);</span>
+<span class="nc" id="L65">        return rating;</span>
+    }
+
+
+    /**
+     * @param rating
+     * @return
+     */
+    @PutMapping(&quot;/rating/api&quot;)
+    public Rating uploadRestRating(@RequestBody Rating rating) {
+<span class="nc" id="L75">        logger.info(&quot;@PutMapping(\&quot;/rating/api/{}\&quot;)  Id &quot; + rating.getId() + &quot; as modified&quot;, rating.getId());</span>
+
+<span class="nc" id="L77">        return ratingService.update(rating);</span>
+    }
+
+
+    /**
+     * @param ratingId
+     * @return
+     * @throws DataNotFoundException
+     */
+    @DeleteMapping(&quot;/rating/api/{ratingId}&quot;)
+    public String deleteRestRating(@PathVariable int ratingId) throws DataNotFoundException {
+<span class="nc" id="L88">        logger.info(&quot;@DeleteMapping(\&quot;/rating/api/{ratingId}\&quot;)&quot;);</span>
+
+<span class="nc" id="L90">        ratingService.delete(ratingId);</span>
+<span class="nc" id="L91">        return &quot;delete rating whit id: &quot; + ratingId + &quot; success&quot;;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

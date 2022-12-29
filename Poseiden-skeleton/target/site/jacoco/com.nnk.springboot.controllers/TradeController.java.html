@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.service.ITradeService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,46 +15,122 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
+/**
+ * TradeController Controller
+ */
 @Controller
-<span class="nc" id="L15">public class TradeController {</span>
-    // TODO: Inject Trade service
+public class TradeController {
 
+    /**
+     * SLF4J Logger instance.
+     */
+<span class="nc" id="L29">    private static final Logger logger = LogManager.getLogger(&quot;TradeController&quot;);</span>
+
+    /**
+     * ITradeService instance.
+     */
+    private ITradeService tradeService;
+
+
+    /**
+     * @param tradeService
+     */
+<span class="nc" id="L40">    public TradeController(ITradeService tradeService) {</span>
+<span class="nc" id="L41">        this.tradeService = tradeService;</span>
+<span class="nc" id="L42">    }</span>
+
+
+    /**
+     * @param model
+     * @return trades list
+     */
     @RequestMapping(&quot;/trade/list&quot;)
-    public String home(Model model)
-    {
-        // TODO: find all Trade, add to model
-<span class="nc" id="L22">        return &quot;trade/list&quot;;</span>
+    public String home(Model model) {
+<span class="nc" id="L51">        logger.info(&quot;@RequestMapping(\&quot;/trade/list\&quot;)&quot;);</span>
+<span class="nc" id="L52">        model.addAttribute(&quot;trades&quot;, tradeService.findAll());</span>
+<span class="nc" id="L53">        return &quot;trade/list&quot;;</span>
     }
 
+    /**
+     * @param trade
+     * @return trade add page
+     */
     @GetMapping(&quot;/trade/add&quot;)
-    public String addUser(Trade bid) {
-<span class="nc" id="L27">        return &quot;trade/add&quot;;</span>
+    public String addUser(Trade trade) {
+<span class="nc" id="L62">        logger.info(&quot;@GetMapping(\&quot;/trade/add\&quot;)&quot;);</span>
+<span class="nc" id="L63">        return &quot;trade/add&quot;;</span>
     }
 
+    /**
+     * @param trade
+     * @param result
+     * @param model
+     * @return add new trade
+     */
     @PostMapping(&quot;/trade/validate&quot;)
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
-<span class="nc" id="L33">        return &quot;trade/add&quot;;</span>
+<span class="nc" id="L74">        logger.info(&quot;@PostMapping(\&quot;/trade/validate\&quot;)&quot;);</span>
+        /**form data validation*/
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L77">            return &quot;/curvePoint/add&quot;;</span>
+        }
+        /**save in to dataBase:*/
+<span class="nc" id="L80">        tradeService.save(trade);</span>
+<span class="nc" id="L81">        return &quot;redirect:/trade/list&quot;;</span>
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return update trade
+     */
     @GetMapping(&quot;/trade/update/{id}&quot;)
-    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
-<span class="nc" id="L39">        return &quot;trade/update&quot;;</span>
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) throws DataNotFoundException {
+<span class="nc" id="L91">        logger.info(&quot;@GetMapping(\&quot;/trade/update/{id}\&quot;)&quot;);</span>
+<span class="nc" id="L92">        Optional&lt;Trade&gt; trade = tradeService.findById(id);</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        if(trade.isPresent()){</span>
+<span class="nc" id="L94">            model.addAttribute(&quot;error&quot;, &quot;This&quot; + trade + &quot;is present&quot;);</span>
+        }
+<span class="nc" id="L96">        model.addAttribute(&quot;trade&quot;, trade.get());</span>
+<span class="nc" id="L97">        return &quot;trade/update&quot;;</span>
     }
 
+    /**
+     * @param id
+     * @param trade
+     * @param result
+     * @param model
+     * @return update trade
+     */
     @PostMapping(&quot;/trade/update/{id}&quot;)
     public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-<span class="nc" id="L46">        return &quot;redirect:/trade/list&quot;;</span>
+                              BindingResult result, Model model) {
+<span class="nc" id="L110">        logger.info(&quot;@PostMapping(\&quot;/trade/update/{id}\&quot;)&quot;);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L112">            logger.error(&quot;result error :{}&quot;, result.getFieldError());</span>
+<span class="nc" id="L113">            return &quot;trade/update&quot;;</span>
+        }
+<span class="nc" id="L115">        trade.setTradeId(id);</span>
+<span class="nc" id="L116">        tradeService.save(trade);</span>
+<span class="nc" id="L117">        model.addAttribute(&quot;trade&quot;, tradeService.findAll());</span>
+<span class="nc" id="L118">        return &quot;redirect:/trade/list&quot;;</span>
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return delete trade
+     * @throws DataNotFoundException
+     */
     @GetMapping(&quot;/trade/delete/{id}&quot;)
-    public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
-<span class="nc" id="L52">        return &quot;redirect:/trade/list&quot;;</span>
+    public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) throws DataNotFoundException {
+<span class="nc" id="L129">        logger.info(&quot;@GetMapping(\&quot;/trade/delete/{id}\&quot;&quot;);</span>
+
+<span class="nc" id="L131">        tradeService.delete(id);</span>
+<span class="nc" id="L132">        model.addAttribute(&quot;trades&quot;, tradeService.findAll());</span>
+<span class="nc" id="L133">        return &quot;redirect:/trade/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

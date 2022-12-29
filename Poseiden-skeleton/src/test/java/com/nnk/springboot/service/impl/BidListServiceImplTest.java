@@ -36,14 +36,14 @@ class BidListServiceImplTest {
     private BidListRepository bidListRepository;
 
 
-    @Captor
-    private ArgumentCaptor<User> userCaptor;
+//    @Captor
+//    private ArgumentCaptor<User> userCaptor;
 
     private BidList bidList1;
     private BidList bidList2;
 
-
-    private static Logger logCaptor;
+//
+//    private static Logger logCaptor;
 
 
     @BeforeEach

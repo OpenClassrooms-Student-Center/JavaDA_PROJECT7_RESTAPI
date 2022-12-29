@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service.impl</a> &gt; <span class="el_source">RatingServiceImpl.java</span></div><h1>RatingServiceImpl.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service.impl;
+
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.service.IRatingService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * contain all business service methods for RatingService
+ */
+@Service
+public class RatingServiceImpl implements IRatingService {
+
+    /**
+     * SLF4J/LOG4J LOGGER instance.
+     */
+<span class="nc" id="L25">    private static final Logger logger = LogManager.getLogger(&quot;RatingServiceImpl&quot;);</span>
+
+    private final RatingRepository ratingRepository;
+
+<span class="nc" id="L29">    public RatingServiceImpl(RatingRepository ratingRepository) {</span>
+<span class="nc" id="L30">        this.ratingRepository = ratingRepository;</span>
+<span class="nc" id="L31">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List&lt;Rating&gt; findAll() {
+<span class="nc" id="L38">        return ratingRepository.findAll();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional&lt;Rating&gt; findById(Integer id) throws DataNotFoundException {
+<span class="nc" id="L46">        return Optional.ofNullable(ratingRepository.findById(id).orElseThrow(() -&gt; {</span>
+<span class="nc" id="L47">            logger.error(&quot;Invalid Rating Id: {} &quot;, id);</span>
+<span class="nc" id="L48">            return new DataNotFoundException(&quot; No User with id &quot; + id + &quot; found &quot;);</span>
+        }));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void save(Rating rating) {
+<span class="nc" id="L57">        logger.error(&quot;save rating: {} &quot;, rating);</span>
+<span class="nc" id="L58">        ratingRepository.save(rating);</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    public Rating update(Rating rating) throws DataNotFoundException {
+<span class="nc" id="L68">        logger.debug(&quot;update rating:{}&quot;, rating.getId());</span>
+<span class="nc" id="L69">        return ratingRepository.save(rating);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(Integer rating) {
+<span class="nc" id="L77">        logger.debug(&quot;delete rating:{}&quot;, rating);</span>
+<span class="nc" id="L78">        Rating deleteRating = ratingRepository.findById(rating).orElseThrow(() -&gt; {</span>
+<span class="nc" id="L79">            throw new DataNotFoundException(&quot;Id &quot; + rating + &quot; Not Present in Data Base&quot;);</span>
+        });
+
+<span class="nc" id="L82">        ratingRepository.deleteById(deleteRating.getId());</span>
+<span class="nc" id="L83">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
