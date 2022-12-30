@@ -25,9 +25,11 @@ public interface IRuleNameService {
 
         /**
          * save given trade
+         *
          * @param ruleName
+         * @return
          */
-        void save(RuleName ruleName);
+        RuleName save(RuleName ruleName);
 
 
         /**

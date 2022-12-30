@@ -1,6 +1,5 @@
 package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
@@ -54,12 +53,15 @@ public class RuleNameServiceImpl implements IRuleNameService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void save(RuleName ruleName) {
+    public RuleName save(RuleName ruleName) {
         logger.error("save rating: {} ", ruleName);
         ruleNameRepository.save(ruleName);
 
+        return ruleName;
     }
 
     /**
