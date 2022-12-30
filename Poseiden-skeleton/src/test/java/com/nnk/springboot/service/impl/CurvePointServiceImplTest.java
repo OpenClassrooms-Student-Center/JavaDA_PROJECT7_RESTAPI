@@ -32,8 +32,6 @@ class CurvePointServiceImplTest {
 
 
 
-
-
     @Test
     void findAllCurvePointTest() {
         //Given
@@ -128,7 +126,7 @@ class CurvePointServiceImplTest {
     @Test
     public void deleteCurvePointTest_ShouldThrowException() throws DataNotFoundException {
         //Given // When //Then
-        assertThrows(DataNotFoundException.class, () -> curvePointService.delete(curvePoint1.getId()));
+        assertThrows(DataNotFoundException.class, () -> curvePointService.delete(3));
     }
 
 }
