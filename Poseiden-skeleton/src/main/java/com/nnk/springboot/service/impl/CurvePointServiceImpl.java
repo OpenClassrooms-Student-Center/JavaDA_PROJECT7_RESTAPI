@@ -51,18 +51,21 @@ public class CurvePointServiceImpl implements ICurvePointService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void save(CurvePoint curvePoint) {
+    public CurvePoint save(CurvePoint curvePoint) {
         logger.debug("save curvePoint:{}", curvePoint.getCurveId());
         curvePointRepository.save(curvePoint);
+        return curvePoint;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public CurvePoint update(CurvePoint curvePoint) throws DataNotFoundException {
+    public CurvePoint update(CurvePoint curvePoint)  {
         logger.debug("update curvePoint:{}", curvePoint.getId());
         return curvePointRepository.save(curvePoint);
 
@@ -77,8 +80,7 @@ public class CurvePointServiceImpl implements ICurvePointService {
         CurvePoint deletecurvePoint = curvePointRepository.findById(curvePoint).orElseThrow(() -> {
             throw new DataNotFoundException("Id " + curvePoint + " Not Present in Data Base");
         });
-//        Optional<BidList> deleteBid = bidListRepository.findById(bid);
-//        bidListRepository.deleteById(deleteBid.get().getBidListId());
+
         curvePointRepository.deleteById(deletecurvePoint.getId());
     }
 }

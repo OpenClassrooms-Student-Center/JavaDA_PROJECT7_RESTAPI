@@ -24,9 +24,11 @@ public interface ICurvePointService {
 
     /**
      * save given rating
+     *
      * @param curvePoint
+     * @return
      */
-    void save(CurvePoint curvePoint);
+    CurvePoint save(CurvePoint curvePoint);
 
     /**
      * update given curvePoint
