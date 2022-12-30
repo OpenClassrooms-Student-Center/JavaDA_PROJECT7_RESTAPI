@@ -70,14 +70,13 @@ public class RuleNameServiceImpl implements IRuleNameService {
      * @return
      */
     @Override
-    public RuleName update(RuleName ruleName) throws UsernameNotFoundException {
+    public RuleName update(RuleName ruleName) throws DataNotFoundException {
         logger.debug("update ruleName:{}", ruleName.getName());
-        Optional<RuleName> isAlreadyUser = ruleNameRepository.findById(ruleName.getId().intValue());
-        if (isAlreadyUser.isPresent()) {
-            ruleNameRepository.save(ruleName);
-        } else {
-            throw new UsernameNotFoundException("No ruleName " + ruleName + " present in dataBase ");
-        }
+        RuleName updateRuleName = ruleNameRepository.findById(ruleName.getId()).orElseThrow(() -> {
+            throw new DataNotFoundException("Id ruleName: " + ruleName.getId() + " Not Present in Data Base");
+        });
+            ruleNameRepository.save(updateRuleName);
+
         return ruleName;
     }
 

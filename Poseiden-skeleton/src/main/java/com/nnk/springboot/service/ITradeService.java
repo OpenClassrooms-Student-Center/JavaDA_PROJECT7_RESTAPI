@@ -28,8 +28,9 @@ public interface ITradeService {
      * save given trade
      *
      * @param trade
+     * @return
      */
-    void save(Trade trade);
+    Trade save(Trade trade);
 
     /**
      * update given trade

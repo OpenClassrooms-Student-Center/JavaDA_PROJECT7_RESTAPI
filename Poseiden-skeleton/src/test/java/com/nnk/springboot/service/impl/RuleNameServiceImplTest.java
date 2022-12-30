@@ -4,20 +4,20 @@ import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.junit.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RuleNameServiceImplTest {
@@ -32,6 +32,14 @@ class RuleNameServiceImplTest {
     private RuleName ruleName1;
 
     private RuleName ruleName2;
+
+    @BeforeEach
+    void setUp() {
+        ruleName1 = new RuleName();
+        ruleName2 = new RuleName();
+
+
+    }
 
 
     @Test
@@ -109,18 +117,20 @@ class RuleNameServiceImplTest {
 
     }
 
-//    @Test
-//    public void updateRuleNameTest_ShouldThrowException() throws UsernameNotFoundException {
-//        //Given
+
+    @Test
+    public void updateRuleNameTest_ShouldThrowException() throws DataNotFoundException {
+        //Given //When //Then
 //        RuleName ruleName = new RuleName("name", "description", "json", "template", "sqlStr", "sqlPart");
 //        Optional<RuleName> ruleNameOptional = Optional.of(ruleName);
 //
-//        when(ruleNameRepository.findById(1)).thenReturn(Optional.of(ruleName));
-//
-//
-//
-//        assertThrows(UsernameNotFoundException.class, () -> ruleNameService.update(ruleName));
-//    }
+//        Optional<RuleName> isAlreadyRuleName = ruleNameRepository.findById(3);
+//        when(ruleNameRepository.findById(3)).thenReturn(ruleNameOptional);
+
+        assertThrows(DataNotFoundException.class, () -> ruleNameService.update(ruleName1));
+
+
+    }
 
     @Test
     void deleteRuleNameTest() {

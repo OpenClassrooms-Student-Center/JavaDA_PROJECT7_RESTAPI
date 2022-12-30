@@ -38,7 +38,7 @@ public interface IRuleNameService {
          * @param ruleName
          * @return
          */
-        public RuleName update(RuleName ruleName) throws UsernameNotFoundException;
+        public RuleName update(RuleName ruleName) throws DataNotFoundException;
 
 
         /**
