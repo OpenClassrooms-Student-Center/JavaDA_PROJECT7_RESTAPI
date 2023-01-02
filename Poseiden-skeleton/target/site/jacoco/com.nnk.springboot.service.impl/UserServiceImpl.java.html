@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service.impl</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
@@ -25,13 +24,13 @@ public class UserServiceImpl implements IUserService {
     /**
      * SLF4J LOGGER instance.
      */
-<span class="nc" id="L28">    private static final Logger logger = LogManager.getLogger(&quot;UserServiceImpl&quot;);</span>
+<span class="fc" id="L27">    private static final Logger logger = LogManager.getLogger(&quot;UserServiceImpl&quot;);</span>
 
     private final UserRepository userRepository;
 
-<span class="nc" id="L32">    public UserServiceImpl(UserRepository userRepository) {</span>
-<span class="nc" id="L33">        this.userRepository = userRepository;</span>
-<span class="nc" id="L34">    }</span>
+<span class="fc" id="L31">    public UserServiceImpl(UserRepository userRepository) {</span>
+<span class="fc" id="L32">        this.userRepository = userRepository;</span>
+<span class="fc" id="L33">    }</span>
 
     /**
      * {@inheritDoc}
@@ -39,25 +38,25 @@ public class UserServiceImpl implements IUserService {
     @Transactional
     @Override
     public User saveUser(UserRegistrationDto registrationDto, String password) throws UsernameNotFoundException {
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (userExist(registrationDto.getUsername())) {</span>
-<span class="nc" id="L43">            throw new UsernameNotFoundException(</span>
-<span class="nc" id="L44">                    &quot;This full name : &quot; + registrationDto.getFullname()+ &quot; is present in database&quot;);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (userExist(registrationDto.getUsername())) {</span>
+<span class="fc" id="L42">            throw new UsernameNotFoundException(</span>
+<span class="fc" id="L43">                    &quot;This full name : &quot; + registrationDto.getFullname()+ &quot; is present in database&quot;);</span>
         } else {
 
-<span class="nc" id="L47">            User user = new User(registrationDto.getUsername(),</span>
-<span class="nc" id="L48">                    registrationDto.getFullname(),</span>
-<span class="nc" id="L49">                    password,registrationDto.getRole());</span>
+<span class="fc" id="L46">            User user = new User(registrationDto.getUsername(),</span>
+<span class="fc" id="L47">                    registrationDto.getFullname(),</span>
+<span class="fc" id="L48">                    password,registrationDto.getRole());</span>
 
 //            User user = new User(registrationDto.getUsername(),
 //                    registrationDto.getFullname(),
 //                    password);
 
-<span class="nc" id="L55">            return userRepository.save(user);</span>
+<span class="fc" id="L54">            return userRepository.save(user);</span>
         }
     }
 
-    private boolean userExist(String username) {
-<span class="nc" id="L60">        return userRepository.existsByUsername(username);</span>
+    public boolean userExist(String username) {
+<span class="fc" id="L59">        return userRepository.existsByUsername(username);</span>
 
     }
 
@@ -67,8 +66,8 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public List&lt;User&gt; findAll() {
-<span class="nc" id="L70">        logger.debug(&quot;getting all users&quot;);</span>
-<span class="nc" id="L71">        return userRepository.findAll();</span>
+<span class="fc" id="L69">        logger.debug(&quot;getting all users&quot;);</span>
+<span class="fc" id="L70">        return userRepository.findAll();</span>
     }
 
     /**
@@ -76,22 +75,25 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public Optional&lt;User&gt; findById(Integer id) throws DataNotFoundException {
-<span class="nc" id="L79">        logger.debug(&quot;fetching user by id:{}&quot;, id);</span>
-<span class="nc" id="L80">        return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -&gt; {</span>
-<span class="nc" id="L81">            logger.debug(&quot;Invalid user Id: {} &quot;, id);</span>
-<span class="nc" id="L82">            return new DataNotFoundException(&quot;No User with id &quot; + id + &quot;  found &quot;);</span>
+<span class="fc" id="L78">        logger.debug(&quot;fetching user by id:{}&quot;, id);</span>
+<span class="fc" id="L79">        return Optional.ofNullable(userRepository.findById(id).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L80">            logger.debug(&quot;Invalid user Id: {} &quot;, id);</span>
+<span class="fc" id="L81">            return new DataNotFoundException(&quot;No User with id &quot; + id + &quot;  found &quot;);</span>
         }));
     }
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void save(User user) {
-<span class="nc" id="L91">        logger.debug(&quot;saving user{}&quot;, user.getFullname());</span>
-<span class="nc" id="L92">        userRepository.save(user);</span>
+    public User save(User user) {
+<span class="fc" id="L92">        logger.debug(&quot;saving user{}&quot;, user.getFullname());</span>
+<span class="fc" id="L93">        userRepository.save(user);</span>
 
-<span class="nc" id="L94">    }</span>
+<span class="fc" id="L95">        return user;</span>
+    }
 
     /**
      * {@inheritDoc}
@@ -100,28 +102,28 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User update(User user) throws UsernameNotFoundException {
-<span class="nc" id="L103">        logger.debug(&quot;update user:{}&quot;, user.getFullname());</span>
-<span class="nc" id="L104">        Optional&lt;User&gt; isAlreadyUser = userRepository.findById(user.getId());</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        if (isAlreadyUser.isPresent()) {</span>
-<span class="nc" id="L106">            userRepository.save(user);</span>
+<span class="fc" id="L105">        logger.debug(&quot;update user:{}&quot;, user.getFullname());</span>
+<span class="fc" id="L106">        Optional&lt;User&gt; isAlreadyUser = userRepository.findById(user.getId());</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (isAlreadyUser.isPresent()) {</span>
+<span class="fc" id="L108">            userRepository.save(user);</span>
         } else {
-<span class="nc" id="L108">            throw new UsernameNotFoundException(&quot;No User &quot; + user + &quot; present in dataBase &quot;);</span>
+<span class="fc" id="L110">            throw new UsernameNotFoundException(&quot;No User &quot; + user + &quot; present in dataBase &quot;);</span>
         }
-<span class="nc" id="L110">        return user;</span>
+<span class="fc" id="L112">        return user;</span>
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(int userId) {
-<span class="nc" id="L118">        logger.debug(&quot;deleting user:{}&quot;, userId);</span>
-<span class="nc" id="L119">        User deleteUser = userRepository.findById(userId).orElseThrow(() -&gt; {</span>
-<span class="nc" id="L120">            throw new DataNotFoundException(&quot;Id &quot; + userId + &quot; Not Present in Data Base&quot;);</span>
+    public void delete(int userId) throws DataNotFoundException {
+<span class="fc" id="L120">        logger.debug(&quot;deleting user:{}&quot;, userId);</span>
+<span class="fc" id="L121">        User deleteUser = userRepository.findById(userId).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L122">            throw new DataNotFoundException(&quot;Id &quot; + userId + &quot; Not Present in Data Base&quot;);</span>
         });
 
-<span class="nc" id="L123">        userRepository.deleteById(deleteUser.getId());</span>
-<span class="nc" id="L124">    }</span>
+<span class="fc" id="L125">        userRepository.deleteById(deleteUser.getId());</span>
+<span class="fc" id="L126">    }</span>
 
 
 }

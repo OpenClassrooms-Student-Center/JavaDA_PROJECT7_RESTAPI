@@ -93,8 +93,8 @@ class UserServiceImplTest {
 
         //Given
         List<User> allUsers = List.of(
-                new User(user1.getUsername(),user1.getFullname(), user1.getPassword()),
-                new User(user2.getUsername(),user2.getFullname(), user2.getPassword())
+                new User(user1.getUsername(), user1.getFullname(), user1.getPassword()),
+                new User(user2.getUsername(), user2.getFullname(), user2.getPassword())
         );
 
         when(userRepository.findAll()).thenReturn(allUsers);
@@ -113,7 +113,7 @@ class UserServiceImplTest {
     void findUserById() {
 
         //Given
-        User user=new User();
+        User user = new User();
         user.setId(1);
         user.setFullname("Jimmy");
 
@@ -129,7 +129,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void findUserById_ShouldReturnException()throws DataNotFoundException{
+    void findUserById_ShouldReturnException() throws DataNotFoundException {
 
         //Given
         when(userRepository.findById(3)).thenReturn(Optional.empty());
@@ -143,7 +143,7 @@ class UserServiceImplTest {
     void saveUser() {
         //Given
 
-        User user=new User();
+        User user = new User();
         user.setId(1);
         user.setFullname("Jimmy");
         when(userRepository.save(any(User.class))).thenReturn(user1);
@@ -173,6 +173,7 @@ class UserServiceImplTest {
         verify(userRepository, Mockito.times(1)).findById(any());
 
     }
+
     @Test
     void updateUser_ShouldReturnException() throws UsernameNotFoundException {
 
@@ -196,9 +197,9 @@ class UserServiceImplTest {
         user.setId(1);
         user.setFullname("NewUser");
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        // ACT
+        //When
         userService.delete(1);
-        //ASSERT
+        //Then
         verify(userRepository).findById(1);
 
     }
