@@ -1,6 +1,5 @@
 package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.UserRepository;
@@ -56,7 +55,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-    private boolean userExist(String username) {
+    public boolean userExist(String username) {
         return userRepository.existsByUsername(username);
 
     }
@@ -85,12 +84,15 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * {@inheritDoc}
+     *
+     * @return
      */
     @Override
-    public void save(User user) {
+    public User save(User user) {
         logger.debug("saving user{}", user.getFullname());
         userRepository.save(user);
 
+        return user;
     }
 
     /**
@@ -114,7 +116,7 @@ public class UserServiceImpl implements IUserService {
      * {@inheritDoc}
      */
     @Override
-    public void delete(int userId) {
+    public void delete(int userId) throws DataNotFoundException {
         logger.debug("deleting user:{}", userId);
         User deleteUser = userRepository.findById(userId).orElseThrow(() -> {
             throw new DataNotFoundException("Id " + userId + " Not Present in Data Base");

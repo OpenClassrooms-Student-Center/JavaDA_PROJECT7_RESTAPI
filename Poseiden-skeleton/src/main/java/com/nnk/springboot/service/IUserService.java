@@ -30,9 +30,11 @@ public interface IUserService  {
 
     /**
      * save given user
+     *
      * @param user
+     * @return
      */
-    void save(User user);
+    User save(User user);
 
 
     /**
