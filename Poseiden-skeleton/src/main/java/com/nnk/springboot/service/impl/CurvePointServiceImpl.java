@@ -1,6 +1,7 @@
 package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.exception.DataNotFoundException;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.ICurvePointService;
@@ -65,10 +66,14 @@ public class CurvePointServiceImpl implements ICurvePointService {
      * {@inheritDoc}
      */
     @Override
-    public CurvePoint update(CurvePoint curvePoint)  {
+    public CurvePoint update(CurvePoint curvePoint) throws DataNotFoundException  {
         logger.debug("update curvePoint:{}", curvePoint.getId());
-        return curvePointRepository.save(curvePoint);
+        CurvePoint updateCurvePoint = curvePointRepository.findById(curvePoint.getId()).orElseThrow(() -> {
+            throw new DataNotFoundException("Id curvePoint: " + curvePoint.getId() + " Not Present in Data Base");
+        });
 
+        curvePointRepository.save(curvePoint);
+        return curvePoint;
     }
 
     /**
