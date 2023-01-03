@@ -149,6 +149,12 @@
 			<artifactId>passay</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>io.github.hakky54</groupId>-->
 <!--			<artifactId>logcaptor</artifactId>-->

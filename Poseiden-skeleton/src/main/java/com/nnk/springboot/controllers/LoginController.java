@@ -43,25 +43,6 @@ public class LoginController {
 
 
 
-//    @RequestMapping("/**")
-//    @RolesAllowed("USER")
-//    public String getUser() {
-//        return "user/list";
-//    }
-//
-//
-//    @RequestMapping("/admin")
-//    @RolesAllowed("ADMIN")
-//    public String getAdmin() {
-//        return "Welcome, Admin";
-//    }
-//
-//    @RequestMapping("/*")
-//    public String getGithub()
-//    {
-//        return "Welcome Github user!";
-//    }
-
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
@@ -69,7 +50,7 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping("/loginsuccess")
+    @RequestMapping("/login-success")
     public ModelAndView getInfo() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("redirect:/");
