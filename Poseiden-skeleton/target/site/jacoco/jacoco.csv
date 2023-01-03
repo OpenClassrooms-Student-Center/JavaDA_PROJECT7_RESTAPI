@@ -9,7 +9,7 @@ spring-boot-skeleton,com.nnk.springboot.controllers,RatingController,114,0,6,0,3
 spring-boot-skeleton,com.nnk.springboot.controllers,TradeController,113,0,6,0,32,0,11,0,8,0
 spring-boot-skeleton,com.nnk.springboot.controllers,RuleNameController,114,0,6,0,32,0,11,0,8,0
 spring-boot-skeleton,com.nnk.springboot.web.dto,UserRegistrationDto,19,24,0,0,8,11,3,7,3,7
-spring-boot-skeleton,com.nnk.springboot.service.impl,UserDetailServiceImpl,34,0,2,0,9,0,3,0,2,0
+spring-boot-skeleton,com.nnk.springboot.service.impl,UserDetailServiceImpl,0,34,0,2,0,9,0,3,0,2
 spring-boot-skeleton,com.nnk.springboot.service.impl,TradeServiceImpl,0,103,0,0,0,22,0,10,0,10
 spring-boot-skeleton,com.nnk.springboot.service.impl,CurvePointServiceImpl,0,86,0,0,0,19,0,9,0,9
 spring-boot-skeleton,com.nnk.springboot.service.impl,UserServiceImpl,0,142,0,4,0,32,0,13,0,11
@@ -25,7 +25,7 @@ spring-boot-skeleton,com.nnk.springboot.domain,Rating,50,6,0,0,22,3,11,2,11,2
 spring-boot-skeleton,com.nnk.springboot.domain,RuleName,39,34,0,0,17,14,11,5,11,5
 spring-boot-skeleton,com.nnk.springboot.domain,BidList,128,48,1,1,53,20,36,11,35,11
 spring-boot-skeleton,com.nnk.springboot.domain,Trade,133,32,0,0,58,14,38,7,38,7
-spring-boot-skeleton,com.nnk.springboot.domain,User,15,50,0,0,7,21,4,9,4,9
+spring-boot-skeleton,com.nnk.springboot.domain,User,12,53,0,0,6,22,3,10,3,10
 spring-boot-skeleton,com.nnk.springboot.domain,CurvePoint,54,21,0,0,25,8,13,3,13,3
 spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,RuleNameApiRestController,80,0,2,0,19,0,8,0,7,0
 spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,CurveApiRestController,83,0,2,0,20,0,8,0,7,0

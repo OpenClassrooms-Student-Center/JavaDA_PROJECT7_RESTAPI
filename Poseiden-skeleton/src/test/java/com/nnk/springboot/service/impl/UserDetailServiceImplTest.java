@@ -21,7 +21,6 @@ class UserDetailServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
-
     @InjectMocks
     private UserDetailServiceImpl userDetailsService;
 

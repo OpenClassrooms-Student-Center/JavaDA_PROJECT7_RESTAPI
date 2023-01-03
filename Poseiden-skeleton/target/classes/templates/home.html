@@ -16,6 +16,11 @@
             <a href="/trade/list">Trade</a>&nbsp;|&nbsp;
             <a href="/ruleName/list">Rule</a>|
             <a href="/user/list">User management</a>
+
+<!--            <span th:if="role=Admin">-->
+<!--                 <a href="/user/list">User management</a>-->
+<!--            </span>-->
+
         </div>
         <div class="col-6 text-right">
             Logged in user: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
