@@ -14,13 +14,9 @@ import com.nnk.springboot.repositories.UserRepository;
 @Service
 public class UserServiceImpl implements IUserService {
     private UserRepository userRepository;
-//    private IRoleService roleService;
 
-    public UserServiceImpl(UserRepository userRepository
-    // IRoleService roleService
-    ) {
+    public UserServiceImpl(UserRepository userRepository) {
 	this.userRepository = userRepository;
-//    	this.roleService = roleService;
     }
 
     @Override
