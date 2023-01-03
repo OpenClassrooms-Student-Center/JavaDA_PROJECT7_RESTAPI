@@ -15,8 +15,8 @@
             <a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
             <a href="/trade/list">Trade</a>&nbsp;|&nbsp;
             <a href="/ruleName/list">Rule</a>|
-            <a href="/user/list">User management</a>
-
+<!--            <a href="/user/list">User management</a>-->
+            <span th:if="${('hasRole(''ADMIN'')')}"><a href="/user/list">User management</a>&ndash;&gt; </span>-->
 <!--            <span th:if="${#authorization.expression('hasRole(''ADMIN'')')}"><a href="/user/list">User management</a>&ndash;&gt; </span>-->
 <!--            <span th:if="role=Admin">-->
 <!--                 <a href="/user/list">User management</a>-->
