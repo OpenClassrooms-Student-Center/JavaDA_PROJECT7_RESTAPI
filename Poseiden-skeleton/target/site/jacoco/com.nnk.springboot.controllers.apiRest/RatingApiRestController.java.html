@@ -34,8 +34,8 @@ public class RatingApiRestController {
      */
     @GetMapping(&quot;/ratings/api&quot;)
     public ResponseEntity&lt;List&lt;Rating&gt;&gt; showRestRating() {
-<span class="nc" id="L37">        logger.info(&quot;@RequestMapping(\&quot;/ratings/api\&quot;)&quot;);</span>
-<span class="nc" id="L38">        return new ResponseEntity&lt;&gt;(ratingService.findAll(), HttpStatus.OK);</span>
+<span class="fc" id="L37">        logger.info(&quot;@RequestMapping(\&quot;/ratings/api\&quot;)&quot;);</span>
+<span class="fc" id="L38">        return new ResponseEntity&lt;&gt;(ratingService.findAll(), HttpStatus.OK);</span>
     }
 
     /**
@@ -45,13 +45,13 @@ public class RatingApiRestController {
      */
     @GetMapping(&quot;/rating/api/{id}&quot;)
     public ResponseEntity&lt;Optional&lt;Rating&gt;&gt; showRestRatingById(@PathVariable int id) throws DataNotFoundException {
-<span class="nc" id="L48">        logger.info(&quot;@RequestMapping(\&quot;/rating/api/{id}\&quot;)&quot;);</span>
-<span class="nc" id="L49">        Optional&lt;Rating&gt; rating = ratingService.findById(id);</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">        if (rating.isEmpty()) {</span>
+<span class="fc" id="L48">        logger.info(&quot;@RequestMapping(\&quot;/rating/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L49">        Optional&lt;Rating&gt; rating = ratingService.findById(id);</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        if (rating.isEmpty()) {</span>
 <span class="nc" id="L51">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
 
         }
-<span class="nc" id="L54">        return new ResponseEntity&lt;&gt;(ratingService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L54">        return new ResponseEntity&lt;&gt;(ratingService.findById(id), HttpStatus.OK);</span>
     }
 
     /**
@@ -60,9 +60,9 @@ public class RatingApiRestController {
      */
     @PostMapping(&quot;/rating/api&quot;)
     public Rating addRestRating(@RequestBody Rating rating) {
-<span class="nc" id="L63">        logger.info(&quot;@PostMapping(\&quot;/rating/api\&quot;)&quot;);</span>
-<span class="nc" id="L64">        ratingService.save(rating);</span>
-<span class="nc" id="L65">        return rating;</span>
+<span class="fc" id="L63">        logger.info(&quot;@PostMapping(\&quot;/rating/api\&quot;)&quot;);</span>
+<span class="fc" id="L64">        ratingService.save(rating);</span>
+<span class="fc" id="L65">        return rating;</span>
     }
 
 
@@ -72,9 +72,9 @@ public class RatingApiRestController {
      */
     @PutMapping(&quot;/rating/api&quot;)
     public Rating uploadRestRating(@RequestBody Rating rating) {
-<span class="nc" id="L75">        logger.info(&quot;@PutMapping(\&quot;/rating/api/{}\&quot;)  Id &quot; + rating.getId() + &quot; as modified&quot;, rating.getId());</span>
+<span class="fc" id="L75">        logger.info(&quot;@PutMapping(\&quot;/rating/api/{}\&quot;)  Id &quot; + rating.getId() + &quot; as modified&quot;, rating.getId());</span>
 
-<span class="nc" id="L77">        return ratingService.update(rating);</span>
+<span class="fc" id="L77">        return ratingService.update(rating);</span>
     }
 
 
@@ -85,10 +85,10 @@ public class RatingApiRestController {
      */
     @DeleteMapping(&quot;/rating/api/{ratingId}&quot;)
     public String deleteRestRating(@PathVariable int ratingId) throws DataNotFoundException {
-<span class="nc" id="L88">        logger.info(&quot;@DeleteMapping(\&quot;/rating/api/{ratingId}\&quot;)&quot;);</span>
+<span class="fc" id="L88">        logger.info(&quot;@DeleteMapping(\&quot;/rating/api/{ratingId}\&quot;)&quot;);</span>
 
-<span class="nc" id="L90">        ratingService.delete(ratingId);</span>
-<span class="nc" id="L91">        return &quot;delete rating whit id: &quot; + ratingId + &quot; success&quot;;</span>
+<span class="fc" id="L90">        ratingService.delete(ratingId);</span>
+<span class="fc" id="L91">        return &quot;delete rating whit id: &quot; + ratingId + &quot; success&quot;;</span>
     }
 
 

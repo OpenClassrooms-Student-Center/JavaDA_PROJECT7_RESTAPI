@@ -76,7 +76,7 @@ class CurveApiRestControllerTest {
                         .content(json.toString()))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/curvePoint/api"))
+        mockMvc.perform(get("/curvePoint/api/{id}",1))
                 .andExpect(status().isOk());
         //THEN
         Optional<CurvePoint> result = curvePointRepository.findById(1);

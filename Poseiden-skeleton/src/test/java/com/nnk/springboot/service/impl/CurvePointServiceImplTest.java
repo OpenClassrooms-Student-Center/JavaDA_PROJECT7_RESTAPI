@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -94,12 +95,22 @@ class CurvePointServiceImplTest {
     }
 
     @Test
+    void updateCurvePointTest_shouldReturnException() {
+        //Given
+        CurvePoint curvePoint = new CurvePoint(1,1,1.0,1.0);
+
+        //When //Then
+        assertThrows(DataNotFoundException.class, () -> curvePointService.update(curvePoint));
+
+    }
+
+    @Test
     void updateCurvePointTest() {
         //Given
         CurvePoint curvePoint = new CurvePoint(1,1,1.0,1.0);
 
         when(curvePointRepository.save(curvePoint)).thenReturn(curvePoint);
-
+        when(curvePointRepository.findById(any())).thenReturn(Optional.of(curvePoint));
         //When
         CurvePoint result = curvePointService.update(curvePoint);
 
