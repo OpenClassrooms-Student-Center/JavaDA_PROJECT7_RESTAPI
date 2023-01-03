@@ -35,63 +35,44 @@ public class LoginController {
     /**
      * @param userRepository
      */
-<span class="nc" id="L38">    public LoginController(UserRepository userRepository) {</span>
-<span class="nc" id="L39">        this.userRepository = userRepository;</span>
-<span class="nc" id="L40">    }</span>
+<span class="fc" id="L38">    public LoginController(UserRepository userRepository) {</span>
+<span class="fc" id="L39">        this.userRepository = userRepository;</span>
+<span class="fc" id="L40">    }</span>
 
     private IUserService userService;
 
 
 
-//    @RequestMapping(&quot;/**&quot;)
-//    @RolesAllowed(&quot;USER&quot;)
-//    public String getUser() {
-//        return &quot;user/list&quot;;
-//    }
-//
-//
-//    @RequestMapping(&quot;/admin&quot;)
-//    @RolesAllowed(&quot;ADMIN&quot;)
-//    public String getAdmin() {
-//        return &quot;Welcome, Admin&quot;;
-//    }
-//
-//    @RequestMapping(&quot;/*&quot;)
-//    public String getGithub()
-//    {
-//        return &quot;Welcome Github user!&quot;;
-//    }
-
     @GetMapping(&quot;/login&quot;)
     public ModelAndView login() {
-<span class="nc" id="L67">        ModelAndView mav = new ModelAndView();</span>
-<span class="nc" id="L68">        mav.setViewName(&quot;login&quot;);</span>
-<span class="nc" id="L69">        return mav;</span>
+<span class="nc" id="L48">        ModelAndView mav = new ModelAndView();</span>
+<span class="nc" id="L49">        mav.setViewName(&quot;login&quot;);</span>
+<span class="nc" id="L50">        return mav;</span>
     }
 
-    @RequestMapping(&quot;/loginsuccess&quot;)
+    @RequestMapping(&quot;/login-success&quot;)
     public ModelAndView getInfo() {
-<span class="nc" id="L74">        ModelAndView mav = new ModelAndView();</span>
-<span class="nc" id="L75">        mav.setViewName(&quot;redirect:/&quot;);</span>
-<span class="nc" id="L76">        return mav;</span>
+<span class="nc" id="L55">        ModelAndView mav = new ModelAndView();</span>
+<span class="nc" id="L56">        mav.setViewName(&quot;redirect:/&quot;);</span>
+<span class="nc" id="L57">        return mav;</span>
     }
 
 
     @GetMapping(&quot;/secure/article-details&quot;)
     public ModelAndView getAllUserArticles() {
-<span class="nc" id="L82">        ModelAndView mav = new ModelAndView();</span>
-<span class="nc" id="L83">        mav.addObject(&quot;users&quot;, userRepository.findAll());</span>
-<span class="nc" id="L84">        mav.setViewName(&quot;user/list&quot;);</span>
-<span class="nc" id="L85">        return mav;</span>
+<span class="nc" id="L63">        ModelAndView mav = new ModelAndView();</span>
+<span class="nc" id="L64">        mav.addObject(&quot;users&quot;, userRepository.findAll());</span>
+<span class="nc" id="L65">        mav.setViewName(&quot;user/list&quot;);</span>
+<span class="nc" id="L66">        return mav;</span>
     }
 
     @GetMapping(&quot;/403&quot;)
     public ModelAndView error() {
-<span class="nc" id="L90">        ModelAndView mav = new ModelAndView();</span>
-<span class="nc" id="L91">        String errorMessage = &quot;You are not authorized for the requested data.&quot;;</span>
-<span class="nc" id="L92">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
-<span class="nc" id="L93">        mav.setViewName(&quot;403&quot;);</span>
-<span class="nc" id="L94">        return mav;</span>
+<span class="nc" id="L71">        ModelAndView mav = new ModelAndView();</span>
+<span class="nc" id="L72">        String errorMessage = &quot;You are not authorized for the requested data.&quot;;</span>
+<span class="nc" id="L73">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="nc" id="L74">        mav.setViewName(&quot;403&quot;);</span>
+<span class="nc" id="L75">        return mav;</span>
     }
 
 

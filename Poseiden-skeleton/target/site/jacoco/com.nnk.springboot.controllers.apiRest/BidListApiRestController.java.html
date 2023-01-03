@@ -18,22 +18,22 @@ public class BidListApiRestController {
     /**
      * SLF4J Logger instance.
      */
-<span class="nc" id="L21">    private static final Logger logger = LogManager.getLogger(&quot;BidListApiRestController&quot;);</span>
+<span class="fc" id="L21">    private static final Logger logger = LogManager.getLogger(&quot;BidListApiRestController&quot;);</span>
 
 
     private IBidListService bidListService;
 
-<span class="nc" id="L26">    public BidListApiRestController(IBidListService bidListService) {</span>
-<span class="nc" id="L27">        this.bidListService = bidListService;</span>
-<span class="nc" id="L28">    }</span>
+<span class="fc" id="L26">    public BidListApiRestController(IBidListService bidListService) {</span>
+<span class="fc" id="L27">        this.bidListService = bidListService;</span>
+<span class="fc" id="L28">    }</span>
 
     /**
      * @return
      */
     @GetMapping(&quot;/bidList/api&quot;)
     public ResponseEntity&lt;List&lt;BidList&gt;&gt; showRestBid() {
-<span class="nc" id="L35">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
-<span class="nc" id="L36">        return new ResponseEntity&lt;&gt;(bidListService.findAll(), HttpStatus.OK);</span>
+<span class="fc" id="L35">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
+<span class="fc" id="L36">        return new ResponseEntity&lt;&gt;(bidListService.findAll(), HttpStatus.OK);</span>
     }
 
     /**
@@ -43,13 +43,13 @@ public class BidListApiRestController {
      */
     @GetMapping(&quot;/bidList/api/{id}&quot;)
     public ResponseEntity&lt;Optional&lt;BidList&gt;&gt; showRestBidById(@PathVariable int id) throws DataNotFoundException {
-<span class="nc" id="L46">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api/{id}\&quot;)&quot;);</span>
-<span class="nc" id="L47">        Optional&lt;BidList&gt; bid = bidListService.findById(id);</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (bid.isEmpty()) {</span>
+<span class="fc" id="L46">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L47">        Optional&lt;BidList&gt; bid = bidListService.findById(id);</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (bid.isEmpty()) {</span>
 <span class="nc" id="L49">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
 
         }
-<span class="nc" id="L52">        return new ResponseEntity&lt;&gt;(bidListService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L52">        return new ResponseEntity&lt;&gt;(bidListService.findById(id), HttpStatus.OK);</span>
     }
 
     /**
@@ -58,17 +58,17 @@ public class BidListApiRestController {
      */
     @PostMapping(&quot;/bidList/api&quot;)
     public BidList addRestBid(@RequestBody BidList bidList) {
-<span class="nc" id="L61">        logger.info(&quot;@PostMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
-<span class="nc" id="L62">        bidListService.save(bidList);</span>
-<span class="nc" id="L63">        return bidList;</span>
+<span class="fc" id="L61">        logger.info(&quot;@PostMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
+<span class="fc" id="L62">        bidListService.save(bidList);</span>
+<span class="fc" id="L63">        return bidList;</span>
     }
 
 
     @PutMapping(&quot;/bidList/api&quot;)
     public BidList uploadRestBid(@RequestBody BidList bidList) {
-<span class="nc" id="L69">        logger.info(&quot;@PutMapping(\&quot;/bidList/api/{}\&quot;)  Id &quot; + bidList + &quot; as modified&quot;, bidList.getBidListId());</span>
+<span class="fc" id="L69">        logger.info(&quot;@PutMapping(\&quot;/bidList/api/{}\&quot;)  Id &quot; + bidList + &quot; as modified&quot;, bidList.getBidListId());</span>
 
-<span class="nc" id="L71">        return bidListService.update(bidList);</span>
+<span class="fc" id="L71">        return bidListService.update(bidList);</span>
     }
 
     /**
@@ -78,10 +78,10 @@ public class BidListApiRestController {
      */
     @DeleteMapping(&quot;/bidList/api/{bidListId}&quot;)
     public String deleteRestBid(@PathVariable int bidListId) throws DataNotFoundException {
-<span class="nc" id="L81">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+<span class="fc" id="L81">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
 
-<span class="nc" id="L83">        bidListService.delete(bidListId);</span>
-<span class="nc" id="L84">        return &quot;delete bid by id: &quot; + bidListId + &quot; success&quot;;</span>
+<span class="fc" id="L83">        bidListService.delete(bidListId);</span>
+<span class="fc" id="L84">        return &quot;delete bid by id: &quot; + bidListId + &quot; success&quot;;</span>
     }
 
 }

@@ -1,10 +1,14 @@
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\PasswordEncodeTest.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\CurvePointTests.java
+C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\controllers\UserControllerTest.java
+C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\TradeServiceImplTest.java
+C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\UserServiceImplTest.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\RuleNameServiceImplTest.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\RatingServiceImplTest.java
-C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\TradeServiceImplTest.java
+C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\UserDetailServiceImplTest.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\TradeTests.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\RatingTests.java
+C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\controllers\apiRest\BidListApiRestControllerTest.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\RuleTests.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\BidListServiceImplTest.java
 C:\Users\goten\IdeaProjects\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\test\java\com\nnk\springboot\service\impl\CurvePointServiceImplTest.java
