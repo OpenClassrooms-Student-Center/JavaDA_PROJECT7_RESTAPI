@@ -35,8 +35,8 @@ public class RuleNameApiRestController {
      */
     @GetMapping(&quot;/ruleNames/api&quot;)
     public ResponseEntity&lt;List&lt;RuleName&gt;&gt; showRestRuleNames() {
-<span class="nc" id="L38">        logger.info(&quot;@RequestMapping(\&quot;/ruleNames/api\&quot;)&quot;);</span>
-<span class="nc" id="L39">        return new ResponseEntity&lt;&gt;(ruleNameService.findAll(), HttpStatus.OK);</span>
+<span class="fc" id="L38">        logger.info(&quot;@RequestMapping(\&quot;/ruleNames/api\&quot;)&quot;);</span>
+<span class="fc" id="L39">        return new ResponseEntity&lt;&gt;(ruleNameService.findAll(), HttpStatus.OK);</span>
     }
 
     /**
@@ -46,13 +46,9 @@ public class RuleNameApiRestController {
      */
     @GetMapping(&quot;/ruleName/api/{id}&quot;)
     public ResponseEntity&lt;Optional&lt;RuleName&gt;&gt; showRestRuleNameById(@PathVariable int id) throws DataNotFoundException {
-<span class="nc" id="L49">        logger.info(&quot;@RequestMapping(\&quot;/ruleName/api/{id}\&quot;)&quot;);</span>
-<span class="nc" id="L50">        Optional&lt;RuleName&gt; ruleName = ruleNameService.findById(id);</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        if (ruleName.isEmpty()) {</span>
-<span class="nc" id="L52">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
-
-        }
-<span class="nc" id="L55">        return new ResponseEntity&lt;&gt;(ruleNameService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L49">        logger.info(&quot;@RequestMapping(\&quot;/ruleName/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L50">        Optional&lt;RuleName&gt; ruleName = ruleNameService.findById(id);</span>
+<span class="fc" id="L51">        return new ResponseEntity&lt;&gt;(ruleNameService.findById(id), HttpStatus.OK);</span>
     }
 
     /**
@@ -61,9 +57,9 @@ public class RuleNameApiRestController {
      */
     @PostMapping(&quot;/ruleName/api&quot;)
     public RuleName addRestRuleName(@RequestBody RuleName ruleName) {
-<span class="nc" id="L64">        logger.info(&quot;@PostMapping(\&quot;/ruleName/api\&quot;)&quot;);</span>
-<span class="nc" id="L65">        ruleNameService.save(ruleName);</span>
-<span class="nc" id="L66">        return ruleName;</span>
+<span class="fc" id="L60">        logger.info(&quot;@PostMapping(\&quot;/ruleName/api\&quot;)&quot;);</span>
+<span class="fc" id="L61">        ruleNameService.save(ruleName);</span>
+<span class="fc" id="L62">        return ruleName;</span>
     }
 
 
@@ -73,9 +69,9 @@ public class RuleNameApiRestController {
      */
     @PutMapping(&quot;/ruleName/api&quot;)
     public RuleName uploadRestRuleName(@RequestBody RuleName ruleName) {
-<span class="nc" id="L76">        logger.info(&quot;@PutMapping(\&quot;/ruleName/api/{}\&quot;)  Id &quot; + ruleName + &quot; as modified&quot;, ruleName.getId());</span>
+<span class="fc" id="L72">        logger.info(&quot;@PutMapping(\&quot;/ruleName/api/{}\&quot;)  Id &quot; + ruleName + &quot; as modified&quot;, ruleName.getId());</span>
 
-<span class="nc" id="L78">        return ruleNameService.update(ruleName);</span>
+<span class="fc" id="L74">        return ruleNameService.update(ruleName);</span>
     }
 
     /**
@@ -85,10 +81,10 @@ public class RuleNameApiRestController {
      */
     @DeleteMapping(&quot;/ruleName/api/{ruleNameId}&quot;)
     public String deleteRestRuleName(@PathVariable int ruleNameId) throws DataNotFoundException {
-<span class="nc" id="L88">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+<span class="fc" id="L84">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
 
-<span class="nc" id="L90">        ruleNameService.delete(ruleNameId);</span>
-<span class="nc" id="L91">        return &quot;delete bid by id: &quot; + ruleNameId + &quot; success&quot;;</span>
+<span class="fc" id="L86">        ruleNameService.delete(ruleNameId);</span>
+<span class="fc" id="L87">        return &quot;delete bid by id: &quot; + ruleNameId + &quot; success&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

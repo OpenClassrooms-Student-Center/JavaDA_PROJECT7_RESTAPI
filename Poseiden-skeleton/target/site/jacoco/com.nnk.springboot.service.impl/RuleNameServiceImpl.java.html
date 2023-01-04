@@ -47,7 +47,7 @@ public class RuleNameServiceImpl implements IRuleNameService {
 <span class="fc" id="L47">        return Optional.ofNullable(ruleNameRepository.findById(id).orElseThrow(()</span>
                 -&gt; {
 <span class="fc" id="L49">            logger.error(&quot;Invalid Rating Id: {} &quot;, id);</span>
-<span class="fc" id="L50">            return new DataNotFoundException(&quot; No User with id &quot; + id + &quot; found &quot;);</span>
+<span class="fc" id="L50">            return new DataNotFoundException(&quot;No RuleName with id:&quot; + id + &quot;found&quot;);</span>
         }));
     }
 

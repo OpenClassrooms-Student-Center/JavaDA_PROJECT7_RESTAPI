@@ -36,8 +36,8 @@ public class TradeApiRestController {
      */
     @GetMapping(&quot;/trades/api&quot;)
     public ResponseEntity&lt;List&lt;Trade&gt;&gt; showRestTrade() {
-<span class="nc" id="L39">        logger.info(&quot;@RequestMapping(\&quot;/trades/api\&quot;)&quot;);</span>
-<span class="nc" id="L40">        return new ResponseEntity&lt;&gt;(tradeService.findAll(), HttpStatus.OK);</span>
+<span class="fc" id="L39">        logger.info(&quot;@RequestMapping(\&quot;/trades/api\&quot;)&quot;);</span>
+<span class="fc" id="L40">        return new ResponseEntity&lt;&gt;(tradeService.findAll(), HttpStatus.OK);</span>
     }
 
     /**
@@ -47,13 +47,13 @@ public class TradeApiRestController {
      */
     @GetMapping(&quot;/trade/api/{id}&quot;)
     public ResponseEntity&lt;Optional&lt;Trade&gt;&gt; showRestTradeById(@PathVariable int id) throws DataNotFoundException {
-<span class="nc" id="L50">        logger.info(&quot;@RequestMapping(\&quot;/trade/api/{id}\&quot;)&quot;);</span>
-<span class="nc" id="L51">        Optional&lt;Trade&gt; trade = tradeService.findById(id);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (trade.isEmpty()) {</span>
+<span class="fc" id="L50">        logger.info(&quot;@RequestMapping(\&quot;/trade/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L51">        Optional&lt;Trade&gt; trade = tradeService.findById(id);</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (trade.isEmpty()) {</span>
 <span class="nc" id="L53">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
 
         }
-<span class="nc" id="L56">        return new ResponseEntity&lt;&gt;(tradeService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L56">        return new ResponseEntity&lt;&gt;(tradeService.findById(id), HttpStatus.OK);</span>
     }
 
     /**
@@ -62,9 +62,9 @@ public class TradeApiRestController {
      */
     @PostMapping(&quot;/trade/api&quot;)
     public Trade addRestTrade(@RequestBody Trade trade) {
-<span class="nc" id="L65">        logger.info(&quot;@PostMapping(\&quot;/trade/api\&quot;)&quot;);</span>
-<span class="nc" id="L66">        tradeService.save(trade);</span>
-<span class="nc" id="L67">        return trade;</span>
+<span class="fc" id="L65">        logger.info(&quot;@PostMapping(\&quot;/trade/api\&quot;)&quot;);</span>
+<span class="fc" id="L66">        tradeService.save(trade);</span>
+<span class="fc" id="L67">        return trade;</span>
     }
 
 
@@ -74,9 +74,9 @@ public class TradeApiRestController {
      */
     @PutMapping(&quot;/trade/api&quot;)
     public Trade uploadRestTrade(@RequestBody Trade trade) {
-<span class="nc" id="L77">        logger.info(&quot;@PutMapping(\&quot;/trade/api/{}\&quot;)  Id &quot; + trade + &quot; as modified&quot;, trade.getTradeId());</span>
+<span class="fc" id="L77">        logger.info(&quot;@PutMapping(\&quot;/trade/api/{}\&quot;)  Id &quot; + trade + &quot; as modified&quot;, trade.getTradeId());</span>
 
-<span class="nc" id="L79">        return tradeService.update(trade);</span>
+<span class="fc" id="L79">        return tradeService.update(trade);</span>
     }
 
     /**
@@ -86,10 +86,10 @@ public class TradeApiRestController {
      */
     @DeleteMapping(&quot;/trade/api/{tradeId}&quot;)
     public String deleteRestTrade(@PathVariable int tradeId) throws DataNotFoundException {
-<span class="nc" id="L89">        logger.info(&quot;@DeleteMapping(\&quot;/trade/api/{tradeId}\&quot;)&quot;);</span>
+<span class="fc" id="L89">        logger.info(&quot;@DeleteMapping(\&quot;/trade/api/{tradeId}\&quot;)&quot;);</span>
 
-<span class="nc" id="L91">        tradeService.delete(tradeId);</span>
-<span class="nc" id="L92">        return &quot;delete bid by id: &quot; + tradeId + &quot; success&quot;;</span>
+<span class="fc" id="L91">        tradeService.delete(tradeId);</span>
+<span class="fc" id="L92">        return &quot;delete bid by id: &quot; + tradeId + &quot; success&quot;;</span>
     }
 
 

@@ -47,13 +47,13 @@ public class CurveApiRestController {
 
     @GetMapping(&quot;/curvePoint/api/{id}&quot;)
     public ResponseEntity&lt;Optional&lt;CurvePoint&gt;&gt; showRestCurvePointById(@PathVariable int id) throws DataNotFoundException {
-<span class="nc" id="L50">        logger.info(&quot;@RequestMapping(\&quot;/curvePoint/api{id}\&quot;)&quot;);</span>
-<span class="nc" id="L51">        Optional&lt;CurvePoint&gt; curvePoint = curvePointService.findById(id);</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (curvePoint.isEmpty()) {</span>
+<span class="fc" id="L50">        logger.info(&quot;@RequestMapping(\&quot;/curvePoint/api{id}\&quot;)&quot;);</span>
+<span class="fc" id="L51">        Optional&lt;CurvePoint&gt; curvePoint = curvePointService.findById(id);</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (curvePoint.isEmpty()) {</span>
 <span class="nc" id="L53">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
 
         }
-<span class="nc" id="L56">        return new ResponseEntity&lt;&gt;(curvePointService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L56">        return new ResponseEntity&lt;&gt;(curvePointService.findById(id), HttpStatus.OK);</span>
     }
 
     @PostMapping(&quot;/curvePoint/api&quot;)

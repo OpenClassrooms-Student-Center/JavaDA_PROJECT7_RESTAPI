@@ -53,10 +53,6 @@ public class UserApiRestController {
     public ResponseEntity<Optional<User>> showRestUserById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/user/api/{id}\")");
         Optional<User> users = userService.findById(id);
-        if (users.isEmpty()) {
-            throw new DataNotFoundException("Id not present");
-
-        }
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
@@ -72,6 +68,10 @@ public class UserApiRestController {
     }
 
 
+    /**
+     * @param user
+     * @return user update
+     */
     @PutMapping("/user/api")
     public User uploadRestUser(@RequestBody User user) {
         logger.info("@PutMapping(\"/user/api/{}\")  Id " + user + " as modified", user.getId());
@@ -87,11 +87,8 @@ public class UserApiRestController {
     @DeleteMapping("/user/api/{userId}")
     public String deleteRestUser(@PathVariable int userId) throws DataNotFoundException {
         logger.info("@DeleteMapping(\"/user/api/{userId}\")");
-
         userService.delete(userId);
         return "delete user by id: " + userId + " success";
     }
-
-
 
 }

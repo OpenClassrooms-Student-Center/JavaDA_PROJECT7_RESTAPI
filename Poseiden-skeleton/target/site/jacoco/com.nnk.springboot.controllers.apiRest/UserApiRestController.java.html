@@ -40,8 +40,8 @@ public class UserApiRestController {
      */
     @GetMapping(&quot;/users/api&quot;)
     public ResponseEntity&lt;List&lt;User&gt;&gt; showRestUser() {
-<span class="nc" id="L43">        logger.info(&quot;@RequestMapping(\&quot;/users/api\&quot;)&quot;);</span>
-<span class="nc" id="L44">        return new ResponseEntity&lt;&gt;(userService.findAll(), HttpStatus.OK);</span>
+<span class="fc" id="L43">        logger.info(&quot;@RequestMapping(\&quot;/users/api\&quot;)&quot;);</span>
+<span class="fc" id="L44">        return new ResponseEntity&lt;&gt;(userService.findAll(), HttpStatus.OK);</span>
     }
 
     /**
@@ -51,13 +51,9 @@ public class UserApiRestController {
      */
     @GetMapping(&quot;/user/api/{id}&quot;)
     public ResponseEntity&lt;Optional&lt;User&gt;&gt; showRestUserById(@PathVariable int id) throws DataNotFoundException {
-<span class="nc" id="L54">        logger.info(&quot;@RequestMapping(\&quot;/user/api/{id}\&quot;)&quot;);</span>
-<span class="nc" id="L55">        Optional&lt;User&gt; users = userService.findById(id);</span>
-<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (users.isEmpty()) {</span>
-<span class="nc" id="L57">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
-
-        }
-<span class="nc" id="L60">        return new ResponseEntity&lt;&gt;(userService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L54">        logger.info(&quot;@RequestMapping(\&quot;/user/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L55">        Optional&lt;User&gt; users = userService.findById(id);</span>
+<span class="fc" id="L56">        return new ResponseEntity&lt;&gt;(userService.findById(id), HttpStatus.OK);</span>
     }
 
     /**
@@ -66,17 +62,21 @@ public class UserApiRestController {
      */
     @PostMapping(&quot;/user/api&quot;)
     public User addRestUser(@RequestBody User user) {
-<span class="nc" id="L69">        logger.info(&quot;@PostMapping(\&quot;/user/api\&quot;)&quot;);</span>
-<span class="nc" id="L70">        userService.save(user);</span>
-<span class="nc" id="L71">        return user;</span>
+<span class="fc" id="L65">        logger.info(&quot;@PostMapping(\&quot;/user/api\&quot;)&quot;);</span>
+<span class="fc" id="L66">        userService.save(user);</span>
+<span class="fc" id="L67">        return user;</span>
     }
 
 
+    /**
+     * @param user
+     * @return user update
+     */
     @PutMapping(&quot;/user/api&quot;)
     public User uploadRestUser(@RequestBody User user) {
-<span class="nc" id="L77">        logger.info(&quot;@PutMapping(\&quot;/user/api/{}\&quot;)  Id &quot; + user + &quot; as modified&quot;, user.getId());</span>
+<span class="fc" id="L77">        logger.info(&quot;@PutMapping(\&quot;/user/api/{}\&quot;)  Id &quot; + user + &quot; as modified&quot;, user.getId());</span>
 
-<span class="nc" id="L79">        return userService.update(user);</span>
+<span class="fc" id="L79">        return userService.update(user);</span>
     }
 
     /**
@@ -86,13 +86,10 @@ public class UserApiRestController {
      */
     @DeleteMapping(&quot;/user/api/{userId}&quot;)
     public String deleteRestUser(@PathVariable int userId) throws DataNotFoundException {
-<span class="nc" id="L89">        logger.info(&quot;@DeleteMapping(\&quot;/user/api/{userId}\&quot;)&quot;);</span>
-
-<span class="nc" id="L91">        userService.delete(userId);</span>
-<span class="nc" id="L92">        return &quot;delete user by id: &quot; + userId + &quot; success&quot;;</span>
+<span class="fc" id="L89">        logger.info(&quot;@DeleteMapping(\&quot;/user/api/{userId}\&quot;)&quot;);</span>
+<span class="fc" id="L90">        userService.delete(userId);</span>
+<span class="fc" id="L91">        return &quot;delete user by id: &quot; + userId + &quot; success&quot;;</span>
     }
-
-
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

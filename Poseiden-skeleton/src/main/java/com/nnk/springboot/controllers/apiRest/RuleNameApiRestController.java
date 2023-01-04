@@ -48,10 +48,6 @@ public class RuleNameApiRestController {
     public ResponseEntity<Optional<RuleName>> showRestRuleNameById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/ruleName/api/{id}\")");
         Optional<RuleName> ruleName = ruleNameService.findById(id);
-        if (ruleName.isEmpty()) {
-            throw new DataNotFoundException("Id not present");
-
-        }
         return new ResponseEntity<>(ruleNameService.findById(id), HttpStatus.OK);
     }
 
