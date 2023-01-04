@@ -47,10 +47,7 @@ public class RatingApiRestController {
     public ResponseEntity<Optional<Rating>> showRestRatingById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/rating/api/{id}\")");
         Optional<Rating> rating = ratingService.findById(id);
-        if (rating.isEmpty()) {
-            throw new DataNotFoundException("Id not present");
 
-        }
         return new ResponseEntity<>(ratingService.findById(id), HttpStatus.OK);
     }
 

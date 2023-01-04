@@ -45,10 +45,7 @@ public class BidListApiRestController {
     public ResponseEntity<Optional<BidList>> showRestBidById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/bidList/api/{id}\")");
         Optional<BidList> bid = bidListService.findById(id);
-        if (bid.isEmpty()) {
-            throw new DataNotFoundException("Id not present");
 
-        }
         return new ResponseEntity<>(bidListService.findById(id), HttpStatus.OK);
     }
 

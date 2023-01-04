@@ -49,10 +49,7 @@ public class CurveApiRestController {
     public ResponseEntity<Optional<CurvePoint>> showRestCurvePointById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/curvePoint/api{id}\")");
         Optional<CurvePoint> curvePoint = curvePointService.findById(id);
-        if (curvePoint.isEmpty()) {
-            throw new DataNotFoundException("Id not present");
 
-        }
         return new ResponseEntity<>(curvePointService.findById(id), HttpStatus.OK);
     }
 

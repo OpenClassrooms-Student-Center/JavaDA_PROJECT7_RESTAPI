@@ -28,8 +28,8 @@ spring-boot-skeleton,com.nnk.springboot.domain,Trade,67,98,0,0,34,38,17,28,17,28
 spring-boot-skeleton,com.nnk.springboot.domain,User,0,65,0,0,0,28,0,13,0,13
 spring-boot-skeleton,com.nnk.springboot.domain,CurvePoint,19,56,0,0,9,24,3,13,3,13
 spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,RuleNameApiRestController,0,72,0,0,0,17,0,7,0,7
-spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,CurveApiRestController,5,78,1,1,1,19,1,7,0,7
-spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,TradeApiRestController,5,75,1,1,1,18,1,7,0,7
+spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,CurveApiRestController,0,75,0,0,0,18,0,7,0,7
+spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,TradeApiRestController,0,72,0,0,0,17,0,7,0,7
 spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,UserApiRestController,0,71,0,0,0,17,0,7,0,7
-spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,BidListApiRestController,5,75,1,1,1,18,1,7,0,7
-spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,RatingApiRestController,5,76,1,1,1,18,1,7,0,7
+spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,BidListApiRestController,0,72,0,0,0,17,0,7,0,7
+spring-boot-skeleton,com.nnk.springboot.controllers.apiRest,RatingApiRestController,0,73,0,0,0,17,0,7,0,7

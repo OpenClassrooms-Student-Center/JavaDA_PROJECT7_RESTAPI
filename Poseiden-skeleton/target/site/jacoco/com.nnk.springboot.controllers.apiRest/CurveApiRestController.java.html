@@ -49,34 +49,31 @@ public class CurveApiRestController {
     public ResponseEntity&lt;Optional&lt;CurvePoint&gt;&gt; showRestCurvePointById(@PathVariable int id) throws DataNotFoundException {
 <span class="fc" id="L50">        logger.info(&quot;@RequestMapping(\&quot;/curvePoint/api{id}\&quot;)&quot;);</span>
 <span class="fc" id="L51">        Optional&lt;CurvePoint&gt; curvePoint = curvePointService.findById(id);</span>
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if (curvePoint.isEmpty()) {</span>
-<span class="nc" id="L53">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
 
-        }
-<span class="fc" id="L56">        return new ResponseEntity&lt;&gt;(curvePointService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L53">        return new ResponseEntity&lt;&gt;(curvePointService.findById(id), HttpStatus.OK);</span>
     }
 
     @PostMapping(&quot;/curvePoint/api&quot;)
     public CurvePoint addRestCurvePoint(@RequestBody CurvePoint curvePoint) {
-<span class="fc" id="L61">        logger.info(&quot;@PostMapping(\&quot;/curvePoint/api\&quot;)&quot;);</span>
-<span class="fc" id="L62">        curvePointService.save(curvePoint);</span>
+<span class="fc" id="L58">        logger.info(&quot;@PostMapping(\&quot;/curvePoint/api\&quot;)&quot;);</span>
+<span class="fc" id="L59">        curvePointService.save(curvePoint);</span>
 
-<span class="fc" id="L64">        return  curvePoint ;</span>
+<span class="fc" id="L61">        return  curvePoint ;</span>
     }
 
     @PutMapping(&quot;/curvePoint/api&quot;)
     public CurvePoint uploadRestCurvePoint(@RequestBody CurvePoint curvePoint) {
-<span class="fc" id="L69">        logger.info(&quot;@PutMapping(\&quot;/curvePoint/api/{}\&quot;)  Id &quot; + curvePoint.getId()+ &quot; as modified&quot;, curvePoint.getId());</span>
-<span class="fc" id="L70">        curvePointService.update(curvePoint);</span>
-<span class="fc" id="L71">        return curvePoint;</span>
+<span class="fc" id="L66">        logger.info(&quot;@PutMapping(\&quot;/curvePoint/api/{}\&quot;)  Id &quot; + curvePoint.getId()+ &quot; as modified&quot;, curvePoint.getId());</span>
+<span class="fc" id="L67">        curvePointService.update(curvePoint);</span>
+<span class="fc" id="L68">        return curvePoint;</span>
     }
 
     @DeleteMapping(&quot;/curvePoint/api/{curvePointId}&quot;)
     public String deleteRestCurvePoint(@PathVariable int curvePointId) throws DataNotFoundException {
-<span class="fc" id="L76">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+<span class="fc" id="L73">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
 
-<span class="fc" id="L78">        curvePointService.delete(curvePointId);</span>
-<span class="fc" id="L79">        return &quot;delete bid id: &quot; + curvePointId + &quot; success&quot;;</span>
+<span class="fc" id="L75">        curvePointService.delete(curvePointId);</span>
+<span class="fc" id="L76">        return &quot;delete bid id: &quot; + curvePointId + &quot; success&quot;;</span>
     }
 
 

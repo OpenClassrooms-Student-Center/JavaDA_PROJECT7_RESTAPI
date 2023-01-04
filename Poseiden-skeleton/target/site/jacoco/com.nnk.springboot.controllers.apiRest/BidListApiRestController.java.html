@@ -45,11 +45,8 @@ public class BidListApiRestController {
     public ResponseEntity&lt;Optional&lt;BidList&gt;&gt; showRestBidById(@PathVariable int id) throws DataNotFoundException {
 <span class="fc" id="L46">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api/{id}\&quot;)&quot;);</span>
 <span class="fc" id="L47">        Optional&lt;BidList&gt; bid = bidListService.findById(id);</span>
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (bid.isEmpty()) {</span>
-<span class="nc" id="L49">            throw new DataNotFoundException(&quot;Id not present&quot;);</span>
 
-        }
-<span class="fc" id="L52">        return new ResponseEntity&lt;&gt;(bidListService.findById(id), HttpStatus.OK);</span>
+<span class="fc" id="L49">        return new ResponseEntity&lt;&gt;(bidListService.findById(id), HttpStatus.OK);</span>
     }
 
     /**
@@ -58,17 +55,17 @@ public class BidListApiRestController {
      */
     @PostMapping(&quot;/bidList/api&quot;)
     public BidList addRestBid(@RequestBody BidList bidList) {
-<span class="fc" id="L61">        logger.info(&quot;@PostMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
-<span class="fc" id="L62">        bidListService.save(bidList);</span>
-<span class="fc" id="L63">        return bidList;</span>
+<span class="fc" id="L58">        logger.info(&quot;@PostMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
+<span class="fc" id="L59">        bidListService.save(bidList);</span>
+<span class="fc" id="L60">        return bidList;</span>
     }
 
 
     @PutMapping(&quot;/bidList/api&quot;)
     public BidList uploadRestBid(@RequestBody BidList bidList) {
-<span class="fc" id="L69">        logger.info(&quot;@PutMapping(\&quot;/bidList/api/{}\&quot;)  Id &quot; + bidList + &quot; as modified&quot;, bidList.getBidListId());</span>
+<span class="fc" id="L66">        logger.info(&quot;@PutMapping(\&quot;/bidList/api/{}\&quot;)  Id &quot; + bidList + &quot; as modified&quot;, bidList.getBidListId());</span>
 
-<span class="fc" id="L71">        return bidListService.update(bidList);</span>
+<span class="fc" id="L68">        return bidListService.update(bidList);</span>
     }
 
     /**
@@ -78,10 +75,10 @@ public class BidListApiRestController {
      */
     @DeleteMapping(&quot;/bidList/api/{bidListId}&quot;)
     public String deleteRestBid(@PathVariable int bidListId) throws DataNotFoundException {
-<span class="fc" id="L81">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+<span class="fc" id="L78">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
 
-<span class="fc" id="L83">        bidListService.delete(bidListId);</span>
-<span class="fc" id="L84">        return &quot;delete bid by id: &quot; + bidListId + &quot; success&quot;;</span>
+<span class="fc" id="L80">        bidListService.delete(bidListId);</span>
+<span class="fc" id="L81">        return &quot;delete bid by id: &quot; + bidListId + &quot; success&quot;;</span>
     }
 
 }

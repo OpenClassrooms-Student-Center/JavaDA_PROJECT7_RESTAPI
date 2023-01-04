@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.controllers.apiRest.RuleNameApiRestControllerTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.648 s - in com.nnk.springboot.controllers.apiRest.RuleNameApiRestControllerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.226 s - in com.nnk.springboot.controllers.apiRest.RuleNameApiRestControllerTest

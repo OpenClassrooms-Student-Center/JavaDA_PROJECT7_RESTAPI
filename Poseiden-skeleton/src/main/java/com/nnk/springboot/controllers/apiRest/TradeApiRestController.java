@@ -49,10 +49,7 @@ public class TradeApiRestController {
     public ResponseEntity<Optional<Trade>> showRestTradeById(@PathVariable int id) throws DataNotFoundException {
         logger.info("@RequestMapping(\"/trade/api/{id}\")");
         Optional<Trade> trade = tradeService.findById(id);
-        if (trade.isEmpty()) {
-            throw new DataNotFoundException("Id not present");
 
-        }
         return new ResponseEntity<>(tradeService.findById(id), HttpStatus.OK);
     }
 
