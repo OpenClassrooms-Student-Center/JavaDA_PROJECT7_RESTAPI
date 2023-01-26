@@ -1,13 +1,16 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 
 @Entity
 @Table(name = "trade")
 public class Trade {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     Integer tradeId;
     String account;
     String type;
