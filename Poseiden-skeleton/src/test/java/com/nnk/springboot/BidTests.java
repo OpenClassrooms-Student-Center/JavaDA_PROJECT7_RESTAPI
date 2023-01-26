@@ -21,7 +21,13 @@ public class BidTests {
 
 	@Test
 	public void bidListTest() {
-		BidList bid = new BidList("Account Test", "Type Test", 10d);
+//		BidList bid =new BidList("accounted", "Type Test", 10d); pourquoi il ne fonctionne pas avec le constructeur
+
+		BidList bid = new BidList();
+		bid.setAccount("accountTest");
+		bid.setType("typetest");
+		bid.setBidQuantity(10d);
+
 
 		// Save
 		bid = bidListRepository.save(bid);
