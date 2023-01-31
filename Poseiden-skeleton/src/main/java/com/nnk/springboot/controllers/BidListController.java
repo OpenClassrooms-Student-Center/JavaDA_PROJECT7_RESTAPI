@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -21,25 +18,34 @@ public class BidListController {
     @Autowired
     private BidService bidService;
 
-    @RequestMapping("/bidList/list")
+    @RequestMapping(value = "/bidList/list",method = RequestMethod.GET)
     public String home(Model model)
     {
-        List<BidList> bidList=bidService.showBidList();
+        List<BidList> bidList=bidService.findAll();
         model.addAttribute("bidList",bidList);
         // TODO: call service find all bids to show to the view
         return "bidList/list";
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
+    public String addBidForm(Model model) {
+
+        BidList bidList = new BidList();
+        model.addAttribute("bidList",bidList);
 
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bid, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
+    public String validate(@Valid BidList bidList, BindingResult result, Model model) {
+
+        if (!result.hasErrors()) {
+            bidService.save(bidList);
+            model.addAttribute("bidList", bidService.findAll());
+            return "redirect:/bidList/list";
+        }
         return "bidList/add";
+        // TODO: check data valid and save to db, after saving return bid list
     }
 
     @GetMapping("/bidList/update/{id}")

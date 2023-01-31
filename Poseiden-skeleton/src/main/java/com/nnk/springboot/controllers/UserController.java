@@ -30,7 +30,6 @@ public class UserController {
     @GetMapping("/user/add")
     public String addUser(Model model) {
       User user =new User();
-
         model.addAttribute("user",user);
         return "user/add";
     }
@@ -61,8 +60,7 @@ public class UserController {
             return "user/update";
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setId(id);
         userService.save(user);
         model.addAttribute("users", userService.findAll());

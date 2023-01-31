@@ -227,8 +227,6 @@ SPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/CurveController.
 TPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/RatingController.java,c\a\ca5eb721e0d68d7d702481d90995a8c551c0e0c9
 †
 VPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/RuleNameController.java,9\d\9df0b84c155465fdbd9ee8a8e948c6d4e36c9ea8
-ƒ
-SPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/TradeController.java,a\2\a2ee8704966aecaddfd7d87fc5710f4a3489ee9f
 N
 Poseiden-skeleton/doc/data.sql,e\7\e7bd94d20dd1aa6065001aebed263cc3b7d996f8
 w
@@ -241,8 +239,6 @@ r
 BPoseiden-skeleton/src/test/java/com/nnk/springboot/TradeTests.java,a\5\a5762d543c9ed51616c4caa2e283e914251b9e89
 z
 JPoseiden-skeleton/src/test/java/com/nnk/springboot/PasswordEncodeTest.java,0\0\00bfd0b3336b8884fbdd58d89f2504ed3dfd3fd6
-p
-@Poseiden-skeleton/src/test/java/com/nnk/springboot/BidTests.java,d\8\d809274e38fe725c0f835d5a5011a3ffa44d8199
 y
 IPoseiden-skeleton/src/main/java/com/nnk/springboot/domain/CurvePoint.java,c\7\c7dafa6a18e180d19955481c40d84636b993ebb0
 u
