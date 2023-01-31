@@ -15,6 +15,33 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="fullname" class="col-sm-2 control-label">Full Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{bidList.account}" id="fullname" placeholder="Full Name" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{bidList.account}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="username" class="col-sm-2 control-label">User Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{bidList.type}" id="username" placeholder="User Name" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{bidList.type}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-2 control-label">Password</label>
+				<div class="col-sm-10">
+					<input type="password" th:field="*{bidList.quantity}" id="password" placeholder="Password" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{bidList.quantity}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" href="/user/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add BidList">
+				</div>
+			</div>
 			<!--
 			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
 			 -->

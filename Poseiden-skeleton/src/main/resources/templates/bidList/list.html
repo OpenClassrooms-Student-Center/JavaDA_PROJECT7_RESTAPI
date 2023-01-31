@@ -37,6 +37,13 @@
 				</tr>
 			</thead>
 			<tbody>
+			<tr th:each="bid:${bidList}">
+				<td th:text="${bid.bidListId}"></td>
+				<td th:text="${bid.account}"></td>
+				<td th:text="${bid.type}"></td>
+				<td th:text="${bid.bidQuantity}"></td>
+				<td> edit|delete</td>
+			</tr>
 				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
 			</tbody>
 		</table>
