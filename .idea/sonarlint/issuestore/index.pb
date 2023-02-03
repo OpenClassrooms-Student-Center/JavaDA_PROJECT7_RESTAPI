@@ -465,8 +465,6 @@ KPoseiden-skeleton/src/test/java/com/nnk/springboot/repository/BidTests.java,8\
 RPoseiden-skeleton/src/test/java/com/nnk/springboot/repository/CurvePointTests.java,e\e\eec50ad3c2a763987a7777a379d83e69f35a00ba
 |
 LPoseiden-skeleton/src/test/java/com/nnk/springboot/repository/RuleTests.java,c\e\ced8800356667fce63da1906a483436eabe286a1
-}
-MPoseiden-skeleton/src/test/java/com/nnk/springboot/repository/TradeTests.java,f\5\f500761d30ce301b9e9e43ea5bc50afbc3e67d99
 ~
 NPoseiden-skeleton/src/test/java/com/nnk/springboot/repository/RatingTests.java,3\3\335669acaf23d4a8a5b1de3ed64cdb63aa75e648
 …
@@ -483,8 +481,6 @@ QPoseiden-skeleton/src/main/java/com/nnk/springboot/service/CurvePointService.ja
 UPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/BidListController.java,c\d\cd1faf3280d23e9642e6aa7e4e25a6bdb541992e
 „
 TPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/RatingController.java,c\a\ca5eb721e0d68d7d702481d90995a8c551c0e0c9
-z
-JPoseiden-skeleton/src/test/java/com/nnk/springboot/service/TradeTests.java,6\5\650f2052ae10a6a0b5c834fb3cb6d0473d619350
 y
 IPoseiden-skeleton/src/test/java/com/nnk/springboot/service/UserTests.java,d\f\df9ca9edd6876aaf5268d07307ad28c670633e68
 z
@@ -495,12 +491,8 @@ N
 Poseiden-skeleton/doc/data.sql,e\7\e7bd94d20dd1aa6065001aebed263cc3b7d996f8
 
 OPoseiden-skeleton/src/test/java/com/nnk/springboot/service/CurvePointTests.java,2\6\267141512acfd2ee5c0556add29e6bfcba164f00
-|
-LPoseiden-skeleton/src/test/java/com/nnk/springboot/repository/UserTests.java,5\9\59ff8f5a8fbfcb7f8ce423dd849be2622539d639
 x
 HPoseiden-skeleton/src/test/java/com/nnk/springboot/service/BidTests.java,9\f\9fd7711c8f7e0ad0fc69c0b88b2f8cbf932adb21
-y
-IPoseiden-skeleton/src/test/java/com/nnk/springboot/service/RuleTests.java,c\7\c722ee95f8db353c0d2ed9b0dde4b56da2a08e02
 ‚
 RPoseiden-skeleton/src/main/java/com/nnk/springboot/controllers/UserController.java,3\1\31e1ef11ee6870746e368649e127186e4199bb78
 {
