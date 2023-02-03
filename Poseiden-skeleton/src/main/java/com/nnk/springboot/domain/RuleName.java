@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Data
 @Table(name = "rulename")
 public class RuleName {
 

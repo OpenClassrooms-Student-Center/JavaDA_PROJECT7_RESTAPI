@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Getter
 @Setter
-@Data
 @Table(name = "users")
 public class User {
     @Id

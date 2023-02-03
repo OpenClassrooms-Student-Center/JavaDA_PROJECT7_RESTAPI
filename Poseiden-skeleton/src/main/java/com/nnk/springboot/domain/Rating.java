@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Data
 @Table(name = "rating")
 public class Rating {
 

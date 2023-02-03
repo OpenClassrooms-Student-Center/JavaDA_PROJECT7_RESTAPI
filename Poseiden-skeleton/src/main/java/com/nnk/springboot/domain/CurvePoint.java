@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Data
 @Table(name = "curvepoint")
 public class CurvePoint {
 

@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
-@Data
 @Table(name = "bidlist")
 public class BidList {
 
