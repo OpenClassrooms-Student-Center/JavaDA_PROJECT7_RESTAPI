@@ -1,4 +1,4 @@
-package com.nnk.springboot.configuration;
+package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;

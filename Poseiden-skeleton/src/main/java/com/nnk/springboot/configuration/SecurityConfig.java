@@ -1,4 +1,5 @@
 package com.nnk.springboot.configuration;
+import com.nnk.springboot.service.MyUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -27,12 +28,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-    log.info("la security chain");
      http
              .authorizeHttpRequests()
              .antMatchers("/").permitAll()
              .antMatchers("/user/add").permitAll()
              .antMatchers("/user/list").permitAll()
+             .antMatchers("/bidList/list").permitAll()
+             .antMatchers("/user/delete/{id}").permitAll()
              .antMatchers("/user/validate").permitAll()
              .anyRequest().authenticated()
              .and()
