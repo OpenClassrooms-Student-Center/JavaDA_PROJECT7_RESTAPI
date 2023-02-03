@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleNameApiRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers.apiRest</a> &gt; <span class="el_source">RuleNameApiRestController.java</span></div><h1>RuleNameApiRestController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers.apiRest;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.service.IRuleNameService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+public class RuleNameApiRestController {
+
+
+    /**
+     * SLF4J Logger instance.
+     */
+<span class="fc" id="L23">    private static final Logger logger = LogManager.getLogger(&quot;RuleNameApiRestController&quot;);</span>
+
+
+    private IRuleNameService ruleNameService;
+
+<span class="fc" id="L28">    public RuleNameApiRestController(IRuleNameService ruleNameService) {</span>
+<span class="fc" id="L29">        this.ruleNameService = ruleNameService;</span>
+<span class="fc" id="L30">    }</span>
+
+
+    /**
+     * @return
+     */
+    @GetMapping(&quot;/ruleNames/api&quot;)
+    public ResponseEntity&lt;List&lt;RuleName&gt;&gt; showRestRuleNames() {
+<span class="fc" id="L38">        logger.info(&quot;@RequestMapping(\&quot;/ruleNames/api\&quot;)&quot;);</span>
+<span class="fc" id="L39">        return new ResponseEntity&lt;&gt;(ruleNameService.findAll(), HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param id
+     * @return bid httpStatus.Ok
+     * @throws DataNotFoundException
+     */
+    @GetMapping(&quot;/ruleName/api/{id}&quot;)
+    public ResponseEntity&lt;Optional&lt;RuleName&gt;&gt; showRestRuleNameById(@PathVariable int id) throws DataNotFoundException {
+<span class="fc" id="L49">        logger.info(&quot;@RequestMapping(\&quot;/ruleName/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L50">        Optional&lt;RuleName&gt; ruleName = ruleNameService.findById(id);</span>
+<span class="fc" id="L51">        return new ResponseEntity&lt;&gt;(ruleNameService.findById(id), HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param ruleName
+     * @return add ruleName
+     */
+    @PostMapping(&quot;/ruleName/api&quot;)
+    public RuleName addRestRuleName(@RequestBody RuleName ruleName) {
+<span class="fc" id="L60">        logger.info(&quot;@PostMapping(\&quot;/ruleName/api\&quot;)&quot;);</span>
+<span class="fc" id="L61">        ruleNameService.save(ruleName);</span>
+<span class="fc" id="L62">        return ruleName;</span>
+    }
+
+
+    /**
+     * @param ruleName
+     * @return update ruleName
+     */
+    @PutMapping(&quot;/ruleName/api&quot;)
+    public RuleName uploadRestRuleName(@RequestBody RuleName ruleName) {
+<span class="fc" id="L72">        logger.info(&quot;@PutMapping(\&quot;/ruleName/api/{}\&quot;)  Id &quot; + ruleName + &quot; as modified&quot;, ruleName.getId());</span>
+
+<span class="fc" id="L74">        return ruleNameService.update(ruleName);</span>
+    }
+
+    /**
+     * @param ruleNameId
+     * @return
+     * @throws DataNotFoundException
+     */
+    @DeleteMapping(&quot;/ruleName/api/{ruleNameId}&quot;)
+    public String deleteRestRuleName(@PathVariable int ruleNameId) throws DataNotFoundException {
+<span class="fc" id="L84">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+
+<span class="fc" id="L86">        ruleNameService.delete(ruleNameId);</span>
+<span class="fc" id="L87">        return &quot;delete bid by id: &quot; + ruleNameId + &quot; success&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

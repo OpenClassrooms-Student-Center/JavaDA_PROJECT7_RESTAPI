@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleNameServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service.impl</a> &gt; <span class="el_source">RuleNameServiceImpl.java</span></div><h1>RuleNameServiceImpl.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service.impl;
+
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.service.IRuleNameService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * contain all business service methods for RuleNameService
+ */
+@Service
+public class RuleNameServiceImpl implements IRuleNameService {
+
+    /**
+     * SLF4J/LOG4J LOGGER instance.
+     */
+<span class="fc" id="L24">    private static final Logger logger = LogManager.getLogger(&quot;RuleNameServiceImpl&quot;);</span>
+
+    private final RuleNameRepository ruleNameRepository;
+
+<span class="fc" id="L28">    public RuleNameServiceImpl(RuleNameRepository ruleNameRepository) {</span>
+<span class="fc" id="L29">        this.ruleNameRepository = ruleNameRepository;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List&lt;RuleName&gt; findAll() {
+<span class="fc" id="L37">        logger.info(&quot;Find all RuleName &quot;);</span>
+<span class="fc" id="L38">        return ruleNameRepository.findAll();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional&lt;RuleName&gt; findById(Integer id) throws DataNotFoundException {
+<span class="fc" id="L46">        logger.info(&quot;Find all RuleName by id &quot;, id);</span>
+<span class="fc" id="L47">        return Optional.ofNullable(ruleNameRepository.findById(id).orElseThrow(()</span>
+                -&gt; {
+<span class="fc" id="L49">            logger.error(&quot;Invalid Rating Id: {} &quot;, id);</span>
+<span class="fc" id="L50">            return new DataNotFoundException(&quot;No RuleName with id:&quot; + id + &quot;found&quot;);</span>
+        }));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    public RuleName save(RuleName ruleName) {
+<span class="fc" id="L61">        logger.error(&quot;save rating: {} &quot;, ruleName);</span>
+<span class="fc" id="L62">        ruleNameRepository.save(ruleName);</span>
+
+<span class="fc" id="L64">        return ruleName;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    public RuleName update(RuleName ruleName) throws DataNotFoundException {
+<span class="fc" id="L74">        logger.debug(&quot;update ruleName:{}&quot;, ruleName.getName());</span>
+<span class="fc" id="L75">        RuleName updateRuleName = ruleNameRepository.findById(ruleName.getId()).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L76">            throw new DataNotFoundException(&quot;Id ruleName: &quot; + ruleName.getId() + &quot; Not Present in Data Base&quot;);</span>
+        });
+<span class="fc" id="L78">            ruleNameRepository.save(updateRuleName);</span>
+
+<span class="fc" id="L80">        return ruleName;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(Integer ruleNameId) {
+<span class="fc" id="L88">        logger.debug(&quot;delete rating:{}&quot;, ruleNameId);</span>
+<span class="fc" id="L89">        RuleName deleteRuleName = ruleNameRepository.findById(ruleNameId).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L90">            throw new DataNotFoundException(&quot;Id ruleName: &quot; + ruleNameId + &quot; Not Present in Data Base&quot;);</span>
+        });
+<span class="fc" id="L92">        ruleNameRepository.deleteById(deleteRuleName.getId());</span>
+<span class="fc" id="L93">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

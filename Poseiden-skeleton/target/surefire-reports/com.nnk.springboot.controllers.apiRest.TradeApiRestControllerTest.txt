@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.nnk.springboot.controllers.apiRest.TradeApiRestControllerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.472 s - in com.nnk.springboot.controllers.apiRest.TradeApiRestControllerTest

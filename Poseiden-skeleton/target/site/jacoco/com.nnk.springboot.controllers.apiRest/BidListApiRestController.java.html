@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListApiRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers.apiRest</a> &gt; <span class="el_source">BidListApiRestController.java</span></div><h1>BidListApiRestController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers.apiRest;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.service.IBidListService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+public class BidListApiRestController {
+
+    /**
+     * SLF4J Logger instance.
+     */
+<span class="fc" id="L21">    private static final Logger logger = LogManager.getLogger(&quot;BidListApiRestController&quot;);</span>
+
+
+    private IBidListService bidListService;
+
+<span class="fc" id="L26">    public BidListApiRestController(IBidListService bidListService) {</span>
+<span class="fc" id="L27">        this.bidListService = bidListService;</span>
+<span class="fc" id="L28">    }</span>
+
+    /**
+     * @return
+     */
+    @GetMapping(&quot;/bidList/api&quot;)
+    public ResponseEntity&lt;List&lt;BidList&gt;&gt; showRestBid() {
+<span class="fc" id="L35">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
+<span class="fc" id="L36">        return new ResponseEntity&lt;&gt;(bidListService.findAll(), HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param id
+     * @return bid httpStatus.Ok
+     * @throws DataNotFoundException
+     */
+    @GetMapping(&quot;/bidList/api/{id}&quot;)
+    public ResponseEntity&lt;Optional&lt;BidList&gt;&gt; showRestBidById(@PathVariable int id) throws DataNotFoundException {
+<span class="fc" id="L46">        logger.info(&quot;@RequestMapping(\&quot;/bidList/api/{id}\&quot;)&quot;);</span>
+<span class="fc" id="L47">        Optional&lt;BidList&gt; bid = bidListService.findById(id);</span>
+
+<span class="fc" id="L49">        return new ResponseEntity&lt;&gt;(bidListService.findById(id), HttpStatus.OK);</span>
+    }
+
+    /**
+     * @param bidList
+     * @return add bidList
+     */
+    @PostMapping(&quot;/bidList/api&quot;)
+    public BidList addRestBid(@RequestBody BidList bidList) {
+<span class="fc" id="L58">        logger.info(&quot;@PostMapping(\&quot;/bidList/api\&quot;)&quot;);</span>
+<span class="fc" id="L59">        bidListService.save(bidList);</span>
+<span class="fc" id="L60">        return bidList;</span>
+    }
+
+
+    @PutMapping(&quot;/bidList/api&quot;)
+    public BidList uploadRestBid(@RequestBody BidList bidList) {
+<span class="fc" id="L66">        logger.info(&quot;@PutMapping(\&quot;/bidList/api/{}\&quot;)  Id &quot; + bidList + &quot; as modified&quot;, bidList.getBidListId());</span>
+
+<span class="fc" id="L68">        return bidListService.update(bidList);</span>
+    }
+
+    /**
+     * @param bidListId
+     * @return
+     * @throws DataNotFoundException
+     */
+    @DeleteMapping(&quot;/bidList/api/{bidListId}&quot;)
+    public String deleteRestBid(@PathVariable int bidListId) throws DataNotFoundException {
+<span class="fc" id="L78">        logger.info(&quot;@DeleteMapping(\&quot;/bidList/api/{bidListId}\&quot;)&quot;);</span>
+
+<span class="fc" id="L80">        bidListService.delete(bidListId);</span>
+<span class="fc" id="L81">        return &quot;delete bid by id: &quot; + bidListId + &quot; success&quot;;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

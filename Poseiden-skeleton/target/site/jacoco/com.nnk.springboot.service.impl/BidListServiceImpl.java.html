@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service.impl</a> &gt; <span class="el_source">BidListServiceImpl.java</span></div><h1>BidListServiceImpl.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service.impl;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.service.IBidListService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * contain all business service methods for BidListService
+ */
+@Service
+public class BidListServiceImpl implements IBidListService {
+
+    /**
+     * SLF4J LOGGER instance.
+     */
+<span class="fc" id="L23">    private static final Logger logger = LogManager.getLogger(&quot;BidListServiceImpl&quot;);</span>
+
+    private final BidListRepository bidListRepository;
+
+    /**
+     * @param bidListRepository
+     */
+<span class="fc" id="L30">    public BidListServiceImpl(BidListRepository bidListRepository) {</span>
+<span class="fc" id="L31">        this.bidListRepository = bidListRepository;</span>
+<span class="fc" id="L32">    }</span>
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List&lt;BidList&gt; findAll() {
+<span class="fc" id="L40">        return bidListRepository.findAll();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional&lt;BidList&gt; findById(Integer id) throws DataNotFoundException {
+<span class="fc" id="L48">        logger.debug(&quot;find bidById:{}&quot;, id);</span>
+<span class="fc" id="L49">        return Optional.ofNullable(bidListRepository.findById(id).orElseThrow(()</span>
+                -&gt; {
+<span class="fc" id="L51">            logger.error(&quot;Invalid bid Id: {} &quot;, id);</span>
+<span class="fc" id="L52">            return new DataNotFoundException(&quot;Invalid bid Id:&quot; + id);</span>
+        }));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    public BidList save(BidList bid) {
+<span class="fc" id="L63">        logger.debug(&quot;save bidList:{}&quot;, bid.getBid());</span>
+
+<span class="fc" id="L65">        bidListRepository.save(bid);</span>
+
+<span class="fc" id="L67">        return bid;</span>
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BidList update(BidList bid) throws DataNotFoundException {
+<span class="fc" id="L76">        logger.debug(&quot;update bid:{}&quot;, bid.getBid());</span>
+<span class="fc" id="L77">        BidList uploadBid = bidListRepository.findById(bid.getBidListId()).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L78">            logger.error(&quot;This bidId:{} not found!&quot;, bid.getBidListId());</span>
+<span class="fc" id="L79">            throw new DataNotFoundException(&quot;This bid doesn't exist with this id : &quot; + bid.getBidListId() + &quot; , from getBidById, BidListService.&quot;);</span>
+        });
+<span class="fc" id="L81">        logger.info(&quot;Bid successfully found by its id(from getBidById,BidListService).&quot;);</span>
+
+<span class="fc" id="L83">        uploadBid.setAccount(bid.getAccount());</span>
+<span class="fc" id="L84">        uploadBid.setType(bid.getType());</span>
+<span class="fc" id="L85">        uploadBid.setBidQuantity(bid.getBidQuantity());</span>
+
+<span class="fc" id="L87">        return bidListRepository.save(uploadBid);</span>
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(Integer bid) throws DataNotFoundException {
+<span class="fc" id="L96">        logger.debug(&quot;delete bid:{}&quot;, bid);</span>
+<span class="fc" id="L97">        BidList deleteBid = bidListRepository.findById(bid).orElseThrow(() -&gt; {</span>
+<span class="fc" id="L98">            throw new DataNotFoundException(&quot;Id &quot; + bid + &quot; Not Present in Data Base&quot;);</span>
+        });
+
+<span class="fc" id="L101">        bidListRepository.deleteById(deleteBid.getBidListId());</span>
+<span class="fc" id="L102">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

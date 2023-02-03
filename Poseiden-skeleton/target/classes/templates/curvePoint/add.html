@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <h2>Add New Curve Point</h2>
+    </div>
+
+    <div class="row">
+        <form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post"
+              class="form-horizontal" style="width: 100%">
+            <!--
+            TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
+             -->
+            <div class="form-group">
+                <label for="curveId" class="col-sm-2 col-form-label mr-0">Curve Id</label>
+                <input th:field="*{curveId}" id="curveId" type="number" class="form-control" placeholder="curveId">
+                <span class="text-danger" th:if="${#fields.hasErrors('curveId')}" th:errors="*{curveId}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="term" class="col-sm-2 col-form-label mr-0">term</label>
+                <input th:field="*{term}" id="term" type="number" class="form-control" placeholder="Term">
+                <span class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="value" class="col-sm-2 col-form-label mr-0">Value</label>
+                <input th:field="*{value}" id="value" type="number" class="form-control"
+                       placeholder="Value">
+                <span class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></span>
+            </div>
+
+
+            <a href="/bidList/list" class="btn btn-danger mt-2">Cancel</a>
+            <button type="submit" class="btn btn-primary mt-2">Add BidList</button>
+
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

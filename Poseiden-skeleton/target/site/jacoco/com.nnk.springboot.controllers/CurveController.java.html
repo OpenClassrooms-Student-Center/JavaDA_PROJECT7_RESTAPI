@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurveController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">CurveController.java</span></div><h1>CurveController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.exception.DataNotFoundException;
+import com.nnk.springboot.service.ICurvePointService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Optional;
+
+/**
+ * Curve Controller
+ */
+@Controller
+public class CurveController {
+
+    /**
+     * SLF4J Logger instance.
+     */
+<span class="fc" id="L29">    private static final Logger logger = LogManager.getLogger(&quot;BidListController&quot;);</span>
+
+    /**
+     * ICurvePointService instance.
+     */
+    private ICurvePointService curvePointService;
+
+    /**
+     * @param curvePointService
+     */
+<span class="fc" id="L39">    public CurveController(ICurvePointService curvePointService) {</span>
+<span class="fc" id="L40">        this.curvePointService = curvePointService;</span>
+<span class="fc" id="L41">    }</span>
+
+
+    /**
+     * @param model
+     * @param principal
+     * @return curvePoint/list
+     */
+    @RequestMapping(&quot;/curvePoint/list&quot;)
+    public String home(Model model, Principal principal) {
+<span class="nc" id="L51">        logger.info(&quot;@RequestMapping(\&quot;/curvePoint/List\&quot;)&quot;);</span>
+<span class="nc" id="L52">        model.addAttribute(&quot;curvePoints&quot;, curvePointService.findAll());</span>
+<span class="nc" id="L53">        return &quot;curvePoint/list&quot;;</span>
+    }
+
+    /**
+     * @param bid
+     * @return
+     */
+    @GetMapping(&quot;/curvePoint/add&quot;)
+    public String addBidForm(CurvePoint bid) {
+<span class="nc" id="L62">        logger.info(&quot;@GetMapping(\&quot;/curvePoint/add\&quot;)&quot;);</span>
+<span class="nc" id="L63">        return &quot;curvePoint/add&quot;;</span>
+    }
+
+    /**
+     * @param curvePoint
+     * @param result
+     * @param model
+     * @return
+     */
+    @PostMapping(&quot;/curvePoint/validate&quot;)
+    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+<span class="nc" id="L74">        logger.info(&quot;@PostMapping(\&quot;/curvePoint/validate\&quot;)&quot;);</span>
+        /**form data validation*/
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L77">            return &quot;/curvePoint/add&quot;;</span>
+        }
+        /**save in to dataBase:*/
+<span class="nc" id="L80">        curvePointService.save(curvePoint);</span>
+
+<span class="nc" id="L82">        return &quot;redirect:/curvePoint/list&quot;;</span>
+    }
+
+    /**
+     * @param id
+     * @param model
+     * @return curvePoint update form
+     * @throws DataNotFoundException
+     */
+    @GetMapping(&quot;/curvePoint/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) throws DataNotFoundException {
+<span class="nc" id="L93">        logger.info(&quot;@GetMapping(\&quot;/curvePoint/update/{id}\&quot;)&quot;);</span>
+<span class="nc" id="L94">        Optional&lt;CurvePoint&gt; curvePoint = curvePointService.findById(id);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">        if(curvePoint.isPresent()){</span>
+<span class="nc" id="L96">            model.addAttribute(&quot;error&quot;, &quot;This&quot; + curvePoint + &quot;is present&quot;);</span>
+        }
+<span class="nc" id="L98">        model.addAttribute(&quot;curvePoint&quot;, curvePoint.get());</span>
+<span class="nc" id="L99">        return &quot;curvePoint/update&quot;;</span>
+    }
+
+    /**
+     * @param id
+     * @param curvePoint
+     * @param result
+     * @param model
+     * @return
+     */
+    @PostMapping(&quot;/curvePoint/update/{id}&quot;)
+    public String updateCurvePoint(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePoint curvePoint,
+                            BindingResult result, Model model) throws DataNotFoundException {
+<span class="nc" id="L112">        logger.info(&quot;@PostMapping(\&quot;/curvePoint/update/{id}\&quot;)&quot;);</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L114">            logger.error(&quot;result error :{}&quot;, result.getFieldError());</span>
+<span class="nc" id="L115">            return &quot;curvePoint/update&quot;;</span>
+        }
+<span class="nc" id="L117">        curvePoint.setId(id);</span>
+<span class="nc" id="L118">        curvePointService.save(curvePoint);</span>
+<span class="nc" id="L119">        model.addAttribute(&quot;curvePoint&quot;, curvePointService.findAll());</span>
+<span class="nc" id="L120">        return &quot;redirect:/curvePoint/list&quot;;</span>
+    }
+
+    /**
+     * @param id
+     * @param model
+     * @return
+     * @throws DataNotFoundException
+     */
+    @GetMapping(&quot;/curvePoint/delete/{id}&quot;)
+    public String deleteCurvePoint(@PathVariable(&quot;id&quot;) Integer id, Model model) throws DataNotFoundException {
+<span class="nc" id="L131">        logger.info(&quot;@GetMapping(\&quot;/curvePoint/delete/{id}\&quot;&quot;);</span>
+//        Optional&lt;CurvePoint&gt; curvePoint = curvePointService.findById(id);
+<span class="nc" id="L133">       curvePointService.delete(id);</span>
+<span class="nc" id="L134">       model.addAttribute(&quot;curvePoints&quot;, curvePointService.findAll());</span>
+<span class="nc" id="L135">        return &quot;redirect:/curvePoint/list&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -2,7 +2,8 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +17,25 @@ import javax.validation.Valid;
 
 @Controller
 public class UserController {
-    @Autowired
+
+    /**
+     * SLF4J Logger instance.
+     */
+    private static final Logger logger = LogManager.getLogger("TradeController");
+
+
     private UserRepository userRepository;
 
+    /**
+     * @param userRepository
+     */
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         model.addAttribute("users", userRepository.findAll());
         return "user/list";
     }
@@ -36,6 +50,7 @@ public class UserController {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
+            user.setRole(user.getRole());
             userRepository.save(user);
             model.addAttribute("users", userRepository.findAll());
             return "redirect:/user/list";
@@ -43,8 +58,14 @@ public class UserController {
         return "user/add";
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        logger.debug("get request user/update/{}", id);
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         user.setPassword("");
         model.addAttribute("user", user);
@@ -66,6 +87,11 @@ public class UserController {
         return "redirect:/user/list";
     }
 
+    /**
+     * @param id
+     * @param model
+     * @return delete user by id
+     */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
         User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));

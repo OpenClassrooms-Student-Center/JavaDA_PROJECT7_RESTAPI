@@ -17,9 +17,31 @@
 		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<!--
 			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
-			 -->
+			 --><form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+
+			<div class="form-group">
+				<label for = "account" class = "col-sm-2 col-form-label mr-0">Account</label>
+				<input th:field="*{account}" id="account" type = "text" class = "form-control" placeholder = "Account">
+				<span class="text-danger" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></span>
+			</div>
+			<div class="form-group">
+				<label for = "type" class = "col-sm-2 col-form-label mr-0">Type</label>
+				<input th:field="*{type}" id="type" type = "text" class = "form-control" placeholder = "Type">
+				<span class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+			</div>
+			<div class="form-group">
+				<label for = "bidQuantity" class = "col-sm-2 col-form-label mr-0">Bid Quantity</label>
+				<input th:field="*{bidQuantity}" id="bidQuantity" type = "text" class = "form-control" placeholder = "Bid Quantity">
+				<span class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></span>
+			</div>
+			<a href="/bidList/list" class = "btn btn-danger mt-2">Cancel</a>
+			<button type = "submit" class = "btn btn-primary mt-2">Add BidList</button>
+
+
+		</form>
 		</form>
 	</div>
+
 
 </div>
 </body>
