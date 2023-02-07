@@ -32,7 +32,7 @@
 	</div>
 	<div class="row"><h2>Bid List</h2></div>
 	<div class="row">
-		<a href="/bidList/add" class="btn btn-primary btn-sm">Add New</a>
+		<a href="/bidList/add" class="btn btn-primary btn-sm" style="width: 10%">Add New</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -49,7 +49,10 @@
 				<td th:text="${bid.account}"></td>
 				<td th:text="${bid.type}"></td>
 				<td th:text="${bid.bidQuantity}"></td>
-				<td> edit|delete</td>
+				<td style="width: 15%" class="text-center">
+					<a th:href="@{/bidList/update/{id}(id=${bid.getBidListId()})}">Edit</a>&nbsp;|&nbsp;
+					<a th:href="@{/bidList/delete/{id}(id=${bid.getBidListId()})}">Delete</a>
+				</td>
 			</tr>
 				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
 			</tbody>

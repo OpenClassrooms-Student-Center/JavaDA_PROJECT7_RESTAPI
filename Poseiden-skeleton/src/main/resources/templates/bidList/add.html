@@ -1,52 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<meta charset="UTF-8"/>
+	<title>Home</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+			integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+			crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Add New Bid</h2>
-	</div>
+    <div class="row">
+        <h2>Add New Bid</h2>
+    </div>
 
 	<div class="row">
 		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
-				<label for="fullname" class="col-sm-2 control-label">Full Name</label>
+				<label for="account" class="col-sm-2 control-label">Account Name</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{account}" id="fullname" placeholder="Full Name" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('fullname')}" th:errors="*{account}"></p>
+					<input type="text" th:field="*{account}" id="account" placeholder="Account" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('Account')}" th:errors="*{account}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="username" class="col-sm-2 control-label">User Name</label>
+				<label for="type" class="col-sm-2 control-label">Account Type</label>
 				<div class="col-sm-10">
-					<input type="text" th:field="*{type}" id="username" placeholder="User Name" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{type}"></p>
+					<input type="text" th:field="*{type}" id="type" placeholder="Type" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password" class="col-sm-2 control-label">Password</label>
+				<label for="bidQuantity" class="col-sm-2 control-label">Bid Quantity</label>
 				<div class="col-sm-10">
-					<input type="password" th:field="*{bidQuantity}" id="password" placeholder="Password" class="col-4">
-					<p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{bidQuantity}"></p>
+					<input type="number" th:field="*{bidQuantity}" id="bidQuantity" placeholder="Bid Quantity" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></p>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<a class="btn btn-danger btn-sm" href="/user/list">Cancel</a>
+					<a class="btn btn-danger btn-sm" href="/bidList/list">Cancel</a>
 					<input class="btn btn-primary btn-sm" type="submit" value="Add BidList">
 				</div>
 			</div>
-			<!--
-			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
-			 -->
 		</form>
 	</div>
+
 
 </div>
 </body>

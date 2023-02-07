@@ -11,8 +11,7 @@ import java.util.Optional;
 
 @Service
 public class CurvePointService {
-    @Autowired
-    CurveController curveController;
+
     @Autowired
     private CurvePointRepository curvePointRepository;
 

@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,17 +29,14 @@ public class BidListController {
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(Model model) {
-
-        BidList bidList = new BidList();
+    public String addBidList(Model model) {
+      BidList bidList =new BidList();
         model.addAttribute("bidList",bidList);
-
         return "bidList/add";
     }
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bidList, BindingResult result, Model model) {
-
         if (!result.hasErrors()) {
             bidService.save(bidList);
             model.addAttribute("bidList", bidService.findAll());
@@ -50,6 +48,9 @@ public class BidListController {
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+
+        BidList bidList = bidService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("bidList", bidList);
         // TODO: get Bid by Id and to model then show to the form
         return "bidList/update";
     }
@@ -57,12 +58,23 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "user/update";
+        }
+        bidList.setAccount(bidList.getAccount());
+        bidList.setType(bidList.getType());
+        bidList.setBidQuantity(bidList.getBidQuantity());
+        bidService.save(bidList);
+        model.addAttribute("bidLists", bidService.findAll());
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
+        BidList bidList = bidService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        bidService.delete(bidList);
+        model.addAttribute("bidLists", bidService.findAll());
         // TODO: Find Bid by Id and delete the bid, return to Bid list
         return "redirect:/bidList/list";
     }

@@ -6,11 +6,13 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 @Entity
 @Getter
 @Setter
+@Data
 @Table(name = "bidlist")
 public class BidList {
 
@@ -19,8 +21,10 @@ public class BidList {
     @Column(nullable = false)
     private Integer BidListId;
     @Column(nullable = false)
+    @NotBlank(message = "Username is mandatory")
     String account;
     @Column
+    @NotBlank(message = "Username is mandatory")
     String type;
     @Column
     Double bidQuantity;
