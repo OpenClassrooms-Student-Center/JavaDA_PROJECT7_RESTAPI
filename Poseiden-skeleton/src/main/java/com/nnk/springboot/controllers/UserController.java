@@ -20,7 +20,7 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    @RequestMapping(value = "/user/list",method = RequestMethod.GET)
+    @GetMapping( "/user/list")
     public String home(Model model)
     {
         model.addAttribute("users", userService.findAll());

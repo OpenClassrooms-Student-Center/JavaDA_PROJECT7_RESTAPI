@@ -1,6 +1,5 @@
 package com.nnk.springboot.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,4 +28,10 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
+    public User(String fullname, String username, String role) {
+    }
+
+    public User() {
+
+    }
 }
