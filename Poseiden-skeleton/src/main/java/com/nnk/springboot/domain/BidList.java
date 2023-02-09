@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.dto.BidListDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -81,5 +82,11 @@ public class BidList {
 
     @Column(name = "side")
     private String side;
+
+    public BidList(BidListDto bidListDTO) {
+        this.account = bidListDTO.getAccount();
+        this.type = bidListDTO.getType();
+        this.bidQuantity = bidListDTO.getBidQuantity();
+    }
 
 }
