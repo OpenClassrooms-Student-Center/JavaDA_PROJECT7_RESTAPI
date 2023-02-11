@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.dto.RatingDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -29,4 +30,11 @@ public class Rating {
 
     @Column(name = "orderNumber")
     private int orderNumber;
+
+    public Rating(RatingDto ratingDto) {
+        this.moodysRating = ratingDto.getMoodysRating();
+        this.sandPRating = ratingDto.getSandPRating();
+        this.fitchRating = ratingDto.getFitchRating();
+        this.orderNumber = ratingDto.getOrderNumber();
+    }
 }
