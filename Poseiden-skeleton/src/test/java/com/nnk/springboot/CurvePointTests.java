@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,7 +22,8 @@ public class CurvePointTests {
 
 	@Test
 	public void curvePointTest() {
-		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+		CurvePointDto curvePointDto = new CurvePointDto(10, 10d, 30d);
+		CurvePoint curvePoint = new CurvePoint(curvePointDto);
 
 		// Save
 		curvePoint = curvePointRepository.save(curvePoint);

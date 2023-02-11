@@ -1,7 +1,9 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.dto.CurvePointDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -11,8 +13,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "CurvePoint")
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class CurvePoint {
 
     @Id
@@ -34,5 +36,12 @@ public class CurvePoint {
 
     @Column(name = "creationDate")
     private Timestamp creationDate;
+
+    public CurvePoint (CurvePointDto curvePointDto){
+        this.curveId = curvePointDto.getCurveId();
+        this.term = curvePointDto.getTerm();
+        this.value = curvePointDto.getValue();
+    }
+
 }
 
