@@ -19,25 +19,25 @@ public class BidListServiceImpl implements BidListService {
     }
 
     @Override
-    public List<BidList> findAllBids() {
+    public List<BidList> findAll() {
         return bidListRepository.findAll();
     }
 
     @Override
-    public BidList findBidById(Integer id) {
+    public BidList findById(Integer id) {
         Optional<BidList> bidList = bidListRepository.findById(id);
         return bidList.orElseThrow(() -> new NotFoundException("BidList not found with id " + id));
     }
 
     @Override
-    public BidList addBid(BidListDto bidListDto) {
+    public BidList create(BidListDto bidListDto) {
         BidList bidList = new BidList(bidListDto);
         return bidListRepository.save(bidList);
     }
 
     @Override
-    public BidList updateBid(Integer id, BidListDto bidListDto) {
-        BidList bidList = findBidById(id);
+    public BidList update(Integer id, BidListDto bidListDto) {
+        BidList bidList = findById(id);
         bidList.setAccount(bidListDto.getAccount());
         bidList.setType(bidListDto.getType());
         bidList.setBidQuantity(bidListDto.getBidQuantity());
@@ -45,8 +45,8 @@ public class BidListServiceImpl implements BidListService {
     }
 
     @Override
-    public void deleteBid(Integer id) {
-        BidList bidList = findBidById(id);
+    public void delete(Integer id) {
+        BidList bidList = findById(id);
         bidListRepository.delete(bidList);
     }
 

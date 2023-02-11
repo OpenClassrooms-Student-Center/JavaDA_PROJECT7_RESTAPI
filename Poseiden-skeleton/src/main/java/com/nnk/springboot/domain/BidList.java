@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import com.nnk.springboot.dto.BidListDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
@@ -11,8 +12,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bidlist")
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class BidList {
 
     @Id
