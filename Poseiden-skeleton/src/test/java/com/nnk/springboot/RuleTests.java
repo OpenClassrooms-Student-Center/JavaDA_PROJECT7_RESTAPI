@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.dto.RuleNameDto;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,31 +17,32 @@ import java.util.Optional;
 @SpringBootTest
 public class RuleTests {
 
-	@Autowired
-	private RuleNameRepository ruleNameRepository;
+    @Autowired
+    private RuleNameRepository ruleNameRepository;
 
-	@Test
-	public void ruleTest() {
-		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+    @Test
+    public void ruleTest() {
+        RuleNameDto ruleNameDto = new RuleNameDto("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+        RuleName rule = new RuleName(ruleNameDto);
 
-		// Save
-		rule = ruleNameRepository.save(rule);
-		Assert.assertNotNull(rule.getId());
-		Assert.assertTrue(rule.getName().equals("Rule Name"));
+        // Save
+        rule = ruleNameRepository.save(rule);
+        Assert.assertNotNull(rule.getId());
+        Assert.assertTrue(rule.getName().equals("Rule Name"));
 
-		// Update
-		rule.setName("Rule Name Update");
-		rule = ruleNameRepository.save(rule);
-		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
+        // Update
+        rule.setName("Rule Name Update");
+        rule = ruleNameRepository.save(rule);
+        Assert.assertTrue(rule.getName().equals("Rule Name Update"));
 
-		// Find
-		List<RuleName> listResult = ruleNameRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+        // Find
+        List<RuleName> listResult = ruleNameRepository.findAll();
+        Assert.assertTrue(listResult.size() > 0);
 
-		// Delete
-		Integer id = rule.getId();
-		ruleNameRepository.delete(rule);
-		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		Assert.assertFalse(ruleList.isPresent());
-	}
+        // Delete
+        Integer id = rule.getId();
+        ruleNameRepository.delete(rule);
+        Optional<RuleName> ruleList = ruleNameRepository.findById(id);
+        Assert.assertFalse(ruleList.isPresent());
+    }
 }

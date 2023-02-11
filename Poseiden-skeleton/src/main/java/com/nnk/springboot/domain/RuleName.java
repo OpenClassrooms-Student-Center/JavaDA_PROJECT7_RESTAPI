@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.dto.RuleNameDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -35,4 +36,13 @@ public class RuleName {
 
     @Column(name = "sqlpart")
     private String sqlPart;
+
+    public RuleName(RuleNameDto ruleNameDto) {
+        this.name = ruleNameDto.getName();
+        this.description = ruleNameDto.getDescription();
+        this.json = ruleNameDto.getJson();
+        this.template = ruleNameDto.getTemplate();
+        this.sqlStr = ruleNameDto.getSqlStr();
+        this.sqlPart = ruleNameDto.getSqlPart();
+    }
 }
