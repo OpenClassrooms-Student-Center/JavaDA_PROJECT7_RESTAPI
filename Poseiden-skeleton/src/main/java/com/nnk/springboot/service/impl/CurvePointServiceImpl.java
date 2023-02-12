@@ -1,16 +1,17 @@
-package com.nnk.springboot.service;
+package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.NotFoundException;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.dto.CurvePointDto;
 import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.service.CurvePointService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CurvePointServiceImpl implements CurvePointService{
+public class CurvePointServiceImpl implements CurvePointService {
 
     private final CurvePointRepository curvePointRepository;
 

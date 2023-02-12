@@ -1,9 +1,10 @@
-package com.nnk.springboot.service;
+package com.nnk.springboot.service.impl;
 
 import com.nnk.springboot.NotFoundException;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.dto.RatingDto;
 import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.service.RatingService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
