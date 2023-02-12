@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import com.nnk.springboot.dto.TradeDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -79,4 +80,10 @@ public class Trade {
 
     @Column(name = "side")
     private String side;
+
+    public Trade(TradeDto tradeDto) {
+        this.account = tradeDto.getAccount();
+        this.type = tradeDto.getType();
+        this.buyQuantity = tradeDto.getBuyQuantity();
+    }
 }
