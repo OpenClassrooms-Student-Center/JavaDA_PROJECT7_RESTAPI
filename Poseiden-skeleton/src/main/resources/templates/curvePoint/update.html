@@ -1,25 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-	<div class="row">
-		<h2>Update CurvePoint</h2>
-	</div>
+    <div class="row">
+        <h2>Update Curve Point</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point
-			 -->
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" class="form-horizontal" method="post"
+              style="width: 100%" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}">
 
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="curveId">Curve Id:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="curveId" placeholder="Enter Curve Id" th:field="*{curveId}"
+                           th:value="${curvePoint.curveId}"
+                           type="number"/>
+                    <p class="text-danger" th:errors="*{curveId}"
+                       th:if="${#fields.hasErrors('curveId')}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="term">Term:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="term" placeholder="Enter Term" step="any" th:field="*{term}"
+                           th:value="${curvePoint.term}"
+                           type="number"/>
+                    <p class="text-danger" th:errors="*{term}"
+                       th:if="${#fields.hasErrors('term')}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="value">Value:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="value" placeholder="Enter Value" step="any" th:field="*{value}"
+                           th:value="${curvePoint.value}"
+                           type="number"/>
+                    <p class="text-danger" th:errors="*{value}"
+                       th:if="${#fields.hasErrors('value')}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-success" type="submit">Update Data</button>
+                    <a class="btn btn-danger" th:href="@{/curvePoint/list}">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>
