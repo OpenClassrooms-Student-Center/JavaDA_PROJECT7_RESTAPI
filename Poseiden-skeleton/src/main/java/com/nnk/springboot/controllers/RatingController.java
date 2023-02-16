@@ -22,21 +22,21 @@ public class RatingController {
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
-        model.addAttribute("rating", ratingService.findAll());
+        model.addAttribute("ratingList", ratingService.findAll());
         return "rating/list";
     }
 
     @GetMapping("/rating/add")
-    public String addRatingForm(RatingDto ratingDto) {
+    public String addRatingForm(RatingDto rating) {
         return "rating/add";
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid RatingDto ratingDto, BindingResult result, Model model) {
+    public String validate(@Valid RatingDto rating, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "rating/add";
         }
-        ratingService.create(ratingDto);
+        ratingService.create(rating);
         return "redirect:/rating/list";
     }
 
@@ -47,12 +47,12 @@ public class RatingController {
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid RatingDto ratingDto,
+    public String updateRating(@PathVariable("id") Integer id, @Valid RatingDto rating,
                                BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "rating/update";
         }
-        ratingService.update(id, ratingDto);
+        ratingService.update(id, rating);
         return "redirect:/rating/list";
     }
 

@@ -45,11 +45,10 @@
                        th:if="${#fields.hasErrors('value')}"></p>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-success" type="submit">Update Data</button>
-                    <a class="btn btn-danger" th:href="@{/curvePoint/list}">Cancel</a>
+                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" th:href="@{/curvePoint/list}">Cancel</button>
                 </div>
             </div>
         </form>

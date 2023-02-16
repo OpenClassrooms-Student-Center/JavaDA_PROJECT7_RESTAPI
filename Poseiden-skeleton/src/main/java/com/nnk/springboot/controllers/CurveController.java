@@ -22,37 +22,37 @@ public class CurveController {
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model) {
-        model.addAttribute("curve", curvePointService.findAll());
+        model.addAttribute("curveList", curvePointService.findAll());
         return "curvePoint/list";
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePointDto curvePointDto) {
+    public String addBidForm(CurvePointDto curvePoint) {
         return "curvePoint/add";
     }
 
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePointDto curvePointDto, BindingResult result, Model model) {
+    public String validate(@Valid CurvePointDto curvePoint, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "curvePoint/add";
         }
-        curvePointService.create(curvePointDto);
+        curvePointService.create(curvePoint);
         return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("curve", curvePointService.findById(id));
+        model.addAttribute("curvePoint", curvePointService.findById(id));
         return "curvePoint/update";
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePointDto curvePointDto,
+    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePointDto curvePoint,
                             BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "curvePoint/update";
         }
-        curvePointService.update(id, curvePointDto);
+        curvePointService.update(id, curvePoint);
         return "redirect:/curvePoint/list";
     }
 
