@@ -1,26 +1,80 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8"/>
-	<title>Home</title>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Home</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
-	<div class="row">
-		<h2>Update New Rule</h2>
-	</div>
+    <div class="row">
+        <h2>Update New Rule</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of RuleName, there are 2 buttons: Update data and Cancel to the RuleName
-			 -->
+    <div class="row">
+        <form action="#" class="form-horizontal" method="post" style="width: 100%"
+              th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}">
 
-		</form>
-	</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="name">Name</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="name" th:field="*{name}" th:value="${ruleName.name}" type="text">
+                    <p class="text-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="description">Description</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="description" th:field="*{description}"
+                           th:value="${ruleName.description}"
+                           type="text">
+                    <p class="text-danger" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="json">Json</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="json" th:field="*{json}" th:value="${ruleName.json}" type="text">
+                    <p class="text-danger" th:errors="*{json}" th:if="${#fields.hasErrors('json')}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="template">Template</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="template" th:field="*{template}" th:value="${ruleName.template}"
+                           type="text">
+                    <p class="text-danger" th:errors="*{template}" th:if="${#fields.hasErrors('template')}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="sqlStr">SqlStr</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="sqlStr" th:field="*{sqlStr}" th:value="${ruleName.sqlStr}"
+                           type="text">
+                    <p class="text-danger" th:errors="*{sqlStr}" th:if="${#fields.hasErrors('sqlStr')}"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="sqlPart">SqlPart</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="sqlPart" th:field="*{sqlPart}" th:value="${ruleName.sqlPart}"
+                           type="text">
+                    <p class="text-danger" th:errors="*{sqlPart}" th:if="${#fields.hasErrors('sqlPart')}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" th:href="@{/ruleName/list}">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
 
 </div>
 </body>

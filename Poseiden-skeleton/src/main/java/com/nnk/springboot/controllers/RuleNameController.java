@@ -22,21 +22,21 @@ public class RuleNameController {
 
     @RequestMapping("/ruleName/list")
     public String home(Model model) {
-        model.addAttribute("ruleName", ruleNameService.findAll());
+        model.addAttribute("ruleNameList", ruleNameService.findAll());
         return "ruleName/list";
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleNameDto ruleNameDto) {
+    public String addRuleForm(RuleNameDto ruleName) {
         return "ruleName/add";
     }
 
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleNameDto ruleNameDto, BindingResult result, Model model) {
+    public String validate(@Valid RuleNameDto ruleName, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "ruleName/add";
         }
-        ruleNameService.create(ruleNameDto);
+        ruleNameService.create(ruleName);
         return "redirect:/ruleName/list";
     }
 
@@ -47,12 +47,12 @@ public class RuleNameController {
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleNameDto ruleNameDto,
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleNameDto ruleName,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "ruleName/update";
         }
-        ruleNameService.update(id, ruleNameDto);
+        ruleNameService.update(id, ruleName);
         return "redirect:/ruleName/list";
     }
 
