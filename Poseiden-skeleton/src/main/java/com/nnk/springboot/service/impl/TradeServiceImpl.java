@@ -5,10 +5,12 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.dto.TradeDto;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.service.TradeService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TradeServiceImpl implements TradeService {
     private final TradeRepository tradeRepository;
 

@@ -22,7 +22,7 @@ public class BidListController {
 
     @RequestMapping("/bidList/list")
     public String home(Model model) {
-        model.addAttribute("bids", bidListService.findAll());
+        model.addAttribute("bidList", bidListService.findAll());
         return "bidList/list";
     }
 

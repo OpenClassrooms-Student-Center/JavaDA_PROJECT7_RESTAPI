@@ -1,17 +1,17 @@
 package com.nnk.springboot.domain;
 
 import com.nnk.springboot.dto.RuleNameDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "rulename")
-@Data
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class RuleName {
 
     @Id

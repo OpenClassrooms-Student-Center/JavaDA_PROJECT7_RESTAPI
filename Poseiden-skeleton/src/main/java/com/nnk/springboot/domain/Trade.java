@@ -1,19 +1,19 @@
 package com.nnk.springboot.domain;
 
 import com.nnk.springboot.dto.TradeDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "Trade")
-@Data
-@AllArgsConstructor
-@RequiredArgsConstructor
 public class Trade {
 
     @Id

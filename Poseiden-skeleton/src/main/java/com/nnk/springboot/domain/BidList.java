@@ -1,19 +1,18 @@
 package com.nnk.springboot.domain;
 
 import com.nnk.springboot.dto.BidListDto;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "bidlist")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class BidList {
 
     @Id
