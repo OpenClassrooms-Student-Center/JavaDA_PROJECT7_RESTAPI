@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+    <meta charset="utf-8"/>
+    <title>Update Trade</title>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-	<div class="row">
-		<h2>Update Trade</h2>
-	</div>
+    <div class="row">
+        <h2>Update Trade</h2>
+    </div>
 
-	<div class="row">
-		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
-			 -->
-		</form>
-	</div>
+    <div class="row">
+        <form action="#" class="form-horizontal" method="post" style="width: 100%"
+              th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="account">Account:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="account" placeholder="Enter account" required
+                           th:field="*{account}"
+                           th:value="${trade.account}"
+                           type="text">
+                    <div class="text-danger" th:errors="*{account}" th:if="${#fields.hasErrors('account')}"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="type">Type:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="type" placeholder="Enter type" required th:field="*{type}"
+                           th:value="${trade.type}"
+                           type="text">
+                    <div class="text-danger" th:errors="*{type}" th:if="${#fields.hasErrors('type')}"></div>
+                </div>
+            </div>
 
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="buyQuantity">Buy Quantity:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="buyQuantity" placeholder="Enter buy quantity" required
+                           th:field="*{buyQuantity}" th:value="${trade.buyQuantity}" type="number">
+                    <div class="text-danger" th:errors="*{buyQuantity}"
+                         th:if="${#fields.hasErrors('buyQuantity')}"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-primary" type="submit">Update</button>
+                    <button class="btn btn-primary" th:href="@{/trade/list}">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

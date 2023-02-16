@@ -22,21 +22,21 @@ public class TradeController {
 
     @RequestMapping("/trade/list")
     public String home(Model model) {
-        model.addAttribute("trade", tradeService.findAll());
+        model.addAttribute("tradeList", tradeService.findAll());
         return "trade/list";
     }
 
     @GetMapping("/trade/add")
-    public String addTrade(TradeDto tradeDto) {
+    public String addTrade(TradeDto trade) {
         return "trade/add";
     }
 
     @PostMapping("/trade/validate")
-    public String validate(@Valid TradeDto tradeDto, BindingResult result, Model model) {
+    public String validate(@Valid TradeDto trade, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "trade/add";
         }
-        tradeService.create(tradeDto);
+        tradeService.create(trade);
         return "redirect:/trade/list";
     }
 
@@ -47,12 +47,12 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid TradeDto tradeDto,
+    public String updateTrade(@PathVariable("id") Integer id, @Valid TradeDto trade,
                               BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "trade/update";
         }
-        tradeService.update(id, tradeDto);
+        tradeService.update(id, trade);
         return "redirect:/trade/list";
     }
 
