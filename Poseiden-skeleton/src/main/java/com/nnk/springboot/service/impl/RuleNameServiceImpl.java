@@ -1,10 +1,10 @@
 package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.NotFoundException;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.dto.RuleNameDto;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import com.nnk.springboot.service.RuleNameService;
+import com.nnk.springboot.util.exceptions.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

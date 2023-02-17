@@ -1,9 +1,9 @@
 package com.nnk.springboot.service.impl;
 
-import com.nnk.springboot.NotFoundException;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.UserService;
+import com.nnk.springboot.util.exceptions.NotFoundException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
