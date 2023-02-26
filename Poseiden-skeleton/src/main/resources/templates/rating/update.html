@@ -55,7 +55,7 @@
                     <input class="form-control" id="orderNumber" placeholder="Enter Order Number"
                            th:field="*{orderNumber}"
                            th:value="${rating.orderNumber}"
-                           type="number"/>
+                           type="number" max="127"/>
                     <p class="text-danger" th:errors="*{orderNumber}"
                        th:if="${#fields.hasErrors('orderNumber')}"></p>
                 </div>

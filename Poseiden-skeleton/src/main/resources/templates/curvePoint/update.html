@@ -20,7 +20,7 @@
                 <div class="col-sm-10">
                     <input class="form-control" id="curveId" placeholder="Enter Curve Id" th:field="*{curveId}"
                            th:value="${curvePoint.curveId}"
-                           type="number"/>
+                           type="number" max="127"/>
                     <p class="text-danger" th:errors="*{curveId}"
                        th:if="${#fields.hasErrors('curveId')}"></p>
                 </div>
