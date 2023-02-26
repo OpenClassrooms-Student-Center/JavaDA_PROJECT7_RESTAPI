@@ -12,13 +12,13 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "bidlist")
+@Table(name = "BidList")
 public class BidList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BidListId")
-    private int bidListId;
+    private Integer bidListId;
 
     @Column(name = "account", nullable = false)
     private String account;
@@ -27,16 +27,16 @@ public class BidList {
     private String type;
 
     @Column(name = "bidQuantity")
-    private double bidQuantity;
+    private Double bidQuantity;
 
     @Column(name = "askQuantity")
-    private double askQuantity;
+    private Double askQuantity;
 
     @Column(name = "bid")
-    private double bid;
+    private Double bid;
 
     @Column(name = "ask")
-    private double ask;
+    private Double ask;
 
     @Column(name = "benchmark")
     private String benchmark;

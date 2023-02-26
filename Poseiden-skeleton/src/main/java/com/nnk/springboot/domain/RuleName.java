@@ -11,13 +11,13 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "rulename")
+@Table(name = "RuleName")
 public class RuleName {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -31,10 +31,10 @@ public class RuleName {
     @Column(name = "template")
     private String template;
 
-    @Column(name = "sqlstr")
+    @Column(name = "sqlStr")
     private String sqlStr;
 
-    @Column(name = "sqlpart")
+    @Column(name = "sqlPart")
     private String sqlPart;
 
     public RuleName(RuleNameDto ruleNameDto) {

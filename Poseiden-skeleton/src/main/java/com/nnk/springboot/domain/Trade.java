@@ -19,7 +19,7 @@ public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TradeId")
-    private int tradeId;
+    private Integer tradeId;
 
     @Column(name = "account", nullable = false)
     private String account;
@@ -28,16 +28,16 @@ public class Trade {
     private String type;
 
     @Column(name = "buyQuantity")
-    private double buyQuantity;
+    private Double buyQuantity;
 
     @Column(name = "sellQuantity")
-    private double sellQuantity;
+    private Double sellQuantity;
 
     @Column(name = "buyPrice")
-    private double buyPrice;
+    private Double buyPrice;
 
     @Column(name = "sellPrice")
-    private double sellPrice;
+    private Double sellPrice;
 
     @Column(name = "tradeDate")
     private Timestamp tradeDate;

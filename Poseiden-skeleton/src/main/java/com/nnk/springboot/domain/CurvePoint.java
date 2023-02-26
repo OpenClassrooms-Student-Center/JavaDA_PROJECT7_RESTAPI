@@ -13,25 +13,25 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "curvepoint")
+@Table(name = "CurvePoint")
 public class CurvePoint {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "CurveId")
-    private int curveId;
+    private Integer curveId;
 
     @Column(name = "asOfDate")
     private Timestamp asOfDate;
 
     @Column(name = "term")
-    private double term;
+    private Double term;
 
     @Column(name = "value")
-    private double value;
+    private Double value;
 
     @Column(name = "creationDate")
     private Timestamp creationDate;

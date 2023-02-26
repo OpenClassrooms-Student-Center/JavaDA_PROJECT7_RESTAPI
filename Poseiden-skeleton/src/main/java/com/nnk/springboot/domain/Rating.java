@@ -11,13 +11,13 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "rating")
+@Table(name = "Rating")
 public class Rating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "moodysRating", length = 125)
     private String moodysRating;
@@ -29,7 +29,7 @@ public class Rating {
     private String fitchRating;
 
     @Column(name = "orderNumber")
-    private int orderNumber;
+    private Integer orderNumber;
 
     public Rating(RatingDto ratingDto) {
         this.moodysRating = ratingDto.getMoodysRating();
