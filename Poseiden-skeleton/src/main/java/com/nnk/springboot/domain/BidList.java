@@ -18,9 +18,10 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bidlist")
 public class BidList {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer BidListId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer bidListId;
     private String account;
     private String type;
     private Double bidQuantity;
