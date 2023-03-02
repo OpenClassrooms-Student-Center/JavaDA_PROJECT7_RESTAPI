@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -46,11 +43,12 @@ public class CurveController {
     /**
      * Add curve point form.
      *
-     * @param curvePoint the curve point
+     * @param model the model
      * @return the string
      */
     @GetMapping("/curvePoint/add")
-    public String addCurvePointForm(CurvePointDto curvePoint) {
+    public String addCurvePointForm(Model model) {
+        model.addAttribute("curvePoint", new CurvePointDto());
         return "curvePoint/add";
     }
 
@@ -63,7 +61,7 @@ public class CurveController {
      * @return the string
      */
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePointDto curvePoint, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("curvePoint") CurvePointDto curvePoint, BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.error("Validation failed for curvePoint item");
             return "curvePoint/add";
@@ -97,7 +95,7 @@ public class CurveController {
      */
     @PostMapping("/curvePoint/update/{id}")
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePointDto curvePoint,
-                            BindingResult result, Model model) {
+                                   BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.error("Validation before update failed for curvePoint item");
             return "curvePoint/update";

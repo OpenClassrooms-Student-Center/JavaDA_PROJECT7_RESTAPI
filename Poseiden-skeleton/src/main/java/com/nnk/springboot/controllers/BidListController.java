@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -46,11 +43,12 @@ public class BidListController {
     /**
      * Add bid form.
      *
-     * @param bid the bid
+     * @param model the model
      * @return the string
      */
     @GetMapping("/bidList/add")
-    public String addBidForm(BidListDto bid) {
+    public String addBidForm(Model model) {
+        model.addAttribute("bid", new BidListDto());
         return "bidList/add";
     }
 
@@ -63,7 +61,7 @@ public class BidListController {
      * @return the string
      */
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidListDto bid, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("bid") BidListDto bid, BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.error("Validation failed for bid item");
             return "bidList/add";

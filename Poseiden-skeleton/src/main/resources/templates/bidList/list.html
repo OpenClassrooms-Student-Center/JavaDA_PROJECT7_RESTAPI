@@ -38,13 +38,13 @@
             </thead>
             <tbody>
             <tr th:each="bid : ${bidList}">
-                <td th:text="${bid.id}"></td>
+                <td th:text="${bid.bidListId}"></td>
                 <td th:text="${bid.account}"></td>
                 <td th:text="${bid.type}"></td>
                 <td th:text="${bid.bidQuantity}"></td>
                 <td>
-                    <a class="btn btn-primary btn-sm" th:href="@{/bidList/update/{id}(id=${bid.id})}">Edit</a>
-                    <a class="btn btn-danger btn-sm" th:href="@{/bidList/delete/{id}(id=${bid.id})}">Delete</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/bidList/update/{id}(id=${bid.bidListId})}">Edit</a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/bidList/delete/{id}(id=${bid.bidListId})}">Delete</a>
                 </td>
             </tr>
             </tbody>

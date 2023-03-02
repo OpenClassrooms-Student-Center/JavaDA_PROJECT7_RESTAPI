@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -46,12 +43,13 @@ public class RuleNameController {
     /**
      * Add rule form.
      *
-     * @param ruleName the rule name
+     * @param model the model
      * @return the string
      */
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleNameDto ruleName) {
-        return "ruleName/add";
+    public String addRuleForm(Model model) {
+        model.addAttribute("ruleName", new RuleNameDto());
+        return "/ruleName/add";
     }
 
     /**
@@ -63,7 +61,7 @@ public class RuleNameController {
      * @return the string
      */
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleNameDto ruleName, BindingResult result, Model model) {
+    public String validate(@Valid @ModelAttribute("ruleName") RuleNameDto ruleName, BindingResult result, Model model) {
         if (result.hasErrors()) {
             log.error("Validation failed for ruleName item");
             return "ruleName/add";

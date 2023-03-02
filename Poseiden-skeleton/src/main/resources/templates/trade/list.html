@@ -38,14 +38,14 @@
             </thead>
             <tbody>
             <tr th:each="trade : ${tradeList}">
-                <td th:text="${trade.id}"></td>
+                <td th:text="${trade.tradeId}"></td>
                 <td th:text="${trade.account}"></td>
                 <td th:text="${trade.type}"></td>
                 <td th:text="${trade.buyQuantity}"></td>
                 <td>
-                    <a class="btn btn-primary btn-sm" th:href="@{/trade/update/{id}(id=${trade.id})}">Edit</a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/trade/update/{id}(id=${trade.tradeId})}">Edit</a>
                     <a class="btn btn-danger btn-sm"
-                       th:href="@{/trade/delete/{id}(id=${trade.id})}">Delete</a>
+                       th:href="@{/trade/delete/{id}(id=${trade.tradeId})}">Delete</a>
                 </td>
             </tbody>
         </table>
