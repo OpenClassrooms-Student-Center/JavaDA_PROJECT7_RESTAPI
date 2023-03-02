@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.UserService;
 import com.nnk.springboot.util.exceptions.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +18,7 @@ import java.util.Optional;
  * Service class that handles all User related business logic.
  */
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
@@ -31,22 +33,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
+        log.info("Retrieving all Userss");
         return userRepository.findAll();
     }
 
     @Override
     public User findById(Integer id) {
+        log.info("Retrieving User with id {}", id);
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new NotFoundException("User not found with id " + id));
     }
 
     @Override
     public User create(User user) {
+        log.info("Creating new User");
         return userRepository.save(user);
     }
 
     @Override
     public User update(Integer id, User user) {
+        log.info("Updating User with id {}", id);
         User userToUpdate = userRepository.findById(id).get();
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setPassword(user.getPassword());
@@ -57,6 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Integer id) {
+        log.info("Deleting User with id {}", id);
         User user = findById(id);
         userRepository.delete(user);
     }
