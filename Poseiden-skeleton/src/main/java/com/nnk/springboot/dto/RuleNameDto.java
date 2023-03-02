@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import javax.validation.constraints.NotBlank;
 
 
+/**
+ * The type Rule name dto.
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

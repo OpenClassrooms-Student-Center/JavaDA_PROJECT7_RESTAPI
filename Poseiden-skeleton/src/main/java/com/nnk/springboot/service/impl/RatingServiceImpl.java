@@ -10,11 +10,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles all Rating related business logic.
+ */
 @Service
 public class RatingServiceImpl implements RatingService {
 
     private final RatingRepository ratingRepository;
 
+    /**
+     * Instantiates a new Rating service.
+     *
+     * @param ratingRepository the rating repository
+     */
     public RatingServiceImpl(RatingRepository ratingRepository) {
         this.ratingRepository = ratingRepository;
     }

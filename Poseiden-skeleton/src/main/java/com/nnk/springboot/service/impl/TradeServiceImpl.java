@@ -10,10 +10,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles all Trade related business logic.
+ */
 @Service
 public class TradeServiceImpl implements TradeService {
     private final TradeRepository tradeRepository;
 
+    /**
+     * Instantiates a new Trade service.
+     *
+     * @param tradeRepository the trade repository
+     */
     public TradeServiceImpl(TradeRepository tradeRepository) {
         this.tradeRepository = tradeRepository;
     }

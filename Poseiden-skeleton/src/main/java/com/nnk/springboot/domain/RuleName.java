@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * The type Rule name.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,6 +40,11 @@ public class RuleName {
     @Column(name = "sqlPart")
     private String sqlPart;
 
+    /**
+     * Instantiates a new Rule name.
+     *
+     * @param ruleNameDto the rule name dto
+     */
     public RuleName(RuleNameDto ruleNameDto) {
         this.name = ruleNameDto.getName();
         this.description = ruleNameDto.getDescription();

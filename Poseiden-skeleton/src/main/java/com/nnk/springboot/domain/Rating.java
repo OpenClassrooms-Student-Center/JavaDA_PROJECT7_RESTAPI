@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * The type Rating.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,6 +34,11 @@ public class Rating {
     @Column(name = "orderNumber")
     private Integer orderNumber;
 
+    /**
+     * Instantiates a new Rating.
+     *
+     * @param ratingDto the rating dto
+     */
     public Rating(RatingDto ratingDto) {
         this.moodysRating = ratingDto.getMoodysRating();
         this.sandPRating = ratingDto.getSandPRating();

@@ -8,6 +8,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * The type Bid list.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -83,6 +86,11 @@ public class BidList {
     @Column(name = "side")
     private String side;
 
+    /**
+     * Instantiates a new Bid list.
+     *
+     * @param bidListDTO is the bid list dto
+     */
     public BidList(BidListDto bidListDTO) {
         this.account = bidListDTO.getAccount();
         this.type = bidListDTO.getType();

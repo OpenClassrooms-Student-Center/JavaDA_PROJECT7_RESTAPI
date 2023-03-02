@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles all BidList related business logic.
+ */
 @Service
 public class BidListServiceImpl implements BidListService {
 

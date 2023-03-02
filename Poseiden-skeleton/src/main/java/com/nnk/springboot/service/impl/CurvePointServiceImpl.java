@@ -10,11 +10,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles all CurvePoint related business logic.
+ */
 @Service
 public class CurvePointServiceImpl implements CurvePointService {
 
     private final CurvePointRepository curvePointRepository;
 
+    /**
+     * Instantiates a new Curve point service.
+     *
+     * @param curvePointRepository the curve point repository
+     */
     public CurvePointServiceImpl(CurvePointRepository curvePointRepository) {
         this.curvePointRepository = curvePointRepository;
     }

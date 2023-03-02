@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
+/**
+ * The type Trade.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -81,6 +84,11 @@ public class Trade {
     @Column(name = "side")
     private String side;
 
+    /**
+     * Instantiates a new Trade.
+     *
+     * @param tradeDto the trade dto
+     */
     public Trade(TradeDto tradeDto) {
         this.account = tradeDto.getAccount();
         this.type = tradeDto.getType();

@@ -10,10 +10,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that handles all RuleName related business logic.
+ */
 @Service
 public class RuleNameServiceImpl implements RuleNameService {
     private final RuleNameRepository ruleNameRepository;
 
+    /**
+     * Instantiates a new Rule name service.
+     *
+     * @param ruleNameRepository the rule name repository
+     */
     public RuleNameServiceImpl(RuleNameRepository ruleNameRepository) {
         this.ruleNameRepository = ruleNameRepository;
     }

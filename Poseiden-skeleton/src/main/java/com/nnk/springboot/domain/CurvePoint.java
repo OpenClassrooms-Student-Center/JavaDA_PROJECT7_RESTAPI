@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
+/**
+ * The type Curve point.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -36,6 +39,11 @@ public class CurvePoint {
     @Column(name = "creationDate")
     private Timestamp creationDate;
 
+    /**
+     * Instantiates a new Curve point.
+     *
+     * @param curvePointDto the curve point dto
+     */
     public CurvePoint(CurvePointDto curvePointDto) {
         this.curveId = curvePointDto.getCurveId();
         this.term = curvePointDto.getTerm();

@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+/**
+ * The type User.
+ */
 @Entity
 @Table(name = "Users")
 @AllArgsConstructor
@@ -31,42 +34,92 @@ public class User {
     @NotBlank(message = "Role is mandatory")
     private String role;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the user id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Sets username.
+     *
+     * @param username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets fullname.
+     *
+     * @return the fullname
+     */
     public String getFullname() {
         return fullname;
     }
 
+    /**
+     * Sets fullname.
+     *
+     * @param fullname
+     */
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
 
+    /**
+     * Gets role.
+     *
+     * @return the role
+     */
     public String getRole() {
         return role;
     }
 
+    /**
+     * Sets role.
+     *
+     * @param role
+     */
     public void setRole(String role) {
         this.role = role;
     }

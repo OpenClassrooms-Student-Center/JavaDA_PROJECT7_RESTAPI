@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+/**
+ * The type Curve point dto.
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor

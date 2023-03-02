@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * The type Bid list dto.
+ */
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
