@@ -49,7 +49,7 @@ public class RuleNameController {
     @GetMapping("/ruleName/add")
     public String addRuleForm(Model model) {
         model.addAttribute("ruleName", new RuleNameDto());
-        return "/ruleName/add";
+        return "ruleName/add";
     }
 
     /**

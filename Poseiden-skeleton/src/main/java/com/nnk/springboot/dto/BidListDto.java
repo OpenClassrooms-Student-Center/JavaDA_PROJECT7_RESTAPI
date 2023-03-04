@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  * The type Bid list dto.
@@ -20,6 +22,8 @@ public class BidListDto {
     @NotBlank
     private String type;
 
-    private double bidQuantity;
+    @Positive(message = "Quantity must be positive")
+    @NotNull(message = "Bid Quantity is mandatory")
+    private Double bidQuantity;
 }
 

@@ -49,7 +49,7 @@ public class TradeController {
     @GetMapping("/trade/add")
     public String addTrade(Model model) {
         model.addAttribute("trade", new TradeDto());
-        return "/trade/add";
+        return "trade/add";
     }
 
     /**
