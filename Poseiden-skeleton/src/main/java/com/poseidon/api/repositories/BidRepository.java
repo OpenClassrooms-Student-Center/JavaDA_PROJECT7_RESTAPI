@@ -1,6 +1,6 @@
-package com.nnk.springboot.repositories;
+package com.poseidon.api.repositories;
 
-import com.nnk.springboot.model.Bid;
+import com.poseidon.api.model.Bid;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

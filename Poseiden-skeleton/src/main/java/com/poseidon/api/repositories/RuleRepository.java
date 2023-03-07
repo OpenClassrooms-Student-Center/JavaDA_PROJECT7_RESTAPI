@@ -1,6 +1,6 @@
-package com.nnk.springboot.repositories;
+package com.poseidon.api.repositories;
 
-import com.nnk.springboot.model.Rule;
+import com.poseidon.api.model.Rule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

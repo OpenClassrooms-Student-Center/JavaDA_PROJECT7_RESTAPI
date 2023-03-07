@@ -1,6 +1,6 @@
-package com.nnk.springboot.controllers;
+package com.poseidon.api.controllers;
 
-import com.nnk.springboot.model.Bid;
+import com.poseidon.api.model.Bid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

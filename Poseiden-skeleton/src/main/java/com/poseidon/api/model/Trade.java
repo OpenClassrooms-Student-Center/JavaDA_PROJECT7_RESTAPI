@@ -1,4 +1,4 @@
-package com.nnk.springboot.model;
+package com.poseidon.api.model;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
