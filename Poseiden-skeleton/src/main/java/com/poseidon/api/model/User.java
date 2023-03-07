@@ -1,24 +1,24 @@
-package com.nnk.springboot.model;
+package com.poseidon.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Slf4j
+@SuppressWarnings("serial")
 @Entity
-@Data
-@Table(name = "user")
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
+@Generated
+@Data
 public class User implements UserDetails {
 
     public User(User user) {
@@ -27,33 +27,29 @@ public class User implements UserDetails {
         this.role = user.getRole();
     }
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "Id", unique = true, nullable = false)
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username")
+    @Column
     private String username;
 
-    @Column(name = "password")
+    @Column
     private String password;
 
-    @NotNull
-    @Column(name = "fullname")
+    @Column
     private String fullname;
 
-    @Column(name = "role")
+    @Column
     private String role;
+
+
+    // Below are Spring Security related methods
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(role));
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override
