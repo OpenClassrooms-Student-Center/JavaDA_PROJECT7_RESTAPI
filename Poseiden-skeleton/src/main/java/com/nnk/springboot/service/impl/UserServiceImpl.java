@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(Integer id, User user) {
         log.info("Updating User with id {}", id);
-        User userToUpdate = userRepository.findById(id).get();
+        User userToUpdate = findById(id);
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setPassword(user.getPassword());
         userToUpdate.setFullname(user.getFullname());
