@@ -1,97 +1,84 @@
 package com.poseidon.api.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.security.Timestamp;
 import java.time.LocalDateTime;
 
 
 @Entity
 @Table(name = "bid")
-@Slf4j
 @NoArgsConstructor
+@Data
 public class Bid {
 
-    @Transient
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime date;
-
     @Id
-    @Column(name = "BidListId", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer bidListId;
-    @Column(name = "account")
-    String account;
-    @Column(name = "type")
-    String type;
-    @Column(name = "bidquantity")
-    Double bidQuantity;
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @Column(name = "askQuantity")
-    Double askQuantity;
+    @Column
+    private String account;
 
-    @Column(name = "bid")
-    Double bid;
+    @Column
+    private String type;
 
-    @Column(name = "ask")
-    Double ask;
+    @Column(name = "bid_quantity")
+    private Double bidQuantity;
 
-    @Column(name = "benchmark")
-    String benchmark;
+    @Column(name = "ask_quantity")
+    private Double askQuantity;
 
-    @Column(name = "bidListDate")
-    LocalDateTime bidListDate;
+    @Column(name = "bid_date")
+    private Double bidDate;
 
-    @Column(name = "commentary")
-    String commentary;
+    @Column
+    private Double ask;
 
-    @Column(name = "security")
-    String security;
+    @Column(name = "bid_list_date")
+    private Timestamp bidListDate;
 
-    @Column(name = "status")
-    String status;
+    @Column
+    private String commentary;
 
-    @Column(name = "trader")
-    String trader;
+    @Column
+    private String security;
 
-    @Column(name = "book")
-    String book;
+    @Column
+    private String status;
 
-    @Column(name = "creationName")
-    String creationName;
+    @Column
+    private String trader;
 
-    @Column(name = "creationDate")
-    LocalDateTime creationDate = date;
+    @Column
+    private String book;
 
-    @Column(name = "revisionName")
-    String revisionName;
+    @Column(name = "creation_name")
+    private String creationName;
 
-    @Column(name = "revisionDate")
-    LocalDateTime revisionDate;
+    @Column(name = "creation_date")
+    private Timestamp creationDate;
 
-    @Column(name = "dealName")
-    String dealName;
+    @Column(name = "revision_name")
+    private String revisionName;
 
-    @Column(name = "dealType")
-    String dealType;
+    @Column(name = "revision_date")
+    private Timestamp revisionDate;
 
-    @Column(name = "sourceListId")
-    String sourceListId;
+    @Column(name = "deal_name")
+    private String dealName;
 
-    @Column(name = "side")
-    String side;
+    @Column(name = "deal_type")
+    private String dealType;
 
-    public Bid(int BidListId, String account, String type, Double bidQuantity) {
-        this.bidListId=BidListId;
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-    }
+    @Column(name = "source_list_id")
+    private String sourceListId;
 
-    public Bid(String account, String type, double bidQuantity) {
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-    }
+    @Column
+    private String side;
+
 }
