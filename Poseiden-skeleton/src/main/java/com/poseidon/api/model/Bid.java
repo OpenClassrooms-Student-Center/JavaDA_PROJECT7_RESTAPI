@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.security.Timestamp;
 import java.time.LocalDateTime;
 
@@ -33,6 +34,7 @@ public class Bid {
     @Column(name = "ask_quantity")
     private Double askQuantity;
 
+    @NotNull
     @Column(name = "bid_date")
     private Double bidDate;
 

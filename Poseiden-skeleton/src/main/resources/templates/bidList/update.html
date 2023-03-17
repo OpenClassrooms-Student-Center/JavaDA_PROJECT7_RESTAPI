@@ -13,10 +13,37 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
+		<form action="#" th:action="@{/bidList/update/{id}(id=${bidDto.id})}" th:object="${bidDto}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label class="col-2 control-label">Account</label>
+				<div class="col-10">
+					<input type="text" th:field="*{account}" id="fullname" placeholder="Account" class="col-4">
+					<p class="text-danger small" th:if="${#fields.hasErrors('account')}" th:errors="*{account}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="type" class="col-2 control-label">Type</label>
+				<div class="col-10">
+					<input type="text" th:field="*{type}" id="type" placeholder="Type" class="col-4">
+					<p class="text-danger small" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="bidQuantity" class="col-2 control-label">Bid Quantity</label>
+				<div class="col-10">
+					<input type="number" th:field="*{bidQuantity}" id="bidQuantity" placeholder="Bid quantity" class="col-4">
+					<p class="text-danger small" th:if="${#fields.hasErrors('bidQuantity')}" th:errors="*{bidQuantity}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-12">
+					<a class="btn btn-danger btn-sm" href="/bidList/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Update Bid">
+				</div>
+			</div>
 		</form>
 	</div>
 
