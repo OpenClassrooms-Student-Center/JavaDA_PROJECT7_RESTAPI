@@ -1,6 +1,8 @@
 package com.poseidon.api.model;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -11,13 +13,15 @@ import java.time.LocalDateTime;
 @Table(name = "curvepoint")
 @Slf4j
 @NoArgsConstructor
+@Getter
+@Setter
 public class CurvePoint {
 
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-    @Column(name = "CurveId")
+    @Column(name = "curve_id")
     Integer curveId;
     @Column(name = "term")
     Double term;
@@ -25,11 +29,11 @@ public class CurvePoint {
     Double value;
 
     @Transient
-    @Column(name = "asOfDate")
+    @Column(name = "as_of_Date")
     private LocalDateTime asOfDate;
 
     @Transient
-    @Column(name = "creationDate")
+    @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
     public CurvePoint(Integer id, Integer curveId, Double term, Double value) {
