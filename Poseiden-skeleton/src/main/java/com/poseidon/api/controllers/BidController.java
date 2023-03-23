@@ -71,7 +71,7 @@ public class BidController {
 
         Bid updatedBid = bidService.convertDtoToEntity(bidDto);
         bidService.updateBid(id, updatedBid);
-        redirectAttributes.addFlashAttribute("message", String.format("Bid with id '%d' was successfully updated", id));
+        redirectAttributes.addFlashAttribute("message", String.format("Bid with id " + id + " was successfully updated"));
         model.addAttribute("bids", bidService.findAllBids());
 
         return "redirect:/bidList/list";
@@ -80,7 +80,7 @@ public class BidController {
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         bidService.deleteBid(id);
-        redirectAttributes.addFlashAttribute("message", String.format("Bid with id '%d' was successfully deleted", id));
+        redirectAttributes.addFlashAttribute("message", String.format("Bid with id " + id + " was successfully deleted"));
         model.addAttribute("bids", bidService.findAllBids());
 
         return "redirect:/bidList/list";
