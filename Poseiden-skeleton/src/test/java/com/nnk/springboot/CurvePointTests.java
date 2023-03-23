@@ -25,7 +25,7 @@ public class CurvePointTests {
 
 		// Save
 		curvePoint = curvePointRepository.save(curvePoint);
-		Assert.assertNotNull(curvePoint.getId());
+		Assert.assertNotNull(curvePoint.getCurveId());
 		Assert.assertTrue(curvePoint.getCurveId() == 10);
 
 		// Update
@@ -38,7 +38,7 @@ public class CurvePointTests {
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = curvePoint.getId();
+		Integer id = curvePoint.getCurveId();
 		curvePointRepository.delete(curvePoint);
 		Optional<CurvePoint> curvePointList = curvePointRepository.findById(id);
 		Assert.assertFalse(curvePointList.isPresent());

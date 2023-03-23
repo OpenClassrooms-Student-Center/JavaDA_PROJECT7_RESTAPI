@@ -85,7 +85,7 @@ CREATE TABLE RuleName (
   PRIMARY KEY (Id)
 )
 
-CREATE TABLE Users (
+CREATE TABLE User (
   Id tinyint(4) NOT NULL AUTO_INCREMENT,
   username VARCHAR(125),
   password VARCHAR(125),

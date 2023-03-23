@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Poseidon.iml" filepath="$PROJECT_DIR$/.idea/Poseidon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Poseiden-skeleton/spring-boot-skeleton.iml" filepath="$PROJECT_DIR$/Poseiden-skeleton/spring-boot-skeleton.iml" />
+    </modules>
+  </component>
+</project>
