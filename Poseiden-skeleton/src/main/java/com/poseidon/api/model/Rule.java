@@ -1,5 +1,6 @@
 package com.poseidon.api.model;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,13 +8,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "rule")
-@Slf4j
 @NoArgsConstructor
+@Data
 public class Rule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id", nullable = false)
-    Integer id;
+    Long id;
     @Column(name = "name")
     String name;
     @Column(name = "description")
@@ -22,12 +23,12 @@ public class Rule {
     String json;
     @Column(name = "template")
     String template;
-    @Column(name = "sqlStr")
+    @Column(name = "sql_str")
     String sqlStr;
-    @Column(name = "sqlPart")
+    @Column(name = "sql_part")
     String sqlPart;
 
-    public Rule(Integer id, String name, String description, String json, String template, String sqlStr, String sqlPart) {
+    public Rule(Long id, String name, String description, String json, String template, String sqlStr, String sqlPart) {
         this.id = id;
         this.name = name;
         this.description = description;
