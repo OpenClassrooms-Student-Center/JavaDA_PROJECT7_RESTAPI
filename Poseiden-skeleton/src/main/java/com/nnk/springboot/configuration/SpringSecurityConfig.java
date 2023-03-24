@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 @Configuration
@@ -34,20 +35,23 @@ public class SpringSecurityConfig  {
         .authorizeRequests()
 
 
-                .requestMatchers(request -> request.getRequestURI().equals("/user/add")).permitAll() // allow homePage without authentication
-                .requestMatchers(request -> request.getRequestURI().equals("/bidList/list")).permitAll() // allow homePage without authentication
-                .requestMatchers(request -> request.getRequestURI().equals("/user/validate")).permitAll() // allow homePage without authentication
+                .requestMatchers(request -> request.getRequestURI().startsWith("/user/")).hasRole("ADMIN")//gestion des users res à admin
 
-                .requestMatchers(request -> request.getRequestURI().equals("/home")).permitAll() // allow homePage without authentication
+                .requestMatchers(request -> request.getRequestURI().startsWith("/admin/")).hasRole("ADMIN")//certaines pages pr admin
 
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .permitAll()
+                //success handler
                 .and()
                 .logout();
         http.authenticationProvider(authenticationProvider());
         return http.build();
     }
+
+
+
     /*@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {//cette méthode gère les requêtes http
         http

@@ -24,28 +24,17 @@ public class LoginController {
         this.userService=userService;
         this.userRepository=userRepository;
     }
-
-    /*@GetMapping("/login")
+    //cette requete GET affiche la page login, sans vue.
+    @GetMapping("/login")
     public ModelAndView login() {
         System.out.println("in modelAndView, method to display login");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         return mav;
-    }*/
-    @GetMapping("/home")
-    public String displayHome(){
-        return "home";
     }
 
 
-    //formulaire géré par sécurité
-    //@PostMapping("/login")
-    //public String
-
-    /*@GetMapping("/login")
-    public String displaylogin(){
-        return"login";
-    }*/
+    //cette requete fait le même travail que /user/list (mais alors elle est accessible???)
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
@@ -53,13 +42,7 @@ public class LoginController {
         mav.setViewName("user/list");
         return mav;
     }
-    //@GetMapping("/user/add")
-    //public String displayUserAddForm(){
-    //    return"user/add";
-    //}
-
-
-
+//cette requete se trouve??? et affiche la vue 403 chargé de l'objet erreur spécifique
     @GetMapping("error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();

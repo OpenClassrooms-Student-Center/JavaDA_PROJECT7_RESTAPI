@@ -23,21 +23,23 @@ public class UserController {
         this.userService=userService;
         this.userRepository=userRepository;
     }
-
+    //la requete /user/list > renvoie une page "user/list" avec de la data (liste)
     @RequestMapping("/user/list")
     public String home(Model model)
     {
         model.addAttribute("users", userRepository.findAll());
         return "user/list";
     }
-
+    //la requete GET /user/add > renvoie une page vide : "user/add"
     @GetMapping("/user/add")
     public String addUser(User bid) {
         System.out.println("ingetMapping method for /user.add"+ bid.getUsername());
         log.debug("in addUser Display method");
         return "user/add";
     }
-
+    //la requete POST se trouve sur la page "user/add".
+    //il ajoute un user et redirige vers la
+    //méthode /user/list qui renvoie user/list nourrie du nouveau modèle
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
         System.out.println("hello");
@@ -54,15 +56,8 @@ public class UserController {
         }
         return "user/add";
     }
-    /*@PostMapping("/user/validate")
-    public String registerNewUser(@RequestParam(name = "username")String username, @RequestParam(name = "password")String password, @RequestParam(name="fullname")String fullname, @RequestParam(name="role")String role){
-        log.warn("in register method");
-        System.out.println("in register method");
-        User newUser= userService.registerNewUser(username, password, fullname, role);
-        log.warn("out register method, back to controller");
-        System.out.println("out register method, back in controller");
-        return "redirect:/home";
-    }*/
+    //cette request GET se trouve sur la page user/list, elle demande l'affichage d'un formulaire de mise à jour relative
+    //à un user determiné. ce formulaire est donc nourri d'un model.il retourne ce formulaire
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer userId, Model model) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + userId));
@@ -70,7 +65,8 @@ public class UserController {
         model.addAttribute("user", user);
         return "user/update";
     }
-
+    //cette request POST se trouve sur la page user/update. c'st une validation de formulaire
+    //elle retourne la méthode/user/list qui renvoie la page user/list
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -85,6 +81,8 @@ public class UserController {
         model.addAttribute("users", userRepository.findAll());
         return "redirect:/user/list";
     }
+    //c'est bizarrement une méthode get, qui se trouve dans la liste des users et renvoie la liste
+    //des users avec un user en moins (donc en passant par une requete mapping)
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
