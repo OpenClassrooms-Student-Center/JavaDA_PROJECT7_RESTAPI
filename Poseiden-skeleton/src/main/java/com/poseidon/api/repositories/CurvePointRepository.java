@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CurvePointRepository extends JpaRepository<CurvePoint, Integer> {
+public interface CurvePointRepository extends JpaRepository<CurvePoint, Long> {
 
-    Optional<CurvePoint> findCurvePointById(Integer id);
+    Optional<CurvePoint> findCurvePointById(Long id);
 }

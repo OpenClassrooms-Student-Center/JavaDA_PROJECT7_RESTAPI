@@ -27,7 +27,7 @@ public class CurvePointService {
         return curvePointRepository.findAll();
     }
 
-    public CurvePoint findCurvePointById(Integer id) {
+    public CurvePoint findCurvePointById(Long id) {
         Optional<CurvePoint> curvePoint = curvePointRepository.findById(id);
         if (id != null && curvePoint.isPresent()) {
             return curvePoint.get();
@@ -45,7 +45,7 @@ public class CurvePointService {
         throw new UsernameNotFoundException("There was an error while creating your Curve Point");
     }
 
-    public boolean updateCurve(Integer id, CurvePoint curvePointEntityUpdated) {
+    public boolean updateCurve(Long id, CurvePoint curvePointEntityUpdated) {
         Optional<CurvePoint> curvePoint = curvePointRepository.findCurvePointById(id);
         if (id != null && curvePoint.isPresent()) {
             curvePointEntityUpdated.setId(id);
@@ -57,7 +57,7 @@ public class CurvePointService {
         throw new UsernameNotFoundException("Could not find Curve point with id : " + id);
     }
 
-    public boolean deleteCurve(Integer id) {
+    public boolean deleteCurve(Long id) {
         Optional<CurvePoint> curvePoint = curvePointRepository.findCurvePointById(id);
         if (id != null && curvePoint.isPresent()) {
             curvePointRepository.delete(curvePoint.get());

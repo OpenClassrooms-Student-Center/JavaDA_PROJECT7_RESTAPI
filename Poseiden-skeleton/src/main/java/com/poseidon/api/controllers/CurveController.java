@@ -48,7 +48,7 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+    public String showUpdateForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         CurvePoint curvePointToUpdate = curvePointService.findCurvePointById(id);
         CurvePointDto curvePointDto = curvePointService.convertEntityToDto(curvePointToUpdate);
         curvePointDto.setId(id);
@@ -58,7 +58,7 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePointDto curvePointDto,
+    public String updateBid(@PathVariable("id") Long id, @Valid CurvePointDto curvePointDto,
                             BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -75,7 +75,7 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+    public String deleteBid(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
             curvePointService.deleteCurve(id);
         redirectAttributes.addFlashAttribute("message",
                 String.format("Curve Point with id '%d' was successfully deleted", id));

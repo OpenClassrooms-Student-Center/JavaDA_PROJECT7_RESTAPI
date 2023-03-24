@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class BidDto {
 
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Account is mandatory")
     private String account;

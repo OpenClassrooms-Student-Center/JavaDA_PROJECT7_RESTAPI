@@ -20,9 +20,9 @@ public class CurvePoint {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Integer id;
+    Long id;
     @Column(name = "curve_id")
-    Integer curveId;
+    Long curveId;
     @Column(name = "term")
     Double term;
     @Column(name = "value")
@@ -36,7 +36,7 @@ public class CurvePoint {
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 
-    public CurvePoint(Integer id, Integer curveId, Double term, Double value) {
+    public CurvePoint(Long id, Long curveId, Double term, Double value) {
         this.id = id;
         this.curveId = curveId;
         this.term = term;

@@ -3,7 +3,9 @@ package com.poseidon.api.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +20,8 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Generated
-@Data
+@Getter
+@Setter
 public class User implements UserDetails {
 
     public User(User user) {
@@ -30,7 +33,7 @@ public class User implements UserDetails {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
     private String username;

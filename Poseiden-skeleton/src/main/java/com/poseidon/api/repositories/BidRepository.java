@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface BidRepository extends JpaRepository<Bid, Integer> {
-    Optional<Bid> findBidById(Integer id);
+public interface BidRepository extends JpaRepository<Bid, Long> {
+    Optional<Bid> findBidById(Long id);
 
 }

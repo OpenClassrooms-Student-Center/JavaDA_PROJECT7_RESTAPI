@@ -4,7 +4,7 @@
 
 DROP TABLE IF EXISTS `bid`;
 CREATE TABLE `bid` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` Long NOT NULL AUTO_INCREMENT,
   `account` varchar(30) NOT NULL,
   `type` varchar(30) NOT NULL,
   `bid` double DEFAULT NULL,
@@ -36,8 +36,8 @@ CREATE TABLE `bid` (
 
 DROP TABLE IF EXISTS `curvepoint`;
 CREATE TABLE `curvepoint` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `curve_id` int unsigned DEFAULT NULL,
+  `id` Long NOT NULL AUTO_INCREMENT,
+  `curve_id` Long DEFAULT NULL,
   `term` double DEFAULT NULL,
   `value` double DEFAULT NULL,
   `as_of_date` datetime DEFAULT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `curvepoint` (
 
 DROP TABLE IF EXISTS `rating`;
 CREATE TABLE `rating` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` Long NOT NULL AUTO_INCREMENT,
   `fitch_rating` varchar(255) DEFAULT NULL,
   `moodys_rating` varchar(255) DEFAULT NULL,
   `sandp_rating` varchar(255) DEFAULT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `rating` (
 
 DROP TABLE IF EXISTS `rule`;
 CREATE TABLE `rule` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` Long NOT NULL AUTO_INCREMENT,
   `name` varchar(125) DEFAULT NULL,
   `description` varchar(125) DEFAULT NULL,
   `json` varchar(125) DEFAULT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE `rule` (
 
 DROP TABLE IF EXISTS `trade`;
 CREATE TABLE `trade` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` Long NOT NULL AUTO_INCREMENT,
   `account` varchar(30) NOT NULL,
   `type` varchar(30) NOT NULL,
   `buy_quantity` double DEFAULT NULL,
@@ -111,7 +111,7 @@ CREATE TABLE `trade` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `id` Long NOT NULL AUTO_INCREMENT,
   `username` varchar(125) DEFAULT NULL,
   `password` varchar(125) DEFAULT NULL,
   `fullname` varchar(125) DEFAULT NULL,

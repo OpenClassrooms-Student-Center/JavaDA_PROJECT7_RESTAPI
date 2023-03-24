@@ -84,7 +84,7 @@ public class UserController {
      * @return								    The form to update an user
      */
     @GetMapping("/user/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+    public String showUpdateForm(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
 
         try {
             User userToUpdate = userService.findUserById(id);
@@ -108,7 +108,7 @@ public class UserController {
      * @return									Returns the list of users if the form was validated, otherwise show errors
      */
     @PostMapping("/user/update/{id}")
-    public String updateUser(@PathVariable("id") Integer id, @Valid UserDto userDto, BindingResult result, Model model,
+    public String updateUser(@PathVariable("id") Long id, @Valid UserDto userDto, BindingResult result, Model model,
                              RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
@@ -135,7 +135,7 @@ public class UserController {
      *
      */
     @GetMapping("/user/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+    public String deleteUser(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
 
         String username = "";
         try {

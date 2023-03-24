@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class UserDto {
 
 
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Username is mandatory")
     private String username;

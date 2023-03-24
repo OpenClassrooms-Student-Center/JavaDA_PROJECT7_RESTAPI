@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
      * @param userId
      * @return									 User if it exists in database
      */
-    public User findUserById(Integer userId) {
+    public User findUserById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (userId != null && user.isPresent()) {
             return user.get();
@@ -90,7 +90,7 @@ public class UserService implements UserDetailsService {
      * @param userEntityUpdated
      * @return									True if the update was successful
      */
-    public boolean updateUser(Integer userId, User userEntityUpdated) {
+    public boolean updateUser(Long userId, User userEntityUpdated) {
         Optional<User> user = userRepository.findById(userId);
         if (userId != null && user.isPresent()) {
 
@@ -110,7 +110,7 @@ public class UserService implements UserDetailsService {
      * @param userId							The user's ID we want to delete
      * @return									True if the deletion was successful
      */
-    public boolean deleteUser(Integer userId) {
+    public boolean deleteUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (userId != null && user.isPresent()) {
             userRepository.delete(user.get());

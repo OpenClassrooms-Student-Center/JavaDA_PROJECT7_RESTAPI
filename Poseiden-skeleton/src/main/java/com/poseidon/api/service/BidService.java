@@ -26,7 +26,7 @@ public class BidService {
         return bidRepository.findAll();
     }
 
-    public Bid findBidById(Integer id) {
+    public Bid findBidById(Long id) {
         Optional<Bid> bid = bidRepository.findBidById(id);
         if (id != null && bid.isPresent()) {
             return bid.get();
@@ -43,7 +43,7 @@ public class BidService {
         throw new IllegalArgumentException("There was an error while creating the Bid");
     }
 
-    public boolean updateBid(Integer id, Bid bidEntityUpdated) {
+    public boolean updateBid(Long id, Bid bidEntityUpdated) {
         Optional<Bid> bidList = bidRepository.findBidById(id);
         if (id != null && bidList.isPresent()) {
 
@@ -56,7 +56,7 @@ public class BidService {
         throw new IllegalArgumentException("Could not find bid with id : " + id);
     }
 
-    public boolean deleteBid(Integer id) {
+    public boolean deleteBid(Long id) {
         Optional<Bid> bid = bidRepository.findBidById(id);
         if (id != null && bid.isPresent()) {
             bidRepository.delete(bid.get());

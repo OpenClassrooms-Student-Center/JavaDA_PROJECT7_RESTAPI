@@ -20,10 +20,11 @@ public class HomeController {
 	public String home() {
 
 		// Init Account Administrator
-		User user = new User(1,"admin","qsdfghjklmù$9834efq","Administrator","ADMIN");
+		Long id = Long.valueOf(1);
+		User user = new User(id,"admin","qsdfghjklmù$9834efq","Administrator","ADMIN");
 
 		// if User Administrator is not present, Create Account
-		if (!userRepository.findById(1).isPresent()){
+		if (!userRepository.findById(id).isPresent()){
 			userRepository.save(user);
 			logger.info("user save before leaving");
 		}
