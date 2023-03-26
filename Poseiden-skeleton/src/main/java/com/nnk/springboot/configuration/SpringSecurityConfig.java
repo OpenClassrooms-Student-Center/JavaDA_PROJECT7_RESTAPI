@@ -42,10 +42,12 @@ public class SpringSecurityConfig  {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .permitAll()
+                //.permitAll()
                 //success handler
+                //.and()
+                //.logout()
                 .and()
-                .logout();
+                .oauth2Login();
         http.authenticationProvider(authenticationProvider());
         return http.build();
     }
