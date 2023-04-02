@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,10 +12,11 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="BidListId")
+    @Column(name="bid_list_id")
     private Integer bidListId;
    @Column (name = "account")
    @NonNull

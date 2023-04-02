@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

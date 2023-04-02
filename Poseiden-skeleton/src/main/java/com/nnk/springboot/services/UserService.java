@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,4 +34,10 @@ public class UserService {
         User user = userRepository.findUserByUsername(username);
         userRepository.delete(user);
     }
+    public String userNameOfCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String userNameOfCurrentUser = auth.getName();
+        return auth.getName();
+    }
+
 }

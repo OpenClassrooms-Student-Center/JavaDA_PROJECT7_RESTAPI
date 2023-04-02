@@ -27,7 +27,9 @@ public class UserController {
     @RequestMapping("/user/list")
     public String home(Model model)
     {
+        log.debug("inside home function, requestMapping /user/list");
         model.addAttribute("users", userRepository.findAll());
+        log.debug("attribute list of users added");
         return "user/list";
     }
     //la requete GET /user/add > renvoie une page vide : "user/add"

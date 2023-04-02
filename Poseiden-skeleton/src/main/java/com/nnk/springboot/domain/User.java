@@ -1,10 +1,7 @@
 package com.nnk.springboot.domain;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import jakarta.persistence.*;
 
@@ -14,6 +11,7 @@ import jakarta.persistence.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
+
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

@@ -9,18 +9,22 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
-public class SpringSecurityConfig  {
+//@EnableWebSecurity
+public class SpringSecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -30,62 +34,32 @@ public class SpringSecurityConfig  {
     }
 
     @Bean
-    protected DefaultSecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-        .authorizeRequests()
+    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(authorize -> {
+                try {
+                    authorize
+                    .requestMatchers("/user/**").hasRole("ADMIN")
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+                    .and()
+                    .httpBasic()
+                    .and()
+                    .formLogin()
+                    .and()
+                    .oauth2Login();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        );
 
-
-                .requestMatchers(request -> request.getRequestURI().startsWith("/user/")).hasRole("ADMIN")//gestion des users res à admin
-
-                .requestMatchers(request -> request.getRequestURI().startsWith("/admin/")).hasRole("ADMIN")//certaines pages pr admin
-
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                //.permitAll()
-                //success handler
-                //.and()
-                //.logout()
-                .and()
-                .oauth2Login();
         http.authenticationProvider(authenticationProvider());
         return http.build();
     }
 
 
 
-    /*@Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {//cette méthode gère les requêtes http
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/resources/**",
-                                "/css/**",
-                                "/fonts/**",
-                                "/img/**").permitAll()
-                        .requestMatchers(request -> request.getRequestURI().equals("/user/add")).permitAll() // allow homePage without authentication
-                        .requestMatchers(request -> request.getRequestURI().equals("/home")).permitAll() // allow homePage without authentication
-                        .requestMatchers(request -> request.getRequestURI().equals("/login")).permitAll() // allow homePage without authentication
-                        .anyRequest().authenticated()
-                )
-
-                .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-
-                    .and()
-                .logout()
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/home");
-                   .and()
-                .oauth2Login();
-        http.authenticationProvider(authenticationProvider());
-        return http.build();
-
-    }*/
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig)throws Exception{
         return authConfig.getAuthenticationManager();
