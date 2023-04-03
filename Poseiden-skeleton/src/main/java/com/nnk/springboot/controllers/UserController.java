@@ -44,15 +44,15 @@ public class UserController {
     //méthode /user/list qui renvoie user/list nourrie du nouveau modèle
     @PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model) {
-        System.out.println("hello");
-        System.out.println(user.getUsername()+" " +user.getFullname()+" "+user.getRole());
+        //System.out.println("hello");
+        //System.out.println(user.getUsername()+" " +user.getFullname()+" "+user.getRole());
         if (!result.hasErrors()) {
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
             userRepository.save(user);
 
-            System.out.println(userRepository.findUserByUsername("jdoe").getFullname());
+            //System.out.println(userRepository.findUserByUsername("jdoe").getFullname());
             model.addAttribute("users", userRepository.findAll());
             return "redirect:/user/list";
         }

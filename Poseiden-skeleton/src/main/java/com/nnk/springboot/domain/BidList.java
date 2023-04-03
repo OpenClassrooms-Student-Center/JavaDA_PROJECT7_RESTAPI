@@ -17,18 +17,18 @@ public class BidList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="bid_list_id")
-    private Integer bidListId;
+    private Integer bid_list_id;
    @Column (name = "account")
    @NonNull
    String account;
    @Column (name = "type")
    @NonNull
    String type;
-   @Column (name = "bidQuantity")
+   @Column (name = "bid_quantity")
    @NonNull
-   Double bidQuantity;
-   @Column (name = "askQuantity")
-   Double askQuantity;
+   Double bid_quantity;
+   @Column (name = "ask_quantity")
+   Double ask_quantity;
 
    @Column (name = "bid")
    Double bid;
@@ -37,8 +37,8 @@ public class BidList {
 
    @Column (name = "benchmark")
    String benchmark;
-   @Column (name = "bidListDate")
-   Timestamp bidListDate;
+   @Column (name = "bid_list_date")
+   Timestamp bid_list_date;
    @Column (name = "commentary")
    String commentary;
 
@@ -50,23 +50,23 @@ public class BidList {
    String trader;
    @Column (name = "book")
    String book;
-   @Column (name = "creationName")
-   String creationName;
-   @Column (name = "creationDate")
-   Timestamp creationDate;
-   @Column (name = "revisionName")
-   String revisionName;
+   @Column (name = "creation_name")
+   String creation_name;
+   @Column (name = "creation_date")
+   Timestamp creation_date;
+   @Column (name = "revision_name")
+   String revision_name;
 
-   @Column (name = "revisionDate")
-   Timestamp revisionDate;
+   @Column (name = "revision_date")
+   Timestamp revision_date;
 
-   @Column (name = "dealName")
-   String dealName;
+   @Column (name = "deal_name")
+   String deal_name;
 
-    @Column (name = "dealType")
-    String dealType;
-    @Column (name = "sourceListId")
-    String sourceListId;
+    @Column (name = "deal_type")
+    String deal_type;
+    @Column (name = "source_list_id")
+    String source_list_id;
     @Column (name = "side")
     String side;
 

@@ -40,12 +40,12 @@ Logged in user: <span sec:authentication="name"></span> Role(s): <span sec:authe
 			<tbody>
 			<th:block th:each="bidlist : ${listOfBidList}">
 				<tr>
-					<td th:text="${bidlist.bidListId}"></td>
+					<td th:text="${bidlist.bid_list_id}"></td>
 					<td th:text="${bidlist.account}"></td>
 					<td th:text="${bidlist.type}"></td>
-					<td th:text="${bidlist.bidQuantity}"></td>
-					<td ><span><a th:href="@{/updateBidList(id = ${bidlist.bidListId})}">update</a>
-					</span><span><a th:href="@{/deleteBidList(id = ${bidlist.bidListId})}">Delete</a></span></td>
+					<td th:text="${bidlist.bid_quantity}"></td>
+					<td ><span><a th:href="@{/bidList/update/{id}(id = ${bidlist.bid_list_id})}">update</a>
+					</span><span><a th:href="@{/bidList/delete/{id}(id = ${bidlist.bid_list_id})}">Delete</a></span></td>
 
 				</tr>
 			</th:block>
