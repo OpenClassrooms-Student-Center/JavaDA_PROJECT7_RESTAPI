@@ -47,7 +47,11 @@ public class SpringSecurityConfig {
                     .and()
                     .formLogin()
                     .and()
-                    .oauth2Login();
+                    .oauth2Login()
+                    .and()
+                    .logout()
+                    .logoutUrl("/app-logout");
+
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

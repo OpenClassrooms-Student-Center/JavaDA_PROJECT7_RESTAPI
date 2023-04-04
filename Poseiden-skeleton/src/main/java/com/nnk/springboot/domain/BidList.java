@@ -18,29 +18,30 @@ public class BidList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="bid_list_id")
     private Integer bid_list_id;
-   @Column (name = "account")
+
+    @Column (name = "account")
    @NonNull
-   String account;
+   private String account;
    @Column (name = "type")
    @NonNull
-   String type;
+   private String type;
    @Column (name = "bid_quantity")
    @NonNull
-   Double bid_quantity;
+   private Double bid_quantity;
    @Column (name = "ask_quantity")
-   Double ask_quantity;
+   private Double ask_quantity;
 
    @Column (name = "bid")
-   Double bid;
+   private Double bid;
    @Column (name = "ask")
-   Double ask;
+   private Double ask;
 
    @Column (name = "benchmark")
-   String benchmark;
+   private String benchmark;
    @Column (name = "bid_list_date")
-   Timestamp bid_list_date;
+   private Timestamp bid_list_date;
    @Column (name = "commentary")
-   String commentary;
+   private String commentary;
 
    @Column (name = "security")
    String security;

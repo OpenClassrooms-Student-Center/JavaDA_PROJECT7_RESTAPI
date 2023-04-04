@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BidListController {
-    @Autowired
-    BidListService bidListService;
-    @Autowired
+    //@Autowired
+    private BidListService bidListService;
+    //@Autowired
     BidListRepository bidListRepository;
     public BidListController(BidListService bidListService, BidListRepository bidListRepository){
         this.bidListService = bidListService;
@@ -30,7 +30,7 @@ public class BidListController {
 
     }
     // TODO: Inject Bid service
-
+//DISPLAY LIST OF BIDLISTS PAGE
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
@@ -38,24 +38,24 @@ public class BidListController {
     // TODO: call service find all bids to show to the view
         return "bidList/list";
     }
-
+//DISPLAY ADD BIDLIST FORM
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
         return "bidList/add";
     }
 
+    // CREATE NEW BIDLIST
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bidList, BindingResult result, Model model) {
         if (!result.hasErrors()) {
-            bidListService.save(bidList);
-            //model.addAttribute("listOfBidList", bidListService.findAll());
+            bidListService.validateNewBidList(bidList);
             return "redirect:/bidList/list";
         }
         // TODO: check data valid and save to db, after saving return bid list
 
         return "bidList/add";
     }
-
+//DISPLAY UPDATE BIDLIST FORM
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Bid by Id and to model then show to the form
@@ -63,32 +63,26 @@ public class BidListController {
         model.addAttribute("bidList", bidList);
         return "bidList/update";
     }
-
+//UPDATE BIDLIST
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
+    public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBidLidListEntity,
                              BindingResult result, Model model) {
 
         System.out.println("in controller to update bidList");
         System.out.println("bidListId is" +id);
-        BidList formerBidList = bidListService.getBidListById(id);
-        formerBidList.setAccount(bidList.getAccount());
-        formerBidList.setBid_quantity(bidList.getBid_quantity());
-        formerBidList.setType(bidList.getType());
-
-       // BeanUtils.copyProperties(bidList, formerBidList);
-
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
         if (result.hasErrors()) {
             return "bidList/list";
         }
-        bidListService.save(formerBidList);
+        BidList updatedAndSavedBidList = bidListService.updateBidList(id, updatedBidLidListEntity );
+
         model.addAttribute("listOfBidList", bidListService.findAll());
         return "redirect:/bidList/list";
     }
-
+//DELETE BIDLIST
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
+        bidListService.deleteBidList(id);
         return "redirect:/bidList/list";
     }
 }

@@ -15,19 +15,23 @@ import java.sql.Timestamp;
 public class CurvePoint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="CurveId")
+    @Column(name="curve_id")
+    Integer curve_id;
+
+    @Column (name = "curve_point_id")
     @NonNull
-    Integer curveId;
-    @Column
-    Timestamp asOfDate;
-    @Column
+    private Integer curve_point_id;
+    @Column(name = "as_of_date")
+    private Timestamp as_of_date;
+    @Column(name="term")
     @NonNull
-    Double term;
-    @Column
+    private Double term;
+    @Column(name = "value")
     @NonNull
-    Double value;
-    @Column
-    Timestamp creationDate;
+    private  Double value;
+
+    @Column(name = "creation_date")
+    private Timestamp creation_date;
 
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 }
