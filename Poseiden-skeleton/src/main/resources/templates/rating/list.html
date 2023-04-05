@@ -17,7 +17,7 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+			Logged in user: <span sec:authentication="name"></span> Role(s): <span sec:authentication="principal.authorities"></span>
 			<form th:action="@{/app-logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
@@ -39,6 +39,18 @@
 			</thead>
 			<tbody>
 			<!-- TODO: Show all Rating to the table, the Action column will have Edit & Delete buttons -->
+			<th:block th:each="rating : ${listOfRatings}">
+				<tr>
+					<td th:text="${rating.rating_id}"></td>
+					<td th:text="${rating.moodys_rating}"></td>
+					<td th:text="${rating.sandprating}"></td>
+					<td th:text="${rating.fitch_rating}"></td>
+					<td th:text="${rating.order_number}"></td>
+					<td ><span><a th:href="@{/rating/update/{id}(id = ${rating.rating_id})}">update</a>
+					</span><span><a th:href="@{/rating/delete/{id}(id = ${rating.rating_id})}">Delete</a></span></td>
+
+				</tr>
+			</th:block>
 			</tbody>
 		</table>
 	</div>

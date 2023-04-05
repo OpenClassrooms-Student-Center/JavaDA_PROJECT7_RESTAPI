@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    static final Logger log = LogManager.getLogger();
+    static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
 
     private UserRepository userRepository;
     private PasswordEncoder passWordEncoder;

@@ -8,30 +8,35 @@ import lombok.*;
 @Table(name = "rating")
 @Getter
 @Setter
-
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class Rating {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="CurveId")
+    @Column(name="rating_id")
+    private Integer rating_id;
 
-    Integer id;
-    @Column
-    String moodysRating;
+    @Column(name = "moodys_rating")
+    @NonNull
+    String moodys_rating;
 
-    @Column
-    String sandPRating;
-    @Column
-    String fitchRating;
-    @Column
-    Integer orderNumber;
+    @Column(name="sandprating")
+    @NonNull
+    String sandprating;
 
-    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber){
-        this.moodysRating = moodysRating;
-        this.sandPRating=sandPRating;
-        this.fitchRating=fitchRating;
-        this.orderNumber = orderNumber;
-    }
+    @Column(name = "fitch_rating")
+    @NonNull
+    String fitch_rating;
+
+
+
+    @Column(name="order_number")
+    @NonNull
+    Integer order_number;
+
+
+
+
 
     // TODO: Map columns in data table RATING with corresponding java fields
 }

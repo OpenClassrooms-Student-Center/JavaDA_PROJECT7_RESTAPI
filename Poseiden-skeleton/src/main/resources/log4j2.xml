@@ -9,11 +9,9 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.foo.Bar" level="trace" additivity="false">
-            <AppenderRef ref="Console"/>
-        </Logger>
-        <Root level="error">
-            <AppenderRef ref="Console"/>
+        <Root level="INFO">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="FileAppender"/>
         </Root>
     </Loggers>
 </Configuration>

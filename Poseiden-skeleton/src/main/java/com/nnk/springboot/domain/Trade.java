@@ -14,17 +14,17 @@ import java.sql.Timestamp;
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="TradeId")
-    Integer tradeId;
+    @Column(name="trade_id")
+    Integer trade_id;
 
-    @Column
+    @Column(name= "account")
     @NonNull
     String account;
-    @Column
+    @Column(name= "type")
     @NonNull
     String type;
-    @Column
-    Double buyQuantity;
+    @Column(name= "buy_quantity")
+    Double buy_quantity;
     @Column
     Double sellQuantity;
     @Column

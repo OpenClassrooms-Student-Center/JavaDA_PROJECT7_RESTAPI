@@ -25,20 +25,20 @@ public class RatingTests {
 
 		// Save
 		rating = ratingRepository.save(rating);
-		Assert.assertNotNull(rating.getId());
-		Assert.assertTrue(rating.getOrderNumber() == 10);
+		Assert.assertNotNull(rating.getRating_id());
+		Assert.assertTrue(rating.getOrder_number() == 10);
 
 		// Update
-		rating.setOrderNumber(20);
+		rating.setOrder_number(20);
 		rating = ratingRepository.save(rating);
-		Assert.assertTrue(rating.getOrderNumber() == 20);
+		Assert.assertTrue(rating.getOrder_number() == 20);
 
 		// Find
 		List<Rating> listResult = ratingRepository.findAll();
 		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = rating.getId();
+		Integer id = rating.getRating_id();
 		ratingRepository.delete(rating);
 		Optional<Rating> ratingList = ratingRepository.findById(id);
 		Assert.assertFalse(ratingList.isPresent());

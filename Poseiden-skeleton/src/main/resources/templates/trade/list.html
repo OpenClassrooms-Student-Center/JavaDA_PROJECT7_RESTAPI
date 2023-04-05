@@ -17,7 +17,7 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+			Logged in user: <span sec:authentication="name"></span> Role(s): <span sec:authentication="principal.authorities"></span>
 			<form th:action="@{/app-logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
@@ -37,6 +37,17 @@
 				</tr>
 			</thead>
 			<tbody>
+			<th:block th:each="trade : ${listOfTrades}">
+				<tr>
+					<td th:text="${trade.trade_id}"></td>
+					<td th:text="${trade.account}"></td>
+					<td th:text="${trade.type}"></td>
+					<td th:text="${trade.buy_quantity}"></td>
+					<td ><span><a th:href="@{/trade/update/{id}(id = ${trade.trade_id})}">update</a>
+					</span><span><a th:href="@{/trade/delete/{id}(id = ${trade.trade_id})}">Delete</a></span></td>
+
+				</tr>
+			</th:block>
 			<!-- TODO: Show all Trade to the table, the Action column will have Edit & Delete buttons -->
 			</tbody>
 		</table>

@@ -13,27 +13,33 @@ import lombok.*;
 public class RuleName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="CurveId")
-    Integer Id;
+    @Column(name="rulename_id")
+    Integer rulename_id;
 
-    @Column
+    @Column(name="name")
     @NonNull
     String name;
-    @Column
+    @Column(name="description")
     @NonNull
     String description;
-    @Column
+    @Column(name = "json")
     @NonNull
     String json;
-    @Column
+    @Column(name="template")
     @NonNull
     String template;
-    @Column
+    @Column(name= "sql_str")
     @NonNull
-    String sqlStr;
-    @Column
+    String sql_str;
+    @Column(name="sql_part")
     @NonNull
-    String sqlPart;
+    String sql_part;
+
+    @Column(name= "rule_name")
+    Integer rule_name;
+
+    @Column(name="rulename")
+    Integer rulename;
 
     /*public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart){
         this.name = name;

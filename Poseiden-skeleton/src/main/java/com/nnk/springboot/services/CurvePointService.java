@@ -2,6 +2,8 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import java.util.Optional;
 
 @Service
     public class CurvePointService{
+    static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
 
     CurvePointRepository curvePointRepository;
     public CurvePointService(CurvePointRepository curvePointRepository){

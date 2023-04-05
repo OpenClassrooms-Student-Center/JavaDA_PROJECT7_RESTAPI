@@ -3,6 +3,8 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("app")
 public class LoginController {
+
+    static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
+
     private UserService userService;
 
 
