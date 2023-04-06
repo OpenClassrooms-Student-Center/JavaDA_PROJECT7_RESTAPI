@@ -32,9 +32,10 @@ public class LoginController {
     //cette requete GET affiche la page login, sans vue.
     @GetMapping("/login")
     public ModelAndView login() {
-        System.out.println("in modelAndView, method to display login");
+        log.info("GET /login");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
+        log.info("ModelAndView mav has name set to 'login'");
         return mav;
     }
 
@@ -42,18 +43,22 @@ public class LoginController {
     //cette requete fait le même travail que /user/list (mais alors elle est accessible???)
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
+        log.info("GET secure/article-details");
         ModelAndView mav = new ModelAndView();
         mav.addObject("users", userRepository.findAll());
         mav.setViewName("user/list");
+        log.info("Model And View mav has name set to 'user/list'");
         return mav;
     }
 //cette requete se trouve??? et affiche la vue 403 chargé de l'objet erreur spécifique
     @GetMapping("error")
     public ModelAndView error() {
+        log.info("GET error");
         ModelAndView mav = new ModelAndView();
         String errorMessage= "You are not authorized for the requested data.";
         mav.addObject("errorMsg", errorMessage);
         mav.setViewName("403");
+        log.info("Model And View mav has name set to '403'");
         return mav;
     }
 }

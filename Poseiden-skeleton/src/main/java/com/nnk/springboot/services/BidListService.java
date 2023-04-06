@@ -22,20 +22,17 @@ import java.util.Optional;
         return bidListRepository.findAll();
     }
 
-
-
     public BidList getBidListById(Integer i){
-
         Optional<BidList> opt= bidListRepository.findById(i);
         return opt.get();
-
     }
 //CREATE NEW BIDLIST
     public BidList validateNewBidList(BidList bid){
         return bidListRepository.save(bid);
     }
 //UPDATE BIDLIST
-    public BidList updateBidList(Integer id, BidList updatedBidListEntity){
+    public BidList updateBidList(Integer id, BidList updatedBidListEntity) throws Exception {
+
         Optional<BidList> opt = bidListRepository.findById(id);
         BidList formerBidList = opt.get();
         formerBidList.setAccount(updatedBidListEntity.getAccount());
@@ -44,7 +41,11 @@ import java.util.Optional;
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         return bidListRepository.save(formerBidList);
 
-    }
+
+
+        }
+
+
     //DELETE BIDLIST
     public void deleteBidList(Integer id){
         Optional<BidList> opt = bidListRepository.findById(id);

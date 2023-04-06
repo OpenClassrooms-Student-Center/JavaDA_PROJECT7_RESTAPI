@@ -25,24 +25,31 @@ public class CurveController {
     // TODO: Inject Curve Point service
 //DISPLAY LIST OF CURVEPOINTS PAGE
     @RequestMapping("/curvePoint/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
+        log.info("REQUEST /curvePoint/list");
         model.addAttribute("listOfCurvepoints", curvePointService.findAll());
+        log.info("attribute listOfCurvepoints added to Model");
         // TODO: find all Curve Point, add to model
         return "curvePoint/list";
     }
 //DISPLAY ADD CURVEPOINT FORM
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid) {
+        log.info("GET form /curvePoint/add");
         return "curvePoint/add";
     }
+
+
 //CREATE NEW CURVEPOINT
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+        log.info("POST /curvePoint/validate");
         if(!result.hasErrors()){
             curvePointService.validateNewCurvePoint(curvePoint);
+            log.info("curvePoint validated with id "+ curvePoint.getCurve_id());
             return "redirect:/curvePoint/list";
         }
+        log.error("curvepoint to create has errors");
         return "curvePoint/add";
         // TODO: check data valid and save to db, after saving return Curve list
 
@@ -50,28 +57,35 @@ public class CurveController {
 //DISPLAY CURVEPOINT UPDATE FORM
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        log.info("GET /curvePoint/update/{id} with id "+ id);
         // TODO: get CurvePoint by Id and to model then show to the form
         CurvePoint curvePoint = curvePointService.getCurvePointById(id);
         model.addAttribute("curvePoint", curvePoint);
+        log.info("attribute added to Model : curvePoint with id "+ id);
         return "curvePoint/update";
     }
 //UPDATE CURVEPOINT
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint updateCurvePointEntity,
-                             BindingResult result, Model model) {
+    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint updateCurvePointEntity,BindingResult result, Model model) {
+
+        log.info("POST /curvePoint/update/{id}");
         if(result.hasErrors()){
+            log.error("curvepoint to update has errors");
             return "curvePoint/list";
         }
         CurvePoint updatedAndSavedCurvePoint = curvePointService.updateCurvePoint(id, updateCurvePointEntity);
         model.addAttribute("listOfCurvepoints", curvePointService.findAll());
+        log.info("attribute listOfCurvepoints added to model");
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         return "redirect:/curvePoint/list";
     }
 //DELETE CURVEPOINT
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
+        log.info("GET /curvePoint/delete/{id} with id "+ id);
         curvePointService.deleteCurvePoint(id);
-        model.addAttribute("listOfCurvepoints", curvePointService.findAll());
+        log.info("curvePoint with id "+ id + "deleted");
+        //model.addAttribute("listOfCurvepoints", curvePointService.findAll());
         // TODO: Find Curve by Id and delete the Curve, return to Curve list
         return "redirect:/curvePoint/list";
     }

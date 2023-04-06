@@ -18,7 +18,6 @@ public class BidList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="bid_list_id")
     private Integer bid_list_id;
-
     @Column (name = "account")
    @NonNull
    private String account;

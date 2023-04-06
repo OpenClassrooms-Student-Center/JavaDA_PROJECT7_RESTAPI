@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
@@ -20,6 +23,16 @@ public class UserService {
         this.userRepository=userRepository;
         this.passWordEncoder=passWordEncoder;
     }
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
+    public User findById(Integer id){
+        Optional<User> opt = userRepository.findById(id);
+        User user = opt.get();
+        return user;
+
+    }
+
     public User registerNewUser(String username, String password, String fullname, String role){
 
         User user = new User();
