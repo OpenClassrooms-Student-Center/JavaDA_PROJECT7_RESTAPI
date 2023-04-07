@@ -37,7 +37,7 @@ public class RatingController {
         log.info("GET form /rating/add");
         return "rating/add";
     }
-//ADD NEW RATING
+//CREATE NEW RATING
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
@@ -53,35 +53,51 @@ public class RatingController {
 //DISPLAY UPDATE RATING FORM
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        log.info("GET /rating/update/{id} with id " + id);
-        Rating rating = ratingService.getRatingById(id);
-        model.addAttribute("rating", rating);
-        log.info("attribute added to Model : rating with id "+ rating.getRating_id());
-        // TODO: get Rating by Id and to model then show to the form
-        return "rating/update";
+        try {
+            log.info("GET /rating/update/{id} with id " + id);
+            Rating rating = ratingService.getRatingById(id);
+            model.addAttribute("rating", rating);
+            log.info("attribute added to Model : rating with id " + rating.getRating_id());
+            // TODO: get Rating by Id and to model then show to the form
+            return "rating/update";
+        }catch(Exception e){
+            log.error("rating update form with id "+id+" could not be displayed");
+            return "rating/list";
+        }
+
     }
 //UPDATE RATING
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating updatedRatingEntity,
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
-        log.info("POST /rating/update/{id} with id "+ id);
+        log.info("POST /rating/update/{id} with id " + id);
         if (result.hasErrors()) {
             log.error("rating to update has errors");
+            return "rating/update";
+        }
+        try {
+            Rating updatedAndSavedRating = ratingService.updateRating(id, updatedRatingEntity);
+            model.addAttribute("listOfRatings", ratingService.findAll());
+            log.info("listOfRatings added to model");
+            return "redirect:/rating/list";
+        } catch (Exception e) {
+            log.error("rating with id " + id + " could not be update");
             return "rating/list";
         }
-        Rating updatedAndSavedRating = ratingService.updateRating(id, updatedRatingEntity );
-        model.addAttribute("listOfRatings", ratingService.findAll());
-        log.info("listOfRatings added to model");
-        return "redirect:/rating/list";
     }
-
+//DELETE RATING
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        log.info("GET /rating/delete/{id} with id "+ id);
-        ratingService.deleteRating(id);
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        log.info("rating with id "+ id + "deleted");
-        return "redirect:/rating/list";
+        try {
+            log.info("GET /rating/delete/{id} with id " + id);
+            ratingService.deleteRating(id);
+            // TODO: Find Rating by Id and delete the Rating, return to Rating list
+            log.info("rating with id " + id + "deleted");
+            return "redirect:/rating/list";
+        }catch(Exception e){
+            log.error("rating with id "+id+" could not be deleted");
+            return "rating/list";
+        }
     }
 }

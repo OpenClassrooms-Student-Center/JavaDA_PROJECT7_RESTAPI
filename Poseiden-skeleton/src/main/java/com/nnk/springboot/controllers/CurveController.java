@@ -57,36 +57,51 @@ public class CurveController {
 //DISPLAY CURVEPOINT UPDATE FORM
     @GetMapping("/curvePoint/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        log.info("GET /curvePoint/update/{id} with id "+ id);
-        // TODO: get CurvePoint by Id and to model then show to the form
-        CurvePoint curvePoint = curvePointService.getCurvePointById(id);
-        model.addAttribute("curvePoint", curvePoint);
-        log.info("attribute added to Model : curvePoint with id "+ id);
-        return "curvePoint/update";
+        try {
+            log.info("GET /curvePoint/update/{id} with id " + id);
+            // TODO: get CurvePoint by Id and to model then show to the form
+            CurvePoint curvePoint = curvePointService.getCurvePointById(id);
+            model.addAttribute("curvePoint", curvePoint);
+            log.info("attribute added to Model : curvePoint with id " + id);
+            return "curvePoint/update";
+        }catch(Exception e){
+            log.error("curvePoint form with id "+id+" could not be displayed");
+            return "curvePoint/list";
+        }
     }
 //UPDATE CURVEPOINT
     @PostMapping("/curvePoint/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint updateCurvePointEntity,BindingResult result, Model model) {
-
-        log.info("POST /curvePoint/update/{id}");
-        if(result.hasErrors()){
+        //TODO: changer le retour (revient actuellement sur liste vide)
+        log.info("POST /curvePoint/update/{id} with id " + id);
+        if (result.hasErrors()) {
             log.error("curvepoint to update has errors");
+            return "curvePoint/update";
+        }
+        try {
+            CurvePoint updatedAndSavedCurvePoint = curvePointService.updateCurvePoint(id, updateCurvePointEntity);
+            model.addAttribute("listOfCurvepoints", curvePointService.findAll());
+            log.info("attribute listOfCurvepoints added to model");
+            // TODO: check required fields, if valid call service to update Curve and return Curve list
+            return "redirect:/curvePoint/list";
+        } catch (Exception e) {
+            log.error("curvepoint with id " + id + "could not be update");
             return "curvePoint/list";
         }
-        CurvePoint updatedAndSavedCurvePoint = curvePointService.updateCurvePoint(id, updateCurvePointEntity);
-        model.addAttribute("listOfCurvepoints", curvePointService.findAll());
-        log.info("attribute listOfCurvepoints added to model");
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
-        return "redirect:/curvePoint/list";
     }
 //DELETE CURVEPOINT
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        log.info("GET /curvePoint/delete/{id} with id "+ id);
-        curvePointService.deleteCurvePoint(id);
-        log.info("curvePoint with id "+ id + "deleted");
-        //model.addAttribute("listOfCurvepoints", curvePointService.findAll());
-        // TODO: Find Curve by Id and delete the Curve, return to Curve list
-        return "redirect:/curvePoint/list";
+        try {
+            log.info("GET /curvePoint/delete/{id} with id " + id);
+            curvePointService.deleteCurvePoint(id);
+            log.info("curvePoint with id " + id + "deleted");
+            //model.addAttribute("listOfCurvepoints", curvePointService.findAll());
+            // TODO: Find Curve by Id and delete the Curve, return to Curve list
+            return "redirect:/curvePoint/list";
+        }catch(Exception e){
+            log.error("curvepoint with id "+id+ " could not be deleted");
+            return "curvePoint/list";
+        }
     }
 }

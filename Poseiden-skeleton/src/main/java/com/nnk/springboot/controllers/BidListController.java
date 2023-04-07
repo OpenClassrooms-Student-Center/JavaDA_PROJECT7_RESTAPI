@@ -32,11 +32,11 @@ public class BidListController {
 //DISPLAY LIST OF BIDLISTS PAGE
     @RequestMapping("/bidList/list")
     public String home(Model model) {
-        log.info("REQUEST /bidList/list");
-        model.addAttribute("listOfBidList", bidListService.findAll());
-        log.info("attribute listOfBidList added to Model");
-    // TODO: call service find all bids to show to the view
-        return "bidList/list";
+            log.info("REQUEST /bidList/list");
+            model.addAttribute("listOfBidList", bidListService.findAll());
+            log.info("attribute listOfBidList added to Model");
+            // TODO: call service find all bids to show to the view
+            return "bidList/list";
     }
 //DISPLAY ADD BIDLIST FORM
     @GetMapping("/bidList/add")
@@ -60,12 +60,18 @@ public class BidListController {
 //DISPLAY UPDATE BIDLIST FORM
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        log.info("GET /bidList/update/{id} with id " + id);
-        // TODO: get Bid by Id and to model then show to the form
-        BidList bidList = bidListService.getBidListById(id);
-        model.addAttribute("bidList", bidList);
-        log.info("attribute added to Model : bidList with id "+ bidList.getBid_list_id());
-        return "bidList/update";
+        try{
+            log.info("GET /bidList/update/{id} with id " + id);
+            // TODO: get Bid by Id and to model then show to the form
+            BidList bidList = bidListService.getBidListById(id);
+            model.addAttribute("bidList", bidList);
+            log.info("attribute added to Model : bidList with id "+ bidList.getBid_list_id());
+            return "bidList/update";
+        }catch(Exception e){
+            log.error("bidList update form with id "+id+" could not be displayed");
+            return "bidList/list";
+        }
+
     }
 //UPDATE BIDLIST
     @PostMapping("/bidList/update/{id}")
@@ -75,7 +81,8 @@ public class BidListController {
         log.info("POST /bidList/update/{id} with id " + id);
         if (result.hasErrors()) {
             log.error("bildlist to update has errors");
-            return "bidList/list";
+            return "bidList/update";
+            //ou return "redirect:/bidList/list??
         }
         try {
             BidList updatedAndSavedBidList = bidListService.updateBidList(id, updatedBidListEntity);
@@ -83,7 +90,7 @@ public class BidListController {
             log.info("attribute listOfBidList added to model");
             return "redirect:/bidList/list";
         }catch(Exception e){
-            log.error("bidList with id "+ id+ "could not be updated");
+            log.error("bidList with id "+ id+ " could not be updated");
             return "bidList/list";
         }
     }
@@ -97,7 +104,7 @@ public class BidListController {
             log.info("bidList with id " + id + "deleted");
             return "redirect:/bidList/list";
         }catch(Exception e){
-            log.error("bidList with id "+ id+ "could not be deleted");
+            log.error("bidList with id "+ id+ " could not be deleted");
             return "bidList/list";
         }
     }

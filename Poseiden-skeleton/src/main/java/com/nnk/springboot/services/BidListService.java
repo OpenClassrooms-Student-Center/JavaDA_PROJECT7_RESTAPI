@@ -14,7 +14,7 @@ import java.util.Optional;
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
     BidListRepository bidListRepository;
 
-    public BidListService(BidListRepository bidListRepository){
+    public BidListService(BidListRepository bidListRepository) {
         this. bidListRepository= bidListRepository;
     }
 
@@ -22,12 +22,12 @@ import java.util.Optional;
         return bidListRepository.findAll();
     }
 
-    public BidList getBidListById(Integer i){
+    public BidList getBidListById(Integer i)throws Exception{
         Optional<BidList> opt= bidListRepository.findById(i);
         return opt.get();
     }
 //CREATE NEW BIDLIST
-    public BidList validateNewBidList(BidList bid){
+    public BidList validateNewBidList(BidList bid) {
         return bidListRepository.save(bid);
     }
 //UPDATE BIDLIST
@@ -47,7 +47,7 @@ import java.util.Optional;
 
 
     //DELETE BIDLIST
-    public void deleteBidList(Integer id){
+    public void deleteBidList(Integer id) throws Exception{
         Optional<BidList> opt = bidListRepository.findById(id);
         BidList bidListToDelete = opt.get();
         bidListRepository.delete(bidListToDelete);

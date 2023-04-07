@@ -22,7 +22,7 @@ import java.util.Optional;
     public List<CurvePoint> findAll(){
         return curvePointRepository.findAll();
     }
-    public CurvePoint getCurvePointById(Integer i){
+    public CurvePoint getCurvePointById(Integer i) throws Exception{
         Optional<CurvePoint> opt = curvePointRepository.findById(i);
         return opt.get();
     }
@@ -32,7 +32,7 @@ import java.util.Optional;
         }
         //UPDATE CURVEPOINT
 
-        public CurvePoint  updateCurvePoint(Integer id, CurvePoint updatedCurvePointEntity){
+        public CurvePoint  updateCurvePoint(Integer id, CurvePoint updatedCurvePointEntity) throws Exception{
         Optional<CurvePoint> opt = curvePointRepository.findById(id);
         CurvePoint formerCurvePoint = opt.get();
         formerCurvePoint.setCurve_point_id(updatedCurvePointEntity.getCurve_point_id());
@@ -41,7 +41,7 @@ import java.util.Optional;
         return curvePointRepository.save(formerCurvePoint);
         }
         //DELETE CURVEPOINT
-        public void deleteCurvePoint(Integer id){
+        public void deleteCurvePoint(Integer id) throws Exception{
             Optional<CurvePoint> opt = curvePointRepository.findById(id);
             CurvePoint curvePointToDelete = opt.get();
             curvePointRepository.delete(curvePointToDelete);

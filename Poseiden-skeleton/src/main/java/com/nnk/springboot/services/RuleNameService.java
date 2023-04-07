@@ -26,7 +26,7 @@ public class RuleNameService {
 
 
 
-    public RuleName getRuleNameById(Integer i){
+    public RuleName getRuleNameById(Integer i) throws Exception{
 
         Optional<RuleName> opt= ruleNameRepository.findById(i);
         return opt.get();
@@ -37,7 +37,7 @@ public class RuleNameService {
         return ruleNameRepository.save(ruleName);
     }
     //UPDATE RULENAME
-    public RuleName updateRuleName(Integer id, RuleName updatedRuleNameEntity){
+    public RuleName updateRuleName(Integer id, RuleName updatedRuleNameEntity) throws Exception{
         Optional<RuleName> opt = ruleNameRepository.findById(id);
         RuleName formerRuleName = opt.get();
         formerRuleName.setName(updatedRuleNameEntity.getName());
@@ -51,8 +51,8 @@ public class RuleNameService {
 
     }
     //DELETE RULENAME
-    public void deleteRuleName(Integer id){
-        Optional<RuleName> opt = ruleNameRepository.findById(id);
+    public void deleteRuleName(Integer id) throws Exception{
+        Optional<RuleName> opt = ruleNameRepository.findById(id) ;
         RuleName ruleNameToDelete = opt.get();
         ruleNameRepository.delete(ruleNameToDelete);
     }

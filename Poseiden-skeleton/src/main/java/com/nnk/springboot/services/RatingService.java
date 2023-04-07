@@ -20,7 +20,7 @@ public class RatingService {
     public List<Rating> findAll(){
         return ratingRepository.findAll();
     }
-    public Rating getRatingById(Integer i){
+    public Rating getRatingById(Integer i) throws Exception{
         Optional<Rating> opt = ratingRepository.findById(i);
         return opt.get();
     }
@@ -29,7 +29,7 @@ public class RatingService {
         return ratingRepository.save(rating);
     }
     //UPDATE RATING
-    public Rating updateRating(Integer id, Rating updatedRatingEntity){
+    public Rating updateRating(Integer id, Rating updatedRatingEntity) throws Exception{
         Optional<Rating> opt = ratingRepository.findById(id);
         Rating formerRating = opt.get();
         formerRating.setMoodys_rating(updatedRatingEntity.getMoodys_rating());
@@ -41,7 +41,7 @@ public class RatingService {
 
     }
     //DELETE RATING
-    public void deleteRating(Integer id){
+    public void deleteRating(Integer id) throws Exception{
         Optional<Rating> opt = ratingRepository.findById(id);
         Rating ratingToDelete = opt.get();
         ratingRepository.delete(ratingToDelete);

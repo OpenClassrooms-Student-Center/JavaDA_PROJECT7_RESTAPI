@@ -28,7 +28,7 @@ public class TradeService{
 
 
 
-    public Trade getTradeById(Integer i){
+    public Trade getTradeById(Integer i) throws Exception{
 
         Optional<Trade> opt= tradeRepository.findById(i);
         return opt.get();
@@ -39,7 +39,7 @@ public class TradeService{
         return tradeRepository.save(bid);
     }
     //UPDATE BIDLIST
-    public Trade updateTrade(Integer id, Trade updatedTradeEntity){
+    public Trade updateTrade(Integer id, Trade updatedTradeEntity) throws Exception{
         Optional<Trade> opt = tradeRepository.findById(id);
         Trade formerTrade = opt.get();
         formerTrade.setAccount(updatedTradeEntity.getAccount());
@@ -49,8 +49,10 @@ public class TradeService{
         return tradeRepository.save(formerTrade);
 
     }
+
+
     //DELETE BIDLIST
-    public void deleteTrade(Integer id){
+    public void deleteTrade(Integer id) throws Exception{
         Optional<Trade> opt = tradeRepository.findById(id);
         Trade tradeToDelete = opt.get();
         tradeRepository.delete(tradeToDelete);
