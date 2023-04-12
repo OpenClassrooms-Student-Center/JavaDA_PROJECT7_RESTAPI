@@ -19,9 +19,9 @@ public class UserService {
     private UserRepository userRepository;
     private PasswordEncoder passWordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passWordEncoder){
+    public UserService(UserRepository userRepository){
         this.userRepository=userRepository;
-        this.passWordEncoder=passWordEncoder;
+        //this.passWordEncoder=passWordEncoder;
     }
     public List<User> findAllUsers(){
         return userRepository.findAll();
