@@ -9,12 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -58,7 +53,7 @@ public class BidListController {
         return "bidList/add";
     }
 //DISPLAY UPDATE BIDLIST FORM
-    @GetMapping("/bidList/update/{id}")
+    @PutMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         try{
             log.info("GET /bidList/update/{id} with id " + id);

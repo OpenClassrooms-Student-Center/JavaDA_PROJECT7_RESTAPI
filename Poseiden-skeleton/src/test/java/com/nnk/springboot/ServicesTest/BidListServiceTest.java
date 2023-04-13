@@ -23,6 +23,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -44,12 +45,20 @@ public class BidListServiceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
+		bidList.setBid_list_id(1);
 		bidList.setAccount("account");
 		bidList.setBid_quantity(12.5);
 		bidList.setType("type");
 
 		bidListService = new BidListService(bidListRepository);
 	}
+	@Test
+	public void findByIdTest() throws Exception {
+		when(bidListRepository.findById(anyInt())).thenReturn(Optional.of(bidList));
+
+		assertEquals(bidList,bidListService.getBidListById(1));
+	}
+
 	@Test
 	public void findAllTest(){
 		//ARRANGE
@@ -75,14 +84,32 @@ public class BidListServiceTest {
 	@Test
 	public void updateBidListTest() throws Exception {
 		//ARRANGE
-		/*Integer id = 1;
+		Integer id = 1;
+		BidList bidListToUpdate = new BidList();
+		bidListToUpdate.setBid_list_id(1);
 		BidList updatedBidListEntity = new BidList("updatedAccount", "updatedType", bidList.getBid_quantity());
-		when(bidListRepository.findById(any(Integer)).
+		when(bidListRepository.findById(1)).thenReturn(Optional.of(bidListToUpdate));
+		when(bidListRepository.save(bidListToUpdate)).thenReturn(bidListToUpdate);
 		//ACT
-		BidList updatedBidListEntityWithService = bidListService.updateBidList(id, updatedBidListEntity);
+		BidList result = bidListService.updateBidList(id, updatedBidListEntity);
 		//ASSERT
-		assertEquals(updatedBidListEntity, updatedBidListEntityWithService);*/
+		assertEquals(bidListToUpdate.getAccount(), result.getAccount() );
+		assertEquals(bidListToUpdate.getType(), result.getType());
+		assertEquals(bidListToUpdate.getBid_quantity(), result.getBid_quantity());
 
+
+		assertEquals(1, result.getBid_list_id());
+
+	}
+	@Test
+	public void deleteBidListTest() throws Exception {
+		//ARRANGE
+		when(bidListRepository.findById(1)).thenReturn(Optional.of(bidList));
+		doNothing().when(bidListRepository).delete(bidList);
+		//ACT
+		bidListService.deleteBidList(1);
+		//ASSERT
+		verify(bidListRepository, times(1)).delete(bidList);
 	}
 
 	/*@Autowired
