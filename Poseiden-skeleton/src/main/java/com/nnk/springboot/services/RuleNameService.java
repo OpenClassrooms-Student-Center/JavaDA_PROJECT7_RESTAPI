@@ -33,7 +33,7 @@ public class RuleNameService {
 
     }
     //CREATE NEW RULENAME
-    public RuleName validateNewRuleName(RuleName ruleName){
+    public RuleName validateNewRuleName(RuleName ruleName) throws Exception {
         return ruleNameRepository.save(ruleName);
     }
     //UPDATE RULENAME

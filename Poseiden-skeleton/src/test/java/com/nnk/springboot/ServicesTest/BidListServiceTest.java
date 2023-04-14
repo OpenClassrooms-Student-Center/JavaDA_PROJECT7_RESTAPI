@@ -68,7 +68,7 @@ public class BidListServiceTest {
 		assertEquals(listOfBidLists, bidListService.findAll());
 	}
 	@Test
-	public void validateNewBidListTest(){
+	public void validateNewBidListTest() throws Exception {
 		//ARRANGE
 		when(bidListRepository.save(any(BidList.class))).thenReturn(bidList);
 		//ACT

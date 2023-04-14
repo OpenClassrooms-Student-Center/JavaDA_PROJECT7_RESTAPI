@@ -25,7 +25,7 @@ public class CurveController {
     // TODO: Inject Curve Point service
 //DISPLAY LIST OF CURVEPOINTS PAGE
     @RequestMapping("/curvePoint/list")
-    public String home(Model model) {
+    public String homeDisplayCurvePointsPage(Model model) {
         log.info("REQUEST /curvePoint/list");
         model.addAttribute("listOfCurvepoints", curvePointService.findAll());
         log.info("attribute listOfCurvepoints added to Model");
@@ -34,7 +34,7 @@ public class CurveController {
     }
 //DISPLAY ADD CURVEPOINT FORM
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String displayAddCurvePointForm(CurvePoint bid) {
         log.info("GET form /curvePoint/add");
         return "curvePoint/add";
     }
@@ -42,21 +42,25 @@ public class CurveController {
 
 //CREATE NEW CURVEPOINT
     @PostMapping("/curvePoint/validate")
-    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+    public String validateCurvePoint(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         log.info("POST /curvePoint/validate");
-        if(!result.hasErrors()){
-            curvePointService.validateNewCurvePoint(curvePoint);
-            log.info("curvePoint validated with id "+ curvePoint.getCurve_id());
-            return "redirect:/curvePoint/list";
+        try{
+            if(!result.hasErrors()){
+                curvePointService.validateNewCurvePoint(curvePoint);
+                log.info("curvePoint validated with id "+ curvePoint.getCurve_id());
+            }
+        }catch(Exception e){
+            log.error("curvepoint to create has errors");
+            return "curvePoint/add";
         }
-        log.error("curvepoint to create has errors");
-        return "curvePoint/add";
+        return "redirect:/curvePoint/list";
+
         // TODO: check data valid and save to db, after saving return Curve list
 
     }
 //DISPLAY CURVEPOINT UPDATE FORM
     @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String displayUpdateForm(@PathVariable("id") Integer id, Model model) {
         try {
             log.info("GET /curvePoint/update/{id} with id " + id);
             // TODO: get CurvePoint by Id and to model then show to the form
@@ -71,7 +75,7 @@ public class CurveController {
     }
 //UPDATE CURVEPOINT
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint updateCurvePointEntity,BindingResult result, Model model) {
+    public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint updateCurvePointEntity,BindingResult result, Model model) {
         //TODO: changer le retour (revient actuellement sur liste vide)
         log.info("POST /curvePoint/update/{id} with id " + id);
         if (result.hasErrors()) {
@@ -91,7 +95,7 @@ public class CurveController {
     }
 //DELETE CURVEPOINT
     @GetMapping("/curvePoint/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
+    public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
         try {
             log.info("GET /curvePoint/delete/{id} with id " + id);
             curvePointService.deleteCurvePoint(id);

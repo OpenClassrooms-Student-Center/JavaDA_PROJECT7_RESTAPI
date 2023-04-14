@@ -24,37 +24,43 @@ public class BidListController {
         //this.bidListRepository=bidListRepository;
     }
     // TODO: Inject Bid service
-//DISPLAY LIST OF BIDLISTS PAGE
+
+
+//DISPLAY 'LIST OF BIDLISTS' PAGE
     @RequestMapping("/bidList/list")
-    public String home(Model model) {
+    public String homeDisplayBidListsPage(Model model) {
             log.info("REQUEST /bidList/list");
             model.addAttribute("listOfBidList", bidListService.findAll());
             log.info("attribute listOfBidList added to Model");
             // TODO: call service find all bids to show to the view
             return "bidList/list";
     }
-//DISPLAY ADD BIDLIST FORM
+//DISPLAY 'ADD BIDLIST' FORM
     @GetMapping("/bidList/add")
-    public String addBidForm(BidList bid) {
+    public String displayAddBidForm(BidList bid) {
         log.info("GET form /bidList/add");
         return "bidList/add";
     }
 // CREATE NEW BIDLIST
     @PostMapping("/bidList/validate")
-    public String validate(@Valid BidList bidList, BindingResult result, Model model) {
+    public String validateBidList(@Valid BidList bidList, BindingResult result, Model model) {
         log.info("POST /bidList/validate");
-        if (!result.hasErrors()) {
-            bidListService.validateNewBidList(bidList);
-            log.info("bidlist validated with account "+ bidList.getAccount());
-            return "redirect:/bidList/list";
+        try {
+            if (!result.hasErrors()) {
+                bidListService.validateNewBidList(bidList);
+                log.info("bidlist validated with account " + bidList.getAccount());
+
+            }
+        } catch (Exception e ) {
+            // TODO: check data valid and save to db, after saving return bid list
+            log.error("BidList to create has errors");
+            return "bidList/add";
         }
-        // TODO: check data valid and save to db, after saving return bid list
-        log.error("BidList to create has errors");
-        return "bidList/add";
+        return "redirect:/bidList/list";
     }
-//DISPLAY UPDATE BIDLIST FORM
-    @PutMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+//DISPLAY 'UPDATE BIDLIST' FORM
+    @GetMapping("/bidList/update/{id}")
+    public String displayUpdateForm(@PathVariable("id") Integer id, Model model) {
         try{
             log.info("GET /bidList/update/{id} with id " + id);
             // TODO: get Bid by Id and to model then show to the form
@@ -69,7 +75,7 @@ public class BidListController {
 
     }
 //UPDATE BIDLIST
-    @PostMapping("/bidList/update/{id}")
+    @PutMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBidListEntity,
                              BindingResult result, Model model) {
 
@@ -90,7 +96,7 @@ public class BidListController {
         }
     }
 //DELETE BIDLIST
-    @GetMapping("/bidList/delete/{id}")
+    @DeleteMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         try {
             log.info("GET /bidList/delete/{id} with id " + id);

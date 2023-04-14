@@ -33,26 +33,30 @@ public class RatingController {
     }
 //DISPLAY ADD RATING FORM
     @GetMapping("/rating/add")
-    public String addRatingForm(Rating rating) {
+    public String displayAddRatingForm(Rating rating) {
         log.info("GET form /rating/add");
         return "rating/add";
     }
 //CREATE NEW RATING
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
+    public String validate(@Valid Rating rating, BindingResult result, Model model)  {
         // TODO: check data valid and save to db, after saving return Rating list
         log.info("POST /rating/validate");
-        if (!result.hasErrors()) {
-            ratingService.validateNewRating(rating);
-            log.info("rating validated with id "+ rating.getRating_id());
-            return "redirect:/rating/list";
+        try{
+            if (!result.hasErrors()) {
+                ratingService.validateNewRating(rating);
+                log.info("rating validated with id " + rating.getRating_id());
+
+            }
+        }catch(Exception e){
+            log.error("rating to create has errors");
+            return "rating/add";
         }
-        log.error("rating to create has errors");
-        return "rating/add";
+        return "redirect:/rating/list";
     }
 //DISPLAY UPDATE RATING FORM
     @GetMapping("/rating/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String displayUpdateRatingForm(@PathVariable("id") Integer id, Model model) {
         try {
             log.info("GET /rating/update/{id} with id " + id);
             Rating rating = ratingService.getRatingById(id);

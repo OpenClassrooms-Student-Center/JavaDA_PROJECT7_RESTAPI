@@ -37,26 +37,30 @@ public class TradeController {
     }
 //DISPLAY ADD TRADE FORM
     @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
+    public String displayAddUserForm(Trade trade) {
         log.info("GET form /trade/add");
         return "trade/add";
     }
 //CREATE NEW TRADE
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) {
+    public String validate(@Valid Trade trade, BindingResult result, Model model) throws Exception {
         log.info("POST /trade/validate");
-        if (!result.hasErrors()) {
-            tradeService.validateNewTrade(trade);
-            log.info("trade validated with id "+ trade.getTrade_id());
-            return "redirect:/trade/list";
+        try {
+            if (!result.hasErrors()) {
+                tradeService.validateNewTrade(trade);
+                log.info("trade validated with id " + trade.getTrade_id());
+
+            }
+        } catch (Exception e){
+            log.error("trade to create has errors");
+            // TODO: check data valid and save to db, after saving return Trade list
+            return "trade/add";
         }
-        log.error("trade to create has errors");
-        // TODO: check data valid and save to db, after saving return Trade list
-        return "trade/add";
+        return "redirect:/trade/list";
     }
 //DISPLAY TRADE UPDATE FORM
     @GetMapping("/trade/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String displayUpdateForm(@PathVariable("id") Integer id, Model model) {
         try{
             log.info("GET /trade/update/{id} with id "+ id);
             Trade trade = tradeService.getTradeById(id);
@@ -89,7 +93,7 @@ public class TradeController {
             return "redirect:/trade/list";
         }catch(Exception e){
             log.error("trade with id "+id+" could not be updated");
-            return "bidList/list";
+            return "trade/list";
         }
     }
 //DELETE TRADE

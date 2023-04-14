@@ -2,6 +2,8 @@ package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -19,12 +21,15 @@ public class BidList {
     @Column(name="bid_list_id")
     private Integer bid_list_id;
     @Column (name = "account")
+    @NotEmpty
    @NonNull
    private String account;
    @Column (name = "type")
+   @NotEmpty
    @NonNull
    private String type;
    @Column (name = "bid_quantity")
+   @NotNull
    @NonNull
    private Double bid_quantity;
    @Column (name = "ask_quantity")

@@ -27,7 +27,7 @@ public class RuleNameController {
     // TODO: Inject RuleName service
 //DISPLAY LIST OF RULENAMES PAGE
     @RequestMapping("/ruleName/list")
-    public String home(Model model) {
+    public String homeDisplayRuleNamesList(Model model) {
         log.info("REQUEST /ruleName/list");
         model.addAttribute("listOfRulenames", ruleNameService.findAll());
         // TODO: find all RuleName, add to model
@@ -36,7 +36,7 @@ public class RuleNameController {
     }
 //DISPLAY ADD RULENAME FORM
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    public String displayAddRuleForm(RuleName bid) {
         log.info("GET form /ruleName/add");
         return "ruleName/add";
     }
@@ -44,20 +44,25 @@ public class RuleNameController {
 
 //CREATE NEW RULENAME
     @PostMapping("/ruleName/validate")
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+    public String validateRuleName(@Valid RuleName ruleName, BindingResult result, Model model) {
         log.info("POST /ruleName/validate");
         // TODO: check data valid and save to db, after saving return RuleName list
-        if (!result.hasErrors()) {
-            ruleNameService.validateNewRuleName(ruleName);
-            log.info("ruleName validated with id "+ ruleName.getRulename_id());
-            return "redirect:/ruleName/list";
+        try{
+            if (!result.hasErrors()) {
+                ruleNameService.validateNewRuleName(ruleName);
+                log.info("ruleName validated with id "+ ruleName.getRulename_id());
+
+            }
+
+        }catch(Exception e){
+            log.error("ruleName to create has errors");
+            return "ruleName/add";
         }
-        log.error("ruleName to create has errors");
-        return "ruleName/add";
+    return "redirect:/ruleName/list";
     }
 //DISPLAY UPDATE RULENAME FORM
     @GetMapping("/rulename/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String displayUpdateForm(@PathVariable("id") Integer id, Model model) {
         try{
             log.info("GET /rulename/update/{id} with id "+ id);
             RuleName ruleName = ruleNameService.getRuleNameById(id);
@@ -80,7 +85,7 @@ public class RuleNameController {
         log.info("POST /ruleName/update/{id} with id "+id);
         if (result.hasErrors()) {
             log.error("ruleName to update has errors");
-            return "ruleName/list";
+            return "ruleName/update";
         }
         try{
             RuleName updatedAndSavedRuleName = ruleNameService.updateRuleName(id, updatedRuleNameEntity );

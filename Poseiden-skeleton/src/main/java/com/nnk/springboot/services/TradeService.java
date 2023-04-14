@@ -34,9 +34,10 @@ public class TradeService{
         return opt.get();
 
     }
+
     //CREATE NEW BIDLIST
-    public Trade validateNewTrade(Trade bid){
-        return tradeRepository.save(bid);
+    public Trade validateNewTrade(Trade trade) throws Exception{
+        return tradeRepository.save(trade);
     }
     //UPDATE BIDLIST
     public Trade updateTrade(Integer id, Trade updatedTradeEntity) throws Exception{

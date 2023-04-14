@@ -72,7 +72,7 @@ public class RatingServiceTests {
 		assertEquals(listOfRatings, ratingService.findAll());
 	}
 	@Test
-	public void validateNewBidListTest(){
+	public void validateNewBidListTest() throws Exception {
 		//ARRANGE
 		when(ratingRepository.save(any(Rating.class))).thenReturn(rating);
 		//ACT

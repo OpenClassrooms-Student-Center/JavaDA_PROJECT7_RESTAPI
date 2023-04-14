@@ -65,7 +65,7 @@ public class TradeServiceTests {
 		assertEquals(listOfTrades, tradeService.findAll());
 	}
 	@Test
-	public void validateNewTradeTest(){
+	public void validateNewTradeTest() throws Exception {
 		//ARRANGE
 		when(tradeRepository.save(any(Trade.class))).thenReturn(trade);
 		//ACT

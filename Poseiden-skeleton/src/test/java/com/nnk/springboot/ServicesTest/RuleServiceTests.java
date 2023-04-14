@@ -97,7 +97,7 @@ public class RuleServiceTests {
 		assertEquals(listOfRuleNames, ruleNameService.findAll());
 	}
 	@Test
-	public void validateNewBidListTest(){
+	public void validateNewBidListTest() throws Exception {
 		//ARRANGE
 		when(ruleNameRepository.save(any(RuleName.class))).thenReturn(ruleName);
 		//ACT

@@ -25,8 +25,7 @@ public class UserController {
     }
     //la requete /user/list > renvoie une page "user/list" avec de la data (liste)
     @RequestMapping("/user/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
         log.info("REQUEST /user/list");
         model.addAttribute("users", userRepository.findAll());
         log.debug("attribute list of users added");

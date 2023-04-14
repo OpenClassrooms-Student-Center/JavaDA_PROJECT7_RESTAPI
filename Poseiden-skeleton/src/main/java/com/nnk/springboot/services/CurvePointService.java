@@ -27,7 +27,7 @@ import java.util.Optional;
         return opt.get();
     }
     //CREATE NEW CURVEPOINT
-        public CurvePoint validateNewCurvePoint(CurvePoint curvePoint){
+        public CurvePoint validateNewCurvePoint(CurvePoint curvePoint) throws Exception{
             return curvePointRepository.save(curvePoint);
         }
         //UPDATE CURVEPOINT

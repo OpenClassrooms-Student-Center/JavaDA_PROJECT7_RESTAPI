@@ -69,7 +69,7 @@ public class CurvePointServiceTests {
 		assertEquals(listOfCurvePoints, curvePointService.findAll());
 	}
 	@Test
-	public void validateNewBidListTest(){
+	public void validateNewBidListTest() throws Exception {
 		//ARRANGE
 		when(curvePointRepository.save(any(CurvePoint.class))).thenReturn(curvePoint);
 		//ACT

@@ -27,7 +27,7 @@ import java.util.Optional;
         return opt.get();
     }
 //CREATE NEW BIDLIST
-    public BidList validateNewBidList(BidList bid) {
+    public BidList validateNewBidList(BidList bid) throws Exception{
         return bidListRepository.save(bid);
     }
 //UPDATE BIDLIST

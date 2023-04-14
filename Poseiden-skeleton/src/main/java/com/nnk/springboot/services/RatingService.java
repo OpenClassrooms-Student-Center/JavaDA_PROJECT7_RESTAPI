@@ -25,7 +25,7 @@ public class RatingService {
         return opt.get();
     }
     //CREATE NEW RATING
-    public Rating validateNewRating(Rating rating){
+    public Rating validateNewRating(Rating rating) throws Exception{
         return ratingRepository.save(rating);
     }
     //UPDATE RATING
