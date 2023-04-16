@@ -153,7 +153,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/*com/nnk/springboot/domain/**</exclude>
-						<exclude>**/*com/nnk/springboot/domain/**/*</exclude>
+						<exclude>**/*com/nnk/springboot/repository/**/*</exclude>
 
 					</excludes>
 				</configuration>

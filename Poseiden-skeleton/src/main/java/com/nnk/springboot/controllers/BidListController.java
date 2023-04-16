@@ -47,6 +47,7 @@ public class BidListController {
         log.info("POST /bidList/validate");
         try {
             if (!result.hasErrors()) {
+                log.info("no errors in bidlist");
                 bidListService.validateNewBidList(bidList);
                 log.info("bidlist validated with account " + bidList.getAccount());
 

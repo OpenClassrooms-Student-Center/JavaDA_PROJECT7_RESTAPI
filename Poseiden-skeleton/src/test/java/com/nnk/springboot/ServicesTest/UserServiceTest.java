@@ -78,11 +78,12 @@ public class UserServiceTest {
     }
 
     @Test
-    public void registerNewUserTest() {
+    public void registerNewUserTest() throws Exception {
         //ARRANGE
+        User user = new User("jtest", "PasswordTest", "johntest", "ROLE_ADMIN");
         when(userRepository.save(any(User.class))).thenReturn(user);
         //ACT
-        User registeredUser = userService.registerNewUser("jtest", "PasswordTest", "johntest", "ROLE_ADMIN");
+        User registeredUser = userService.registerNewUser(user);
 
         // Check that the user was added to the repository
         //List<User> allUsers = userService.findAllUsers();

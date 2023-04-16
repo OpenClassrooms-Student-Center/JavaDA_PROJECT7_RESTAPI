@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
@@ -18,20 +20,25 @@ public class Rating {
 
     @Column(name = "moodys_rating")
     @NonNull
+    @NotEmpty
     String moodys_rating;
 
     @Column(name="sandprating")
     @NonNull
+    @NotEmpty
     String sandprating;
 
     @Column(name = "fitch_rating")
     @NonNull
+    @NotEmpty
     String fitch_rating;
 
 
 
     @Column(name="order_number")
     @NonNull
+    @NotEmpty
+    @NotNull
     Integer order_number;
 
 

@@ -33,15 +33,9 @@ public class UserService {
 
     }
 
-    public User registerNewUser(String username, String password, String fullname, String role){
+    public User registerNewUser(User user)throws Exception{
+        return userRepository.save(user);
 
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setFullname(fullname);
-        user.setRole(role);
-        userRepository.save(user);
-        return user;
     }
     public void deleteUserByUsername(String username){
         User user = userRepository.findUserByUsername(username);

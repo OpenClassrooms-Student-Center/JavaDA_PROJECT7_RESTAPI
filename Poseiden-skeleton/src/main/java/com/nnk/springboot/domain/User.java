@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -10,19 +12,25 @@ import jakarta.persistence.*;
 @Table(name = "user")
 @Getter
 @Setter
+@NoArgsConstructor
 @RequiredArgsConstructor
 
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    @NotBlank(message = "Username is mandatory")
+    @NonNull
+    @NotNull
+    @NotEmpty(message = "Username is mandatory")
     private String username;
-    @NotBlank(message = "Password is mandatory")
+    @NonNull
+    @NotEmpty(message = "Password is mandatory")
     private String password;
-    @NotBlank(message = "FullName is mandatory")
+    @NonNull
+    @NotEmpty(message = "FullName is mandatory")
     private String fullname;
-    @NotBlank(message = "Role is mandatory")
+    @NonNull
+    @NotEmpty(message = "Role is mandatory")
     private String role;
 
     public Integer getId() {
