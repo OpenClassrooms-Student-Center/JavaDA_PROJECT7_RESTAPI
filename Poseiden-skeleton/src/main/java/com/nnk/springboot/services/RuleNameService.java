@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class RuleNameService {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
-    RuleNameRepository ruleNameRepository;
+    private RuleNameRepository ruleNameRepository;
 
     public RuleNameService(RuleNameRepository ruleNameRepository){
         this.ruleNameRepository= ruleNameRepository;

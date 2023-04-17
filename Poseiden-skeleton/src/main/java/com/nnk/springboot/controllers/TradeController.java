@@ -28,7 +28,7 @@ public class TradeController {
     // TODO: Inject Trade service
 //DISPLAY LIST OF TRADES PAGE
     @RequestMapping("/trade/list")
-    public String home(Model model) {
+    public String homeDisplayTradesList(Model model) {
         log.info ("REQUEST /trade/list");
         model.addAttribute("listOfTrades", tradeService.findAll());
         // TODO: find all Trade, add to model
@@ -43,18 +43,23 @@ public class TradeController {
     }
 //CREATE NEW TRADE
     @PostMapping("/trade/validate")
-    public String validate(@Valid Trade trade, BindingResult result, Model model) throws Exception {
+    public String validateTrade(@Valid Trade trade, BindingResult result, Model model) {
         log.info("POST /trade/validate");
-        try {
-            if (!result.hasErrors()) {
-                tradeService.validateNewTrade(trade);
-                log.info("trade validated with id " + trade.getTrade_id());
-
-            }
-        } catch (Exception e){
+        if (result.hasErrors()) {
             log.error("trade to create has errors");
-            // TODO: check data valid and save to db, after saving return Trade list
             return "trade/add";
+
+        }
+        try {
+            tradeService.validateNewTrade(trade);
+            log.info("trade validated with id " + trade.getTrade_id());
+
+        } catch (Exception e){
+            log.error("registration was not possible");
+            return "trade/add";
+
+            // TODO: check data valid and save to db, after saving return Trade list
+
         }
         return "redirect:/trade/list";
     }
@@ -82,7 +87,6 @@ public class TradeController {
         if (result.hasErrors()) {
             log.error("trade to update has errors");
             return "trade/update";
-            //ou return "redirect:/trade/list"
         }
         try {
             Trade updatedAndSavedTrade = tradeService.updateTrade(id, updatedTradeEntity);
@@ -90,11 +94,12 @@ public class TradeController {
             model.addAttribute("listOfTrades", tradeService.findAll());
             // TODO: check required fields, if valid call service to update Trade and return Trade list
             log.info("attribute listOfTrades added to model");
-            return "redirect:/trade/list";
+
         }catch(Exception e){
             log.error("trade with id "+id+" could not be updated");
-            return "trade/list";
+            return "trade/update";
         }
+        return "redirect:/trade/list";
     }
 //DELETE TRADE
     @GetMapping("/trade/delete/{id}")

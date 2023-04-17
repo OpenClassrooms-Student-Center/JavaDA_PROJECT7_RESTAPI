@@ -37,13 +37,13 @@ public class TradeControllerTest {
     }
 
     @Test
-    public void homeDisplayTradesPageTest(){
+    public void homeDisplayTradesPageList(){
         //arrange
         Model model = new ConcurrentModel();
         List<Trade> listOfTrades = new ArrayList<>();
         when(tradeService.findAll()).thenReturn(listOfTrades);
         //act
-        String view = tradeController.home(model);
+        String view = tradeController.homeDisplayTradesList(model);
 
         //assert
         assertEquals("trade/list",view );
@@ -65,7 +65,7 @@ public class TradeControllerTest {
         BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         //act
-        String page = tradeController.validate(trade, result, model);
+        String page = tradeController.validateTrade(trade, result, model);
         //
         assertEquals("redirect:/trade/list", page);
     }
@@ -78,7 +78,7 @@ public class TradeControllerTest {
         Model model = new ConcurrentModel();
         when(tradeService.validateNewTrade(trade)).thenThrow(new Exception());
         //act
-        String page = tradeController.validate(trade, result, model);
+        String page = tradeController.validateTrade(trade, result, model);
         //
         assertEquals("trade/add", page);
         verify(tradeService, times(1)).validateNewTrade(trade);
@@ -156,7 +156,7 @@ public class TradeControllerTest {
         //act
         String page = tradeController.updateTrade(1, updatedTrade, result, model);
         //
-        assertEquals("trade/list", page);
+        assertEquals("trade/update", page);
 
     }
     @Test

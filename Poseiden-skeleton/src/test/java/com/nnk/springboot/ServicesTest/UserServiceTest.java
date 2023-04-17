@@ -83,7 +83,7 @@ public class UserServiceTest {
         User user = new User("jtest", "PasswordTest", "johntest", "ROLE_ADMIN");
         when(userRepository.save(any(User.class))).thenReturn(user);
         //ACT
-        User registeredUser = userService.registerNewUser(user);
+        User registeredUser = userService.validateNewUser(user);
 
         // Check that the user was added to the repository
         //List<User> allUsers = userService.findAllUsers();
@@ -99,17 +99,19 @@ public class UserServiceTest {
 
     }
     @Test
-    public void deleteUserByUsernameTest(){
+    public void deleteUserTest() throws Exception {
         //ARRANGE
-        when(userRepository.findUserByUsername("jtest")).thenReturn(user);
+        User user = new User("jtest", "PasswordTest", "johntest", "ROLE_ADMIN");
+        user.setId(100);
+        when(userRepository.findById(100)).thenReturn(Optional.of(user));
         doNothing().when(userRepository).delete(user);
         //ACT
-        userService.deleteUserByUsername("jtest");
+        userService.deleteUser(100);
         //ASSERT
         verify(userRepository, times(1)).delete(user);
     }
     @Test
-    public void userNameOfCurrentUserTest(){
+    public void userNameOfCurrentUserTest() throws Exception {
 
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -123,10 +125,10 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findByIdTest(){
+    public void findByIdTest() throws Exception {
         when(userRepository.findById(anyInt())).thenReturn(Optional.of(user));
 
-        assertEquals(user,userService.findById(1));
+        assertEquals(user,userService.getById(1));
     }
 
 

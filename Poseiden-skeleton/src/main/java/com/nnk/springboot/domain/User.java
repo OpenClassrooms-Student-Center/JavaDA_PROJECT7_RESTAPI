@@ -1,6 +1,6 @@
 package com.nnk.springboot.domain;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -20,7 +20,6 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     @NonNull
-    @NotNull
     @NotEmpty(message = "Username is mandatory")
     private String username;
     @NonNull

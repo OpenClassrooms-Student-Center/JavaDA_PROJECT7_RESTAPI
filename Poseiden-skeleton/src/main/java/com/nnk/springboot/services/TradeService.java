@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class TradeService{
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
-    TradeRepository tradeRepository;
+    private TradeRepository tradeRepository;
 
     public TradeService(TradeRepository tradeRepository){
         this. tradeRepository= tradeRepository;

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
     public class BidListService {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
-    BidListRepository bidListRepository;
+    private BidListRepository bidListRepository;
 
     public BidListService(BidListRepository bidListRepository) {
         this. bidListRepository= bidListRepository;

@@ -36,7 +36,7 @@ public class RuleNameController {
     }
 //DISPLAY ADD RULENAME FORM
     @GetMapping("/ruleName/add")
-    public String displayAddRuleForm(RuleName bid) {
+    public String displayAddRuleForm(RuleName ruleName) {
         log.info("GET form /ruleName/add");
         return "ruleName/add";
     }
@@ -47,15 +47,15 @@ public class RuleNameController {
     public String validateRuleName(@Valid RuleName ruleName, BindingResult result, Model model) {
         log.info("POST /ruleName/validate");
         // TODO: check data valid and save to db, after saving return RuleName list
-        try{
-            if (!result.hasErrors()) {
-                ruleNameService.validateNewRuleName(ruleName);
-                log.info("ruleName validated with id "+ ruleName.getRulename_id());
-
-            }
-
-        }catch(Exception e){
+        if(result.hasErrors()){
             log.error("ruleName to create has errors");
+            return "ruleName/add";
+        }
+        try{
+            ruleNameService.validateNewRuleName(ruleName);
+            log.info("ruleName validated with id "+ ruleName.getRulename_id());
+        }catch(Exception e){
+            log.error("ruleName could not be created");
             return "ruleName/add";
         }
     return "redirect:/ruleName/list";
@@ -94,7 +94,7 @@ public class RuleNameController {
             return "redirect:/ruleName/list";
         }catch(Exception e){
             log.error("ruleName with id "+ id+ " could not be updated");
-            return "ruleName/list";
+            return "ruleName/update";
         }
 
     }

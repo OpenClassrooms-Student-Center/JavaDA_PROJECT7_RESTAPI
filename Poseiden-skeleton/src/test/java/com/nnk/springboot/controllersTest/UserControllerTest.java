@@ -85,7 +85,7 @@ public class UserControllerTest {
         BindingResult result = new BeanPropertyBindingResult(user, "user");
         Model model = new ConcurrentModel();
 
-        when(userService.registerNewUser(user)).thenThrow(new Exception());
+        when(userService.validateNewUser(user)).thenThrow(new Exception());
 
         String page = userController.validateUser(user, result, model);
 
@@ -93,11 +93,11 @@ public class UserControllerTest {
         //verify(userService, times(0)).registerNewUser(user.getUsername(), user.getPassword(),user.getFullname(), user.getRole());
     }
     @Test
-    public void displayUpdateFormTest(){
+    public void displayUpdateFormTest() throws Exception {
         Model model = new ConcurrentModel();
         Integer id = 5;
 
-        when(userService.findById(5)).thenReturn(new User("john", "password","johndoe", "ROLE_ADMIN"));
+        when(userService.getById(5)).thenReturn(new User("john", "password","johndoe", "ROLE_ADMIN"));
         String page = userController.displayUpdateUserForm(id, model);
 
         assertEquals("user/update", page);

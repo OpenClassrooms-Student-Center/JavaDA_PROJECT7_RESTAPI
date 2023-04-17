@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -19,9 +20,11 @@ public class Trade {
 
     @Column(name= "account")
     @NonNull
+    @NotBlank(message = "account is mandatory")
     String account;
     @Column(name= "type")
     @NonNull
+    @NotBlank(message = "type is mandatory")
     String type;
     @Column(name= "buy_quantity")
     Double buy_quantity;

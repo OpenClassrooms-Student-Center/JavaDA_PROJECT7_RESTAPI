@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -20,14 +21,17 @@ public class CurvePoint {
 
     @Column (name = "curve_point_id")
     @NonNull
+    //@NotBlank(message = "curve_point_id is mandatory")
     private Integer curve_point_id;
     @Column(name = "as_of_date")
     private Timestamp as_of_date;
     @Column(name="term")
     @NonNull
+    @NotBlank(message = "term is mandatory")
     private Double term;
     @Column(name = "value")
     @NonNull
+    @NotBlank(message = "value is mandatory")
     private  Double value;
 
     @Column(name = "creation_date")

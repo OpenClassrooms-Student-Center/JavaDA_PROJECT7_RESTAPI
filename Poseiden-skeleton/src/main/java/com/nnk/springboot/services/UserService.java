@@ -26,22 +26,35 @@ public class UserService {
     public List<User> findAllUsers(){
         return userRepository.findAll();
     }
-    public User findById(Integer id){
+    public User getById(Integer id)throws Exception{
         Optional<User> opt = userRepository.findById(id);
         User user = opt.get();
         return user;
 
     }
 
-    public User registerNewUser(User user)throws Exception{
+    public User validateNewUser(User user)throws Exception{
         return userRepository.save(user);
 
     }
-    public void deleteUserByUsername(String username){
-        User user = userRepository.findUserByUsername(username);
-        userRepository.delete(user);
+    public User updateUser(int id, User updatedUserEntity)throws Exception{
+        Optional<User> opt = userRepository.findById(id);
+        User formerUser = opt.get();
+        formerUser.setUsername(updatedUserEntity.getUsername());
+        formerUser.setPassword(updatedUserEntity.getPassword());
+        formerUser.setFullname(updatedUserEntity.getFullname());
+        formerUser.setRole(updatedUserEntity.getRole());
+        return userRepository.save(formerUser);
+
+
     }
-    public String userNameOfCurrentUser(){
+    public void deleteUser(int id)throws Exception{
+        Optional<User> opt = userRepository.findById(id);
+        User user = opt.get();
+        userRepository.delete(user);
+
+    }
+    public String userNameOfCurrentUser()throws Exception{
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         //String userNameOfCurrentUser = auth.getName();
         return auth.getName();

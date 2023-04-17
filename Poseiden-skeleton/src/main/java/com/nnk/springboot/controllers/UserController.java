@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 
-@Validated
+//@Validated VALIDATED COMBINED WITH VALID CREATES 500 ERROR INSTEAD OF DISPLAYING ERROR ON HTML
 @Controller
 public class UserController {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
@@ -51,23 +51,23 @@ public class UserController {
     public String validateUser(@Valid User user, BindingResult result, Model model) {
 
         log.info("POST /user/validate for username " + user.getUsername());
-
-
-        if (result.hasErrors()) {
-            log.error("user to create has errors");
-            return "user/add";
-        }
+        /*
+        }*/
         try {
+            if (result.hasErrors()) {
+                log.error("user to create has errors");
+                throw (new Exception());
+            }
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
-            userService.registerNewUser(user);
+            userService.validateNewUser(user);
             //model.addAttribute("users", userService.findAllUsers());
             log.info("user " + user.getUsername() + "saved");
         } catch (Exception e) {
-            log.error("registration was not possible");
+            log.error("user could not be created");
             return "user/add";
         }
-        return "redirect:/user/list";
+    return "redirect:/user/list";
     }
     //cette request GET se trouve sur la page user/list, elle demande l'affichage d'un formulaire de mise à jour relative
     //à un user determiné. ce formulaire est donc nourri d'un model.il retourne ce formulaire
@@ -75,7 +75,7 @@ public class UserController {
     public String displayUpdateUserForm(@PathVariable("id") Integer userId, Model model) {
         try{
             log.info("GET /user/update/{id} with id "+ userId);
-            User user = userService.findById(userId);
+            User user = userService.getById(userId);
             user.setPassword("");
             model.addAttribute("user", user);
             log.info("user "+ user.getId()+ " retrieved");
@@ -100,7 +100,7 @@ public class UserController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
 
-            userService.registerNewUser(user);
+            userService.validateNewUser(user);
             //model.addAttribute("users", userRepository.findAll());
             log.info ("user with id "+ user.getId() + " is saved" );
         }catch(Exception e){
@@ -116,8 +116,7 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
         try{
             log.info("GET /user/delete/{id}");
-            User user = userService.findById(id);
-            userService.deleteUserByUsername(user.getUsername());
+            userService.deleteUser(id);
             log.info("user deleted");
             return "redirect:/user/list";
 

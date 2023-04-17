@@ -34,7 +34,7 @@ public class CurveController {
     }
 //DISPLAY ADD CURVEPOINT FORM
     @GetMapping("/curvePoint/add")
-    public String displayAddCurvePointForm(CurvePoint bid) {
+    public String displayAddCurvePointForm(CurvePoint curvePoint) {
         log.info("GET form /curvePoint/add");
         return "curvePoint/add";
     }
@@ -44,13 +44,15 @@ public class CurveController {
     @PostMapping("/curvePoint/validate")
     public String validateCurvePoint(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
         log.info("POST /curvePoint/validate");
+        if(result.hasErrors()){
+            log.error("curvePoint to create has errors");
+            return "curvePoint/add";
+        }
         try{
-            if(!result.hasErrors()){
-                curvePointService.validateNewCurvePoint(curvePoint);
-                log.info("curvePoint validated with id "+ curvePoint.getCurve_id());
-            }
+            curvePointService.validateNewCurvePoint(curvePoint);
+            log.info("curvePoint validated with id "+ curvePoint.getCurve_id());
         }catch(Exception e){
-            log.error("curvepoint to create has errors");
+            log.error("curvepoint could not be create");
             return "curvePoint/add";
         }
         return "redirect:/curvePoint/list";
@@ -90,7 +92,7 @@ public class CurveController {
             return "redirect:/curvePoint/list";
         } catch (Exception e) {
             log.error("curvepoint with id " + id + "could not be update");
-            return "curvePoint/list";
+            return "curvePoint/update";
         }
     }
 //DELETE CURVEPOINT

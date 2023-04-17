@@ -43,14 +43,14 @@ public class RatingController {
         // TODO: check data valid and save to db, after saving return Rating list
         log.info("POST /rating/validate");
         if (result.hasErrors()) {
-            log.error("rating to update has errors");
-            return "rating/update";
+            log.error("rating to add has errors");
+            return "rating/add";
         }
         try{
             ratingService.validateNewRating(rating);
             log.info("rating validated with id " + rating.getRating_id());
         }catch(Exception e){
-            log.error("rating to create has errors");
+            log.error("rating could not be created" );
             return "rating/add";
         }
         return "redirect:/rating/list";
@@ -85,11 +85,12 @@ public class RatingController {
             Rating updatedAndSavedRating = ratingService.updateRating(id, updatedRatingEntity);
             model.addAttribute("listOfRatings", ratingService.findAll());
             log.info("listOfRatings added to model");
-            return "redirect:/rating/list";
+
         } catch (Exception e) {
             log.error("rating with id " + id + " could not be update");
-            return "rating/list";
+            return "rating/update";
         }
+        return "redirect:/rating/list";
     }
 //DELETE RATING
     @GetMapping("/rating/delete/{id}")

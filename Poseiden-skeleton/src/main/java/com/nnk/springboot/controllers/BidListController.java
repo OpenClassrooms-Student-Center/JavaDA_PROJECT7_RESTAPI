@@ -45,16 +45,17 @@ public class BidListController {
     @PostMapping("/bidList/validate")
     public String validateBidList(@Valid BidList bidList, BindingResult result, Model model) {
         log.info("POST /bidList/validate");
+        if(result.hasErrors()){
+            log.error("BidList to create has errors");
+            return ("bidList/add");
+        }
         try {
-            if (!result.hasErrors()) {
-                log.info("no errors in bidlist");
-                bidListService.validateNewBidList(bidList);
-                log.info("bidlist validated with account " + bidList.getAccount());
-
-            }
+            log.info("no errors in bidlist");
+            bidListService.validateNewBidList(bidList);
+            log.info("bidlist validated with account " + bidList.getAccount());
         } catch (Exception e ) {
             // TODO: check data valid and save to db, after saving return bid list
-            log.error("BidList to create has errors");
+            log.error("BidList could not be created");
             return "bidList/add";
         }
         return "redirect:/bidList/list";
@@ -73,7 +74,6 @@ public class BidListController {
             log.error("bidList update form with id "+id+" could not be displayed");
             return "bidList/list";
         }
-
     }
 //UPDATE BIDLIST
     @PutMapping("/bidList/update/{id}")
@@ -90,14 +90,15 @@ public class BidListController {
             BidList updatedAndSavedBidList = bidListService.updateBidList(id, updatedBidListEntity);
             model.addAttribute("listOfBidList", bidListService.findAll());
             log.info("attribute listOfBidList added to model");
-            return "redirect:/bidList/list";
+
         }catch(Exception e){
             log.error("bidList with id "+ id+ " could not be updated");
-            return "bidList/list";
+            return "bidList/update";
         }
+        return "redirect:/bidList/list";
     }
 //DELETE BIDLIST
-    @DeleteMapping("/bidList/delete/{id}")
+    @RequestMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         try {
             log.info("GET /bidList/delete/{id} with id " + id);

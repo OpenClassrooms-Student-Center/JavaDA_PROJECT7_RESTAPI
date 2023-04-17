@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,15 +22,15 @@ public class BidList {
     @Column(name="bid_list_id")
     private Integer bid_list_id;
     @Column (name = "account")
-    @NotEmpty
+    @NotBlank(message = "account is mandatory")
    @NonNull
    private String account;
    @Column (name = "type")
-   @NotEmpty
+   @NotBlank(message = "type is mandatory")
    @NonNull
    private String type;
    @Column (name = "bid_quantity")
-   @NotNull
+   //@NotBlank(message = "bid_quantity is mandatory")
    @NonNull
    private Double bid_quantity;
    @Column (name = "ask_quantity")
