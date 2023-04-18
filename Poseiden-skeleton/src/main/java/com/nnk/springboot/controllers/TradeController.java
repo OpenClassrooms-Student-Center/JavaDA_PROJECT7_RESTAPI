@@ -84,20 +84,20 @@ public class TradeController {
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade updatedTradeEntity,
                              BindingResult result, Model model) {
         log.info("POST /trade/update{id} with id "+ id);
-        if (result.hasErrors()) {
-            log.error("trade to update has errors");
-            return "trade/update";
-        }
-        try {
-            Trade updatedAndSavedTrade = tradeService.updateTrade(id, updatedTradeEntity);
 
+        try {
+            if (result.hasErrors()) {
+                log.error("trade to update has errors");
+                throw new Exception();
+            }
+            Trade updatedAndSavedTrade = tradeService.updateTrade(id, updatedTradeEntity);
             model.addAttribute("listOfTrades", tradeService.findAll());
             // TODO: check required fields, if valid call service to update Trade and return Trade list
             log.info("attribute listOfTrades added to model");
 
         }catch(Exception e){
             log.error("trade with id "+id+" could not be updated");
-            return "trade/update";
+            return "redirect:/trade/update/"+id+"";
         }
         return "redirect:/trade/list";
     }

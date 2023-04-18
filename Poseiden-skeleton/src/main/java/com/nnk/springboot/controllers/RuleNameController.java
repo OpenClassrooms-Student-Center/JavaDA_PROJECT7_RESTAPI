@@ -61,13 +61,13 @@ public class RuleNameController {
     return "redirect:/ruleName/list";
     }
 //DISPLAY UPDATE RULENAME FORM
-    @GetMapping("/rulename/update/{id}")
+    @GetMapping("/ruleName/update/{id}")
     public String displayUpdateForm(@PathVariable("id") Integer id, Model model) {
         try{
-            log.info("GET /rulename/update/{id} with id "+ id);
+            log.info("GET /ruleName/update/{id} with id "+ id);
             RuleName ruleName = ruleNameService.getRuleNameById(id);
             model.addAttribute("ruleName", ruleName);
-            log.info("attribute added to model : rulename with id "+ id );
+            log.info("attribute added to model : ruleName with id "+ id );
             // TODO: get RuleName by Id and to model then show to the form
             return "ruleName/update";
         }catch(Exception e){
@@ -83,29 +83,31 @@ public class RuleNameController {
 
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         log.info("POST /ruleName/update/{id} with id "+id);
-        if (result.hasErrors()) {
-            log.error("ruleName to update has errors");
-            return "ruleName/update";
-        }
+
         try{
+            if (result.hasErrors()) {
+                log.error("ruleName to update has errors");
+                throw new Exception();
+            }
             RuleName updatedAndSavedRuleName = ruleNameService.updateRuleName(id, updatedRuleNameEntity );
             model.addAttribute("listOfRulenames", ruleNameService.findAll());
             log.info("attribute listOfRulenames added to model");
-            return "redirect:/ruleName/list";
+
         }catch(Exception e){
             log.error("ruleName with id "+ id+ " could not be updated");
-            return "ruleName/update";
+            return "redirect:/ruleName/update/"+id+"";
         }
+        return "redirect:/ruleName/list";
 
     }
 //DELETE RULENAME
-    @GetMapping("/rulename/delete/{id}")
+    @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
         try{
-            log.info("GET /rulename/delete/{id}");
+            log.info("GET /ruleName/delete/{id}");
             ruleNameService.deleteRuleName(id);
             // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-            log.info("rulename with id "+ id + "deleted");
+            log.info("ruleName with id "+ id + "deleted");
             return "redirect:/ruleName/list";
         }catch(Exception e){
             log.error("ruleName with id "+id+ " could not be deleted");

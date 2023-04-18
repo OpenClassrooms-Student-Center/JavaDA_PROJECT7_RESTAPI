@@ -8,10 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 
 
@@ -80,20 +78,21 @@ public class CurveController {
     public String updateCurvePoint(@PathVariable("id") Integer id, @Valid CurvePoint updateCurvePointEntity,BindingResult result, Model model) {
         //TODO: changer le retour (revient actuellement sur liste vide)
         log.info("POST /curvePoint/update/{id} with id " + id);
-        if (result.hasErrors()) {
-            log.error("curvepoint to update has errors");
-            return "curvePoint/update";
-        }
+
         try {
+            if (result.hasErrors()) {
+                log.error("curvepoint to update has errors");
+                throw new Exception();
+            }
             CurvePoint updatedAndSavedCurvePoint = curvePointService.updateCurvePoint(id, updateCurvePointEntity);
             model.addAttribute("listOfCurvepoints", curvePointService.findAll());
             log.info("attribute listOfCurvepoints added to model");
             // TODO: check required fields, if valid call service to update Curve and return Curve list
-            return "redirect:/curvePoint/list";
         } catch (Exception e) {
             log.error("curvepoint with id " + id + "could not be update");
-            return "curvePoint/update";
+            return "redirect:/curvePoint/update/"+id+"";
         }
+        return "redirect:/curvePoint/list";
     }
 //DELETE CURVEPOINT
     @GetMapping("/curvePoint/delete/{id}")

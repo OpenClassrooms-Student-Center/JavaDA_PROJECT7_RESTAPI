@@ -81,7 +81,7 @@ public class TradeServiceTests {
 	public void updateBidListTest() throws Exception {
 		//ARRANGE
 
-		Trade updatedTradeEntity = new Trade("account", "type");
+		Trade updatedTradeEntity = new Trade("account", "type", 3.5);
 		when(tradeRepository.findById(1)).thenReturn(Optional.of(trade));
 		when(tradeRepository.save(trade)).thenReturn(trade);
 		//ACT

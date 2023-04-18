@@ -38,7 +38,7 @@ public class Rating {
 
     @Column(name="order_number")
     @NonNull
-    @NotBlank (message = "order_number is mandatory")
+    @NotNull (message = "order_number is mandatory")
     Integer order_number;
 
 

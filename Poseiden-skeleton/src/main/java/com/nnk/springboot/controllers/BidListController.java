@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
 public class BidListController {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
@@ -76,29 +75,28 @@ public class BidListController {
         }
     }
 //UPDATE BIDLIST
-    @PutMapping("/bidList/update/{id}")
+    @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBidListEntity,
                              BindingResult result, Model model) {
-
         log.info("POST /bidList/update/{id} with id " + id);
-        if (result.hasErrors()) {
-            log.error("bildlist to update has errors");
-            return "bidList/update";
-            //ou return "redirect:/bidList/list??
-        }
         try {
+            if (result.hasErrors()) {
+                log.error("bildlist to update has errors");
+                throw new Exception();
+                //ou return "redirect:/bidList/list??
+            }
             BidList updatedAndSavedBidList = bidListService.updateBidList(id, updatedBidListEntity);
             model.addAttribute("listOfBidList", bidListService.findAll());
             log.info("attribute listOfBidList added to model");
 
         }catch(Exception e){
             log.error("bidList with id "+ id+ " could not be updated");
-            return "bidList/update";
+            return "redirect:/bidList/update/"+id+"";
         }
         return "redirect:/bidList/list";
     }
 //DELETE BIDLIST
-    @RequestMapping("/bidList/delete/{id}")
+    @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         try {
             log.info("GET /bidList/delete/{id} with id " + id);

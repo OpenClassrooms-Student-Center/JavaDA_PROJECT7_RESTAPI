@@ -77,18 +77,20 @@ public class RatingController {
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         log.info("POST /rating/update/{id} with id " + id);
-        if (result.hasErrors()) {
-            log.error("rating to update has errors");
-            return "rating/update";
-        }
+
+
         try {
+            if (result.hasErrors()) {
+                log.error("rating to update has errors");
+                throw new Exception();
+            }
             Rating updatedAndSavedRating = ratingService.updateRating(id, updatedRatingEntity);
             model.addAttribute("listOfRatings", ratingService.findAll());
             log.info("listOfRatings added to model");
 
         } catch (Exception e) {
             log.error("rating with id " + id + " could not be update");
-            return "rating/update";
+            return "redirect:/rating/update/"+id+"";
         }
         return "redirect:/rating/list";
     }

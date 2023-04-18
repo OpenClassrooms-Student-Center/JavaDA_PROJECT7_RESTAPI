@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -22,7 +23,7 @@ public class BidList {
     @Column(name="bid_list_id")
     private Integer bid_list_id;
     @Column (name = "account")
-    @NotBlank(message = "account is mandatory")
+    @NotBlank(message = "account is mandatory!!!!!!!!")
    @NonNull
    private String account;
    @Column (name = "type")
@@ -30,7 +31,8 @@ public class BidList {
    @NonNull
    private String type;
    @Column (name = "bid_quantity")
-   //@NotBlank(message = "bid_quantity is mandatory")
+   @NotNull(message = "bid_quantity is mandatory")
+   @Positive(message = "bid_quantity must be strictly positive")
    @NonNull
    private Double bid_quantity;
    @Column (name = "ask_quantity")

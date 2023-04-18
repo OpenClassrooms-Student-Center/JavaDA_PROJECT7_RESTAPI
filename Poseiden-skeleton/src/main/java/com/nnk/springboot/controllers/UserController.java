@@ -92,11 +92,12 @@ public class UserController {
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         log.info("POST /user/update/{id} with id "+ id );
-        if (result.hasErrors()) {
-            log.error("user to update has errors");
-            return "user/update";
-        }
+
         try{
+            if (result.hasErrors()) {
+                log.error("user to update has errors");
+                throw new Exception();
+            }
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
 
@@ -105,7 +106,7 @@ public class UserController {
             log.info ("user with id "+ user.getId() + " is saved" );
         }catch(Exception e){
             log.error("user with id "+id+" could not be update");
-            return "user/list";
+            return "redirect:/user/update/"+id+"";
         }
     return "redirect:/user/list";
     }

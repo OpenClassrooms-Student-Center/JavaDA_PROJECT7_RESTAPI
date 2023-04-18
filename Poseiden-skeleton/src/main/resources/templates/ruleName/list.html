@@ -36,20 +36,21 @@
 					<th>template</th>
 					<th>sql</th>
 					<th>sqlPart</th>
-					<th>Action</th>
+
 				</tr>
 			</thead>
 			<tbody>
 			<th:block th:each="rulename : ${listOfRulenames}">
 				<tr>
+					<td th:text="${rulename.rulename_id}"></td>
 					<td th:text="${rulename.name}"></td>
 					<td th:text="${rulename.description}"></td>
 					<td th:text="${rulename.json}"></td>
 					<td th:text="${rulename.template}"></td>
 					<td th:text="${rulename.sql_str}"></td>
 					<td th:text="${rulename.sql_part}"></td>
-					<td ><span><a th:href="@{/rulename/update/{id}(id = ${rulename.rulename_id})}">Update</a>
-					</span><span><a th:href="@{/rulename/delete/{id}(id = ${rulename.rulename_id})}">Delete</a></span></td>
+					<td ><span><a th:href="@{/ruleName/update/{id}(id = ${rulename.rulename_id})}">Update</a>
+					</span><span><a th:href="@{/ruleName/delete/{id}(id = ${rulename.rulename_id})}">Delete</a></span></td>
 
 				</tr>
 			</th:block>

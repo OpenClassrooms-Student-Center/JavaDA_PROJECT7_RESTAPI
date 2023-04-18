@@ -61,7 +61,7 @@ public class TradeControllerTest {
     @Test
     public void validateTradeTest() throws Exception {
         //arrange
-        Trade trade = new Trade("firstAccount", "secondType");
+        Trade trade = new Trade("firstAccount", "secondType", 12.5);
         BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         //act
@@ -73,7 +73,7 @@ public class TradeControllerTest {
     @Test
     public void validateTradeWithErrorsOnTradeTest() throws Exception {
         //arrange
-        Trade trade = new Trade("", "");
+        Trade trade = new Trade("", "", 11.5);
         BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         when(tradeService.validateNewTrade(trade)).thenThrow(new Exception());
@@ -89,7 +89,7 @@ public class TradeControllerTest {
         Model model = new ConcurrentModel();
         Integer id = 2;
 
-        when(tradeService.getTradeById(id)).thenReturn(new Trade("var1", "var2"));
+        when(tradeService.getTradeById(id)).thenReturn(new Trade("var1", "var2", 13.2));
         //act
         String page = tradeController.displayUpdateForm(id, model);
         //assert
@@ -113,8 +113,8 @@ public class TradeControllerTest {
     @Test
     public void updateBidTest() throws Exception {
         //arrange
-        Trade trade = new Trade("accountTest", "typeTest");
-        Trade updatedTrade = new Trade("updatedAccount", "updatedType");
+        Trade trade = new Trade("accountTest", "typeTest", 2.5);
+        Trade updatedTrade = new Trade("updatedAccount", "updatedType", 12.5);
         //BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         BindingResult result = mock(BindingResult.class);
@@ -131,8 +131,8 @@ public class TradeControllerTest {
     @Test
     public void updateBidWithBindingResultErrorsTest() throws Exception {
         //arrange
-        Trade trade = new Trade("accountTest", "typeTest");
-        Trade updatedTrade = new Trade("", "");
+        Trade trade = new Trade("accountTest", "typeTest", 7.5);
+        Trade updatedTrade = new Trade("", "", 5.5);
         //BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         BindingResult result = mock(BindingResult.class);
@@ -148,8 +148,8 @@ public class TradeControllerTest {
     }
     @Test
     public void updateTradeWithErrorsTest() throws Exception {
-        Trade trade = new Trade("accountTest", "typeTest");
-        Trade updatedTrade = new Trade("updatedAccount", "updatedType");
+        Trade trade = new Trade("accountTest", "typeTest", 2.5);
+        Trade updatedTrade = new Trade("updatedAccount", "updatedType", 12.5);
         BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         when(tradeService.updateTrade(1, updatedTrade)).thenThrow(new Exception());
