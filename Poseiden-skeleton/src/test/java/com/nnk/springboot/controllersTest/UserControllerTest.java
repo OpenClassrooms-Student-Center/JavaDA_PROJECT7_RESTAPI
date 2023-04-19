@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.ConcurrentModel;
@@ -26,7 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -113,6 +116,16 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void encodePasswordTest() {
+
+        String password = "1PasswordForTest?";
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String pw = encoder.encode(password);
+        Assertions.assertNotEquals("1PasswordForTest?", pw);
+        assertTrue(pw.length() > 59);
+
+    }
 
 
 }

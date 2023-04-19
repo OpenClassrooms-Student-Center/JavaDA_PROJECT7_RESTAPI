@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -30,6 +31,7 @@ public class Trade {
     @Column(name= "buy_quantity")
     @NonNull
     @NotNull(message="buy_quantity is mandatory")
+    @Positive(message = "buy_quantity must be strictly positive")
     Double buy_quantity;
     @Column
     Double sellQuantity;

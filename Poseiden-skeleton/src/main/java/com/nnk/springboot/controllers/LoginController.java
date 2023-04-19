@@ -51,7 +51,7 @@ public class LoginController {
         return mav;
     }
 //cette requete se trouve??? et affiche la vue 403 chargé de l'objet erreur spécifique
-    @GetMapping("error")
+    @GetMapping("/403")
     public ModelAndView error() {
         log.info("GET error");
         ModelAndView mav = new ModelAndView();

@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -24,6 +25,8 @@ public class User {
     private String username;
     @NonNull
     @NotEmpty(message = "Password is mandatory")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,}$",
+            message = "password must contain at least 1 uppercase, 1 digit, 1 special character and 8 characters")
     private String password;
     @NonNull
     @NotEmpty(message = "FullName is mandatory")
