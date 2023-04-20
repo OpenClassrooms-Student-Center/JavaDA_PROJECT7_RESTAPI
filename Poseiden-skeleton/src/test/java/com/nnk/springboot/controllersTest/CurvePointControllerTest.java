@@ -76,7 +76,7 @@ public class CurvePointControllerTest {
     @Test
     public void validateCurvePointWithErrorsOnCurvePointTest() throws Exception {
         //arrange
-        CurvePoint curvePoint = new CurvePoint(0, 0.0, 0.0);
+        CurvePoint curvePoint = new CurvePoint(1, 1.0, 1.0);
         BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         when(curvePointService.validateNewCurvePoint(curvePoint)).thenThrow(new Exception());
@@ -85,6 +85,17 @@ public class CurvePointControllerTest {
         //
         assertEquals("curvePoint/add", page);
         verify(curvePointService, times(1)).validateNewCurvePoint(curvePoint);
+    }
+    @Test
+    public void validateCurvePointWithBindingErrorsTest(){
+        CurvePoint curvePoint = new CurvePoint(1, 1.0, 1.0);
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+        String page = curveController.validateCurvePoint(curvePoint, result, model);
+        //
+        assertEquals("curvePoint/add", page);
     }
 
     @Test
@@ -150,7 +161,7 @@ public class CurvePointControllerTest {
 
         String page = curveController.updateCurvePoint(1, updatedCurvePoint, result, model);
         //
-        assertEquals("curvePoint/update", page);
+        assertEquals("redirect:/curvePoint/update/1", page);
 
     }
     @Test
@@ -164,7 +175,7 @@ public class CurvePointControllerTest {
         //act
         String page = curveController.updateCurvePoint(1, updatedCurvePoint, result, model);
         //
-        assertEquals("curvePoint/list", page);
+        assertEquals("redirect:/curvePoint/update/1", page);
 
     }
     @Test
@@ -178,14 +189,17 @@ public class CurvePointControllerTest {
         assertEquals("redirect:/curvePoint/list", page);
     }
     @Test
-    public void deleteBidWithErrorsTest() throws Exception {
+    public void deleteCurvePointWithErrorsTest() throws Exception {
+
         Model model = new ConcurrentModel();
-        doNothing().when(curvePointService).deleteCurvePoint(1);
+        doThrow(new Exception()).when(curvePointService).deleteCurvePoint(1);
+
         //act
         String page = curveController.deleteCurvePoint(1, model);
         //assert
         verify(curvePointService, times(1)).deleteCurvePoint(1);
-        assertEquals("redirect:/curvePoint/list", page);
+        assertEquals("curvePoint/list", page);
     }
+
 
 }

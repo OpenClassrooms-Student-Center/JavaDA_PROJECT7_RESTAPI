@@ -84,6 +84,17 @@ public class RuleControllerTest {
         assertEquals("ruleName/add", page);
         verify(ruleNameService, times(1)).validateNewRuleName(ruleName);
     }
+    @Test
+    public void validateRuleNameWithBindingErrorsOnRuleNameTest(){
+        RuleName ruleName = new RuleName("", "", "", "", "", "");
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+        String page = ruleController.validateRuleName(ruleName, result, model);
+        //
+        assertEquals("ruleName/add", page);
+    }
 
     @Test
     public void displayUpdateFormTest() throws Exception {
@@ -146,7 +157,7 @@ public class RuleControllerTest {
         String page = ruleController.updateRuleName(1, updatedRuleName, result, model);
 
         //
-        assertEquals("ruleName/update", page);
+        assertEquals("redirect:/ruleName/update/1", page);
 
     }
     @Test
@@ -160,7 +171,7 @@ public class RuleControllerTest {
         String page = ruleController.updateRuleName(1, updatedRuleName, result, model);
 
         //
-        assertEquals("ruleName/list", page);
+        assertEquals("redirect:/ruleName/update/1", page);
 
     }
     @Test
@@ -174,14 +185,16 @@ public class RuleControllerTest {
         assertEquals("redirect:/ruleName/list", page);
     }
     @Test
-    public void deleteBidWithErrorsTest() throws Exception {
+    public void deleteRuleWithErrorsTest() throws Exception {
+
         Model model = new ConcurrentModel();
-        doNothing().when(ruleNameService).deleteRuleName(1);
+        doThrow(new Exception()).when(ruleNameService).deleteRuleName(1);
+
         //act
         String page = ruleController.deleteRuleName(1, model);
         //assert
         verify(ruleNameService, times(1)).deleteRuleName(1);
-        assertEquals("redirect:/ruleName/list", page);
+        assertEquals("ruleName/list", page);
     }
 
 }

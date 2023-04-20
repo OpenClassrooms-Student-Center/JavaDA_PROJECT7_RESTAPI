@@ -50,8 +50,8 @@ public class LoginController {
         log.info("Model And View mav has name set to 'user/list'");
         return mav;
     }
-//cette requete se trouve??? et affiche la vue 403 chargé de l'objet erreur spécifique
-    @GetMapping("/403")
+//cette requete affiche la vue 403 chargé de l'objet erreur spécifique
+    /*@GetMapping("/403")
     public ModelAndView error() {
         log.info("GET error");
         ModelAndView mav = new ModelAndView();
@@ -60,5 +60,5 @@ public class LoginController {
         mav.setViewName("403");
         log.info("Model And View mav has name set to '403'");
         return mav;
-    }
+    }*/
 }

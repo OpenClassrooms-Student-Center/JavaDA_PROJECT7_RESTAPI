@@ -13,7 +13,6 @@ public class HomeController {
 	static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
 
 	@RequestMapping("/")
-	//seulement USER?
 	@RolesAllowed("USER")
 	public String home(Model model)
 	{

@@ -83,6 +83,17 @@ public class TradeControllerTest {
         assertEquals("trade/add", page);
         verify(tradeService, times(1)).validateNewTrade(trade);
     }
+    @Test
+    public void validateTradeWithErrorsOnBindingTest(){
+        Trade trade = new Trade("", "", 11.5);
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+        String page = tradeController.validateTrade(trade, result, model);
+        //
+        assertEquals("trade/add", page);
+    }
 
     @Test
     public void displayUpdateFormTest() throws Exception {
@@ -143,7 +154,7 @@ public class TradeControllerTest {
 
         String page = tradeController.updateTrade(1, updatedTrade, result, model);
         //
-        assertEquals("trade/update", page);
+        assertEquals("redirect:/trade/update/1", page);
 
     }
     @Test
@@ -156,7 +167,7 @@ public class TradeControllerTest {
         //act
         String page = tradeController.updateTrade(1, updatedTrade, result, model);
         //
-        assertEquals("trade/update", page);
+        assertEquals("redirect:/trade/update/1", page);
 
     }
     @Test
@@ -170,14 +181,15 @@ public class TradeControllerTest {
         assertEquals("redirect:/trade/list", page);
     }
     @Test
-    public void deleteBidWithErrorsTest() throws Exception {
+    public void deleteTradeWithErrorsTest() throws Exception {
         Model model = new ConcurrentModel();
-        doNothing().when(tradeService).deleteTrade(1);
+        doThrow(new Exception()).when(tradeService).deleteTrade(1);
+
         //act
         String page = tradeController.deleteTrade(1, model);
         //assert
         verify(tradeService, times(1)).deleteTrade(1);
-        assertEquals("redirect:/trade/list", page);
+        assertEquals("trade/list", page);
     }
 
 }

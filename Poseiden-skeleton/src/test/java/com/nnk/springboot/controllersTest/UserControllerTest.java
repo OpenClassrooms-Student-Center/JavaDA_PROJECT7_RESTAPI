@@ -72,7 +72,7 @@ public class UserControllerTest {
     }
     @Test
     public void validateUserTest(){
-        User user = new User("firstName", "fullName", "password", "ROLE_ADMIN");
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
         BindingResult result = mock(BindingResult.class);
         Model model = new ConcurrentModel();
         //act
@@ -81,9 +81,23 @@ public class UserControllerTest {
         assertEquals("redirect:/user/list", page);
 
     }
+
+    @Test
+    public void validateUserWithErrorsOnBindingTest() throws Exception {
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+
+        String page = userController.validateUser(user, result, model);
+
+        assertEquals("user/add", page);
+        //verify(userService, times(0)).registerNewUser(user.getUsername(), user.getPassword(),user.getFullname(), user.getRole());
+    }
     @Test
     public void validateUserWithErrorsTest() throws Exception {
-        User user = new User("firstName", "fullName", "password", "ROLE_ADMIN");
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
 
         BindingResult result = new BeanPropertyBindingResult(user, "user");
         Model model = new ConcurrentModel();
@@ -108,12 +122,60 @@ public class UserControllerTest {
 
     }
     @Test
-    public void displayUserTest(){
+    public void updateUserTest() throws Exception {
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
+        User updatedUser = new User("firstNameUp", "passwordUp", "fullnameUp","ROLE_USER" );
+        BindingResult result = new BeanPropertyBindingResult(user, "user");
+        Model model = new ConcurrentModel();
+
+        when(userService.updateUser(1, updatedUser)).thenReturn(user);
+
+        String page = userController.validateUser(user, result, model);
+
+        assertEquals("redirect:/user/list", page);
 
     }
     @Test
-    public void deleteUserTest(){
+    public void updateUserWithErrorTest() throws Exception {
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
 
+        BindingResult result = new BeanPropertyBindingResult(user, "user");
+        Model model = new ConcurrentModel();
+
+        when(userService.updateUser(1, user)).thenThrow(new Exception());
+
+        String page = userController.updateUser(1, user, result, model);
+        assertEquals("redirect:/user/update/1", page);
+
+    }
+    @Test
+    public void updateUserWithErrorOnBindindTest() throws Exception {
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+        String page = userController.updateUser(1, user, result, model);
+        assertEquals("redirect:/user/update/1", page);
+
+    }
+    @Test
+    public void deleteUserTest() throws Exception {
+        Model model = new ConcurrentModel();
+        doNothing().when(userService).deleteUser(1);
+
+        userController.deleteUser(1, model);
+        verify(userService, times(1)).deleteUser(1);
+
+    }
+    @Test
+    public void deleteUserWithErrorsTest() throws Exception {
+        Model model = new ConcurrentModel();
+
+        doThrow(new Exception()).when(userService).deleteUser(1);
+
+
+        assertEquals("user/list", userController.deleteUser(1, model));
     }
 
     @Test

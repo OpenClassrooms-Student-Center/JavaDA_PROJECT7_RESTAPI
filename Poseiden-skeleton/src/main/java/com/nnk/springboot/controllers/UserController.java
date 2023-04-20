@@ -101,7 +101,7 @@ public class UserController {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
 
-            userService.validateNewUser(user);
+            userService.updateUser(id, user);
             //model.addAttribute("users", userRepository.findAll());
             log.info ("user with id "+ user.getId() + " is saved" );
         }catch(Exception e){

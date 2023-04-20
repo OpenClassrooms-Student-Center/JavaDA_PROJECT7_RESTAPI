@@ -88,6 +88,17 @@ public class BidListControllerTest {
         assertEquals("bidList/add", page);
         verify(bidListService, times(1)).validateNewBidList(bidList);
     }
+    @Test
+    public void validateBidListWithErrorsOnBindingTest() throws Exception {
+        BidList bidList = new BidList("", "", 25.5);
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+        String page = bidListController.validateBidList(bidList, result, model);
+        //
+        assertEquals("bidList/add", page);
+    }
 
     @Test
     public void displayUpdateFormTest() throws Exception {
@@ -148,7 +159,7 @@ public class BidListControllerTest {
 
         String page = bidListController.updateBid(1, bidList, result, model);
         //
-        assertEquals("bidList/update", page);
+        assertEquals("redirect:/bidList/update/1", page);
 
     }
     @Test
@@ -161,7 +172,7 @@ public class BidListControllerTest {
         //act
         String page = bidListController.updateBid(1, updatedBidList, result, model);
         //
-        assertEquals("bidList/list", page);
+        assertEquals("redirect:/bidList/update/1", page);
 
     }
     @Test
@@ -177,12 +188,13 @@ public class BidListControllerTest {
     @Test
     public void deleteBidWithErrorsTest() throws Exception {
         Model model = new ConcurrentModel();
-        doNothing().when(bidListService).deleteBidList(1);
+        doThrow(new Exception()).when(bidListService).deleteBidList(1);
+
         //act
         String page = bidListController.deleteBid(1, model);
         //assert
         verify(bidListService, times(1)).deleteBidList(1);
-        assertEquals("redirect:/bidList/list", page);
+        assertEquals("bidList/list", page);
     }
 
 }

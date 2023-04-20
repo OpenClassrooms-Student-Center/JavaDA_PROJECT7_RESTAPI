@@ -99,6 +99,25 @@ public class UserServiceTest {
 
     }
     @Test
+    public void updateUserServiceTest() throws Exception {
+
+        User user = new User("firstName", "password", "fullname", "ROLE_ADMIN");
+        user.setId(1);
+        User updatedUser = new User("firstNameUp", "passwordUp", "fullnameUp","ROLE_USER" );
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        userService.updateUser(1, updatedUser);
+        assertEquals("firstNameUp", user.getUsername());
+        assertEquals("passwordUp", user.getPassword());
+        assertEquals("fullnameUp", user.getFullname());
+        assertEquals("ROLE_USER", user.getRole());
+        assertEquals(1, user.getId());
+
+
+    }
+
+
+    @Test
     public void deleteUserTest() throws Exception {
         //ARRANGE
         User user = new User("jtest", "PasswordTest", "johntest", "ROLE_ADMIN");
@@ -114,7 +133,7 @@ public class UserServiceTest {
     public void userNameOfCurrentUserTest() throws Exception {
 
         SecurityContextHolder.getContext().setAuthentication(auth);
-
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
         when(auth.getName()).thenReturn("jtest");
 
         //ACT

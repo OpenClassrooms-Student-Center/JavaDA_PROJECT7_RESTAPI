@@ -95,6 +95,17 @@ public class RatingControllerTest {
         assertEquals("rating/add", page);
         //verify(ratingService, times(0)).validateNewRating(rating);
     }
+    @Test
+    public void validateRatingWithErrorsOnBindingTest(){
+        Rating rating = new Rating("", "", "fitch", 1);
+
+        BindingResult result = mock(BindingResult.class);
+        Model model = new ConcurrentModel();
+        when(result.hasErrors()).thenReturn(true);
+        String page = ratingController.validateRating(rating, result, model);
+        //
+        assertEquals("rating/add", page);
+    }
 
     @Test
     public void displayUpdateFormTest() throws Exception {
@@ -155,7 +166,7 @@ public class RatingControllerTest {
 
         String page = ratingController.updateRating(1, updatedRating, result, model);
         //
-        assertEquals("rating/update", page);
+        assertEquals("redirect:/rating/update/1", page);
 
     }
     @Test
@@ -168,7 +179,7 @@ public class RatingControllerTest {
         //act
         String page = ratingController.updateRating(1, updatedRating, result, model);
         //
-        assertEquals("rating/list", page);
+        assertEquals("redirect:/rating/update/1", page);
 
     }
     @Test
@@ -182,14 +193,16 @@ public class RatingControllerTest {
         assertEquals("redirect:/rating/list", page);
     }
     @Test
-    public void deleteBidWithErrorsTest() throws Exception {
+    public void deleteCurvePointWithErrorsTest() throws Exception {
+
         Model model = new ConcurrentModel();
-        doNothing().when(ratingService).deleteRating(1);
+        doThrow(new Exception()).when(ratingService).deleteRating(1);
+
         //act
         String page = ratingController.deleteRating(1, model);
         //assert
         verify(ratingService, times(1)).deleteRating(1);
-        assertEquals("redirect:/rating/list", page);
+        assertEquals("rating/list", page);
     }
 
 }
