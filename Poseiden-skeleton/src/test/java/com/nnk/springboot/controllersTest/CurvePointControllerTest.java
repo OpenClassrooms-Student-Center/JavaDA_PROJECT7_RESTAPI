@@ -1,17 +1,13 @@
 package com.nnk.springboot.controllersTest;
 
 import com.nnk.springboot.controllers.CurveController;
-import com.nnk.springboot.controllers.CurveController;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurvePointService;
-import com.nnk.springboot.services.CurvePointService;
 import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

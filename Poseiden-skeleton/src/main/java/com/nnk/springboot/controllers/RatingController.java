@@ -1,6 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidList;
+
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
 import jakarta.validation.Valid;

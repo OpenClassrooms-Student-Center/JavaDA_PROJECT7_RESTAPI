@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +16,11 @@ public class UserService {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
 
     private UserRepository userRepository;
-    private PasswordEncoder passWordEncoder;
+
 
     public UserService(UserRepository userRepository){
         this.userRepository=userRepository;
-        //this.passWordEncoder=passWordEncoder;
+
     }
     public List<User> findAllUsers(){
         return userRepository.findAll();

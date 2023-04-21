@@ -1,5 +1,5 @@
 package com.nnk.springboot.controllersTest;
-import com.nnk.springboot.configuration.SpringSecurityConfig;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

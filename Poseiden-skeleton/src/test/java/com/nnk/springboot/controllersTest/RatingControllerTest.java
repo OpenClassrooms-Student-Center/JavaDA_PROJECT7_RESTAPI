@@ -1,26 +1,20 @@
 package com.nnk.springboot.controllersTest;
 
-import com.nnk.springboot.controllers.CurveController;
-import com.nnk.springboot.controllers.RatingController;
+
 import com.nnk.springboot.controllers.RatingController;
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.services.CurvePointService;
-import com.nnk.springboot.services.RatingService;
 import com.nnk.springboot.services.RatingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 
 import java.util.ArrayList;
 import java.util.List;

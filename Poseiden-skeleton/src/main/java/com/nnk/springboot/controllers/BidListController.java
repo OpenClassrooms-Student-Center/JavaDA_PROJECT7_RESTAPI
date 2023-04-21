@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
+
 import com.nnk.springboot.services.BidListService;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
@@ -16,8 +16,6 @@ public class BidListController {
     static final Logger log = LogManager.getLogger("com.nnk.springboot.MyAppLogger");
     //@Autowired
     private BidListService bidListService;
-    //@Autowired
-    //BidListRepository bidListRepository;
     public BidListController(BidListService bidListService){
         this.bidListService = bidListService;
         //this.bidListRepository=bidListRepository;

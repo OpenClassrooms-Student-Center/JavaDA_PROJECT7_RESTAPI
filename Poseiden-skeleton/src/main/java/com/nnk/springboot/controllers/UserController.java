@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
 
 import jakarta.validation.Valid;
@@ -11,12 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-
-
 //@Validated VALIDATED COMBINED WITH VALID CREATES 500 ERROR INSTEAD OF DISPLAYING ERROR ON HTML
 @Controller
 public class UserController {

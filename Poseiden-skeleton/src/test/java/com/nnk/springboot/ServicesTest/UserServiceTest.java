@@ -4,40 +4,27 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.*;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.junit.Assert;
 //import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 //import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-
-import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 
 @SpringBootTest
@@ -47,8 +34,6 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
 public class UserServiceTest {
     @Mock
     private UserRepository userRepository;
-   // @Mock
-   // private PasswordEncoder passwordEncoder;
     @Mock
     private Authentication auth;
 

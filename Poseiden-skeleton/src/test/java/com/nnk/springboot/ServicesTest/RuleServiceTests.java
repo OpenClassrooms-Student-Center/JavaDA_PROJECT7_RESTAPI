@@ -1,22 +1,19 @@
 package com.nnk.springboot.ServicesTest;
 
-import com.nnk.springboot.domain.BidList;
+
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
-import com.nnk.springboot.services.BidListService;
+
 import com.nnk.springboot.services.RuleNameService;
-import org.junit.Assert;
+
 //import org.junit.Test; CET IMPORT FAIT ECHOUER LES TESTS!!!!
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,30 +54,7 @@ public class RuleServiceTests {
 
 
 	}
-	/*@Test
-	public void ruleTest() {
-		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
-		// Save
-		rule = ruleNameRepository.save(rule);
-		Assert.assertNotNull(rule.getRulename_id());
-		Assert.assertTrue(rule.getName().equals("Rule Name"));
-
-		// Update
-		rule.setName("Rule Name Update");
-		rule = ruleNameRepository.save(rule);
-		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
-
-		// Find
-		List<RuleName> listResult = ruleNameRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
-
-		// Delete
-		Integer id = rule.getRulename_id();
-		ruleNameRepository.delete(rule);
-		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		Assert.assertFalse(ruleList.isPresent());
-	}*/
 	@Test
 	public void findByIdTest() throws Exception {
 		when(ruleNameRepository.findById(anyInt())).thenReturn(Optional.of(ruleName));
