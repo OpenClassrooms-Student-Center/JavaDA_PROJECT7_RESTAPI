@@ -1,7 +1,6 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
 
 import jakarta.validation.Valid;
@@ -11,10 +10,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 
 //@Validated VALIDATED COMBINED WITH VALID CREATES 500 ERROR INSTEAD OF DISPLAYING ERROR ON HTML
@@ -30,7 +28,6 @@ public class UserController {
         this.userService=userService;
 
     }
-    //la requete /user/list > renvoie une page "user/list" avec de la data (liste)
     @RequestMapping("/user/list")
     public String homeDisplayUserList(Model model) {
         log.info("REQUEST /user/list");
@@ -38,15 +35,12 @@ public class UserController {
         log.debug("attribute list of users added");
         return "user/list";
     }
-    //la requete GET /user/add > renvoie une page vide : "user/add"
     @GetMapping("/user/add")
     public String displayAddUserForm(User user) {
         log.debug("in addUser Display method");
         return "user/add";
     }
-    //la requete POST se trouve sur la page "user/add".
-    //il ajoute un user et redirige vers la
-    //méthode /user/list qui renvoie user/list nourrie du nouveau modèle
+
     @PostMapping("/user/validate")
     public String validateUser(@Valid User user, BindingResult result, Model model) {
 
@@ -69,8 +63,7 @@ public class UserController {
         }
     return "redirect:/user/list";
     }
-    //cette request GET se trouve sur la page user/list, elle demande l'affichage d'un formulaire de mise à jour relative
-    //à un user determiné. ce formulaire est donc nourri d'un model.il retourne ce formulaire
+
     @GetMapping("/user/update/{id}")
     public String displayUpdateUserForm(@PathVariable("id") Integer userId, Model model) {
         try{
@@ -86,8 +79,7 @@ public class UserController {
         }
 
     }
-    //cette request POST se trouve sur la page user/update. c'st une validation de formulaire
-    //elle retourne la méthode/user/list qui renvoie la page user/list
+
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
@@ -110,8 +102,7 @@ public class UserController {
         }
     return "redirect:/user/list";
     }
-    //c'est bizarrement une méthode get, qui se trouve dans la liste des users et renvoie la liste
-    //des users avec un user en moins (donc en passant par une requete mapping)
+
 
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {

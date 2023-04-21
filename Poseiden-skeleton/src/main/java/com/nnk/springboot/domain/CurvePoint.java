@@ -1,10 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
@@ -26,20 +24,22 @@ public class CurvePoint {
     @Column (name = "curve_point_id")
     @NonNull
     @NotNull(message = "curve_point_id is mandatory")
-    @Positive(message = "curve_point_id must be positive or zero")
+    @PositiveOrZero(message = "curve_point_id must be positive or zero")
     private Integer curve_point_id;
     @Column(name = "as_of_date")
     private Timestamp as_of_date;
     @Column(name="term")
     @NonNull
     @NotNull(message = "term is mandatory")
-    @PositiveOrZero(message = "term must be positive or null")
+    @PositiveOrZero(message = "term must be positive or zero")
+    @Digits(integer = 9, fraction = 2, message = "no more than 9 digits before decimal point, no more than 2 digits after decimal point")
     private Double term;
 
     @Column(name = "value")
     @NonNull
     @NotNull(message = "value is mandatory")
-    @Positive(message = "value be positive or null")
+    @PositiveOrZero(message = "value be positive or zero")
+    @Digits(integer = 9, fraction = 2, message = "no more than 9 digits before decimal point, no more than 2 digits after decimal point")
     private  Double value;
 
     @Column(name = "creation_date")

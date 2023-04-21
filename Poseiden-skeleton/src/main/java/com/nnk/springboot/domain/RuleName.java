@@ -2,7 +2,6 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 
@@ -49,14 +48,6 @@ public class RuleName {
 
     @Column(name="rulename")
     Integer rulename;
-
-    /*public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart){
-        this.name = name;
-        this.description=description;
-        this.json=json;
-        this.template=template;
-        this.sql
-    }*/
 
 
     // TODO: Map columns in data table RULENAME with corresponding java fields
