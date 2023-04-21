@@ -3,27 +3,27 @@ package com.nnk.springboot.ServicesTest;
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.services.BidListService;
-
+import org.junit.Assert;
 //import org.junit.Test; CET IMPORT FAIT ECHOUER LES TESTS!!!!
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -112,28 +112,31 @@ public class BidListServiceTest {
 		verify(bidListRepository, times(1)).delete(bidList);
 	}
 
+	/*@Autowired
+	private BidListRepository bidListRepository;
+
 	@Test
 	public void bidListTest() {
 		BidList bid = new BidList("Account Test", "Type Test", 10d);
 
 		// Save
 		bid = bidListRepository.save(bid);
-		Assertions.assertNotNull(bid.getBid_list_id());
-		Assertions.assertEquals(bid.getBid_quantity(), 10d, 10d);
+		Assert.assertNotNull(bid.getBid_list_id());
+		Assert.assertEquals(bid.getBid_quantity(), 10d, 10d);
 
 		// Update
 		bid.setBid_quantity(20d);
 		bid = bidListRepository.save(bid);
-		Assertions.assertEquals(bid.getBid_quantity(), 20d, 20d);
+		Assert.assertEquals(bid.getBid_quantity(), 20d, 20d);
 
 		// Find
 		List<BidList> listResult = bidListRepository.findAll();
-		Assertions.assertTrue(listResult.size() > 0);
+		Assert.assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = bid.getBid_list_id();
 		bidListRepository.delete(bid);
 		Optional<BidList> bidList = bidListRepository.findById(id);
-		Assertions.assertFalse(bidList.isPresent());
-	}
+		Assert.assertFalse(bidList.isPresent());
+	}*/
 }

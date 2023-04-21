@@ -2,8 +2,9 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 
 
@@ -39,7 +40,7 @@ public class Rating {
     @Column(name="order_number")
     @NonNull
     @NotNull (message = "order_number is mandatory")
-    @PositiveOrZero(message = "order_number be positive or zero")
+    @Positive(message = "order_number be strictly positive")
     Integer order_number;
 
 

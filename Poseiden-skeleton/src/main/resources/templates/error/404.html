@@ -4,26 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>404</title>
-    <style>
-    .btn-margin-top {
-        margin-top: 30px;
-    }
-    </style>
 </head>
 <body>
 <div>
     Logged in user: <span sec:authentication="name"></span> Role(s): <span sec:authentication="principal.authorities"></span>
     <h3>No such resource, sorry</h3>
 </div>
-
-<div class="mt-3">
-    <a href="/">Home</a>
-</div>
-
 <div class="mt-3">
     <form th:action="@{/app-logout}" method="POST">
-        <input type="submit" value="Logout" class="btn-margin-top"/>
+        <input type="submit" value="Logout"/>
     </form>
+</div>
+<div class="mt-3">
+    <a href="/">Home</a>
 </div>
 
 </body>

@@ -1,15 +1,16 @@
 package com.nnk.springboot.ServicesTest;
 
-
+import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.services.TradeService;
-
+import org.junit.Assert;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -103,5 +104,28 @@ public class TradeServiceTests {
 		verify(tradeRepository, times(1)).delete(trade);
 	}
 
+	/*@Test
+	public void tradeTest() {
+		Trade trade = new Trade("Trade Account", "Type");
 
+		// Save
+		trade = tradeRepository.save(trade);
+		Assert.assertNotNull(trade.getTrade_id());
+		Assert.assertTrue(trade.getAccount().equals("Trade Account"));
+
+		// Update
+		trade.setAccount("Trade Account Update");
+		trade = tradeRepository.save(trade);
+		Assert.assertTrue(trade.getAccount().equals("Trade Account Update"));
+
+		// Find
+		List<Trade> listResult = tradeRepository.findAll();
+		Assert.assertTrue(listResult.size() > 0);
+
+		// Delete
+		Integer id = trade.getTrade_id();
+		tradeRepository.delete(trade);
+		Optional<Trade> tradeList = tradeRepository.findById(id);
+		Assert.assertFalse(tradeList.isPresent());
+	}*/
 }

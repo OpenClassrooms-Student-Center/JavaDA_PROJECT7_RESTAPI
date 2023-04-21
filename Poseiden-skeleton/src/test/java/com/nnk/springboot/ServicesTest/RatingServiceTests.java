@@ -1,19 +1,22 @@
 package com.nnk.springboot.ServicesTest;
 
-
+import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
-
+import com.nnk.springboot.services.BidListService;
 import com.nnk.springboot.services.RatingService;
-
+import org.junit.Assert;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,4 +117,28 @@ public class RatingServiceTests {
 		verify(ratingRepository, times(1)).delete(rating);
 	}
 
+	/*@Test
+	public void ratingTest() {
+		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+
+		// Save
+		rating = ratingRepository.save(rating);
+		Assert.assertNotNull(rating.getRating_id());
+		Assert.assertTrue(rating.getOrder_number() == 10);
+
+		// Update
+		rating.setOrder_number(20);
+		rating = ratingRepository.save(rating);
+		Assert.assertTrue(rating.getOrder_number() == 20);
+
+		// Find
+		List<Rating> listResult = ratingRepository.findAll();
+		Assert.assertTrue(listResult.size() > 0);
+
+		// Delete
+		Integer id = rating.getRating_id();
+		ratingRepository.delete(rating);
+		Optional<Rating> ratingList = ratingRepository.findById(id);
+		Assert.assertFalse(ratingList.isPresent());
+	}*/
 }

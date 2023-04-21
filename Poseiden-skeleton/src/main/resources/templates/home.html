@@ -4,29 +4,19 @@
 <head>
     <title> Spring Boot </title>
     <link rel="stylesheet" href="/css/styles.css"/>
-    <style>
-    .btn-margin-top {
-        margin-top: 30px;
-    }
-</style>
 </head>
 <body>
 <h3> HOME PAGE </h3>
 <p>
-
-    <a href="/login">Login</a> <span sec:authorize="hasRole('ROLE_ADMIN')">or create one <a href="/user/list" >User management</a></span>
+<!--<span sec:authorize="hasRole('ROLE_ADMIN')">-----</span>-->
+    <a href="/login">Login</a> or create one <a href="/user/list" >User management</a>
 </p>
-<div class="col-6 ">
+<div class="col-6">
     <a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
     <a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
     <a href="/rating/list">Ratings List</a>&nbsp;|&nbsp;
     <a href="/trade/list">Trade List</a>&nbsp;|&nbsp;
     <a href="/ruleName/list">Rule List</a>
-</div>
-<div class="pt-3">
-    <form th:action="@{/app-logout}" method="POST">
-        <input type="submit" value="Logout" class="btn-margin-top"/>
-    </form>
 </div>
 </body>
 </html>
