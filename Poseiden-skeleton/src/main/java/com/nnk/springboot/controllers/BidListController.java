@@ -75,7 +75,7 @@ public class BidListController {
         }
     }
 //UPDATE BIDLIST
-    @PostMapping("/bidList/update/{id}")
+    @PostMapping("/bidList/update/{id}")// PUT MAPPING?
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList updatedBidListEntity,
                              BindingResult result, Model model) {
         log.info("POST /bidList/update/{id} with id " + id);
