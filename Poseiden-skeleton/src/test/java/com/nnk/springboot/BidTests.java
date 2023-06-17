@@ -21,8 +21,8 @@ public class BidTests {
 
 	@Test
 	public void bidListTest() {
-		BidList bid = new BidList("Account Test", "Type Test", 10d);
-
+		// BidList bid = new BidList("Account Test", "Type Test", 10d);
+		BidList bid = new BidList();
 		// Save
 		bid = bidListRepository.save(bid);
 		Assert.assertNotNull(bid.getBidlistId());
