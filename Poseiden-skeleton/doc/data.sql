@@ -1,6 +1,6 @@
 
 CREATE TABLE BidList (
-  BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
+  BidListId INT UNSIGNED NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
   type VARCHAR(30) NOT NULL,
   bidQuantity DOUBLE,
@@ -27,33 +27,33 @@ CREATE TABLE BidList (
 );
 
 CREATE TABLE Trade (
-  TradeId tinyint(4) NOT NULL AUTO_INCREMENT,
+  Trade_Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
   type VARCHAR(30) NOT NULL,
-  buyQuantity DOUBLE,
-  sellQuantity DOUBLE,
-  buyPrice DOUBLE ,
-  sellPrice DOUBLE,
-  tradeDate TIMESTAMP,
+  buy_Quantity DOUBLE,
+  sell_Quantity DOUBLE,
+  buy_Price DOUBLE ,
+  sell_Price DOUBLE,
+  trade_Date TIMESTAMP,
   security VARCHAR(125),
   status VARCHAR(10),
   trader VARCHAR(125),
   benchmark VARCHAR(125),
   book VARCHAR(125),
-  creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
-  revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
-  dealName VARCHAR(125),
-  dealType VARCHAR(125),
-  sourceListId VARCHAR(125),
+  creation_Name VARCHAR(125),
+  creation_Date TIMESTAMP ,
+  revision_Name VARCHAR(125),
+  revision_Date TIMESTAMP ,
+  deal_Name VARCHAR(125),
+  deal_Type VARCHAR(125),
+  source_List_Id VARCHAR(125),
   side VARCHAR(125),
 
-  PRIMARY KEY (TradeId)
+  PRIMARY KEY (Trade_Id)
 );
 
 CREATE TABLE CurvePoint (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   CurveId tinyint,
   asOfDate TIMESTAMP,
   term DOUBLE ,
@@ -64,7 +64,7 @@ CREATE TABLE CurvePoint (
 );
 
 CREATE TABLE Rating (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   moodysRating VARCHAR(125),
   sandPRating VARCHAR(125),
   fitchRating VARCHAR(125),
@@ -74,7 +74,7 @@ CREATE TABLE Rating (
 );
 
 CREATE TABLE RuleName (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name VARCHAR(125),
   description VARCHAR(125),
   json VARCHAR(125),
@@ -86,7 +86,7 @@ CREATE TABLE RuleName (
 );
 
 CREATE TABLE Users (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   username VARCHAR(125),
   password VARCHAR(125),
   fullname VARCHAR(125),
