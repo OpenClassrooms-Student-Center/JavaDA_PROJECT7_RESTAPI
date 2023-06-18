@@ -33,11 +33,11 @@ public class CurvePoint {
     @Column(name = &quot;creationDate&quot;)
     private Timestamp creationDate;
 
-<span class="nc" id="L36">    public CurvePoint() {</span>
-<span class="nc" id="L37">    }</span>
+<span class="fc" id="L36">    public CurvePoint() {</span>
+<span class="fc" id="L37">    }</span>
 
-    public CurvePoint(Integer id, Integer curveId, Timestamp asOfDate, Double term, Double value,
-<span class="nc" id="L40">            Timestamp creationDate) {</span>
+<span class="nc" id="L39">    public CurvePoint(Integer id, Integer curveId, Timestamp asOfDate, Double term, Double value,</span>
+            Timestamp creationDate) {
 <span class="nc" id="L41">        this.id = id;</span>
 <span class="nc" id="L42">        this.curveId = curveId;</span>
 <span class="nc" id="L43">        this.asOfDate = asOfDate;</span>

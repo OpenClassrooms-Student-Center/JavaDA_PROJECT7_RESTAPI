@@ -9,44 +9,44 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-<span class="nc" id="L12">public class SecurityConfig {</span>
+<span class="fc" id="L12">public class SecurityConfig {</span>
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-<span class="nc" id="L16">        http</span>
-<span class="nc" id="L17">                .authorizeHttpRequests(authorize -&gt; authorize</span>
-<span class="nc" id="L18">                        .requestMatchers(&quot;/user&quot;)</span>
-<span class="nc" id="L19">                        .hasAuthority(&quot;USER&quot;)</span>
-<span class="nc" id="L20">                        .requestMatchers(&quot;/admin&quot;)</span>
-<span class="nc" id="L21">                        .hasAuthority(&quot;ADMIN&quot;)</span>
-<span class="nc" id="L22">                        .requestMatchers(&quot;css/bootstrap.min.css&quot;)</span>
-<span class="nc" id="L23">                        .permitAll()</span>
-<span class="nc" id="L24">                        .requestMatchers(&quot;/user/list&quot;)</span>
-<span class="nc" id="L25">                        .permitAll()</span>
-<span class="nc" id="L26">                        .requestMatchers(&quot;/trade/list&quot;)</span>
-<span class="nc" id="L27">                        .permitAll()</span>
-<span class="nc" id="L28">                        .requestMatchers(&quot;/app/login&quot;)</span>
-<span class="nc" id="L29">                        .permitAll()</span>
-<span class="nc" id="L30">                        .requestMatchers(&quot;/home&quot;)</span>
-<span class="nc" id="L31">                        .permitAll()</span>
-<span class="nc" id="L32">                        .requestMatchers(&quot;/user/**&quot;)</span>
-<span class="nc" id="L33">                        .permitAll()</span>
-<span class="nc" id="L34">                        .requestMatchers(&quot;/trade/**&quot;)</span>
-<span class="nc" id="L35">                        .permitAll()</span>
+<span class="fc" id="L16">        http</span>
+<span class="fc" id="L17">                .authorizeHttpRequests(authorize -&gt; authorize</span>
+<span class="fc" id="L18">                        .requestMatchers(&quot;/user&quot;)</span>
+<span class="fc" id="L19">                        .hasAuthority(&quot;USER&quot;)</span>
+<span class="fc" id="L20">                        .requestMatchers(&quot;/admin&quot;)</span>
+<span class="fc" id="L21">                        .hasAuthority(&quot;ADMIN&quot;)</span>
+<span class="fc" id="L22">                        .requestMatchers(&quot;css/bootstrap.min.css&quot;)</span>
+<span class="fc" id="L23">                        .permitAll()</span>
+<span class="fc" id="L24">                        .requestMatchers(&quot;/user/list&quot;)</span>
+<span class="fc" id="L25">                        .permitAll()</span>
+<span class="fc" id="L26">                        .requestMatchers(&quot;/trade/list&quot;)</span>
+<span class="fc" id="L27">                        .permitAll()</span>
+<span class="fc" id="L28">                        .requestMatchers(&quot;/app/login&quot;)</span>
+<span class="fc" id="L29">                        .permitAll()</span>
+<span class="fc" id="L30">                        .requestMatchers(&quot;/home&quot;)</span>
+<span class="fc" id="L31">                        .permitAll()</span>
+<span class="fc" id="L32">                        .requestMatchers(&quot;/user/**&quot;)</span>
+<span class="fc" id="L33">                        .permitAll()</span>
+<span class="fc" id="L34">                        .requestMatchers(&quot;/trade/**&quot;)</span>
+<span class="fc" id="L35">                        .permitAll()</span>
 
-<span class="nc" id="L37">                        .anyRequest()</span>
-<span class="nc" id="L38">                        .authenticated())</span>
-<span class="nc" id="L39">                .formLogin()</span>
-<span class="nc" id="L40">                .loginPage(&quot;/&quot;)</span>
-<span class="nc" id="L41">                .permitAll()</span>
-<span class="nc" id="L42">                .and()</span>
-<span class="nc" id="L43">                .logout()</span>
-<span class="nc" id="L44">                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;))</span>
-<span class="nc" id="L45">                .logoutSuccessUrl(&quot;/login&quot;)</span>
-<span class="nc" id="L46">                .deleteCookies(&quot;JSESSIONID&quot;)</span>
-<span class="nc" id="L47">                .invalidateHttpSession(true);</span>
+<span class="fc" id="L37">                        .anyRequest()</span>
+<span class="fc" id="L38">                        .authenticated())</span>
+<span class="fc" id="L39">                .formLogin()</span>
+<span class="fc" id="L40">                .loginPage(&quot;/&quot;)</span>
+<span class="fc" id="L41">                .permitAll()</span>
+<span class="fc" id="L42">                .and()</span>
+<span class="fc" id="L43">                .logout()</span>
+<span class="fc" id="L44">                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;))</span>
+<span class="fc" id="L45">                .logoutSuccessUrl(&quot;/login&quot;)</span>
+<span class="fc" id="L46">                .deleteCookies(&quot;JSESSIONID&quot;)</span>
+<span class="fc" id="L47">                .invalidateHttpSession(true);</span>
 
-<span class="nc" id="L49">        return http.build();</span>
+<span class="fc" id="L49">        return http.build();</span>
     }
 
 }
