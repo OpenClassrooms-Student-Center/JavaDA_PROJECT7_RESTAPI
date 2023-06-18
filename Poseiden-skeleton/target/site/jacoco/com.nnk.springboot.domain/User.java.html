@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = &quot;users&quot;)
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = &quot;id&quot;)
+    private Integer id;
+
+    @Column(name = &quot;username&quot;)
+    @NotBlank(message = &quot;Username is mandatory&quot;)
+    private String username;
+
+    @Column(name = &quot;password&quot;)
+    @NotBlank(message = &quot;Password is mandatory&quot;)
+    private String password;
+
+    @Column(name = &quot;fullname&quot;)
+    @NotBlank(message = &quot;FullName is mandatory&quot;)
+    private String fullname;
+
+    @Column(name = &quot;role&quot;)
+    @NotBlank(message = &quot;Role is mandatory&quot;)
+    private String role;
+
+<span class="nc" id="L35">    public User() {</span>
+<span class="nc" id="L36">    }</span>
+
+<span class="nc" id="L38">    public User(Integer id, String username, String password, String fullname, String role) {</span>
+<span class="nc" id="L39">        this.id = id;</span>
+<span class="nc" id="L40">        this.username = username;</span>
+<span class="nc" id="L41">        this.password = password;</span>
+<span class="nc" id="L42">        this.fullname = fullname;</span>
+<span class="nc" id="L43">        this.role = role;</span>
+<span class="nc" id="L44">    }</span>
+
+    public Integer getId() {
+<span class="nc" id="L47">        return id;</span>
+    }
+
+    public void setId(Integer id) {
+<span class="nc" id="L51">        this.id = id;</span>
+<span class="nc" id="L52">    }</span>
+
+    public String getUsername() {
+<span class="nc" id="L55">        return username;</span>
+    }
+
+    public void setUsername(String username) {
+<span class="nc" id="L59">        this.username = username;</span>
+<span class="nc" id="L60">    }</span>
+
+    public String getPassword() {
+<span class="nc" id="L63">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="nc" id="L67">        this.password = password;</span>
+<span class="nc" id="L68">    }</span>
+
+    public String getFullname() {
+<span class="nc" id="L71">        return fullname;</span>
+    }
+
+    public void setFullname(String fullname) {
+<span class="nc" id="L75">        this.fullname = fullname;</span>
+<span class="nc" id="L76">    }</span>
+
+    public String getRole() {
+<span class="nc" id="L79">        return role;</span>
+    }
+
+    public void setRole(String role) {
+<span class="nc" id="L83">        this.role = role;</span>
+<span class="nc" id="L84">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleName.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">RuleName.java</span></div><h1>RuleName.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = &quot;rulename&quot;)
+public class RuleName {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = &quot;id&quot;)
+    private Integer id;
+
+    @Column(name = &quot;name&quot;)
+    private String name;
+
+    @Column(name = &quot;description&quot;)
+    private String description;
+
+    @Column(name = &quot;json&quot;)
+    private String json;
+
+    @Column(name = &quot;template&quot;)
+    private String template;
+
+    @Column(name = &quot;sqlStr&quot;)
+    private String sqlStr;
+
+    @Column(name = &quot;sqlPart&quot;)
+    private String sqlPart;
+
+<span class="nc" id="L36">    public RuleName() {</span>
+<span class="nc" id="L37">    }</span>
+
+    public RuleName(Integer id, String name, String description, String json, String template, String sqlStr,
+<span class="nc" id="L40">            String sqlPart) {</span>
+<span class="nc" id="L41">        this.id = id;</span>
+<span class="nc" id="L42">        this.name = name;</span>
+<span class="nc" id="L43">        this.description = description;</span>
+<span class="nc" id="L44">        this.json = json;</span>
+<span class="nc" id="L45">        this.template = template;</span>
+<span class="nc" id="L46">        this.sqlStr = sqlStr;</span>
+<span class="nc" id="L47">        this.sqlPart = sqlPart;</span>
+<span class="nc" id="L48">    }</span>
+
+    public Integer getId() {
+<span class="nc" id="L51">        return this.id;</span>
+    }
+
+    public void setId(Integer id) {
+<span class="nc" id="L55">        this.id = id;</span>
+<span class="nc" id="L56">    }</span>
+
+    public String getName() {
+<span class="nc" id="L59">        return this.name;</span>
+    }
+
+    public void setName(String name) {
+<span class="nc" id="L63">        this.name = name;</span>
+<span class="nc" id="L64">    }</span>
+
+    public String getDescription() {
+<span class="nc" id="L67">        return this.description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="nc" id="L71">        this.description = description;</span>
+<span class="nc" id="L72">    }</span>
+
+    public String getJson() {
+<span class="nc" id="L75">        return this.json;</span>
+    }
+
+    public void setJson(String json) {
+<span class="nc" id="L79">        this.json = json;</span>
+<span class="nc" id="L80">    }</span>
+
+    public String getTemplate() {
+<span class="nc" id="L83">        return this.template;</span>
+    }
+
+    public void setTemplate(String template) {
+<span class="nc" id="L87">        this.template = template;</span>
+<span class="nc" id="L88">    }</span>
+
+    public String getSqlStr() {
+<span class="nc" id="L91">        return this.sqlStr;</span>
+    }
+
+    public void setSqlStr(String sqlStr) {
+<span class="nc" id="L95">        this.sqlStr = sqlStr;</span>
+<span class="nc" id="L96">    }</span>
+
+    public String getSqlPart() {
+<span class="nc" id="L99">        return this.sqlPart;</span>
+    }
+
+    public void setSqlPart(String sqlPart) {
+<span class="nc" id="L103">        this.sqlPart = sqlPart;</span>
+<span class="nc" id="L104">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
