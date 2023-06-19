@@ -4,7 +4,7 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.service.FormatDate;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import java.text.ParseException;
@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 <span class="fc" id="L22">public class TradeController {</span>
 
+    private static final String REDIRECTTRADELIST = &quot;redirect:/trade/list&quot;;
+    private static final String TRADES = &quot;trades&quot;;
+
     @Autowired
     private TradeRepository tradeRepository;
 
@@ -29,73 +32,77 @@ import org.springframework.web.bind.annotation.RequestParam;
 
     @RequestMapping(&quot;/trade/list&quot;)
     public String home(Model model) {
-<span class="nc" id="L32">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
-<span class="nc" id="L33">        return &quot;trade/list&quot;;</span>
+<span class="fc" id="L35">        model.addAttribute(TRADES, tradeRepository.findAll());</span>
+<span class="fc" id="L36">        return &quot;trade/list&quot;;</span>
     }
 
     @GetMapping(&quot;/trade/add&quot;)
     public String addUser(Trade bid) {
-<span class="nc" id="L38">        return &quot;trade/add&quot;;</span>
+<span class="nc" id="L41">        return &quot;trade/add&quot;;</span>
     }
 
     @PostMapping(&quot;/trade/validate&quot;)
     public String validate(@Valid Trade trade, BindingResult result, Model model,
-            HttpServletRequest request, @RequestParam String tradeDateString, @RequestParam String creationDateString,
+            HttpServletResponse response, @RequestParam String tradeDateString, @RequestParam String creationDateString,
             @RequestParam String revisionDateString) throws ParseException {
 
-<span class="nc" id="L46">        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L49">        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);</span>
 
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (!result.hasErrors()) {</span>
-<span class="nc" id="L49">            tradeRepository.save(trade);</span>
-<span class="nc" id="L50">            model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
-<span class="nc" id="L51">            return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L52">            tradeRepository.save(trade);</span>
+<span class="fc" id="L53">            model.addAttribute(TRADES, tradeRepository.findAll());</span>
+<span class="fc" id="L54">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L55">            return REDIRECTTRADELIST;</span>
         }
-<span class="nc" id="L53">        return &quot;trade/add&quot;;</span>
+<span class="fc" id="L57">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L58">        return &quot;trade/add&quot;;</span>
     }
 
     @GetMapping(&quot;/trade/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="nc" id="L58">        Trade trade = tradeRepository.findById(id)</span>
-<span class="nc" id="L59">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="nc" id="L60">        model.addAttribute(&quot;trade&quot;, trade);</span>
-<span class="nc" id="L61">        return &quot;trade/update&quot;;</span>
+<span class="fc" id="L63">        Trade trade = tradeRepository.findById(id)</span>
+<span class="pc" id="L64">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L65">        model.addAttribute(&quot;trade&quot;, trade);</span>
+<span class="fc" id="L66">        return &quot;trade/update&quot;;</span>
     }
 
     @PostMapping(&quot;/trade/update/{id}&quot;)
     public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
-            BindingResult result, Model model, @RequestParam String tradeDateString,
+            BindingResult result, Model model, HttpServletResponse response, @RequestParam String tradeDateString,
             @RequestParam String creationDateString,
             @RequestParam String revisionDateString) throws ParseException {
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L70">            return &quot;trade/update&quot;;</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L75">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L76">            return &quot;trade/update&quot;;</span>
         }
 
-<span class="nc" id="L73">        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L79">        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);</span>
 
-<span class="nc" id="L75">        trade.setTradeId(id);</span>
-<span class="nc" id="L76">        tradeRepository.save(trade);</span>
-<span class="nc" id="L77">        model.addAttribute(&quot;users&quot;, tradeRepository.findAll());</span>
-<span class="nc" id="L78">        return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L81">        trade.setTradeId(id);</span>
+<span class="fc" id="L82">        tradeRepository.save(trade);</span>
+<span class="fc" id="L83">        model.addAttribute(&quot;users&quot;, tradeRepository.findAll());</span>
+<span class="fc" id="L84">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L85">        return REDIRECTTRADELIST;</span>
     }
 
     @GetMapping(&quot;/trade/delete/{id}&quot;)
     public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="nc" id="L83">        Trade trade = tradeRepository.findById(id)</span>
-<span class="nc" id="L84">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="nc" id="L85">        tradeRepository.delete(trade);</span>
-<span class="nc" id="L86">        model.addAttribute(&quot;trades&quot;, tradeRepository.findAll());</span>
-<span class="nc" id="L87">        return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L90">        Trade trade = tradeRepository.findById(id)</span>
+<span class="pc" id="L91">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L92">        tradeRepository.delete(trade);</span>
+<span class="fc" id="L93">        model.addAttribute(TRADES, tradeRepository.findAll());</span>
+<span class="fc" id="L94">        return REDIRECTTRADELIST;</span>
     }
 
     private void setDateToFormat(@Valid Trade trade, String tradeDateString, String creationDateString,
             String revisionDateString) throws ParseException {
 
-<span class="nc" id="L93">        formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);</span>
-<span class="nc" id="L94">        trade.setTradeDate(formatDateFormat.getTimestampFromatDate());</span>
-<span class="nc" id="L95">        formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
-<span class="nc" id="L96">        trade.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
-<span class="nc" id="L97">        formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
-<span class="nc" id="L98">        trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
-<span class="nc" id="L99">    }</span>
+<span class="fc" id="L100">        formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);</span>
+<span class="fc" id="L101">        trade.setTradeDate(formatDateFormat.getTimestampFromatDate());</span>
+<span class="fc" id="L102">        formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
+<span class="fc" id="L103">        trade.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
+<span class="fc" id="L104">        formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
+<span class="fc" id="L105">        trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
+<span class="fc" id="L106">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

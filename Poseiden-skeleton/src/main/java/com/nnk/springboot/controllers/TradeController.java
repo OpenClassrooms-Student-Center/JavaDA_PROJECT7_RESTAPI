@@ -4,7 +4,7 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.service.FormatDate;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import java.text.ParseException;
@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TradeController {
 
+    private static final String REDIRECTTRADELIST = "redirect:/trade/list";
+    private static final String TRADES = "trades";
+
     @Autowired
     private TradeRepository tradeRepository;
 
@@ -29,7 +32,7 @@ public class TradeController {
 
     @RequestMapping("/trade/list")
     public String home(Model model) {
-        model.addAttribute("trades", tradeRepository.findAll());
+        model.addAttribute(TRADES, tradeRepository.findAll());
         return "trade/list";
     }
 
@@ -40,16 +43,18 @@ public class TradeController {
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model,
-            HttpServletRequest request, @RequestParam String tradeDateString, @RequestParam String creationDateString,
+            HttpServletResponse response, @RequestParam String tradeDateString, @RequestParam String creationDateString,
             @RequestParam String revisionDateString) throws ParseException {
 
         setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);
 
         if (!result.hasErrors()) {
             tradeRepository.save(trade);
-            model.addAttribute("trades", tradeRepository.findAll());
-            return "redirect:/trade/list";
+            model.addAttribute(TRADES, tradeRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+            return REDIRECTTRADELIST;
         }
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
         return "trade/add";
     }
 
@@ -63,10 +68,11 @@ public class TradeController {
 
     @PostMapping("/trade/update/{id}")
     public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
-            BindingResult result, Model model, @RequestParam String tradeDateString,
+            BindingResult result, Model model, HttpServletResponse response, @RequestParam String tradeDateString,
             @RequestParam String creationDateString,
             @RequestParam String revisionDateString) throws ParseException {
         if (result.hasErrors()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
             return "trade/update";
         }
 
@@ -75,7 +81,8 @@ public class TradeController {
         trade.setTradeId(id);
         tradeRepository.save(trade);
         model.addAttribute("users", tradeRepository.findAll());
-        return "redirect:/trade/list";
+        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        return REDIRECTTRADELIST;
     }
 
     @GetMapping("/trade/delete/{id}")
@@ -83,8 +90,8 @@ public class TradeController {
         Trade trade = tradeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         tradeRepository.delete(trade);
-        model.addAttribute("trades", tradeRepository.findAll());
-        return "redirect:/trade/list";
+        model.addAttribute(TRADES, tradeRepository.findAll());
+        return REDIRECTTRADELIST;
     }
 
     private void setDateToFormat(@Valid Trade trade, String tradeDateString, String creationDateString,
