@@ -1,9 +1,12 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.repositories.RatingRepository;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,11 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class RatingController {
-    // TODO: Inject Rating service
+
+    private static final String REDIRECTRATINGLIST = "redirect:/rating/list";
+    private static final String RATINGS = "ratings";
+
+    @Autowired
+    private RatingRepository ratingRepository;
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
-        // TODO: find all Rating, add to model
+        model.addAttribute(RATINGS, ratingRepository.findAll());
         return "rating/list";
     }
 
@@ -28,28 +36,48 @@ public class RatingController {
     }
 
     @PostMapping("/rating/validate")
-    public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
+    public String validate(@Valid Rating rating, BindingResult result, Model model, HttpServletResponse response) {
+
+        if (!result.hasErrors()) {
+            ratingRepository.save(rating);
+            model.addAttribute(RATINGS, ratingRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+            return REDIRECTRATINGLIST;
+        }
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
+
         return "rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("rating", rating);
         return "rating/update";
     }
 
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
-            BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and
-        // return Rating list
-        return "redirect:/rating/list";
+            BindingResult result, Model model, HttpServletResponse response) {
+        if (result.hasErrors()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
+            return "rating/update";
+        }
+
+        rating.setId(id);
+        ratingRepository.save(rating);
+        model.addAttribute("users", ratingRepository.findAll());
+        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        return REDIRECTRATINGLIST;
     }
 
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        return "redirect:/rating/list";
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        ratingRepository.delete(rating);
+        model.addAttribute(RATINGS, ratingRepository.findAll());
+        return REDIRECTRATINGLIST;
     }
 }

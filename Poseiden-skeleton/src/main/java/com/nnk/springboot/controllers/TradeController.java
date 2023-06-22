@@ -97,11 +97,18 @@ public class TradeController {
     private void setDateToFormat(@Valid Trade trade, String tradeDateString, String creationDateString,
             String revisionDateString) throws ParseException {
 
-        formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);
-        trade.setTradeDate(formatDateFormat.getTimestampFromatDate());
-        formatDateFormat.setFromatDateStringToTimestamp(creationDateString);
-        trade.setCreationDate(formatDateFormat.getTimestampFromatDate());
-        formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);
-        trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());
+        if (!tradeDateString.equals("")) {
+            formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);
+            trade.setTradeDate(formatDateFormat.getTimestampFromatDate());
+        }
+        if (!creationDateString.equals("")) {
+            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);
+            trade.setCreationDate(formatDateFormat.getTimestampFromatDate());
+        }
+        if (!revisionDateString.equals("")) {
+            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);
+            trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());
+        }
+
     }
 }

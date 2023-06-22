@@ -33,7 +33,10 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/trade/**")
                         .permitAll()
-
+                        .requestMatchers("/rating/**")
+                        .permitAll()
+                        .requestMatchers("/ruleName/**")
+                        .permitAll()
                         .anyRequest()
                         .authenticated())
                 .formLogin()

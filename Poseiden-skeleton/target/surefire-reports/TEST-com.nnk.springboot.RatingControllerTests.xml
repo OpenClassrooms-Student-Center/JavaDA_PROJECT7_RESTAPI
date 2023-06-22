@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.nnk.springboot.TradeControllerTests" time="1.317" tests="7" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.nnk.springboot.RatingControllerTests" time="9.613" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -56,11 +56,11 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testDeleteTrade" classname="com.nnk.springboot.TradeControllerTests" time="0.013"/>
-  <testcase name="testValidateWithHasError" classname="com.nnk.springboot.TradeControllerTests" time="0.095"/>
-  <testcase name="testUpdateTrade" classname="com.nnk.springboot.TradeControllerTests" time="0.037"/>
-  <testcase name="testHome" classname="com.nnk.springboot.TradeControllerTests" time="0"/>
-  <testcase name="testValidate" classname="com.nnk.springboot.TradeControllerTests" time="0.012"/>
-  <testcase name="testShowUpdateForm" classname="com.nnk.springboot.TradeControllerTests" time="0.071"/>
-  <testcase name="testUpdateTradeWithHasError" classname="com.nnk.springboot.TradeControllerTests" time="0.084"/>
+  <testcase name="testValidateWithHasError" classname="com.nnk.springboot.RatingControllerTests" time="0.622"/>
+  <testcase name="testHome" classname="com.nnk.springboot.RatingControllerTests" time="0.053"/>
+  <testcase name="testValidate" classname="com.nnk.springboot.RatingControllerTests" time="0.044"/>
+  <testcase name="testUpdateRating" classname="com.nnk.springboot.RatingControllerTests" time="0.021"/>
+  <testcase name="testShowUpdateForm" classname="com.nnk.springboot.RatingControllerTests" time="0.039"/>
+  <testcase name="testDeleteRating" classname="com.nnk.springboot.RatingControllerTests" time="0.008"/>
+  <testcase name="testUpdateRatingWithHasError" classname="com.nnk.springboot.RatingControllerTests" time="0.026"/>
 </testsuite>
