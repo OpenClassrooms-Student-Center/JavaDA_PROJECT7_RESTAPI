@@ -35,19 +35,23 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 <span class="fc" id="L35">                        .permitAll()</span>
 <span class="fc" id="L36">                        .requestMatchers(&quot;/rating/**&quot;)</span>
 <span class="fc" id="L37">                        .permitAll()</span>
-<span class="fc" id="L38">                        .anyRequest()</span>
-<span class="fc" id="L39">                        .authenticated())</span>
-<span class="fc" id="L40">                .formLogin()</span>
-<span class="fc" id="L41">                .loginPage(&quot;/&quot;)</span>
-<span class="fc" id="L42">                .permitAll()</span>
-<span class="fc" id="L43">                .and()</span>
-<span class="fc" id="L44">                .logout()</span>
-<span class="fc" id="L45">                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;))</span>
-<span class="fc" id="L46">                .logoutSuccessUrl(&quot;/login&quot;)</span>
-<span class="fc" id="L47">                .deleteCookies(&quot;JSESSIONID&quot;)</span>
-<span class="fc" id="L48">                .invalidateHttpSession(true);</span>
+<span class="fc" id="L38">                        .requestMatchers(&quot;/ruleName/**&quot;)</span>
+<span class="fc" id="L39">                        .permitAll()</span>
+<span class="fc" id="L40">                        .requestMatchers(&quot;/curvePoint/**&quot;)</span>
+<span class="fc" id="L41">                        .permitAll()</span>
+<span class="fc" id="L42">                        .anyRequest()</span>
+<span class="fc" id="L43">                        .authenticated())</span>
+<span class="fc" id="L44">                .formLogin()</span>
+<span class="fc" id="L45">                .loginPage(&quot;/&quot;)</span>
+<span class="fc" id="L46">                .permitAll()</span>
+<span class="fc" id="L47">                .and()</span>
+<span class="fc" id="L48">                .logout()</span>
+<span class="fc" id="L49">                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;))</span>
+<span class="fc" id="L50">                .logoutSuccessUrl(&quot;/login&quot;)</span>
+<span class="fc" id="L51">                .deleteCookies(&quot;JSESSIONID&quot;)</span>
+<span class="fc" id="L52">                .invalidateHttpSession(true);</span>
 
-<span class="fc" id="L50">        return http.build();</span>
+<span class="fc" id="L54">        return http.build();</span>
     }
 
 }

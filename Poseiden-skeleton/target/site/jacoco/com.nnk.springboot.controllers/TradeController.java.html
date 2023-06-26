@@ -97,12 +97,19 @@ import org.springframework.web.bind.annotation.RequestParam;
     private void setDateToFormat(@Valid Trade trade, String tradeDateString, String creationDateString,
             String revisionDateString) throws ParseException {
 
-<span class="fc" id="L100">        formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);</span>
-<span class="fc" id="L101">        trade.setTradeDate(formatDateFormat.getTimestampFromatDate());</span>
-<span class="fc" id="L102">        formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
-<span class="fc" id="L103">        trade.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
-<span class="fc" id="L104">        formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
-<span class="fc" id="L105">        trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
-<span class="fc" id="L106">    }</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (!tradeDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L101">            formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);</span>
+<span class="fc" id="L102">            trade.setTradeDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L105">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
+<span class="fc" id="L106">            trade.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (!revisionDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L109">            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
+<span class="fc" id="L110">            trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+
+<span class="fc" id="L113">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

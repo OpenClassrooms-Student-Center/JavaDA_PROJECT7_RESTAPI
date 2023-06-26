@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "rulename")
@@ -16,6 +17,7 @@ public class RuleName {
     private Integer id;
 
     @Column(name = "name")
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(name = "description")
