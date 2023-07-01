@@ -17,7 +17,7 @@
 			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+			Logged in user: <b th:inline="text"  class="user">  </b>
 			<form th:action="@{/app-logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
@@ -40,7 +40,20 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all RuleName to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:each="rule : ${rules}">
+					<td style="width: 10%" th:text="${rule.Id }"></td>
+					<td th:text="${rule.name}"></td>
+					<td th:text="${rule.description}"></td>
+					<td style="width: 25%" th:text="${rule.json}"></td>
+					<td th:text="${rule.template}"></td>
+					<td th:text="${rule.sqlStr}"></td>
+					<td style="width: 10%" th:text="${rule.sqlPart }"></td>
+					<td style="width: 15%" class="text-center">
+						<a th:href="@{/ruleName/update/{id}(id=${rule.Id})}">Edit</a>&nbsp;|&nbsp;
+						<a th:href="@{/ruleName/delete/{id}(id=${rule.Id})}">Delete</a>
+					</td>
+				</tr>			
+
 			</tbody>
 		</table>
 	</div>

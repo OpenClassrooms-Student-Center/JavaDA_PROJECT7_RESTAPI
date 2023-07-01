@@ -61,7 +61,7 @@
 			<div class="form-group">
 				<label for="tradeDate" class="col-sm-2 control-label">Trade Date</label>
 				<div class="col-sm-10">
-					<input type="datetime-local" id="tradeDateString" name="tradeDateString" placeholder="trade date" class="col-4">
+					<input type="datetime-local" name="tradeDateString" id="tradeDate" placeholder="trade date" class="col-4">
 					<p class="text-danger" th:if="${#fields.hasErrors('tradeDate')}" th:errors="*{tradeDate}"></p>
 				</div>
 			</div>

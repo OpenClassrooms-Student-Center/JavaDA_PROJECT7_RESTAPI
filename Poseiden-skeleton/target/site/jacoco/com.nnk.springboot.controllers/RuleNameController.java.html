@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleNameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">RuleNameController.java</span></div><h1>RuleNameController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.RuleNameRepository;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,44 +16,70 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-<span class="fc" id="L16">public class RuleNameController {</span>
-    // TODO: Inject RuleName service
+<span class="fc" id="L19">public class RuleNameController {</span>
+
+    private static final String REDIRECTRULELIST = &quot;redirect:/ruleName/list&quot;;
+    private static final String RULES = &quot;rules&quot;;
+
+    @Autowired
+    private RuleNameRepository ruleNameRepository;
 
     @RequestMapping(&quot;/ruleName/list&quot;)
     public String home(Model model) {
-        // TODO: find all RuleName, add to model
-<span class="nc" id="L22">        return &quot;ruleName/list&quot;;</span>
+<span class="fc" id="L29">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="fc" id="L30">        return &quot;ruleName/list&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/add&quot;)
     public String addRuleForm(RuleName bid) {
-<span class="nc" id="L27">        return &quot;ruleName/add&quot;;</span>
+<span class="nc" id="L35">        return &quot;ruleName/add&quot;;</span>
     }
 
     @PostMapping(&quot;/ruleName/validate&quot;)
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
-<span class="nc" id="L33">        return &quot;ruleName/add&quot;;</span>
+    public String validate(@Valid RuleName ruleName, BindingResult result, Model model, HttpServletResponse response) {
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L42">            ruleNameRepository.save(ruleName);</span>
+<span class="fc" id="L43">            model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="fc" id="L44">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L45">            return REDIRECTRULELIST;</span>
+        }
+<span class="fc" id="L47">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L49">        return &quot;ruleName/add&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
-<span class="nc" id="L39">        return &quot;ruleName/update&quot;;</span>
+<span class="fc" id="L54">        RuleName ruleName = ruleNameRepository.findById(id)</span>
+<span class="pc" id="L55">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L56">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
+
+<span class="fc" id="L58">        return &quot;ruleName/update&quot;;</span>
     }
 
     @PostMapping(&quot;/ruleName/update/{id}&quot;)
     public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
-            BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and
-        // return RuleName list
-<span class="nc" id="L47">        return &quot;redirect:/ruleName/list&quot;;</span>
+            BindingResult result, Model model, HttpServletResponse response) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L65">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L66">            return &quot;ruleName/update&quot;;</span>
+        }
+
+<span class="fc" id="L69">        ruleName.setId(id);</span>
+<span class="fc" id="L70">        ruleNameRepository.save(ruleName);</span>
+<span class="fc" id="L71">        model.addAttribute(&quot;users&quot;, ruleNameRepository.findAll());</span>
+<span class="fc" id="L72">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L73">        return REDIRECTRULELIST;</span>
     }
 
     @GetMapping(&quot;/ruleName/delete/{id}&quot;)
     public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-<span class="nc" id="L53">        return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L78">        RuleName ruleName = ruleNameRepository.findById(id)</span>
+<span class="pc" id="L79">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L80">        ruleNameRepository.delete(ruleName);</span>
+<span class="fc" id="L81">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="fc" id="L82">        return REDIRECTRULELIST;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

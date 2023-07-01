@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "bidlist")
@@ -20,9 +21,11 @@ public class BidList {
     private Integer bidlistId;
 
     @Column(name = "account")
+    @NotBlank(message = "Account is mandatory")
     private String account;
 
     @Column(name = "type")
+    @NotBlank(message = "Type is mandatory")
     private String type;
 
     @Column(name = "bidQuantity")
