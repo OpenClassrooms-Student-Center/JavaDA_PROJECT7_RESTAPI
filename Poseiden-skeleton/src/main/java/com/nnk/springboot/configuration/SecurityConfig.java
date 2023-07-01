@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/curvePoint/**")
                         .permitAll()
-                        .requestMatchers("/curvePoint/**")
+                        .requestMatchers("/bidList/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

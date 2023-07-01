@@ -5,11 +5,11 @@ poseidon,com.nnk.springboot.controllers,CurveController,14,140,0,8,1,36,3,11,3,7
 poseidon,com.nnk.springboot.controllers,UserController,14,126,0,4,1,32,3,8,3,6
 poseidon,com.nnk.springboot.controllers,TradeController,14,155,3,7,1,39,6,9,3,7
 poseidon,com.nnk.springboot.controllers,RuleNameController,14,103,0,4,1,27,3,8,3,6
-poseidon,com.nnk.springboot.controllers,BidListController,12,3,0,0,6,1,6,1,6,1
+poseidon,com.nnk.springboot.controllers,BidListController,14,155,0,10,1,39,3,12,3,7
 poseidon,com.nnk.springboot.controllers,RatingController,14,103,0,4,1,27,3,8,3,6
-poseidon,com.nnk.springboot.configuration,SecurityConfig,0,151,0,0,0,39,0,3,0,3
+poseidon,com.nnk.springboot.configuration,SecurityConfig,0,160,0,0,0,41,0,3,0,3
 poseidon,com.nnk.springboot.service,FormatDate,30,32,0,0,13,10,6,3,6,3
-poseidon,com.nnk.springboot.domain,BidList,223,3,0,0,90,2,45,1,45,1
+poseidon,com.nnk.springboot.domain,BidList,69,157,0,0,24,68,1,45,1,45
 poseidon,com.nnk.springboot.domain,Trade,70,146,0,0,25,63,2,42,2,42
 poseidon,com.nnk.springboot.domain,User,18,38,0,0,7,17,1,11,1,11
 poseidon,com.nnk.springboot.domain,Rating,18,38,0,0,7,17,1,11,1,11

@@ -39,19 +39,21 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 <span class="fc" id="L39">                        .permitAll()</span>
 <span class="fc" id="L40">                        .requestMatchers(&quot;/curvePoint/**&quot;)</span>
 <span class="fc" id="L41">                        .permitAll()</span>
-<span class="fc" id="L42">                        .anyRequest()</span>
-<span class="fc" id="L43">                        .authenticated())</span>
-<span class="fc" id="L44">                .formLogin()</span>
-<span class="fc" id="L45">                .loginPage(&quot;/&quot;)</span>
-<span class="fc" id="L46">                .permitAll()</span>
-<span class="fc" id="L47">                .and()</span>
-<span class="fc" id="L48">                .logout()</span>
-<span class="fc" id="L49">                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;))</span>
-<span class="fc" id="L50">                .logoutSuccessUrl(&quot;/login&quot;)</span>
-<span class="fc" id="L51">                .deleteCookies(&quot;JSESSIONID&quot;)</span>
-<span class="fc" id="L52">                .invalidateHttpSession(true);</span>
+<span class="fc" id="L42">                        .requestMatchers(&quot;/bidList/**&quot;)</span>
+<span class="fc" id="L43">                        .permitAll()</span>
+<span class="fc" id="L44">                        .anyRequest()</span>
+<span class="fc" id="L45">                        .authenticated())</span>
+<span class="fc" id="L46">                .formLogin()</span>
+<span class="fc" id="L47">                .loginPage(&quot;/&quot;)</span>
+<span class="fc" id="L48">                .permitAll()</span>
+<span class="fc" id="L49">                .and()</span>
+<span class="fc" id="L50">                .logout()</span>
+<span class="fc" id="L51">                .logoutRequestMatcher(new AntPathRequestMatcher(&quot;/logout&quot;))</span>
+<span class="fc" id="L52">                .logoutSuccessUrl(&quot;/login&quot;)</span>
+<span class="fc" id="L53">                .deleteCookies(&quot;JSESSIONID&quot;)</span>
+<span class="fc" id="L54">                .invalidateHttpSession(true);</span>
 
-<span class="fc" id="L54">        return http.build();</span>
+<span class="fc" id="L56">        return http.build();</span>
     }
 
 }
