@@ -1,4 +1,20 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.UserControllerTests
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.958 s - in com.nnk.springboot.UserControllerTests
+Tests run: 7, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.812 s <<< FAILURE! - in com.nnk.springboot.UserControllerTests
+testUpdateUserWithHasError  Time elapsed: 0.006 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<302>
+	at com.nnk.springboot.UserControllerTests.testUpdateUserWithHasError(UserControllerTests.java:138)
+
+testValidateWithHasError  Time elapsed: 0.004 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<302>
+	at com.nnk.springboot.UserControllerTests.testValidateWithHasError(UserControllerTests.java:98)
+
+testHome  Time elapsed: 0.003 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<302>
+	at com.nnk.springboot.UserControllerTests.testHome(UserControllerTests.java:76)
+
+testShowUpdateForm  Time elapsed: 0.004 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<302>
+	at com.nnk.springboot.UserControllerTests.testShowUpdateForm(UserControllerTests.java:115)
+

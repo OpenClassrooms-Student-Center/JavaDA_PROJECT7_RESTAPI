@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurveController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">CurveController.java</span></div><h1>CurveController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.FormatDate;
 
@@ -22,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-<span class="fc" id="L25">public class CurveController {</span>
+<span class="fc" id="L23">public class CurveController {</span>
 
     private static final String REDIRECTCURVEPOINTLIST = &quot;redirect:/curvePoint/list&quot;;
     private static final String CURVES = &quot;curves&quot;;
@@ -35,13 +33,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
     @RequestMapping(&quot;/curvePoint/list&quot;)
     public String home(Model model) {
-<span class="fc" id="L38">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
-<span class="fc" id="L39">        return &quot;curvePoint/list&quot;;</span>
+<span class="nc" id="L36">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
+<span class="nc" id="L37">        return &quot;curvePoint/list&quot;;</span>
     }
 
     @GetMapping(&quot;/curvePoint/add&quot;)
     public String addBidForm(CurvePoint bid) {
-<span class="nc" id="L44">        return &quot;curvePoint/add&quot;;</span>
+<span class="nc" id="L42">        return &quot;curvePoint/add&quot;;</span>
     }
 
     @PostMapping(&quot;/curvePoint/validate&quot;)
@@ -49,67 +47,67 @@ import org.springframework.web.bind.annotation.RequestParam;
             HttpServletResponse response, @RequestParam String asOfDateString, @RequestParam String creationDateString)
             throws ParseException {
 
-<span class="fc" id="L52">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
+<span class="nc" id="L50">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
 
-<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L55">            curvePointRepository.save(curvePoint);</span>
-<span class="fc" id="L56">            model.addAttribute(CURVES, curvePointRepository.findAll());</span>
-<span class="fc" id="L57">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
-<span class="fc" id="L58">            return REDIRECTCURVEPOINTLIST;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="nc" id="L53">            curvePointRepository.save(curvePoint);</span>
+<span class="nc" id="L54">            model.addAttribute(CURVES, curvePointRepository.findAll());</span>
+<span class="nc" id="L55">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="nc" id="L56">            return REDIRECTCURVEPOINTLIST;</span>
         }
-<span class="fc" id="L60">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="nc" id="L58">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L62">        return &quot;curvePoint/add&quot;;</span>
+<span class="nc" id="L60">        return &quot;curvePoint/add&quot;;</span>
     }
 
     @GetMapping(&quot;/curvePoint/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L67">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
-<span class="pc" id="L68">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L69">        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</span>
+<span class="nc" id="L65">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
+<span class="nc" id="L66">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="nc" id="L67">        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</span>
 
-<span class="fc" id="L71">        return &quot;curvePoint/update&quot;;</span>
+<span class="nc" id="L69">        return &quot;curvePoint/update&quot;;</span>
     }
 
     @PostMapping(&quot;/curvePoint/update/{id}&quot;)
     public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePoint curvePoint,
             BindingResult result, Model model, HttpServletResponse response, @RequestParam String asOfDateString,
             @RequestParam String creationDateString) throws ParseException {
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L79">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
-<span class="fc" id="L80">            return &quot;curvePoint/update&quot;;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L77">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="nc" id="L78">            return &quot;curvePoint/update&quot;;</span>
         }
 
-<span class="fc" id="L83">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
+<span class="nc" id="L81">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
 
-<span class="fc" id="L85">        curvePoint.setId(id);</span>
-<span class="fc" id="L86">        curvePointRepository.save(curvePoint);</span>
-<span class="fc" id="L87">        model.addAttribute(&quot;users&quot;, curvePointRepository.findAll());</span>
-<span class="fc" id="L88">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
-<span class="fc" id="L89">        return REDIRECTCURVEPOINTLIST;</span>
+<span class="nc" id="L83">        curvePoint.setId(id);</span>
+<span class="nc" id="L84">        curvePointRepository.save(curvePoint);</span>
+<span class="nc" id="L85">        model.addAttribute(&quot;users&quot;, curvePointRepository.findAll());</span>
+<span class="nc" id="L86">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="nc" id="L87">        return REDIRECTCURVEPOINTLIST;</span>
     }
 
     @GetMapping(&quot;/curvePoint/delete/{id}&quot;)
     public String deleteBid(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L94">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
-<span class="pc" id="L95">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L96">        curvePointRepository.delete(curvePoint);</span>
-<span class="fc" id="L97">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
-<span class="fc" id="L98">        return REDIRECTCURVEPOINTLIST;</span>
+<span class="nc" id="L92">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
+<span class="nc" id="L93">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="nc" id="L94">        curvePointRepository.delete(curvePoint);</span>
+<span class="nc" id="L95">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
+<span class="nc" id="L96">        return REDIRECTCURVEPOINTLIST;</span>
     }
 
     private void setDateToFormat(@Valid CurvePoint curvePoint, String asOfDateString, String creationDateString)
             throws ParseException {
 
-<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (!asOfDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L105">            formatDateFormat.setFromatDateStringToTimestamp(asOfDateString);</span>
-<span class="fc" id="L106">            curvePoint.setAsOfDate(formatDateFormat.getTimestampFromatDate());</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (!asOfDateString.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L103">            formatDateFormat.setFromatDateStringToTimestamp(asOfDateString);</span>
+<span class="nc" id="L104">            curvePoint.setAsOfDate(formatDateFormat.getTimestampFromatDate());</span>
         }
-<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L109">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
-<span class="fc" id="L110">            curvePoint.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L107">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
+<span class="nc" id="L108">            curvePoint.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
         }
-<span class="fc" id="L112">    }</span>
+<span class="nc" id="L110">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

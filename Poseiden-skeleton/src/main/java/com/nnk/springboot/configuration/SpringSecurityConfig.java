@@ -2,14 +2,16 @@ package com.nnk.springboot.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -19,32 +21,14 @@ public class SecurityConfig {
                         .hasAuthority("USER")
                         .requestMatchers("/admin")
                         .hasAuthority("ADMIN")
-                        .requestMatchers("css/bootstrap.min.css")
+                        .requestMatchers("/css/**")
                         .permitAll()
-                        .requestMatchers("/user/list")
-                        .permitAll()
-                        .requestMatchers("/trade/list")
-                        .permitAll()
-                        .requestMatchers("/app/login")
-                        .permitAll()
-                        .requestMatchers("/home")
-                        .permitAll()
-                        .requestMatchers("/user/**")
-                        .permitAll()
-                        .requestMatchers("/trade/**")
-                        .permitAll()
-                        .requestMatchers("/rating/**")
-                        .permitAll()
-                        .requestMatchers("/ruleName/**")
-                        .permitAll()
-                        .requestMatchers("/curvePoint/**")
-                        .permitAll()
-                        .requestMatchers("/bidList/**")
-                        .permitAll()
+                        // .requestMatchers(HttpMethod.POST, "/app/login/validate")
+                        // .permitAll()
                         .anyRequest()
                         .authenticated())
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/app/login")
                 .permitAll()
                 .and()
                 .logout()
@@ -56,4 +40,8 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

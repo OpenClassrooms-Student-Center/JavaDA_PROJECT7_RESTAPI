@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
     @RequestMapping(&quot;/ruleName/list&quot;)
     public String home(Model model) {
-<span class="fc" id="L29">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
-<span class="fc" id="L30">        return &quot;ruleName/list&quot;;</span>
+<span class="nc" id="L29">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="nc" id="L30">        return &quot;ruleName/list&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/add&quot;)
@@ -38,48 +38,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
     @PostMapping(&quot;/ruleName/validate&quot;)
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model, HttpServletResponse response) {
 
-<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L42">            ruleNameRepository.save(ruleName);</span>
-<span class="fc" id="L43">            model.addAttribute(RULES, ruleNameRepository.findAll());</span>
-<span class="fc" id="L44">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
-<span class="fc" id="L45">            return REDIRECTRULELIST;</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="nc" id="L42">            ruleNameRepository.save(ruleName);</span>
+<span class="nc" id="L43">            model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="nc" id="L44">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="nc" id="L45">            return REDIRECTRULELIST;</span>
         }
-<span class="fc" id="L47">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="nc" id="L47">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L49">        return &quot;ruleName/add&quot;;</span>
+<span class="nc" id="L49">        return &quot;ruleName/add&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L54">        RuleName ruleName = ruleNameRepository.findById(id)</span>
-<span class="pc" id="L55">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L56">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
+<span class="nc" id="L54">        RuleName ruleName = ruleNameRepository.findById(id)</span>
+<span class="nc" id="L55">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="nc" id="L56">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
 
-<span class="fc" id="L58">        return &quot;ruleName/update&quot;;</span>
+<span class="nc" id="L58">        return &quot;ruleName/update&quot;;</span>
     }
 
     @PostMapping(&quot;/ruleName/update/{id}&quot;)
     public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
             BindingResult result, Model model, HttpServletResponse response) {
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L65">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
-<span class="fc" id="L66">            return &quot;ruleName/update&quot;;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L65">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="nc" id="L66">            return &quot;ruleName/update&quot;;</span>
         }
 
-<span class="fc" id="L69">        ruleName.setId(id);</span>
-<span class="fc" id="L70">        ruleNameRepository.save(ruleName);</span>
-<span class="fc" id="L71">        model.addAttribute(&quot;users&quot;, ruleNameRepository.findAll());</span>
-<span class="fc" id="L72">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
-<span class="fc" id="L73">        return REDIRECTRULELIST;</span>
+<span class="nc" id="L69">        ruleName.setId(id);</span>
+<span class="nc" id="L70">        ruleNameRepository.save(ruleName);</span>
+<span class="nc" id="L71">        model.addAttribute(&quot;users&quot;, ruleNameRepository.findAll());</span>
+<span class="nc" id="L72">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="nc" id="L73">        return REDIRECTRULELIST;</span>
     }
 
     @GetMapping(&quot;/ruleName/delete/{id}&quot;)
     public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L78">        RuleName ruleName = ruleNameRepository.findById(id)</span>
-<span class="pc" id="L79">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L80">        ruleNameRepository.delete(ruleName);</span>
-<span class="fc" id="L81">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
-<span class="fc" id="L82">        return REDIRECTRULELIST;</span>
+<span class="nc" id="L78">        RuleName ruleName = ruleNameRepository.findById(id)</span>
+<span class="nc" id="L79">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="nc" id="L80">        ruleNameRepository.delete(ruleName);</span>
+<span class="nc" id="L81">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="nc" id="L82">        return REDIRECTRULELIST;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -5,7 +5,6 @@ c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBacke
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\CurvePointRepository.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\LoginController.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\CurvePoint.java
-c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\configuration\SecurityConfig.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\BidListController.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\Trade.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\Rating.java
@@ -16,7 +15,9 @@ c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBacke
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\TradeRepository.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers\UserController.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\Application.java
+c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\configuration\SpringSecurityConfig.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\BidListRepository.java
+c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\service\UsersService.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\service\FormatDate.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\domain\BidList.java
 c:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\repositories\UserRepository.java

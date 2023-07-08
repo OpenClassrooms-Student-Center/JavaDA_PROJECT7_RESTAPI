@@ -44,7 +44,7 @@ public class User {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -52,7 +52,7 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -60,7 +60,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -68,7 +68,7 @@ public class User {
     }
 
     public String getFullname() {
-        return fullname;
+        return this.fullname;
     }
 
     public void setFullname(String fullname) {
@@ -76,10 +76,11 @@ public class User {
     }
 
     public String getRole() {
-        return role;
+        return this.role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
+
 }
