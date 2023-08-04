@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Test set: com.nnk.springboot.RatingControllerTests
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 1.722 s <<< FAILURE! - in com.nnk.springboot.RatingControllerTests
+testValidateWithHasError  Time elapsed: 0.195 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<302>
+	at com.nnk.springboot.RatingControllerTests.testValidateWithHasError(RatingControllerTests.java:76)
+
+testHome  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<302>
+	at com.nnk.springboot.RatingControllerTests.testHome(RatingControllerTests.java:53)
+
+testShowUpdateForm  Time elapsed: 0.007 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<302>
+	at com.nnk.springboot.RatingControllerTests.testShowUpdateForm(RatingControllerTests.java:90)
+
+testUpdateRatingWithHasError  Time elapsed: 0.021 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<400> but was:<302>
+	at com.nnk.springboot.RatingControllerTests.testUpdateRatingWithHasError(RatingControllerTests.java:117)
+

@@ -42,7 +42,7 @@
             "name": "Application",
             "request": "launch",
             "mainClass": "com.nnk.springboot.Application",
-            "projectName": "spring-boot-skeleton"
+            "projectName": "springboot"
         }
     ]
 }

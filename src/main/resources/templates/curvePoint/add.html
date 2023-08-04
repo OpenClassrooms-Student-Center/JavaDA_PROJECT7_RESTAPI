@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Curve Point</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="curveId" class="col-sm-2 control-label">Curve Id</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{curveId}" id="curveId" placeholder="curve id" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('curveId')}" th:errors="*{curveId}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="asOfDate" class="col-sm-2 control-label">As Of Date</label>
+				<div class="col-sm-10">
+					<input type="datetime-local" name="asOfDateString" id="asOfDate" placeholder="as of date" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('asOfDate')}" th:errors="*{asOfDate}"></p>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="term" class="col-sm-2 control-label">Term</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{term}" id="term" placeholder="term" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="value" class="col-sm-2 control-label">value</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{value}" id="value" placeholder="value" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="creationDate" class="col-sm-2 control-label">Creation Date</label>
+				<div class="col-sm-10">
+					<input type="datetime-local" name="creationDateString" id="creationDate" placeholder="creation date" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" href="/curvePoint/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add Curve Point">
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
