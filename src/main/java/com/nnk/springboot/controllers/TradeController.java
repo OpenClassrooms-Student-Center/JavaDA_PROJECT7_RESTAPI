@@ -45,7 +45,7 @@ public class TradeController {
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(TRADES, tradeRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "trade/list";
@@ -54,7 +54,7 @@ public class TradeController {
     @GetMapping("/trade/add")
     public String addUser(Trade bid, HttpServletRequest request, HttpServletResponse response) {
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "trade/add";
@@ -73,14 +73,14 @@ public class TradeController {
             model.addAttribute(TRADES, tradeRepository.findAll());
             response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return REDIRECTTRADELIST;
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "trade/add";
@@ -93,7 +93,7 @@ public class TradeController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("trade", trade);
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "trade/update";
@@ -108,7 +108,7 @@ public class TradeController {
         if (result.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return "trade/update";
@@ -121,7 +121,7 @@ public class TradeController {
         model.addAttribute("users", tradeRepository.findAll());
         response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTTRADELIST;
@@ -135,7 +135,7 @@ public class TradeController {
         tradeRepository.delete(trade);
         model.addAttribute(TRADES, tradeRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTTRADELIST;

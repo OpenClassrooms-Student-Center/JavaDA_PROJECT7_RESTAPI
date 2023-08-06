@@ -23,9 +23,10 @@ public class LoggerApi {
         System.setProperty(CONFIGFILELOG4J, FILELOG4J2XML);
     }
 
-    public String loggerInfo(HttpServletRequest request, HttpServletResponse response, String param) {
+    public String loggerInfoController(HttpServletRequest request, HttpServletResponse response, String param) {
 
-        String loginfo = "User name : " + request.getUserPrincipal().getName() + "\r\nRequest Method: <["
+        String loginfo = "User name : " + request.getUserPrincipal().getName()
+                + "\r\nRequest Method: <["
                 + request.getMethod() + "]>" + " " + request.getRequestURI()
                 + "\r\nRequest URL: " + ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
 
@@ -36,6 +37,22 @@ public class LoggerApi {
 
         } else {
             loginfo += "\r\nResponse Code : " + " " + HttpStatus.valueOf(response.getStatus());
+        }
+
+        return loginfo;
+
+    }
+
+    public String loggerStrings(String param1, String param2, String param3) {
+
+        String loginfo = "";
+
+        if (System.getProperty(CONFIGFILELOG4J).equals(FILELOG4J2XMLTEST)) {
+
+            loginfo += "Test : " + param1 + param2 + param3;
+
+        } else {
+            loginfo += param1 + param2 + param3;
         }
 
         return loginfo;

@@ -42,7 +42,7 @@ public class UserController {
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(USERS, userRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "user/list";
@@ -51,7 +51,7 @@ public class UserController {
     @GetMapping("/user/add")
     public String addUser(Users bid, HttpServletRequest request, HttpServletResponse response) {
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "user/add";
@@ -67,14 +67,14 @@ public class UserController {
             model.addAttribute(USERS, userRepository.findAll());
             response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return REDIRECTUSERLIST;
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "user/add";
@@ -89,7 +89,7 @@ public class UserController {
         user.setPassword("");
         model.addAttribute("user", user);
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "user/update";
@@ -101,7 +101,7 @@ public class UserController {
         if (result.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return "user/update";
@@ -114,7 +114,7 @@ public class UserController {
         model.addAttribute(USERS, userRepository.findAll());
         response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTUSERLIST;
@@ -128,7 +128,7 @@ public class UserController {
         userRepository.delete(user);
         model.addAttribute(USERS, userRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTUSERLIST;

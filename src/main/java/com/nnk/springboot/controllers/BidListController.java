@@ -42,7 +42,7 @@ public class BidListController {
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(BIDS, bidListRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "bidList/list";
@@ -51,7 +51,7 @@ public class BidListController {
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid, HttpServletRequest request, HttpServletResponse response) {
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "bidList/add";
@@ -69,14 +69,14 @@ public class BidListController {
             model.addAttribute(BIDS, bidListRepository.findAll());
             response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return REDIRECTBIDLIST;
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "bidList/add";
@@ -89,7 +89,7 @@ public class BidListController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("bidList", bidList);
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "bidList/update";
@@ -103,7 +103,7 @@ public class BidListController {
         if (result.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return "bidList/update";
@@ -116,7 +116,7 @@ public class BidListController {
         model.addAttribute("bidList", bidListRepository.findAll());
         response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTBIDLIST;
@@ -130,7 +130,7 @@ public class BidListController {
         bidListRepository.delete(bidList);
         model.addAttribute(BIDS, bidListRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTBIDLIST;

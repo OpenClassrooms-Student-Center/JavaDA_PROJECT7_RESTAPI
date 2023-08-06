@@ -48,7 +48,7 @@ public class CurveController {
         model.addAttribute("remoteUserString", remoteUserString);
         model.addAttribute(CURVES, curvePointRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "curvePoint/list";
@@ -57,7 +57,7 @@ public class CurveController {
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid, HttpServletRequest request, HttpServletResponse response) {
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "curvePoint/add";
@@ -76,14 +76,14 @@ public class CurveController {
             model.addAttribute(CURVES, curvePointRepository.findAll());
             response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return REDIRECTCURVEPOINTLIST;
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "curvePoint/add";
@@ -96,7 +96,7 @@ public class CurveController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("curvePoint", curvePoint);
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "curvePoint/update";
@@ -109,7 +109,7 @@ public class CurveController {
         if (result.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return "curvePoint/update";
@@ -122,7 +122,7 @@ public class CurveController {
         model.addAttribute("users", curvePointRepository.findAll());
         response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTCURVEPOINTLIST;
@@ -136,7 +136,7 @@ public class CurveController {
         curvePointRepository.delete(curvePoint);
         model.addAttribute(CURVES, curvePointRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTCURVEPOINTLIST;

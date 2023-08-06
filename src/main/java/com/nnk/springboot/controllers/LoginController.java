@@ -99,7 +99,7 @@ public class LoginController {
     @RequestMapping("/")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "home";
@@ -132,7 +132,7 @@ public class LoginController {
 
         mav.setViewName("home");
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return mav;
@@ -145,7 +145,7 @@ public class LoginController {
 
         mav.setViewName("login");
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return mav;
@@ -158,7 +158,7 @@ public class LoginController {
         mav.addObject("users", userRepository.findAll());
         mav.setViewName("user/list");
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return mav;
@@ -172,7 +172,7 @@ public class LoginController {
         mav.addObject("errorMsg", errorMessage);
         mav.setViewName("403");
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return mav;

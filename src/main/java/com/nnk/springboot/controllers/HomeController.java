@@ -26,7 +26,7 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-		String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
 		LOGGER.info(messageLoggerInfo);
 
 		return "home";
@@ -36,7 +36,7 @@ public class HomeController {
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-		String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
 		LOGGER.info(messageLoggerInfo);
 
 		return "redirect:/bidList/list";

@@ -38,7 +38,7 @@ public class RatingController {
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(RATINGS, ratingRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "rating/list";
@@ -47,7 +47,7 @@ public class RatingController {
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating, HttpServletRequest request, HttpServletResponse response) {
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "rating/add";
@@ -62,14 +62,14 @@ public class RatingController {
             model.addAttribute(RATINGS, ratingRepository.findAll());
             response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return REDIRECTRATINGLIST;
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "rating/add";
@@ -82,7 +82,7 @@ public class RatingController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("rating", rating);
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return "rating/update";
@@ -94,7 +94,7 @@ public class RatingController {
         if (result.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
-            String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
 
             return "rating/update";
@@ -105,7 +105,7 @@ public class RatingController {
         model.addAttribute("users", ratingRepository.findAll());
         response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTRATINGLIST;
@@ -119,7 +119,7 @@ public class RatingController {
         ratingRepository.delete(rating);
         model.addAttribute(RATINGS, ratingRepository.findAll());
 
-        String messageLoggerInfo = loggerApi.loggerInfo(request, response, "");
+        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTRATINGLIST;
