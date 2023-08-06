@@ -1,7 +1,6 @@
 package com.nnk.springboot.service;
 
-import java.util.Enumeration;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,7 +25,8 @@ public class LoggerApi {
 
     public String loggerInfo(HttpServletRequest request, HttpServletResponse response, String param) {
 
-        String loginfo = "\r\nRequest Method: <[" + request.getMethod() + "]>" + " " + request.getRequestURI()
+        String loginfo = "User name : " + request.getUserPrincipal().getName() + "\r\nRequest Method: <["
+                + request.getMethod() + "]>" + " " + request.getRequestURI()
                 + "\r\nRequest URL: " + ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
 
         if (System.getProperty(CONFIGFILELOG4J).equals(FILELOG4J2XMLTEST)) {
@@ -35,21 +35,7 @@ public class LoggerApi {
                     + "\r\nResponse Code: " + response.getStatus();
 
         } else {
-            Enumeration<?> entetesheaders = request.getHeaderNames();
-
-            StringBuilder bldentetesheaders = new StringBuilder();
-            bldentetesheaders.append("{");
-            while (entetesheaders.hasMoreElements()) {
-                String nomEntete = (String) entetesheaders.nextElement();
-                bldentetesheaders.append("\"" + nomEntete + "\": \"" + request.getHeader(nomEntete) + "\"");
-                if (entetesheaders.hasMoreElements()) {
-                    bldentetesheaders.append(", ");
-                }
-            }
-            bldentetesheaders.append("}");
-
-            loginfo += "\r\nContent Type: " + request.getContentType() + "\r\nResponse Code: " + response.getStatus()
-                    + "\r\nHeader Name: " + bldentetesheaders;
+            loginfo += "\r\nResponse Code : " + " " + HttpStatus.valueOf(response.getStatus());
         }
 
         return loginfo;

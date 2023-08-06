@@ -1,6 +1,5 @@
 package com.nnk.springboot.domain;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
