@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.Users;
+import com.nnk.springboot.repositories.UsersRepository;
+import com.nnk.springboot.service.LoggerApi;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+<span class="fc" id="L25">public class UserController {</span>
+
+    private static final String REDIRECTUSERLIST = &quot;redirect:/user/list&quot;;
+    private static final String USERS = &quot;users&quot;;
+
+    @Autowired
+    private UsersRepository userRepository;
+
+    @Autowired
+    private LoggerApi loggerApi;
+
+    // Récupération de notre logger.
+<span class="fc" id="L37">    private static final Logger LOGGER = LogManager.getLogger(UserController.class);</span>
+
+    @Secured(&quot;ADMIN&quot;)
+    @RequestMapping(&quot;/user/list&quot;)
+    public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+<span class="fc" id="L42">        model.addAttribute(USERS, userRepository.findAll());</span>
+
+<span class="fc" id="L44">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L45">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L47">        return &quot;user/list&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;/user/add&quot;)
+    public String addUser(Users bid, HttpServletRequest request, HttpServletResponse response) {
+
+<span class="nc" id="L54">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L55">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L57">        return &quot;user/add&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @PostMapping(&quot;/user/validate&quot;)
+    public String validate(@Valid Users user, BindingResult result, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L65">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L66">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L67">            userRepository.save(user);</span>
+<span class="fc" id="L68">            model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L69">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L71">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L72">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L74">            return REDIRECTUSERLIST;</span>
+        }
+<span class="fc" id="L76">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L78">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L79">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L81">        return &quot;user/add&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;/user/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc" id="L88">        Users users = userRepository.findById(id)</span>
+<span class="pc" id="L89">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L90">        users.setPassword(&quot;&quot;);</span>
+<span class="fc" id="L91">        model.addAttribute(&quot;users&quot;, users);</span>
+
+<span class="fc" id="L93">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L94">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L96">        return &quot;user/update&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @PostMapping(&quot;/user/update/{id}&quot;)
+    public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid Users user,
+            BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L104">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L106">            model.addAttribute(&quot;user&quot;, user);</span>
+
+<span class="fc" id="L108">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L109">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L111">            return &quot;user/update&quot;;</span>
+        }
+
+<span class="fc" id="L114">        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L115">        user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L116">        user.setId(id);</span>
+<span class="fc" id="L117">        userRepository.save(user);</span>
+<span class="fc" id="L118">        model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L119">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L121">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L122">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L124">        return REDIRECTUSERLIST;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;/user/delete/{id}&quot;)
+    public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc" id="L131">        Users user = userRepository.findById(id)</span>
+<span class="pc" id="L132">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L133">        userRepository.delete(user);</span>
+<span class="fc" id="L134">        model.addAttribute(USERS, userRepository.findAll());</span>
+
+<span class="fc" id="L136">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L137">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L139">        return REDIRECTUSERLIST;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

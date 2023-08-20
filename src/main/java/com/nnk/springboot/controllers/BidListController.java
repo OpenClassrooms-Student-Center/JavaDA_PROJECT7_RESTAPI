@@ -30,7 +30,9 @@ public class BidListController {
     private static final String BIDS = "bids";
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(BidListController.class);
-    LoggerApi loggerApi = new LoggerApi();
+
+    @Autowired
+    private LoggerApi loggerApi;
 
     @Autowired
     private BidListRepository bidListRepository;

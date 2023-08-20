@@ -1,20 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.TradeControllerTests
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 1.359 s <<< FAILURE! - in com.nnk.springboot.TradeControllerTests
-testValidateWithHasError  Time elapsed: 0.166 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<400> but was:<302>
-	at com.nnk.springboot.TradeControllerTests.testValidateWithHasError(TradeControllerTests.java:94)
-
-testHome  Time elapsed: 0 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<302>
-	at com.nnk.springboot.TradeControllerTests.testHome(TradeControllerTests.java:53)
-
-testShowUpdateForm  Time elapsed: 0.001 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<302>
-	at com.nnk.springboot.TradeControllerTests.testShowUpdateForm(TradeControllerTests.java:108)
-
-testUpdateTradeWithHasError  Time elapsed: 0.012 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<400> but was:<302>
-	at com.nnk.springboot.TradeControllerTests.testUpdateTradeWithHasError(TradeControllerTests.java:150)
-
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.308 s - in com.nnk.springboot.TradeControllerTests

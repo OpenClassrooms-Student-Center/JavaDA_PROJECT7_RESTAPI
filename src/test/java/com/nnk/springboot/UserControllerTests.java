@@ -9,6 +9,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +19,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nnk.springboot.domain.Users;
 import com.nnk.springboot.repositories.UsersRepository;
+import com.nnk.springboot.service.LoggerApi;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -42,6 +47,16 @@ public class UserControllerTests {
     @MockBean
     private BCryptPasswordEncoder encoder;
 
+    // Récupération de notre logger.
+    private static final Logger LOGGER = LogManager.getLogger(UserControllerTests.class);
+
+    @BeforeAll
+    public static void activateLoggerForTests() {
+        LoggerApi loggerApi = new LoggerApi();
+        loggerApi.setLoggerForTests();
+
+    }
+
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders
@@ -54,11 +69,13 @@ public class UserControllerTests {
                 // import static
                 // org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
                 // .defaultRequest(post("/").with(user("userNameConnected").roles("USER")))
+
                 .apply(springSecurity())
                 .build();
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testHome() throws Exception {
 
         /*
@@ -78,16 +95,18 @@ public class UserControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testValidate() throws Exception {
 
         mockMvc.perform(post("/user/validate").with(csrf())
                 .param("username", "UserName")
                 .param("password", "password")
                 .param("fullname", "Last Name User")
-                .param("role", "USER")).andExpect(status().isFound()); // respose 302
+                .param("role", "ADMIN")).andExpect(status().isFound()); // respose 302
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testValidateWithHasError() throws Exception {
 
         // One parameter missing => error or all parameters missing => error
@@ -95,11 +114,12 @@ public class UserControllerTests {
                 // .param("username", "UserName")
                 .param("password", "password")
                 .param("fullname", "Last Name User")
-                .param("role", "USER")).andExpect(status().isBadRequest()); // respose 400
+                .param("role", "ADMIN")).andExpect(status().isBadRequest()); // respose 400
 
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testShowUpdateForm() throws Exception {
 
         String idString = "1";
@@ -107,7 +127,7 @@ public class UserControllerTests {
         userApi.setId(Integer.parseInt(idString));
         userApi.setFullname("Last Name User");
         userApi.setUsername("UserName");
-        userApi.setRole("USER");
+        userApi.setRole("ADMIN");
         userApi.setPassword("password");
         Optional<Users> optionalUser = Optional.of(userApi);
 
@@ -116,6 +136,7 @@ public class UserControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testUpdateUser() throws Exception {
 
         String idString = "1";
@@ -123,22 +144,24 @@ public class UserControllerTests {
                 .param("username", "UserName")
                 .param("password", "password")
                 .param("fullname", "Last Name User")
-                .param("role", "USER")).andExpect(status().isFound()); // respose 302
+                .param("role", "ADMIN")).andExpect(status().isFound()); // respose 302
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testUpdateUserWithHasError() throws Exception {
 
         // One parameter missing => error or all parameters missing => error
         String idString = "1";
         mockMvc.perform(post("/user/update/{id}", idString).with(csrf())
-                // .param("username", "UserName")
-                .param("password", "password")
+                .param("username", "UserName")
+                // .param("password", "password")
                 .param("fullname", "Last Name User")
-                .param("role", "USER")).andExpect(status().isBadRequest()); // respose 400
+                .param("role", "ADMIN")).andExpect(status().isBadRequest()); // respose 400
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testDeleteUser() throws Exception {
 
         String idString = "1";
@@ -146,7 +169,7 @@ public class UserControllerTests {
         userApi.setId(Integer.parseInt(idString));
         userApi.setFullname("Last Name User");
         userApi.setUsername("UserName");
-        userApi.setRole("USER");
+        userApi.setRole("ADMIN");
         userApi.setPassword("password");
         Optional<Users> optionalUser = Optional.of(userApi);
 

@@ -10,18 +10,23 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.service.LoggerApi;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,6 +44,16 @@ public class TradeControllerTests {
     @MockBean
     private TradeRepository tradeRepository;
 
+    // Récupération de notre logger.
+    private static final Logger LOGGER = LogManager.getLogger(TradeControllerTests.class);
+
+    @BeforeAll
+    public static void activateLoggerForTests() {
+        LoggerApi loggerApi = new LoggerApi();
+        loggerApi.setLoggerForTests();
+
+    }
+
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders
@@ -48,6 +63,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
 
         mockMvc.perform(get("/trade/list")).andExpect(status().isOk());
@@ -55,6 +71,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidate() throws Exception {
 
         mockMvc.perform(post("/trade/validate").with(csrf())
@@ -82,6 +99,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidateWithHasError() throws Exception {
 
         // Type date tradeDate is error => has error
@@ -96,6 +114,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testShowUpdateForm() throws Exception {
 
         String idString = "1";
@@ -109,6 +128,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testUpdateTrade() throws Exception {
 
         String idString = "1";
@@ -136,6 +156,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testUpdateTradeWithHasError() throws Exception {
 
         // Type date tradeDate is error => has error
@@ -151,6 +172,7 @@ public class TradeControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testDeleteTrade() throws Exception {
 
         String idString = "1";

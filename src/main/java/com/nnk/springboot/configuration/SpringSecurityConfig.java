@@ -19,10 +19,6 @@ public class SpringSecurityConfig {
         http
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/user")
-                        .hasAuthority("USER")
-                        .requestMatchers("/admin")
-                        .hasAuthority("ADMIN")
                         .requestMatchers("/css/**").permitAll()
                         .anyRequest()
                         .authenticated())
@@ -32,8 +28,8 @@ public class SpringSecurityConfig {
                 .permitAll()
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/app-logout"))
-                .logoutSuccessUrl("/app/app-logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/app/app-logout"))
+                // .logoutSuccessUrl("/app-logout")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
 

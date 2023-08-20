@@ -117,15 +117,6 @@ public class LoginController {
         return mav;
     }
 
-    @PostMapping("login/validate")
-    public String validate(Model model, Principal principal) {
-
-        String messageLoggerInfo = "post after login PostMapping /login/validate";
-        LOGGER.info(messageLoggerInfo);
-
-        return "redirect:/home";
-    }
-
     @Secured({ "USER", "ADMIN" })
     @GetMapping("login/ok")
     public ModelAndView loginOk(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -170,7 +161,7 @@ public class LoginController {
 
         String errorMessage = "You are not authorized for the requested data.";
         mav.addObject("errorMsg", errorMessage);
-        mav.setViewName("403");
+        mav.setViewName("/error/403");
 
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);

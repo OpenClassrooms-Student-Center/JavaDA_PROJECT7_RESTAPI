@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.nnk.springboot.controllers.HomeController;
 import com.nnk.springboot.domain.Users;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -50,6 +49,7 @@ public class MyUserDetailService implements UserDetailsService {
             LOGGER.warn(messageLoggerInfo);
 
             throw new UsernameNotFoundException("User " + username + " not found");
+
         }
 
         String messageLoggerInfo = loggerApi.loggerStrings("User Name is ", username, "");

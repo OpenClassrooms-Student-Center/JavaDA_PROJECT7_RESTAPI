@@ -10,18 +10,23 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.service.LoggerApi;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,6 +44,16 @@ public class RatingControllerTests {
     @MockBean
     private RatingRepository ratingRepository;
 
+    // Récupération de notre logger.
+    private static final Logger LOGGER = LogManager.getLogger(RatingControllerTests.class);
+
+    @BeforeAll
+    public static void activateLoggerForTests() {
+        LoggerApi loggerApi = new LoggerApi();
+        loggerApi.setLoggerForTests();
+
+    }
+
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders
@@ -48,6 +63,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
 
         mockMvc.perform(get("/rating/list")).andExpect(status().isOk());
@@ -55,6 +71,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidate() throws Exception {
 
         mockMvc.perform(post("/rating/validate").with(csrf())
@@ -67,6 +84,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidateWithHasError() throws Exception {
 
         // Type orderNumber is string => has error
@@ -78,6 +96,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testShowUpdateForm() throws Exception {
 
         String idString = "1";
@@ -91,6 +110,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testUpdateRating() throws Exception {
 
         String idString = "1";
@@ -103,6 +123,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testUpdateRatingWithHasError() throws Exception {
 
         // Type orderNumber is string => has error
@@ -118,6 +139,7 @@ public class RatingControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testDeleteRating() throws Exception {
 
         String idString = "1";

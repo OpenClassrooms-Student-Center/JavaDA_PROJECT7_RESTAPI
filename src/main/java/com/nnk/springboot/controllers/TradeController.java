@@ -45,6 +45,8 @@ public class TradeController {
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(TRADES, tradeRepository.findAll());
 
+        model.addAttribute("httpServletRequest", request);
+
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 

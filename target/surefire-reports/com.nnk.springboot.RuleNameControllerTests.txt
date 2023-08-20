@@ -1,20 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.RuleNameControllerTests
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 1.113 s <<< FAILURE! - in com.nnk.springboot.RuleNameControllerTests
-testValidateWithHasError  Time elapsed: 0.041 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<400> but was:<302>
-	at com.nnk.springboot.RuleNameControllerTests.testValidateWithHasError(RuleNameControllerTests.java:83)
-
-testHome  Time elapsed: 0.002 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<302>
-	at com.nnk.springboot.RuleNameControllerTests.testHome(RuleNameControllerTests.java:53)
-
-testShowUpdateForm  Time elapsed: 0.001 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<302>
-	at com.nnk.springboot.RuleNameControllerTests.testShowUpdateForm(RuleNameControllerTests.java:97)
-
-testUpdateRuleNameWithHasError  Time elapsed: 0.029 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<400> but was:<302>
-	at com.nnk.springboot.RuleNameControllerTests.testUpdateRuleNameWithHasError(RuleNameControllerTests.java:128)
-
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.099 s - in com.nnk.springboot.RuleNameControllerTests

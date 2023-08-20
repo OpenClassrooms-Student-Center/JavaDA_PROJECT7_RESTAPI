@@ -6,10 +6,11 @@
 <body>
    <h3>Access Denied Exception</h3>
    <div>
-	    Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-	    <form th:action="@{/app-logout}" method="POST">
-	         <input type="submit" value="Logout"/>
-	    </form>
+	    Logged in user <b th:inline="text"  class="user">  </b>
+
+          		<form th:action="@{/app/app-logout}" method="POST">
+				<input type="submit" value="Logout"/>
+			</form>
    </div> 	 
     <p class="error" th:text="${errorMsg}">Error</p>
 </body>

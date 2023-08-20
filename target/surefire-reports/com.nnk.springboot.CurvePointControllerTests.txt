@@ -1,20 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.CurvePointControllerTests
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 1.63 s <<< FAILURE! - in com.nnk.springboot.CurvePointControllerTests
-testValidateWithHasError  Time elapsed: 0.025 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<400> but was:<302>
-	at com.nnk.springboot.CurvePointControllerTests.testValidateWithHasError(CurvePointControllerTests.java:94)
-
-testHome  Time elapsed: 0.002 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<302>
-	at com.nnk.springboot.CurvePointControllerTests.testHome(CurvePointControllerTests.java:53)
-
-testShowUpdateForm  Time elapsed: 0.01 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<200> but was:<302>
-	at com.nnk.springboot.CurvePointControllerTests.testShowUpdateForm(CurvePointControllerTests.java:107)
-
-testUpdateCurvePointWithHasError  Time elapsed: 0.032 s  <<< FAILURE!
-java.lang.AssertionError: Status expected:<400> but was:<302>
-	at com.nnk.springboot.CurvePointControllerTests.testUpdateCurvePointWithHasError(CurvePointControllerTests.java:136)
-
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.829 s - in com.nnk.springboot.CurvePointControllerTests

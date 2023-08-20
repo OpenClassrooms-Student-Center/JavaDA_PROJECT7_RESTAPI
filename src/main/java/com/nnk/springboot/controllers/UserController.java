@@ -4,7 +4,6 @@ import com.nnk.springboot.domain.Users;
 import com.nnk.springboot.repositories.UsersRepository;
 import com.nnk.springboot.service.LoggerApi;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -48,6 +47,7 @@ public class UserController {
         return "user/list";
     }
 
+    @Secured("ADMIN")
     @GetMapping("/user/add")
     public String addUser(Users bid, HttpServletRequest request, HttpServletResponse response) {
 
@@ -57,6 +57,7 @@ public class UserController {
         return "user/add";
     }
 
+    @Secured("ADMIN")
     @PostMapping("/user/validate")
     public String validate(@Valid Users user, BindingResult result, Model model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -80,14 +81,14 @@ public class UserController {
         return "user/add";
     }
 
-    @RolesAllowed("ADMIN")
+    @Secured("ADMIN")
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-        Users user = userRepository.findById(id)
+        Users users = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
-        model.addAttribute("user", user);
+        users.setPassword("");
+        model.addAttribute("users", users);
 
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
@@ -95,11 +96,14 @@ public class UserController {
         return "user/update";
     }
 
+    @Secured("ADMIN")
     @PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid Users user,
             BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
         if (result.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
+
+            model.addAttribute("user", user);
 
             String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
             LOGGER.info(messageLoggerInfo);
@@ -120,6 +124,7 @@ public class UserController {
         return REDIRECTUSERLIST;
     }
 
+    @Secured("ADMIN")
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {

@@ -10,18 +10,23 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.service.LoggerApi;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -39,6 +44,16 @@ public class BidListControllerTests {
     @MockBean
     private BidListRepository bidListRepository;
 
+    // Récupération de notre logger.
+    private static final Logger LOGGER = LogManager.getLogger(BidListControllerTests.class);
+
+    @BeforeAll
+    public static void activateLoggerForTests() {
+        LoggerApi loggerApi = new LoggerApi();
+        loggerApi.setLoggerForTests();
+
+    }
+
     @BeforeEach
     public void setup() {
         mockMvc = MockMvcBuilders
@@ -48,6 +63,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
 
         mockMvc.perform(get("/bidList/list")).andExpect(status().isOk());
@@ -55,6 +71,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidate() throws Exception {
 
         mockMvc.perform(post("/bidList/validate").with(csrf())
@@ -84,6 +101,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidateWithHasError() throws Exception {
 
         // Type number bidQuantity is error => has error
@@ -115,6 +133,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testValidateWithDateBlank() throws Exception {
 
         mockMvc.perform(post("/bidList/validate").with(csrf())
@@ -144,6 +163,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testShowUpdateForm() throws Exception {
 
         String idString = "1";
@@ -157,6 +177,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testUpdateBidList() throws Exception {
 
         String idString = "1";
@@ -186,6 +207,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testUpdateBidListWithHasError() throws Exception {
 
         // Type number bidQuantity is error => has error
@@ -218,6 +240,7 @@ public class BidListControllerTests {
     }
 
     @Test
+    @WithMockUser(username = "user", password = "test")
     public void testDeleteBidList() throws Exception {
 
         String idString = "1";
