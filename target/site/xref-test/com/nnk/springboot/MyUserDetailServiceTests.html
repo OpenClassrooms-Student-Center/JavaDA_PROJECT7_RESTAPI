@@ -59,44 +59,47 @@
 <a name="49" href="#49">49</a>  
 <a name="50" href="#50">50</a>      }
 <a name="51" href="#51">51</a>  
-<a name="52" href="#52">52</a>      @Test
-<a name="53" href="#53">53</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testLoadUserByUsername() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="54" href="#54">54</a>  
-<a name="55" href="#55">55</a>          String username = <span class="jxr_string">"User_Name_Test"</span>;
-<a name="56" href="#56">56</a>  
-<a name="57" href="#57">57</a>          <em class="jxr_comment">// user = not null</em>
-<a name="58" href="#58">58</a>          users = <strong class="jxr_keyword">new</strong> Users();
-<a name="59" href="#59">59</a>          users.setUsername(username);
-<a name="60" href="#60">60</a>          users.setPassword(<span class="jxr_string">"password"</span>);
-<a name="61" href="#61">61</a>          users.setRole(<span class="jxr_string">"ROLE_USER_TEST"</span>);
-<a name="62" href="#62">62</a>          users.setFullname(username);
-<a name="63" href="#63">63</a>          users.setId(1);
-<a name="64" href="#64">64</a>  
-<a name="65" href="#65">65</a>          when(userService.getUser(username)).thenReturn(users);
-<a name="66" href="#66">66</a>  
-<a name="67" href="#67">67</a>          UserDetails myUserDetails = myUserDetailService.loadUserByUsername(username);
-<a name="68" href="#68">68</a>  
-<a name="69" href="#69">69</a>          assertEquals(users.getUsername(), myUserDetails.getUsername());
-<a name="70" href="#70">70</a>  
-<a name="71" href="#71">71</a>      }
-<a name="72" href="#72">72</a>  
-<a name="73" href="#73">73</a>      <em class="jxr_comment">// @Test</em>
-<a name="74" href="#74">74</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testLoadUserByUsernameUserNull() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="52" href="#52">52</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="53" href="#53">53</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
+<a name="54" href="#54">54</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="55" href="#55">55</a>      @Test
+<a name="56" href="#56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testLoadUserByUsername() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="57" href="#57">57</a>  
+<a name="58" href="#58">58</a>          String username = <span class="jxr_string">"User_Name_Test"</span>;
+<a name="59" href="#59">59</a>  
+<a name="60" href="#60">60</a>          <em class="jxr_comment">// user = not null</em>
+<a name="61" href="#61">61</a>          users = <strong class="jxr_keyword">new</strong> Users();
+<a name="62" href="#62">62</a>          users.setUsername(username);
+<a name="63" href="#63">63</a>          users.setPassword(<span class="jxr_string">"password"</span>);
+<a name="64" href="#64">64</a>          users.setRole(<span class="jxr_string">"ROLE_USER_TEST"</span>);
+<a name="65" href="#65">65</a>          users.setFullname(username);
+<a name="66" href="#66">66</a>          users.setId(1);
+<a name="67" href="#67">67</a>  
+<a name="68" href="#68">68</a>          when(userService.getUser(username)).thenReturn(users);
+<a name="69" href="#69">69</a>  
+<a name="70" href="#70">70</a>          UserDetails myUserDetails = myUserDetailService.loadUserByUsername(username);
+<a name="71" href="#71">71</a>  
+<a name="72" href="#72">72</a>          assertEquals(users.getUsername(), myUserDetails.getUsername());
+<a name="73" href="#73">73</a>  
+<a name="74" href="#74">74</a>      }
 <a name="75" href="#75">75</a>  
-<a name="76" href="#76">76</a>          String username = <span class="jxr_string">"User_Name_Test"</span>;
-<a name="77" href="#77">77</a>  
-<a name="78" href="#78">78</a>          <em class="jxr_comment">// user = null</em>
-<a name="79" href="#79">79</a>          users = <strong class="jxr_keyword">null</strong>;
-<a name="80" href="#80">80</a>          when(userService.getUser(username)).thenReturn(users);
-<a name="81" href="#81">81</a>  
-<a name="82" href="#82">82</a>          when(usernameNotFoundException).thenThrow(NullPointerException.<strong class="jxr_keyword">class</strong>);
-<a name="83" href="#83">83</a>  
-<a name="84" href="#84">84</a>          UserDetails myUserDetails = myUserDetailService.loadUserByUsername(username);
-<a name="85" href="#85">85</a>  
-<a name="86" href="#86">86</a>          assertEquals(users.getUsername(), myUserDetails.getUsername());
-<a name="87" href="#87">87</a>  
-<a name="88" href="#88">88</a>      }
-<a name="89" href="#89">89</a>  }
+<a name="76" href="#76">76</a>      <em class="jxr_comment">// @Test</em>
+<a name="77" href="#77">77</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testLoadUserByUsernameUserNull() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="78" href="#78">78</a>  
+<a name="79" href="#79">79</a>          String username = <span class="jxr_string">"User_Name_Test"</span>;
+<a name="80" href="#80">80</a>  
+<a name="81" href="#81">81</a>          <em class="jxr_comment">// user = null</em>
+<a name="82" href="#82">82</a>          users = <strong class="jxr_keyword">null</strong>;
+<a name="83" href="#83">83</a>          when(userService.getUser(username)).thenReturn(users);
+<a name="84" href="#84">84</a>  
+<a name="85" href="#85">85</a>          when(usernameNotFoundException).thenThrow(NullPointerException.<strong class="jxr_keyword">class</strong>);
+<a name="86" href="#86">86</a>  
+<a name="87" href="#87">87</a>          UserDetails myUserDetails = myUserDetailService.loadUserByUsername(username);
+<a name="88" href="#88">88</a>  
+<a name="89" href="#89">89</a>          assertEquals(users.getUsername(), myUserDetails.getUsername());
+<a name="90" href="#90">90</a>  
+<a name="91" href="#91">91</a>      }
+<a name="92" href="#92">92</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

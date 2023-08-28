@@ -55,10 +55,17 @@ public class LoginController {
         this.loggerApi = loggerApi;
     }
 
+    /**
+     * @return ModelAndView
+     */
     public ModelAndView getMav() {
         return this.mav;
     }
 
+    
+    /** 
+     * @param mav
+     */
     public void setMav(ModelAndView mav) {
         this.mav = mav;
     }

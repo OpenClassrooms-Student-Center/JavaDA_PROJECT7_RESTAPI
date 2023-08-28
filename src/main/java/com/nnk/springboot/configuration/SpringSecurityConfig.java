@@ -14,6 +14,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity(securedEnabled = true)
 public class SpringSecurityConfig {
 
+    /**
+     * @param http Il permet de configurer les demandes des http spécifiques basée
+     *             sur la sécurité
+     * @return SecurityFilterChain les règles de sécurité en spécifiant quels
+     *         filtres doivent être appliqués dans quel ordre pour chaque chemin
+     *         d'accès ou URL spécifique
+     * @throws Exception Exception gerée
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -29,13 +37,16 @@ public class SpringSecurityConfig {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/app/app-logout"))
-                // .logoutSuccessUrl("/app-logout")
+                .logoutSuccessUrl("/app-logout")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
 
         return http.build();
     }
 
+    /**
+     * @return le mot de passe codé
+     */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
 

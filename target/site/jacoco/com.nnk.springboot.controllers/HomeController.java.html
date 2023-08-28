@@ -22,24 +22,30 @@ import jakarta.servlet.http.HttpServletResponse;
 	@Autowired
 	private LoggerApi loggerApi;
 
+	/**
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return String
+	 */
 	@Secured({ &quot;USER&quot;, &quot;ADMIN&quot; })
 	@RequestMapping(&quot;/&quot;)
 	public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="nc" id="L29">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="nc" id="L30">		LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L35">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L36">		LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L32">		return &quot;home&quot;;</span>
+<span class="nc" id="L38">		return &quot;home&quot;;</span>
 	}
 
 	@Secured(&quot;ADMIN&quot;)
 	@RequestMapping(&quot;/admin/home&quot;)
 	public String adminHome(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="fc" id="L39">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L40">		LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L45">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L46">		LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L42">		return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L48">		return &quot;redirect:/bidList/list&quot;;</span>
 	}
 
 }

@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,11 +30,20 @@ public class RuleNameController {
     private RuleNameRepository ruleNameRepository;
 
     @Autowired
+    private ValidInput validInput;
+
+    @Autowired
     private LoggerApi loggerApi;
 
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(RuleNameController.class);
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping("/ruleName/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(RULES, ruleNameRepository.findAll());
@@ -44,6 +54,12 @@ public class RuleNameController {
         return "ruleName/list";
     }
 
+    /**
+     * @param bid
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName bid, HttpServletRequest request, HttpServletResponse response) {
 
@@ -58,14 +74,23 @@ public class RuleNameController {
             HttpServletResponse response) {
 
         if (!result.hasErrors()) {
-            ruleNameRepository.save(ruleName);
-            model.addAttribute(RULES, ruleNameRepository.findAll());
-            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-            LOGGER.info(messageLoggerInfo);
+            validInput.addRule(ruleName);
 
-            return REDIRECTRULELIST;
+            if (validInput.getAddRule()) {
+                model.addAttribute(RULES, ruleNameRepository.findAll());
+                response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+                LOGGER.info(messageLoggerInfo);
+
+                return REDIRECTRULELIST;
+            } else {
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Rule not added!");
+                LOGGER.info(messageLoggerInfo);
+
+                return "ruleName/add";
+            }
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
@@ -100,15 +125,23 @@ public class RuleNameController {
             return "ruleName/update";
         }
 
-        ruleName.setId(id);
-        ruleNameRepository.save(ruleName);
-        model.addAttribute("users", ruleNameRepository.findAll());
-        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        validInput.updateRule(ruleName, id);
 
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
+        if (validInput.getUpdateRule()) {
+            model.addAttribute("users", ruleNameRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        return REDIRECTRULELIST;
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+            LOGGER.info(messageLoggerInfo);
+
+            return REDIRECTRULELIST;
+        } else {
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Rule not updated!");
+            LOGGER.info(messageLoggerInfo);
+
+            return "ruleName/update";
+        }
+
     }
 
     @GetMapping("/ruleName/delete/{id}")

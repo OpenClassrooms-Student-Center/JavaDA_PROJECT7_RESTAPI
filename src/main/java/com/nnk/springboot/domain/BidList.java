@@ -115,10 +115,16 @@ public class BidList {
         this.side = side;
     }
 
+    /**
+     * @return Integer
+     */
     public Integer getBidlistId() {
         return this.bidlistId;
     }
 
+    /**
+     * @param bidlistId
+     */
     public void setBidlistId(Integer bidlistId) {
         this.bidlistId = bidlistId;
     }

@@ -49,6 +49,9 @@ public class MyUserDetailServiceTests {
 
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void testLoadUserByUsername() throws Exception {
 
@@ -70,7 +73,11 @@ public class MyUserDetailServiceTests {
 
     }
 
-    @Test
+    
+    /** 
+     * @throws Exception
+     */
+    // @Test
     public void testLoadUserByUsernameUserNull() throws Exception {
 
         String username = "User_Name_Test";

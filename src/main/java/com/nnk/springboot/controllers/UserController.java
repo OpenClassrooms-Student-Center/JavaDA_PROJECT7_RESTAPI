@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Users;
 import com.nnk.springboot.repositories.UsersRepository;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,7 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,15 +27,24 @@ public class UserController {
     private static final String REDIRECTUSERLIST = "redirect:/user/list";
     private static final String USERS = "users";
 
-    @Autowired
-    private UsersRepository userRepository;
+    // Récupération de notre logger.
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
     @Autowired
     private LoggerApi loggerApi;
 
-    // Récupération de notre logger.
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+    @Autowired
+    private UsersRepository userRepository;
 
+    @Autowired
+    private ValidInput validInput;
+
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @Secured("ADMIN")
     @RequestMapping("/user/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -47,6 +56,12 @@ public class UserController {
         return "user/list";
     }
 
+    /**
+     * @param bid
+     * @param request
+     * @param response
+     * @return String
+     */
     @Secured("ADMIN")
     @GetMapping("/user/add")
     public String addUser(Users bid, HttpServletRequest request, HttpServletResponse response) {
@@ -62,16 +77,24 @@ public class UserController {
     public String validate(@Valid Users user, BindingResult result, Model model, HttpServletRequest request,
             HttpServletResponse response) {
         if (!result.hasErrors()) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute(USERS, userRepository.findAll());
-            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-            LOGGER.info(messageLoggerInfo);
+            validInput.addUser(user);
 
-            return REDIRECTUSERLIST;
+            if (validInput.getAddUser()) {
+                model.addAttribute(USERS, userRepository.findAll());
+                response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+                LOGGER.info(messageLoggerInfo);
+
+                return REDIRECTUSERLIST;
+
+            } else {
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "User not added!");
+                LOGGER.info(messageLoggerInfo);
+                return "user/add";
+            }
+
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
@@ -111,17 +134,23 @@ public class UserController {
             return "user/update";
         }
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setId(id);
-        userRepository.save(user);
-        model.addAttribute(USERS, userRepository.findAll());
-        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        validInput.pswValidInputs(user, id);
 
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
+        if (validInput.getPswValidInput()) {
+            model.addAttribute(USERS, userRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        return REDIRECTUSERLIST;
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+            LOGGER.info(messageLoggerInfo);
+
+            return REDIRECTUSERLIST;
+
+        } else {
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "User not updated!");
+            LOGGER.info(messageLoggerInfo);
+            return "user/update";
+        }
+
     }
 
     @Secured("ADMIN")

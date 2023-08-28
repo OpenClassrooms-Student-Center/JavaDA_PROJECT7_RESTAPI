@@ -74,6 +74,9 @@ public class UserControllerTests {
                 .build();
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testHome() throws Exception {
@@ -94,13 +97,17 @@ public class UserControllerTests {
 
     }
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testValidate() throws Exception {
 
         mockMvc.perform(post("/user/validate").with(csrf())
                 .param("username", "UserName")
-                .param("password", "password")
+                .param("password", "Password10*")
                 .param("fullname", "Last Name User")
                 .param("role", "ADMIN")).andExpect(status().isFound()); // respose 302
     }
@@ -142,7 +149,7 @@ public class UserControllerTests {
         String idString = "1";
         mockMvc.perform(post("/user/update/{id}", idString).with(csrf())
                 .param("username", "UserName")
-                .param("password", "password")
+                .param("password", "Password10*")
                 .param("fullname", "Last Name User")
                 .param("role", "ADMIN")).andExpect(status().isFound()); // respose 302
     }

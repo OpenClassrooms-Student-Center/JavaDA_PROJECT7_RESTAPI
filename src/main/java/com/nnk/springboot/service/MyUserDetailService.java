@@ -29,6 +29,11 @@ public class MyUserDetailService implements UserDetailsService {
     @Autowired
     private UsersService userService;
 
+    /**
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -52,23 +57,31 @@ public class MyUserDetailService implements UserDetailsService {
 
         }
 
-        String messageLoggerInfo = loggerApi.loggerStrings("User Name is ", username, "");
-        LOGGER.info(messageLoggerInfo);
-
+        if (LOGGER.isDebugEnabled()) {
+            String messageLoggerDebug = loggerApi.loggerDebug("User Name is : " + username);
+            LOGGER.debug(messageLoggerDebug);
+        }
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
                 user.getPassword(), getGrantedAuthorities(user));
     }
 
+    /**
+     * @param users
+     * @return List<GrantedAuthority>
+     */
     private List<GrantedAuthority> getGrantedAuthorities(Users users) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         String role = users.getRole();
         authorities.add(new SimpleGrantedAuthority(role));
 
-        String messageLoggerInfo = loggerApi
-                .loggerStrings(
-                        "The user name : " + users.getUsername() + " " + users.getFullname() + " has the authoritie ",
-                        role, "");
-        LOGGER.info(messageLoggerInfo);
+        if (LOGGER.isDebugEnabled()) {
+            String messageLoggerDebug = loggerApi
+                    .loggerDebug(
+                            "The user name : " + users.getUsername() + " " + users.getFullname()
+                                    + " has the authoritie "
+                                    + role);
+            LOGGER.debug(messageLoggerDebug);
+        }
 
         return authorities;
     }

@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.FormatDate;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,13 +25,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-<span class="fc" id="L27">public class CurveController {</span>
+<span class="fc" id="L28">public class CurveController {</span>
 
     private static final String REDIRECTCURVEPOINTLIST = &quot;redirect:/curvePoint/list&quot;;
     private static final String CURVES = &quot;curves&quot;;
 
     // Récupération de notre logger.
-<span class="fc" id="L33">    private static final Logger LOGGER = LogManager.getLogger(CurveController.class);</span>
+<span class="fc" id="L34">    private static final Logger LOGGER = LogManager.getLogger(CurveController.class);</span>
 
     @Autowired
     private LoggerApi loggerApi;
@@ -39,28 +40,34 @@ import org.springframework.web.bind.annotation.RequestParam;
     private CurvePointRepository curvePointRepository;
 
     @Autowired
-    private FormatDate formatDateFormat;
+    private ValidInput validInput;
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping(&quot;/curvePoint/list&quot;)
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="fc" id="L47">        String remoteUserString = request.getRemoteUser();</span>
-<span class="fc" id="L48">        model.addAttribute(&quot;remoteUserString&quot;, remoteUserString);</span>
-<span class="fc" id="L49">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
+<span class="fc" id="L54">        String remoteUserString = request.getRemoteUser();</span>
+<span class="fc" id="L55">        model.addAttribute(&quot;remoteUserString&quot;, remoteUserString);</span>
+<span class="fc" id="L56">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
 
-<span class="fc" id="L51">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L52">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L58">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L59">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L54">        return &quot;curvePoint/list&quot;;</span>
+<span class="fc" id="L61">        return &quot;curvePoint/list&quot;;</span>
     }
 
     @GetMapping(&quot;/curvePoint/add&quot;)
     public String addBidForm(CurvePoint bid, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="nc" id="L60">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="nc" id="L61">        LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L67">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L68">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L63">        return &quot;curvePoint/add&quot;;</span>
+<span class="nc" id="L70">        return &quot;curvePoint/add&quot;;</span>
     }
 
     @PostMapping(&quot;/curvePoint/validate&quot;)
@@ -69,91 +76,89 @@ import org.springframework.web.bind.annotation.RequestParam;
             HttpServletRequest request)
             throws ParseException {
 
-<span class="fc" id="L72">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
 
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L75">            curvePointRepository.save(curvePoint);</span>
-<span class="fc" id="L76">            model.addAttribute(CURVES, curvePointRepository.findAll());</span>
-<span class="fc" id="L77">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L81">            validInput.addCurvePoint(curvePoint, asOfDateString, creationDateString);</span>
 
-<span class="fc" id="L79">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L80">            LOGGER.info(messageLoggerInfo);</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">            if (validInput.getAddCurvePoint()) {</span>
+<span class="fc" id="L84">                model.addAttribute(CURVES, curvePointRepository.findAll());</span>
+<span class="fc" id="L85">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L82">            return REDIRECTCURVEPOINTLIST;</span>
+<span class="fc" id="L87">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L88">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L90">                return REDIRECTCURVEPOINTLIST;</span>
+            } else {
+<span class="nc" id="L92">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Curve Point not added!&quot;);</span>
+<span class="nc" id="L93">                LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L94">                return &quot;curvePoint/add&quot;;</span>
+            }
         }
-<span class="fc" id="L84">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L97">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L86">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L87">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L99">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L100">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L89">        return &quot;curvePoint/add&quot;;</span>
+<span class="fc" id="L102">        return &quot;curvePoint/add&quot;;</span>
     }
 
     @GetMapping(&quot;/curvePoint/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L95">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
-<span class="pc" id="L96">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L97">        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</span>
+<span class="fc" id="L108">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
+<span class="pc" id="L109">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L110">        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</span>
 
-<span class="fc" id="L99">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L100">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L112">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L113">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L102">        return &quot;curvePoint/update&quot;;</span>
+<span class="fc" id="L115">        return &quot;curvePoint/update&quot;;</span>
     }
 
     @PostMapping(&quot;/curvePoint/update/{id}&quot;)
     public String updateBid(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePoint curvePoint,
             BindingResult result, Model model, HttpServletResponse response, @RequestParam String asOfDateString,
             @RequestParam String creationDateString, HttpServletRequest request) throws ParseException {
-<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L110">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L123">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L112">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L113">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L125">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L126">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L115">            return &quot;curvePoint/update&quot;;</span>
+<span class="fc" id="L128">            return &quot;curvePoint/update&quot;;</span>
         }
 
-<span class="fc" id="L118">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
+<span class="fc" id="L131">        validInput.updateCurvePoint(curvePoint, id, asOfDateString, creationDateString);</span>
 
-<span class="fc" id="L120">        curvePoint.setId(id);</span>
-<span class="fc" id="L121">        curvePointRepository.save(curvePoint);</span>
-<span class="fc" id="L122">        model.addAttribute(&quot;users&quot;, curvePointRepository.findAll());</span>
-<span class="fc" id="L123">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (validInput.getUpdateCurvePoint()) {</span>
+<span class="fc" id="L134">            model.addAttribute(&quot;users&quot;, curvePointRepository.findAll());</span>
+<span class="fc" id="L135">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L125">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L126">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L137">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L138">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L128">        return REDIRECTCURVEPOINTLIST;</span>
+<span class="fc" id="L140">            return REDIRECTCURVEPOINTLIST;</span>
+        } else {
+<span class="nc" id="L142">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Curve Point not updated!&quot;);</span>
+<span class="nc" id="L143">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L144">            return &quot;curvePoint/update&quot;;</span>
+        }
+
     }
 
     @GetMapping(&quot;/curvePoint/delete/{id}&quot;)
     public String deleteBid(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L134">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
-<span class="pc" id="L135">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L136">        curvePointRepository.delete(curvePoint);</span>
-<span class="fc" id="L137">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
+<span class="fc" id="L152">        CurvePoint curvePoint = curvePointRepository.findById(id)</span>
+<span class="pc" id="L153">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L154">        curvePointRepository.delete(curvePoint);</span>
+<span class="fc" id="L155">        model.addAttribute(CURVES, curvePointRepository.findAll());</span>
 
-<span class="fc" id="L139">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L140">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L157">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L158">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L142">        return REDIRECTCURVEPOINTLIST;</span>
+<span class="fc" id="L160">        return REDIRECTCURVEPOINTLIST;</span>
     }
-
-    private void setDateToFormat(@Valid CurvePoint curvePoint, String asOfDateString, String creationDateString)
-            throws ParseException {
-
-<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (!asOfDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L149">            formatDateFormat.setFromatDateStringToTimestamp(asOfDateString);</span>
-<span class="fc" id="L150">            curvePoint.setAsOfDate(formatDateFormat.getTimestampFromatDate());</span>
-        }
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L153">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
-<span class="fc" id="L154">            curvePoint.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
-        }
-<span class="fc" id="L156">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

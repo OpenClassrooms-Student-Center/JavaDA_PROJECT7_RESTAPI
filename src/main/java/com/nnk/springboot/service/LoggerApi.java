@@ -23,6 +23,12 @@ public class LoggerApi {
         System.setProperty(CONFIGFILELOG4J, FILELOG4J2XML);
     }
 
+    /**
+     * @param request
+     * @param response
+     * @param param
+     * @return String
+     */
     public String loggerInfoController(HttpServletRequest request, HttpServletResponse response, String param) {
 
         String loginfo = "User name : " + request.getUserPrincipal().getName()
@@ -43,6 +49,12 @@ public class LoggerApi {
 
     }
 
+    /**
+     * @param param1
+     * @param param2
+     * @param param3
+     * @return String
+     */
     public String loggerStrings(String param1, String param2, String param3) {
 
         String loginfo = "";
@@ -83,7 +95,8 @@ public class LoggerApi {
             logdeb = STRINGREQUESTURL + ServletUriComponentsBuilder.fromCurrentRequest().toUriString()
                     + " @Param/Path: [" + param + "]";
         } else {
-            logdeb = STRINGREQUESTURL + ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
+            logdeb = STRINGREQUESTURL + ServletUriComponentsBuilder.fromCurrentRequest().toUriString()
+                    + " " + param;
         }
 
         return logdeb;

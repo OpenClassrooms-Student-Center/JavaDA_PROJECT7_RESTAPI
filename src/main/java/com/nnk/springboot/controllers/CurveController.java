@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.FormatDate;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,8 +40,14 @@ public class CurveController {
     private CurvePointRepository curvePointRepository;
 
     @Autowired
-    private FormatDate formatDateFormat;
+    private ValidInput validInput;
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping("/curvePoint/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
 
@@ -54,6 +61,13 @@ public class CurveController {
         return "curvePoint/list";
     }
 
+    
+    /** 
+     * @param bid
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid, HttpServletRequest request, HttpServletResponse response) {
 
@@ -69,17 +83,23 @@ public class CurveController {
             HttpServletRequest request)
             throws ParseException {
 
-        setDateToFormat(curvePoint, asOfDateString, creationDateString);
-
         if (!result.hasErrors()) {
-            curvePointRepository.save(curvePoint);
-            model.addAttribute(CURVES, curvePointRepository.findAll());
-            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-            LOGGER.info(messageLoggerInfo);
+            validInput.addCurvePoint(curvePoint, asOfDateString, creationDateString);
 
-            return REDIRECTCURVEPOINTLIST;
+            if (validInput.getAddCurvePoint()) {
+                model.addAttribute(CURVES, curvePointRepository.findAll());
+                response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+                LOGGER.info(messageLoggerInfo);
+
+                return REDIRECTCURVEPOINTLIST;
+            } else {
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Curve Point not added!");
+                LOGGER.info(messageLoggerInfo);
+                return "curvePoint/add";
+            }
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
@@ -115,17 +135,22 @@ public class CurveController {
             return "curvePoint/update";
         }
 
-        setDateToFormat(curvePoint, asOfDateString, creationDateString);
+        validInput.updateCurvePoint(curvePoint, id, asOfDateString, creationDateString);
 
-        curvePoint.setId(id);
-        curvePointRepository.save(curvePoint);
-        model.addAttribute("users", curvePointRepository.findAll());
-        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        if (validInput.getUpdateCurvePoint()) {
+            model.addAttribute("users", curvePointRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+            LOGGER.info(messageLoggerInfo);
 
-        return REDIRECTCURVEPOINTLIST;
+            return REDIRECTCURVEPOINTLIST;
+        } else {
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Curve Point not updated!");
+            LOGGER.info(messageLoggerInfo);
+            return "curvePoint/update";
+        }
+
     }
 
     @GetMapping("/curvePoint/delete/{id}")
@@ -140,19 +165,6 @@ public class CurveController {
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTCURVEPOINTLIST;
-    }
-
-    private void setDateToFormat(@Valid CurvePoint curvePoint, String asOfDateString, String creationDateString)
-            throws ParseException {
-
-        if (!asOfDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(asOfDateString);
-            curvePoint.setAsOfDate(formatDateFormat.getTimestampFromatDate());
-        }
-        if (!creationDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);
-            curvePoint.setCreationDate(formatDateFormat.getTimestampFromatDate());
-        }
     }
 
 }

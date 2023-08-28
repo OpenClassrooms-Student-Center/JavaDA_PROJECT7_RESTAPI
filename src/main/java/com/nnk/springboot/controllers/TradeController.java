@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.service.FormatDate;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,7 +34,7 @@ public class TradeController {
     private TradeRepository tradeRepository;
 
     @Autowired
-    private FormatDate formatDateFormat;
+    private ValidInput validInput;
 
     @Autowired
     private LoggerApi loggerApi;
@@ -41,6 +42,12 @@ public class TradeController {
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(TradeController.class);
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping("/trade/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(TRADES, tradeRepository.findAll());
@@ -53,6 +60,13 @@ public class TradeController {
         return "trade/list";
     }
 
+    
+    /** 
+     * @param bid
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping("/trade/add")
     public String addUser(Trade bid, HttpServletRequest request, HttpServletResponse response) {
 
@@ -68,17 +82,24 @@ public class TradeController {
             @RequestParam String revisionDateString, HttpServletRequest request,
             HttpServletResponse response) throws ParseException {
 
-        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);
-
         if (!result.hasErrors()) {
-            tradeRepository.save(trade);
-            model.addAttribute(TRADES, tradeRepository.findAll());
-            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-            LOGGER.info(messageLoggerInfo);
+            validInput.addTrade(trade, tradeDateString, creationDateString, revisionDateString);
 
-            return REDIRECTTRADELIST;
+            if (validInput.getAddTrade()) {
+                model.addAttribute(TRADES, tradeRepository.findAll());
+                response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+                LOGGER.info(messageLoggerInfo);
+
+                return REDIRECTTRADELIST;
+            } else {
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Trade not added!");
+                LOGGER.info(messageLoggerInfo);
+                return "trade/add";
+            }
+
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
@@ -116,17 +137,22 @@ public class TradeController {
             return "trade/update";
         }
 
-        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);
+        validInput.updateTrade(trade, id, tradeDateString, creationDateString, revisionDateString);
 
-        trade.setTradeId(id);
-        tradeRepository.save(trade);
-        model.addAttribute("users", tradeRepository.findAll());
-        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        if (validInput.getUpdateTrade()) {
+            model.addAttribute("users", tradeRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+            LOGGER.info(messageLoggerInfo);
 
-        return REDIRECTTRADELIST;
+            return REDIRECTTRADELIST;
+        } else {
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Trade not updated!");
+            LOGGER.info(messageLoggerInfo);
+            return "trade/update";
+        }
+
     }
 
     @GetMapping("/trade/delete/{id}")
@@ -143,21 +169,4 @@ public class TradeController {
         return REDIRECTTRADELIST;
     }
 
-    private void setDateToFormat(@Valid Trade trade, String tradeDateString, String creationDateString,
-            String revisionDateString) throws ParseException {
-
-        if (!tradeDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);
-            trade.setTradeDate(formatDateFormat.getTimestampFromatDate());
-        }
-        if (!creationDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);
-            trade.setCreationDate(formatDateFormat.getTimestampFromatDate());
-        }
-        if (!revisionDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);
-            trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());
-        }
-
-    }
 }

@@ -29,48 +29,61 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
     @Autowired
     private UsersService userService;
 
+    /**
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (username.trim().isEmpty()) {</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (username.trim().isEmpty()) {</span>
 
-<span class="nc" id="L38">            String messageLoggerInfo = loggerApi.loggerStrings(&quot;User Name is empty.&quot;, &quot;&quot;, &quot;&quot;);</span>
-<span class="nc" id="L39">            LOGGER.warn(messageLoggerInfo);</span>
+<span class="nc" id="L43">            String messageLoggerInfo = loggerApi.loggerStrings(&quot;User Name is empty.&quot;, &quot;&quot;, &quot;&quot;);</span>
+<span class="nc" id="L44">            LOGGER.warn(messageLoggerInfo);</span>
 
-<span class="nc" id="L41">            throw new UsernameNotFoundException(&quot;username is empty&quot;);</span>
+<span class="nc" id="L46">            throw new UsernameNotFoundException(&quot;username is empty&quot;);</span>
         }
 
-<span class="fc" id="L44">        Users user = userService.getUser(username);</span>
+<span class="fc" id="L49">        Users user = userService.getUser(username);</span>
 
-<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (user == null) {</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (user == null) {</span>
 
-<span class="nc" id="L48">            String messageLoggerInfo = loggerApi.loggerStrings(&quot;User name : &quot;, username, &quot; not found.&quot;);</span>
-<span class="nc" id="L49">            LOGGER.warn(messageLoggerInfo);</span>
+<span class="nc" id="L53">            String messageLoggerInfo = loggerApi.loggerStrings(&quot;User name : &quot;, username, &quot; not found.&quot;);</span>
+<span class="nc" id="L54">            LOGGER.warn(messageLoggerInfo);</span>
 
-<span class="nc" id="L51">            throw new UsernameNotFoundException(&quot;User &quot; + username + &quot; not found&quot;);</span>
+<span class="nc" id="L56">            throw new UsernameNotFoundException(&quot;User &quot; + username + &quot; not found&quot;);</span>
 
         }
 
-<span class="fc" id="L55">        String messageLoggerInfo = loggerApi.loggerStrings(&quot;User Name is &quot;, username, &quot;&quot;);</span>
-<span class="fc" id="L56">        LOGGER.info(messageLoggerInfo);</span>
-
-<span class="fc" id="L58">        return new org.springframework.security.core.userdetails.User(user.getUsername(),</span>
-<span class="fc" id="L59">                user.getPassword(), getGrantedAuthorities(user));</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L61">            String messageLoggerDebug = loggerApi.loggerDebug(&quot;User Name is : &quot; + username);</span>
+<span class="fc" id="L62">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+<span class="fc" id="L64">        return new org.springframework.security.core.userdetails.User(user.getUsername(),</span>
+<span class="fc" id="L65">                user.getPassword(), getGrantedAuthorities(user));</span>
     }
 
+    /**
+     * @param users
+     * @return List&lt;GrantedAuthority&gt;
+     */
     private List&lt;GrantedAuthority&gt; getGrantedAuthorities(Users users) {
-<span class="fc" id="L63">        List&lt;GrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L64">        String role = users.getRole();</span>
-<span class="fc" id="L65">        authorities.add(new SimpleGrantedAuthority(role));</span>
+<span class="fc" id="L73">        List&lt;GrantedAuthority&gt; authorities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L74">        String role = users.getRole();</span>
+<span class="fc" id="L75">        authorities.add(new SimpleGrantedAuthority(role));</span>
 
-<span class="fc" id="L67">        String messageLoggerInfo = loggerApi</span>
-<span class="fc" id="L68">                .loggerStrings(</span>
-<span class="fc" id="L69">                        &quot;The user name : &quot; + users.getUsername() + &quot; &quot; + users.getFullname() + &quot; has the authoritie &quot;,</span>
-                        role, &quot;&quot;);
-<span class="fc" id="L71">        LOGGER.info(messageLoggerInfo);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L78">            String messageLoggerDebug = loggerApi</span>
+<span class="fc" id="L79">                    .loggerDebug(</span>
+<span class="fc" id="L80">                            &quot;The user name : &quot; + users.getUsername() + &quot; &quot; + users.getFullname()</span>
+                                    + &quot; has the authoritie &quot;
+<span class="fc" id="L82">                                    + role);</span>
+<span class="fc" id="L83">            LOGGER.debug(messageLoggerDebug);</span>
+        }
 
-<span class="fc" id="L73">        return authorities;</span>
+<span class="fc" id="L86">        return authorities;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

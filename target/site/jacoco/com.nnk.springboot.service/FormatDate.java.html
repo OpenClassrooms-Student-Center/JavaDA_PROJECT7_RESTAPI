@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,48 +18,65 @@ public class FormatDate {
     private String stringFromatDate;
     private Timestamp timestampFromatDate;
 
-<span class="fc" id="L18">    public FormatDate() {</span>
-<span class="fc" id="L19">    }</span>
+    // Récupération de notre logger.
+<span class="fc" id="L22">    private static final Logger LOGGER = LogManager.getLogger(FormatDate.class);</span>
 
-<span class="nc" id="L21">    public FormatDate(Date dateFromatDate, String stringFromatDate, Timestamp timestampFromatDate) {</span>
-<span class="nc" id="L22">        this.dateFromatDate = dateFromatDate;</span>
-<span class="nc" id="L23">        this.stringFromatDate = stringFromatDate;</span>
-<span class="nc" id="L24">        this.timestampFromatDate = timestampFromatDate;</span>
-<span class="nc" id="L25">    }</span>
+    @Autowired
+    private LoggerApi loggerApi;
 
+<span class="fc" id="L27">    public FormatDate() {</span>
+<span class="fc" id="L28">    }</span>
+
+<span class="nc" id="L30">    public FormatDate(Date dateFromatDate, String stringFromatDate, Timestamp timestampFromatDate) {</span>
+<span class="nc" id="L31">        this.dateFromatDate = dateFromatDate;</span>
+<span class="nc" id="L32">        this.stringFromatDate = stringFromatDate;</span>
+<span class="nc" id="L33">        this.timestampFromatDate = timestampFromatDate;</span>
+<span class="nc" id="L34">    }</span>
+
+    /**
+     * @return Date
+     */
     public Date getDateFromatDate() {
-<span class="nc" id="L28">        return this.dateFromatDate;</span>
+<span class="nc" id="L40">        return this.dateFromatDate;</span>
     }
 
     public void setDateFromatDate(Date dateFromatDate) {
-<span class="nc" id="L32">        this.dateFromatDate = dateFromatDate;</span>
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L44">        this.dateFromatDate = dateFromatDate;</span>
+<span class="nc" id="L45">    }</span>
 
     public String getStringFromatDate() {
-<span class="nc" id="L36">        return this.stringFromatDate;</span>
+<span class="nc" id="L48">        return this.stringFromatDate;</span>
     }
 
     public void setStringFromatDate(String stringFromatDate) {
-<span class="nc" id="L40">        this.stringFromatDate = stringFromatDate;</span>
-<span class="nc" id="L41">    }</span>
+<span class="nc" id="L52">        this.stringFromatDate = stringFromatDate;</span>
+<span class="nc" id="L53">    }</span>
 
     public Timestamp getTimestampFromatDate() {
-<span class="fc" id="L44">        return this.timestampFromatDate;</span>
+<span class="fc" id="L56">        return this.timestampFromatDate;</span>
     }
 
     public void setTimestampFromatDate(Timestamp timestampFromatDate) {
-<span class="nc" id="L48">        this.timestampFromatDate = timestampFromatDate;</span>
-<span class="nc" id="L49">    }</span>
+<span class="nc" id="L60">        this.timestampFromatDate = timestampFromatDate;</span>
+<span class="nc" id="L61">    }</span>
 
     public void setFromatDateStringToTimestamp(String tradeDate) throws ParseException {
 
-<span class="fc" id="L53">        String inDate = tradeDate.replace(&quot;T&quot;, &quot; &quot;);</span>
-<span class="fc" id="L54">        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm&quot;);</span>
-<span class="fc" id="L55">        Date date = df.parse(inDate);</span>
-<span class="fc" id="L56">        long time = date.getTime();</span>
-<span class="fc" id="L57">        Timestamp ts = new Timestamp(time);</span>
-<span class="fc" id="L58">        timestampFromatDate = ts;</span>
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L65">        String inDate = tradeDate.replace(&quot;T&quot;, &quot; &quot;);</span>
+<span class="fc" id="L66">        String motifPattern = &quot;yyyy-MM-dd HH:mm&quot;;</span>
+<span class="fc" id="L67">        DateFormat df = new SimpleDateFormat(motifPattern);</span>
+<span class="fc" id="L68">        Date date = df.parse(inDate);</span>
+<span class="fc" id="L69">        long time = date.getTime();</span>
+<span class="fc" id="L70">        Timestamp ts = new Timestamp(time);</span>
+<span class="fc" id="L71">        timestampFromatDate = ts;</span>
+
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L74">            String messageLoggerDebug = loggerApi</span>
+<span class="fc" id="L75">                    .loggerDebug(&quot;Set format date to &quot; + motifPattern + &quot; &quot; + timestampFromatDate);</span>
+<span class="fc" id="L76">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+
+<span class="fc" id="L79">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

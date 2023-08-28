@@ -62,6 +62,9 @@ public class CurvePointControllerTests {
                 .build();
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
@@ -70,6 +73,10 @@ public class CurvePointControllerTests {
 
     }
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testValidate() throws Exception {

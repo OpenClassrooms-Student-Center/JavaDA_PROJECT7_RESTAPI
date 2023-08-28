@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,11 +30,20 @@ public class RatingController {
     private RatingRepository ratingRepository;
 
     @Autowired
+    private ValidInput validInput;
+
+    @Autowired
     private LoggerApi loggerApi;
 
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(RatingController.class);
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping("/rating/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(RATINGS, ratingRepository.findAll());
@@ -44,6 +54,13 @@ public class RatingController {
         return "rating/list";
     }
 
+    
+    /** 
+     * @param rating
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating, HttpServletRequest request, HttpServletResponse response) {
 
@@ -58,14 +75,24 @@ public class RatingController {
             HttpServletResponse response) {
 
         if (!result.hasErrors()) {
-            ratingRepository.save(rating);
-            model.addAttribute(RATINGS, ratingRepository.findAll());
-            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-            LOGGER.info(messageLoggerInfo);
+            validInput.addRatings(rating);
 
-            return REDIRECTRATINGLIST;
+            if (validInput.getAddRatings()) {
+                model.addAttribute(RATINGS, ratingRepository.findAll());
+                response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+                LOGGER.info(messageLoggerInfo);
+
+                return REDIRECTRATINGLIST;
+            } else {
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Ratings not added!");
+                LOGGER.info(messageLoggerInfo);
+
+                return "rating/add";
+            }
+
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
@@ -100,15 +127,21 @@ public class RatingController {
             return "rating/update";
         }
 
-        rating.setId(id);
-        ratingRepository.save(rating);
-        model.addAttribute("users", ratingRepository.findAll());
-        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        validInput.updateRatings(id, rating);
 
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
+        if (validInput.getUpdateRatings()) {
+            model.addAttribute("users", ratingRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        return REDIRECTRATINGLIST;
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+            LOGGER.info(messageLoggerInfo);
+
+            return REDIRECTRATINGLIST;
+        } else {
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Ratings not updated!");
+            LOGGER.info(messageLoggerInfo);
+            return "rating/update";
+        }
     }
 
     @GetMapping("/rating/delete/{id}")

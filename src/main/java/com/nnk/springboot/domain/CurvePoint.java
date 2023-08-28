@@ -44,10 +44,16 @@ public class CurvePoint {
         this.creationDate = creationDate;
     }
 
+    /**
+     * @return Integer
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }

@@ -47,6 +47,9 @@ public class HomeControllerTests {
                 .build();
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testHome() throws Exception {

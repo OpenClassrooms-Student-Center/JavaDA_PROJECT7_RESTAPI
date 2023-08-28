@@ -62,6 +62,9 @@ public class RatingControllerTests {
                 .build();
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
@@ -70,6 +73,10 @@ public class RatingControllerTests {
 
     }
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testValidate() throws Exception {

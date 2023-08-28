@@ -72,108 +72,111 @@
 <a name="62" href="#62">62</a>                  .build();
 <a name="63" href="#63">63</a>      }
 <a name="64" href="#64">64</a>  
-<a name="65" href="#65">65</a>      @Test
-<a name="66" href="#66">66</a>      @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="67" href="#67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testHome() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="68" href="#68">68</a>  
-<a name="69" href="#69">69</a>          mockMvc.perform(get(<span class="jxr_string">"/ruleName/list"</span>)).andExpect(status().isOk());
-<a name="70" href="#70">70</a>  
-<a name="71" href="#71">71</a>      }
-<a name="72" href="#72">72</a>  
-<a name="73" href="#73">73</a>      @Test
-<a name="74" href="#74">74</a>      @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="75" href="#75">75</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testValidate() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="76" href="#76">76</a>  
-<a name="77" href="#77">77</a>          mockMvc.perform(post(<span class="jxr_string">"/ruleName/validate"</span>).with(csrf())
-<a name="78" href="#78">78</a>                  .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">"name"</span>)
-<a name="79" href="#79">79</a>                  .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
-<a name="80" href="#80">80</a>                  .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
-<a name="81" href="#81">81</a>                  .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
-<a name="82" href="#82">82</a>                  .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
-<a name="83" href="#83">83</a>                  .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
-<a name="84" href="#84">84</a>                  .andDo(print())
-<a name="85" href="#85">85</a>                  .andExpect(status().isFound()); <em class="jxr_comment">// respose 302</em>
-<a name="86" href="#86">86</a>      }
-<a name="87" href="#87">87</a>  
-<a name="88" href="#88">88</a>      @Test
-<a name="89" href="#89">89</a>      @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="90" href="#90">90</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testValidateWithHasError() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="91" href="#91">91</a>  
-<a name="92" href="#92">92</a>          <em class="jxr_comment">// Values name is empty =&gt; has error</em>
-<a name="93" href="#93">93</a>          mockMvc.perform(post(<span class="jxr_string">"/ruleName/validate"</span>).with(csrf())
-<a name="94" href="#94">94</a>                  .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">""</span>)
-<a name="95" href="#95">95</a>                  .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
-<a name="96" href="#96">96</a>                  .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
-<a name="97" href="#97">97</a>                  .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
-<a name="98" href="#98">98</a>                  .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
-<a name="99" href="#99">99</a>                  .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
-<a name="100" href="#100">100</a>                 .andDo(print())
-<a name="101" href="#101">101</a>                 .andExpect(status().isBadRequest()); <em class="jxr_comment">// respose 400</em>
-<a name="102" href="#102">102</a> 
-<a name="103" href="#103">103</a>     }
-<a name="104" href="#104">104</a> 
-<a name="105" href="#105">105</a>     @Test
-<a name="106" href="#106">106</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="107" href="#107">107</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testShowUpdateForm() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="108" href="#108">108</a> 
-<a name="109" href="#109">109</a>         String idString = <span class="jxr_string">"1"</span>;
-<a name="110" href="#110">110</a>         RuleName ruleName = <strong class="jxr_keyword">new</strong> RuleName();
-<a name="111" href="#111">111</a>         ruleName.setId(Integer.parseInt(idString));
-<a name="112" href="#112">112</a>         ruleName.setName(<span class="jxr_string">"name"</span>);
-<a name="113" href="#113">113</a>         Optional&lt;RuleName&gt; optionalRuleName = Optional.of(ruleName);
-<a name="114" href="#114">114</a> 
-<a name="115" href="#115">115</a>         when(ruleNameRepository.findById(Integer.parseInt(idString))).thenReturn(optionalRuleName);
-<a name="116" href="#116">116</a>         mockMvc.perform(get(<span class="jxr_string">"/ruleName/update/{id}"</span>, idString)).andExpect(status().isOk());
-<a name="117" href="#117">117</a>     }
-<a name="118" href="#118">118</a> 
-<a name="119" href="#119">119</a>     @Test
-<a name="120" href="#120">120</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="121" href="#121">121</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUpdateRuleName() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="122" href="#122">122</a> 
-<a name="123" href="#123">123</a>         String idString = <span class="jxr_string">"1"</span>;
-<a name="124" href="#124">124</a>         mockMvc.perform(post(<span class="jxr_string">"/ruleName/update/{id}"</span>, idString).with(csrf())
-<a name="125" href="#125">125</a>                 .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">"name"</span>)
-<a name="126" href="#126">126</a>                 .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
-<a name="127" href="#127">127</a>                 .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
-<a name="128" href="#128">128</a>                 .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
-<a name="129" href="#129">129</a>                 .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
-<a name="130" href="#130">130</a>                 .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
-<a name="131" href="#131">131</a>                 .andDo(print()).andExpect(status().isFound()); <em class="jxr_comment">// respose 302</em>
-<a name="132" href="#132">132</a>     }
-<a name="133" href="#133">133</a> 
-<a name="134" href="#134">134</a>     @Test
-<a name="135" href="#135">135</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="136" href="#136">136</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUpdateRuleNameWithHasError() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="137" href="#137">137</a> 
-<a name="138" href="#138">138</a>         <em class="jxr_comment">// Values name is empty =&gt; has error</em>
-<a name="139" href="#139">139</a>         String idString = <span class="jxr_string">"1"</span>;
-<a name="140" href="#140">140</a>         mockMvc.perform(post(<span class="jxr_string">"/ruleName/update/{id}"</span>, idString).with(
-<a name="141" href="#141">141</a>                 csrf())
-<a name="142" href="#142">142</a>                 .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">""</span>)
-<a name="143" href="#143">143</a>                 .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
-<a name="144" href="#144">144</a>                 .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
-<a name="145" href="#145">145</a>                 .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
-<a name="146" href="#146">146</a>                 .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
-<a name="147" href="#147">147</a>                 .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
-<a name="148" href="#148">148</a>                 .andDo(print())
-<a name="149" href="#149">149</a>                 .andExpect(status().isBadRequest()); <em class="jxr_comment">// respose 400</em>
-<a name="150" href="#150">150</a>     }
-<a name="151" href="#151">151</a> 
-<a name="152" href="#152">152</a>     @Test
-<a name="153" href="#153">153</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
-<a name="154" href="#154">154</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDeleteRuleName() <strong class="jxr_keyword">throws</strong> Exception {
-<a name="155" href="#155">155</a> 
-<a name="156" href="#156">156</a>         String idString = <span class="jxr_string">"1"</span>;
-<a name="157" href="#157">157</a>         RuleName ruleName = <strong class="jxr_keyword">new</strong> RuleName();
-<a name="158" href="#158">158</a>         ruleName.setId(Integer.parseInt(idString));
-<a name="159" href="#159">159</a>         ruleName.setName(<span class="jxr_string">"name"</span>);
-<a name="160" href="#160">160</a>         Optional&lt;RuleName&gt; optionalRuleName = Optional.of(ruleName);
-<a name="161" href="#161">161</a> 
-<a name="162" href="#162">162</a>         when(ruleNameRepository.findById(Integer.parseInt(idString))).thenReturn(optionalRuleName);
-<a name="163" href="#163">163</a>         mockMvc.perform(get(<span class="jxr_string">"/ruleName/delete/{id}"</span>, idString)).andExpect(status().isFound());
-<a name="164" href="#164">164</a>     }
-<a name="165" href="#165">165</a> 
-<a name="166" href="#166">166</a> }
+<a name="65" href="#65">65</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="66" href="#66">66</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
+<a name="67" href="#67">67</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="68" href="#68">68</a>      @Test
+<a name="69" href="#69">69</a>      @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="70" href="#70">70</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testHome() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="71" href="#71">71</a>  
+<a name="72" href="#72">72</a>          mockMvc.perform(get(<span class="jxr_string">"/ruleName/list"</span>)).andExpect(status().isOk());
+<a name="73" href="#73">73</a>  
+<a name="74" href="#74">74</a>      }
+<a name="75" href="#75">75</a>  
+<a name="76" href="#76">76</a>      @Test
+<a name="77" href="#77">77</a>      @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="78" href="#78">78</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testValidate() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="79" href="#79">79</a>  
+<a name="80" href="#80">80</a>          mockMvc.perform(post(<span class="jxr_string">"/ruleName/validate"</span>).with(csrf())
+<a name="81" href="#81">81</a>                  .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">"name"</span>)
+<a name="82" href="#82">82</a>                  .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
+<a name="83" href="#83">83</a>                  .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
+<a name="84" href="#84">84</a>                  .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
+<a name="85" href="#85">85</a>                  .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
+<a name="86" href="#86">86</a>                  .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
+<a name="87" href="#87">87</a>                  .andDo(print())
+<a name="88" href="#88">88</a>                  .andExpect(status().isFound()); <em class="jxr_comment">// respose 302</em>
+<a name="89" href="#89">89</a>      }
+<a name="90" href="#90">90</a>  
+<a name="91" href="#91">91</a>      @Test
+<a name="92" href="#92">92</a>      @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="93" href="#93">93</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testValidateWithHasError() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="94" href="#94">94</a>  
+<a name="95" href="#95">95</a>          <em class="jxr_comment">// Values name is empty =&gt; has error</em>
+<a name="96" href="#96">96</a>          mockMvc.perform(post(<span class="jxr_string">"/ruleName/validate"</span>).with(csrf())
+<a name="97" href="#97">97</a>                  .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">""</span>)
+<a name="98" href="#98">98</a>                  .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
+<a name="99" href="#99">99</a>                  .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
+<a name="100" href="#100">100</a>                 .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
+<a name="101" href="#101">101</a>                 .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
+<a name="102" href="#102">102</a>                 .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
+<a name="103" href="#103">103</a>                 .andDo(print())
+<a name="104" href="#104">104</a>                 .andExpect(status().isBadRequest()); <em class="jxr_comment">// respose 400</em>
+<a name="105" href="#105">105</a> 
+<a name="106" href="#106">106</a>     }
+<a name="107" href="#107">107</a> 
+<a name="108" href="#108">108</a>     @Test
+<a name="109" href="#109">109</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="110" href="#110">110</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testShowUpdateForm() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="111" href="#111">111</a> 
+<a name="112" href="#112">112</a>         String idString = <span class="jxr_string">"1"</span>;
+<a name="113" href="#113">113</a>         RuleName ruleName = <strong class="jxr_keyword">new</strong> RuleName();
+<a name="114" href="#114">114</a>         ruleName.setId(Integer.parseInt(idString));
+<a name="115" href="#115">115</a>         ruleName.setName(<span class="jxr_string">"name"</span>);
+<a name="116" href="#116">116</a>         Optional&lt;RuleName&gt; optionalRuleName = Optional.of(ruleName);
+<a name="117" href="#117">117</a> 
+<a name="118" href="#118">118</a>         when(ruleNameRepository.findById(Integer.parseInt(idString))).thenReturn(optionalRuleName);
+<a name="119" href="#119">119</a>         mockMvc.perform(get(<span class="jxr_string">"/ruleName/update/{id}"</span>, idString)).andExpect(status().isOk());
+<a name="120" href="#120">120</a>     }
+<a name="121" href="#121">121</a> 
+<a name="122" href="#122">122</a>     @Test
+<a name="123" href="#123">123</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="124" href="#124">124</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUpdateRuleName() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="125" href="#125">125</a> 
+<a name="126" href="#126">126</a>         String idString = <span class="jxr_string">"1"</span>;
+<a name="127" href="#127">127</a>         mockMvc.perform(post(<span class="jxr_string">"/ruleName/update/{id}"</span>, idString).with(csrf())
+<a name="128" href="#128">128</a>                 .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">"name"</span>)
+<a name="129" href="#129">129</a>                 .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
+<a name="130" href="#130">130</a>                 .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
+<a name="131" href="#131">131</a>                 .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
+<a name="132" href="#132">132</a>                 .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
+<a name="133" href="#133">133</a>                 .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
+<a name="134" href="#134">134</a>                 .andDo(print()).andExpect(status().isFound()); <em class="jxr_comment">// respose 302</em>
+<a name="135" href="#135">135</a>     }
+<a name="136" href="#136">136</a> 
+<a name="137" href="#137">137</a>     @Test
+<a name="138" href="#138">138</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="139" href="#139">139</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testUpdateRuleNameWithHasError() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="140" href="#140">140</a> 
+<a name="141" href="#141">141</a>         <em class="jxr_comment">// Values name is empty =&gt; has error</em>
+<a name="142" href="#142">142</a>         String idString = <span class="jxr_string">"1"</span>;
+<a name="143" href="#143">143</a>         mockMvc.perform(post(<span class="jxr_string">"/ruleName/update/{id}"</span>, idString).with(
+<a name="144" href="#144">144</a>                 csrf())
+<a name="145" href="#145">145</a>                 .param(<span class="jxr_string">"name"</span>, <span class="jxr_string">""</span>)
+<a name="146" href="#146">146</a>                 .param(<span class="jxr_string">"description"</span>, <span class="jxr_string">"description"</span>)
+<a name="147" href="#147">147</a>                 .param(<span class="jxr_string">"json"</span>, <span class="jxr_string">"json"</span>)
+<a name="148" href="#148">148</a>                 .param(<span class="jxr_string">"template"</span>, <span class="jxr_string">"template"</span>)
+<a name="149" href="#149">149</a>                 .param(<span class="jxr_string">"sqlStr"</span>, <span class="jxr_string">"sqlStr"</span>)
+<a name="150" href="#150">150</a>                 .param(<span class="jxr_string">"sqlPart"</span>, <span class="jxr_string">"sqlPart"</span>))
+<a name="151" href="#151">151</a>                 .andDo(print())
+<a name="152" href="#152">152</a>                 .andExpect(status().isBadRequest()); <em class="jxr_comment">// respose 400</em>
+<a name="153" href="#153">153</a>     }
+<a name="154" href="#154">154</a> 
+<a name="155" href="#155">155</a>     @Test
+<a name="156" href="#156">156</a>     @WithMockUser(username = <span class="jxr_string">"user"</span>, password = <span class="jxr_string">"test"</span>)
+<a name="157" href="#157">157</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testDeleteRuleName() <strong class="jxr_keyword">throws</strong> Exception {
+<a name="158" href="#158">158</a> 
+<a name="159" href="#159">159</a>         String idString = <span class="jxr_string">"1"</span>;
+<a name="160" href="#160">160</a>         RuleName ruleName = <strong class="jxr_keyword">new</strong> RuleName();
+<a name="161" href="#161">161</a>         ruleName.setId(Integer.parseInt(idString));
+<a name="162" href="#162">162</a>         ruleName.setName(<span class="jxr_string">"name"</span>);
+<a name="163" href="#163">163</a>         Optional&lt;RuleName&gt; optionalRuleName = Optional.of(ruleName);
+<a name="164" href="#164">164</a> 
+<a name="165" href="#165">165</a>         when(ruleNameRepository.findById(Integer.parseInt(idString))).thenReturn(optionalRuleName);
+<a name="166" href="#166">166</a>         mockMvc.perform(get(<span class="jxr_string">"/ruleName/delete/{id}"</span>, idString)).andExpect(status().isFound());
+<a name="167" href="#167">167</a>     }
+<a name="168" href="#168">168</a> 
+<a name="169" href="#169">169</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

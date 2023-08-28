@@ -2,8 +2,8 @@
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
-import com.nnk.springboot.service.FormatDate;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,63 +38,88 @@ import org.springframework.web.bind.annotation.RequestParam;
     private BidListRepository bidListRepository;
 
     @Autowired
-    private FormatDate formatDateFormat;
+    private ValidInput validInput;
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping(&quot;/bidList/list&quot;)
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
-<span class="fc" id="L45">        model.addAttribute(BIDS, bidListRepository.findAll());</span>
+<span class="fc" id="L51">        model.addAttribute(BIDS, bidListRepository.findAll());</span>
 
-<span class="fc" id="L47">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L48">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L53">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L54">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L50">        return &quot;bidList/list&quot;;</span>
+<span class="fc" id="L56">        return &quot;bidList/list&quot;;</span>
     }
 
+    /**
+     * @param bid
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping(&quot;/bidList/add&quot;)
     public String addBidForm(BidList bid, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="nc" id="L56">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="nc" id="L57">        LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L68">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L69">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L59">        return &quot;bidList/add&quot;;</span>
+<span class="nc" id="L71">        return &quot;bidList/add&quot;;</span>
     }
 
+    /**
+     * @param validate(
+     * @return String
+     */
     @PostMapping(&quot;/bidList/validate&quot;)
     public String validate(@Valid BidList bid, BindingResult result, Model model, HttpServletResponse response,
             @RequestParam String bidListDateString, @RequestParam String creationDateString,
             @RequestParam String revisionDateString, HttpServletRequest request) throws ParseException {
 
-<span class="fc" id="L67">        setDateToFormat(bid, bidListDateString, creationDateString, revisionDateString);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
 
-<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L70">            bidListRepository.save(bid);</span>
-<span class="fc" id="L71">            model.addAttribute(BIDS, bidListRepository.findAll());</span>
-<span class="fc" id="L72">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L85">            validInput.addBid(bid, bidListDateString, creationDateString, revisionDateString);</span>
 
-<span class="fc" id="L74">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L75">            LOGGER.info(messageLoggerInfo);</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">            if (validInput.getAddBid()) {</span>
 
-<span class="fc" id="L77">            return REDIRECTBIDLIST;</span>
+<span class="fc" id="L89">                model.addAttribute(BIDS, bidListRepository.findAll());</span>
+<span class="fc" id="L90">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L92">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L93">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L95">                return REDIRECTBIDLIST;</span>
+
+            } else {
+<span class="nc" id="L98">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Bid not added!&quot;);</span>
+<span class="nc" id="L99">                LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L100">                return &quot;bidList/add&quot;;</span>
+            }
+
         }
-<span class="fc" id="L79">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L104">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L81">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L82">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L106">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L107">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L84">        return &quot;bidList/add&quot;;</span>
+<span class="fc" id="L109">        return &quot;bidList/add&quot;;</span>
     }
 
     @GetMapping(&quot;/bidList/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L90">        BidList bidList = bidListRepository.findById(id)</span>
-<span class="pc" id="L91">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L92">        model.addAttribute(&quot;bidList&quot;, bidList);</span>
+<span class="fc" id="L115">        BidList bidList = bidListRepository.findById(id)</span>
+<span class="pc" id="L116">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L117">        model.addAttribute(&quot;bidList&quot;, bidList);</span>
 
-<span class="fc" id="L94">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L95">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L119">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L120">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L97">        return &quot;bidList/update&quot;;</span>
+<span class="fc" id="L122">        return &quot;bidList/update&quot;;</span>
     }
 
     @PostMapping(&quot;/bidList/update/{id}&quot;)
@@ -102,59 +127,45 @@ import org.springframework.web.bind.annotation.RequestParam;
             BindingResult result, Model model, HttpServletResponse response,
             @RequestParam String bidListDateString, @RequestParam String creationDateString,
             @RequestParam String revisionDateString, HttpServletRequest request) throws ParseException {
-<span class="fc bfc" id="L105" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L106">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L131">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L108">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L109">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L133">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L134">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L111">            return &quot;bidList/update&quot;;</span>
+<span class="fc" id="L136">            return &quot;bidList/update&quot;;</span>
         }
 
-<span class="fc" id="L114">        setDateToFormat(bidList, bidListDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L139">        validInput.updateBid(bidList, id, bidListDateString, creationDateString, revisionDateString);</span>
 
-<span class="fc" id="L116">        bidList.setBidlistId(id);</span>
-<span class="fc" id="L117">        bidListRepository.save(bidList);</span>
-<span class="fc" id="L118">        model.addAttribute(&quot;bidList&quot;, bidListRepository.findAll());</span>
-<span class="fc" id="L119">        response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">        if (validInput.getUpdateBid()) {</span>
+<span class="fc" id="L142">            model.addAttribute(&quot;bidList&quot;, bidListRepository.findAll());</span>
+<span class="fc" id="L143">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L121">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L122">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L145">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L146">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L124">        return REDIRECTBIDLIST;</span>
+<span class="fc" id="L148">            return REDIRECTBIDLIST;</span>
+        } else {
+<span class="nc" id="L150">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Bid not updated!&quot;);</span>
+<span class="nc" id="L151">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L152">            return &quot;bidList/update&quot;;</span>
+        }
     }
 
     @GetMapping(&quot;/bidList/delete/{id}&quot;)
     public String deleteBid(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L130">        BidList bidList = bidListRepository.findById(id)</span>
-<span class="pc" id="L131">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L132">        bidListRepository.delete(bidList);</span>
-<span class="fc" id="L133">        model.addAttribute(BIDS, bidListRepository.findAll());</span>
+<span class="fc" id="L159">        BidList bidList = bidListRepository.findById(id)</span>
+<span class="pc" id="L160">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L161">        bidListRepository.delete(bidList);</span>
+<span class="fc" id="L162">        model.addAttribute(BIDS, bidListRepository.findAll());</span>
 
-<span class="fc" id="L135">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L136">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L164">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L165">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L138">        return REDIRECTBIDLIST;</span>
+<span class="fc" id="L167">        return REDIRECTBIDLIST;</span>
     }
-
-    private void setDateToFormat(@Valid BidList bid, String bidListDateString, String creationDateString,
-            String revisionDateString) throws ParseException {
-
-<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (!bidListDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L145">            formatDateFormat.setFromatDateStringToTimestamp(bidListDateString);</span>
-<span class="fc" id="L146">            bid.setBidListDate(formatDateFormat.getTimestampFromatDate());</span>
-        }
-<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L149">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
-<span class="fc" id="L150">            bid.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
-        }
-<span class="fc bfc" id="L152" title="All 2 branches covered.">        if (!revisionDateString.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L153">            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
-<span class="fc" id="L154">            bid.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
-        }
-
-<span class="fc" id="L157">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -3,6 +3,7 @@ com\nnk\springboot\Application.class
 com\nnk\springboot\controllers\RatingController.class
 com\nnk\springboot\service\MyUserDetailService.class
 com\nnk\springboot\domain\BidList.class
+com\nnk\springboot\service\ValidInput.class
 com\nnk\springboot\controllers\LoginController.class
 com\nnk\springboot\domain\Trade.class
 com\nnk\springboot\domain\Users.class

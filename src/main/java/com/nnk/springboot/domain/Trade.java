@@ -106,10 +106,16 @@ public class Trade {
         this.side = side;
     }
 
+    /**
+     * @return Integer
+     */
     public Integer getTradeId() {
         return this.tradeId;
     }
 
+    /**
+     * @param tradeId
+     */
     public void setTradeId(Integer tradeId) {
         this.tradeId = tradeId;
     }
