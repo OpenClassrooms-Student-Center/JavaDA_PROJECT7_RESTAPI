@@ -2,8 +2,8 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
-import com.nnk.springboot.service.FormatDate;
 import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,8 +38,14 @@ public class BidListController {
     private BidListRepository bidListRepository;
 
     @Autowired
-    private FormatDate formatDateFormat;
+    private ValidInput validInput;
 
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @RequestMapping("/bidList/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(BIDS, bidListRepository.findAll());
@@ -50,6 +56,12 @@ public class BidListController {
         return "bidList/list";
     }
 
+    /**
+     * @param bid
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid, HttpServletRequest request, HttpServletResponse response) {
 
@@ -59,22 +71,35 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /**
+     * @param validate(
+     * @return String
+     */
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model, HttpServletResponse response,
             @RequestParam String bidListDateString, @RequestParam String creationDateString,
             @RequestParam String revisionDateString, HttpServletRequest request) throws ParseException {
 
-        setDateToFormat(bid, bidListDateString, creationDateString, revisionDateString);
-
         if (!result.hasErrors()) {
-            bidListRepository.save(bid);
-            model.addAttribute(BIDS, bidListRepository.findAll());
-            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-            LOGGER.info(messageLoggerInfo);
+            validInput.addBid(bid, bidListDateString, creationDateString, revisionDateString);
 
-            return REDIRECTBIDLIST;
+            if (validInput.getAddBid()) {
+
+                model.addAttribute(BIDS, bidListRepository.findAll());
+                response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+                LOGGER.info(messageLoggerInfo);
+
+                return REDIRECTBIDLIST;
+
+            } else {
+                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Bid not added!");
+                LOGGER.info(messageLoggerInfo);
+                return "bidList/add";
+            }
+
         }
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400
 
@@ -84,6 +109,13 @@ public class BidListController {
         return "bidList/add";
     }
 
+    /**
+     * @param id
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
@@ -97,6 +129,10 @@ public class BidListController {
         return "bidList/update";
     }
 
+    /**
+     * @param @PathVariable("id"
+     * @return String
+     */
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
             BindingResult result, Model model, HttpServletResponse response,
@@ -111,17 +147,21 @@ public class BidListController {
             return "bidList/update";
         }
 
-        setDateToFormat(bidList, bidListDateString, creationDateString, revisionDateString);
+        validInput.updateBid(bidList, id, bidListDateString, creationDateString, revisionDateString);
 
-        bidList.setBidlistId(id);
-        bidListRepository.save(bidList);
-        model.addAttribute("bidList", bidListRepository.findAll());
-        response.setStatus(HttpServletResponse.SC_CREATED); // response 201
+        if (validInput.getUpdateBid()) {
+            model.addAttribute("bidList", bidListRepository.findAll());
+            response.setStatus(HttpServletResponse.SC_CREATED); // response 201
 
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
+            LOGGER.info(messageLoggerInfo);
 
-        return REDIRECTBIDLIST;
+            return REDIRECTBIDLIST;
+        } else {
+            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "Bid not updated!");
+            LOGGER.info(messageLoggerInfo);
+            return "bidList/update";
+        }
     }
 
     @GetMapping("/bidList/delete/{id}")
@@ -136,24 +176,6 @@ public class BidListController {
         LOGGER.info(messageLoggerInfo);
 
         return REDIRECTBIDLIST;
-    }
-
-    private void setDateToFormat(@Valid BidList bid, String bidListDateString, String creationDateString,
-            String revisionDateString) throws ParseException {
-
-        if (!bidListDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(bidListDateString);
-            bid.setBidListDate(formatDateFormat.getTimestampFromatDate());
-        }
-        if (!creationDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);
-            bid.setCreationDate(formatDateFormat.getTimestampFromatDate());
-        }
-        if (!revisionDateString.equals("")) {
-            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);
-            bid.setRevisionDate(formatDateFormat.getTimestampFromatDate());
-        }
-
     }
 
 }
