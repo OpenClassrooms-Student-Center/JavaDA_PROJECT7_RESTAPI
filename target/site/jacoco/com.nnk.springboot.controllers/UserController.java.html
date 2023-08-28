@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.Users;
+import com.nnk.springboot.repositories.UsersRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+<span class="fc" id="L25">public class UserController {</span>
+
+    private static final String REDIRECTUSERLIST = &quot;redirect:/user/list&quot;;
+    private static final String USERS = &quot;users&quot;;
+
+    // Récupération de notre logger.
+<span class="fc" id="L31">    private static final Logger LOGGER = LogManager.getLogger(UserController.class);</span>
+
+    @Autowired
+    private LoggerApi loggerApi;
+
+    @Autowired
+    private UsersRepository userRepository;
+
+    @Autowired
+    private ValidInput validInput;
+
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
+    @Secured(&quot;ADMIN&quot;)
+    @RequestMapping(&quot;/user/list&quot;)
+    public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+<span class="fc" id="L51">        model.addAttribute(USERS, userRepository.findAll());</span>
+
+<span class="fc" id="L53">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L54">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L56">        return &quot;user/list&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;/user/add&quot;)
+    public String addUser(Users bid, HttpServletRequest request, HttpServletResponse response) {
+
+<span class="nc" id="L63">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L64">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L66">        return &quot;user/add&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @PostMapping(&quot;/user/validate&quot;)
+    public String validate(@Valid Users user, BindingResult result, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+
+<span class="fc" id="L75">            validInput.addUser(user);</span>
+
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            if (validInput.getAddUser()) {</span>
+<span class="fc" id="L78">                model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L79">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L81">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L82">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L84">                return REDIRECTUSERLIST;</span>
+
+            } else {
+<span class="nc" id="L87">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;User not added!&quot;);</span>
+<span class="nc" id="L88">                LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L89">                return &quot;user/add&quot;;</span>
+            }
+
+        }
+<span class="fc" id="L93">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L95">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L96">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L98">        return &quot;user/add&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;/user/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc" id="L105">        Users users = userRepository.findById(id)</span>
+<span class="pc" id="L106">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L107">        users.setPassword(&quot;&quot;);</span>
+<span class="fc" id="L108">        model.addAttribute(&quot;users&quot;, users);</span>
+
+<span class="fc" id="L110">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L111">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L113">        return &quot;user/update&quot;;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @PostMapping(&quot;/user/update/{id}&quot;)
+    public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid Users user,
+            BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L121">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L123">            model.addAttribute(&quot;user&quot;, user);</span>
+
+<span class="fc" id="L125">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L126">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L128">            return &quot;user/update&quot;;</span>
+        }
+
+<span class="fc" id="L131">        validInput.pswValidInputs(user, id);</span>
+
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (validInput.getPswValidInput()) {</span>
+<span class="fc" id="L134">            model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L135">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L137">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L138">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L140">            return REDIRECTUSERLIST;</span>
+
+        } else {
+<span class="nc" id="L143">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;User not updated!&quot;);</span>
+<span class="nc" id="L144">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L145">            return &quot;user/update&quot;;</span>
+        }
+
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;/user/delete/{id}&quot;)
+    public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc" id="L154">        Users user = userRepository.findById(id)</span>
+<span class="pc" id="L155">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L156">        userRepository.delete(user);</span>
+<span class="fc" id="L157">        model.addAttribute(USERS, userRepository.findAll());</span>
+
+<span class="fc" id="L159">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L160">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L162">        return REDIRECTUSERLIST;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

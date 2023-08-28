@@ -1,0 +1,6 @@
+com.nnk.springboot
+com.nnk.springboot.configuration
+com.nnk.springboot.controllers
+com.nnk.springboot.domain
+com.nnk.springboot.repositories
+com.nnk.springboot.service

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.configuration.SpringSecurityConfig;
+import com.nnk.springboot.repositories.UsersRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.UsersService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.security.Principal;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+@RequestMapping(&quot;app&quot;)
+public class LoginController {
+
+<span class="pc" id="L29">    ModelAndView mav = new ModelAndView();</span>
+
+    @Autowired
+    private UsersRepository userRepository;
+
+    @Autowired
+    private SpringSecurityConfig securityConfig;
+
+    @Autowired
+    private UsersService userService;
+
+    @Autowired
+    private LoggerApi loggerApi;
+
+    // Récupération de notre logger.
+<span class="fc" id="L44">    private static final Logger LOGGER = LogManager.getLogger(LoginController.class);</span>
+
+<span class="fc" id="L46">    public LoginController() {</span>
+<span class="fc" id="L47">    }</span>
+
+<span class="nc" id="L49">    public LoginController(ModelAndView mav, UsersRepository userRepository, SpringSecurityConfig securityConfig,</span>
+            UsersService userService, LoggerApi loggerApi) {
+<span class="nc" id="L51">        this.mav = mav;</span>
+<span class="nc" id="L52">        this.userRepository = userRepository;</span>
+<span class="nc" id="L53">        this.securityConfig = securityConfig;</span>
+<span class="nc" id="L54">        this.userService = userService;</span>
+<span class="nc" id="L55">        this.loggerApi = loggerApi;</span>
+<span class="nc" id="L56">    }</span>
+
+    /**
+     * @return ModelAndView
+     */
+    public ModelAndView getMav() {
+<span class="nc" id="L62">        return this.mav;</span>
+    }
+
+    public void setMav(ModelAndView mav) {
+<span class="nc" id="L66">        this.mav = mav;</span>
+<span class="nc" id="L67">    }</span>
+
+    public UsersService getUserService() {
+<span class="nc" id="L70">        return this.userService;</span>
+    }
+
+    public void setUserService(UsersService userService) {
+<span class="nc" id="L74">        this.userService = userService;</span>
+<span class="nc" id="L75">    }</span>
+
+    public LoggerApi getLoggerApi() {
+<span class="nc" id="L78">        return this.loggerApi;</span>
+    }
+
+    public void setLoggerApi(LoggerApi loggerApi) {
+<span class="nc" id="L82">        this.loggerApi = loggerApi;</span>
+<span class="nc" id="L83">    }</span>
+
+    public UsersRepository getUserRepository() {
+<span class="nc" id="L86">        return this.userRepository;</span>
+    }
+
+    public void setUserRepository(UsersRepository userRepository) {
+<span class="nc" id="L90">        this.userRepository = userRepository;</span>
+<span class="nc" id="L91">    }</span>
+
+    public SpringSecurityConfig getSecurityConfig() {
+<span class="nc" id="L94">        return this.securityConfig;</span>
+    }
+
+    public void setSecurityConfig(SpringSecurityConfig securityConfig) {
+<span class="nc" id="L98">        this.securityConfig = securityConfig;</span>
+<span class="nc" id="L99">    }</span>
+
+    @Secured({ &quot;USER&quot;, &quot;ADMIN&quot; })
+    @RequestMapping(&quot;/&quot;)
+    public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+<span class="nc" id="L105">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L106">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L108">        return &quot;home&quot;;</span>
+    }
+
+    @GetMapping(&quot;login&quot;)
+    public ModelAndView login(Principal principal, HttpServletRequest request, HttpServletResponse response) {
+
+<span class="fc" id="L114">        mav.setViewName(&quot;login&quot;);</span>
+
+<span class="fc" id="L116">        String messageLoggerInfo = &quot;URI active : /login Code response : &quot;</span>
+<span class="fc" id="L117">                + HttpStatus.valueOf(response.getStatus());</span>
+<span class="fc" id="L118">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L120">        return mav;</span>
+    }
+
+    @Secured({ &quot;USER&quot;, &quot;ADMIN&quot; })
+    @GetMapping(&quot;login/ok&quot;)
+    public ModelAndView loginOk(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+<span class="fc" id="L127">        mav.setViewName(&quot;home&quot;);</span>
+
+<span class="fc" id="L129">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L130">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L132">        return mav;</span>
+    }
+
+    @Secured({ &quot;USER&quot;, &quot;ADMIN&quot; })
+    @PostMapping(&quot;app-logout&quot;)
+    public ModelAndView appLogout(Model model, Principal principal, HttpServletRequest request,
+            HttpServletResponse response) {
+
+<span class="nc" id="L140">        mav.setViewName(&quot;login&quot;);</span>
+
+<span class="nc" id="L142">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L143">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L145">        return mav;</span>
+    }
+
+    @Secured(&quot;ADMIN&quot;)
+    @GetMapping(&quot;secure/article-details&quot;)
+    public ModelAndView getAllUserArticles(HttpServletRequest request, HttpServletResponse response) {
+
+<span class="fc" id="L152">        mav.addObject(&quot;users&quot;, userRepository.findAll());</span>
+<span class="fc" id="L153">        mav.setViewName(&quot;user/list&quot;);</span>
+
+<span class="fc" id="L155">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L156">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L158">        return mav;</span>
+    }
+
+    @Secured({ &quot;USER&quot;, &quot;ADMIN&quot; })
+    @GetMapping(&quot;error&quot;)
+    public ModelAndView error(HttpServletRequest request, HttpServletResponse response) {
+
+<span class="fc" id="L165">        String errorMessage = &quot;You are not authorized for the requested data.&quot;;</span>
+<span class="fc" id="L166">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="fc" id="L167">        mav.setViewName(&quot;/error/403&quot;);</span>
+
+<span class="fc" id="L169">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L170">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L172">        return mav;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

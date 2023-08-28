@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePoint.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">CurvePoint.java</span></div><h1>CurvePoint.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = &quot;curvepoint&quot;)
+public class CurvePoint {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = &quot;id&quot;)
+    private Integer id;
+
+    @Column(name = &quot;CurveId&quot;)
+    private Integer curveId;
+
+    @Column(name = &quot;asOfDate&quot;)
+    private Timestamp asOfDate;
+
+    @Column(name = &quot;term&quot;)
+    private Double term;
+
+    @Column(name = &quot;value&quot;)
+    private Double value;
+
+    @Column(name = &quot;creationDate&quot;)
+    private Timestamp creationDate;
+
+<span class="fc" id="L34">    public CurvePoint() {</span>
+<span class="fc" id="L35">    }</span>
+
+<span class="nc" id="L37">    public CurvePoint(Integer id, Integer curveId, Timestamp asOfDate, Double term, Double value,</span>
+            Timestamp creationDate) {
+<span class="nc" id="L39">        this.id = id;</span>
+<span class="nc" id="L40">        this.curveId = curveId;</span>
+<span class="nc" id="L41">        this.asOfDate = asOfDate;</span>
+<span class="nc" id="L42">        this.term = term;</span>
+<span class="nc" id="L43">        this.value = value;</span>
+<span class="nc" id="L44">        this.creationDate = creationDate;</span>
+<span class="nc" id="L45">    }</span>
+
+    /**
+     * @return Integer
+     */
+    public Integer getId() {
+<span class="fc" id="L51">        return this.id;</span>
+    }
+
+    public void setId(Integer id) {
+<span class="fc" id="L55">        this.id = id;</span>
+<span class="fc" id="L56">    }</span>
+
+    public Integer getCurveId() {
+<span class="fc" id="L59">        return this.curveId;</span>
+    }
+
+    public void setCurveId(Integer curveId) {
+<span class="fc" id="L63">        this.curveId = curveId;</span>
+<span class="fc" id="L64">    }</span>
+
+    public Timestamp getAsOfDate() {
+<span class="fc" id="L67">        return this.asOfDate;</span>
+    }
+
+    public void setAsOfDate(Timestamp asOfDate) {
+<span class="fc" id="L71">        this.asOfDate = asOfDate;</span>
+<span class="fc" id="L72">    }</span>
+
+    public Double getTerm() {
+<span class="fc" id="L75">        return this.term;</span>
+    }
+
+    public void setTerm(Double term) {
+<span class="fc" id="L79">        this.term = term;</span>
+<span class="fc" id="L80">    }</span>
+
+    public Double getValue() {
+<span class="fc" id="L83">        return this.value;</span>
+    }
+
+    public void setValue(Double value) {
+<span class="fc" id="L87">        this.value = value;</span>
+<span class="fc" id="L88">    }</span>
+
+    public Timestamp getCreationDate() {
+<span class="fc" id="L91">        return this.creationDate;</span>
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+<span class="fc" id="L95">        this.creationDate = creationDate;</span>
+<span class="fc" id="L96">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

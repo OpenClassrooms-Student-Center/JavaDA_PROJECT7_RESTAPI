@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleNameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">RuleNameController.java</span></div><h1>RuleNameController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+<span class="fc" id="L24">public class RuleNameController {</span>
+
+    private static final String REDIRECTRULELIST = &quot;redirect:/ruleName/list&quot;;
+    private static final String RULES = &quot;rules&quot;;
+
+    @Autowired
+    private RuleNameRepository ruleNameRepository;
+
+    @Autowired
+    private ValidInput validInput;
+
+    @Autowired
+    private LoggerApi loggerApi;
+
+    // Récupération de notre logger.
+<span class="fc" id="L39">    private static final Logger LOGGER = LogManager.getLogger(RuleNameController.class);</span>
+
+    /**
+     * @param model
+     * @param request
+     * @param response
+     * @return String
+     */
+    @RequestMapping(&quot;/ruleName/list&quot;)
+    public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+<span class="fc" id="L49">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+
+<span class="fc" id="L51">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L52">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L54">        return &quot;ruleName/list&quot;;</span>
+    }
+
+    @GetMapping(&quot;/ruleName/add&quot;)
+    public String addRuleForm(RuleName bid, HttpServletRequest request, HttpServletResponse response) {
+
+<span class="nc" id="L60">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L61">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L63">        return &quot;ruleName/add&quot;;</span>
+    }
+
+    @PostMapping(&quot;/ruleName/validate&quot;)
+    public String validate(@Valid RuleName ruleName, BindingResult result, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+
+<span class="fc" id="L72">            validInput.addRule(ruleName);</span>
+
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">            if (validInput.getAddRule()) {</span>
+<span class="fc" id="L75">                model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+<span class="fc" id="L76">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L78">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L79">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L81">                return REDIRECTRULELIST;</span>
+            } else {
+<span class="nc" id="L83">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Rule not added!&quot;);</span>
+<span class="nc" id="L84">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L86">                return &quot;ruleName/add&quot;;</span>
+            }
+        }
+<span class="fc" id="L89">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L91">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L92">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L94">        return &quot;ruleName/add&quot;;</span>
+    }
+
+    @GetMapping(&quot;/ruleName/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc" id="L100">        RuleName ruleName = ruleNameRepository.findById(id)</span>
+<span class="pc" id="L101">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L102">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
+
+<span class="fc" id="L104">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L105">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L107">        return &quot;ruleName/update&quot;;</span>
+    }
+
+    @PostMapping(&quot;/ruleName/update/{id}&quot;)
+    public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
+            BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L114">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+
+<span class="fc" id="L116">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L117">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L119">            return &quot;ruleName/update&quot;;</span>
+        }
+
+<span class="fc" id="L122">        validInput.updateRule(ruleName, id);</span>
+
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (validInput.getUpdateRule()) {</span>
+<span class="fc" id="L125">            model.addAttribute(&quot;users&quot;, ruleNameRepository.findAll());</span>
+<span class="fc" id="L126">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+
+<span class="fc" id="L128">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L129">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L131">            return REDIRECTRULELIST;</span>
+        } else {
+<span class="nc" id="L133">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Rule not updated!&quot;);</span>
+<span class="nc" id="L134">            LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L136">            return &quot;ruleName/update&quot;;</span>
+        }
+
+    }
+
+    @GetMapping(&quot;/ruleName/delete/{id}&quot;)
+    public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
+            HttpServletResponse response) {
+<span class="fc" id="L144">        RuleName ruleName = ruleNameRepository.findById(id)</span>
+<span class="pc" id="L145">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L146">        ruleNameRepository.delete(ruleName);</span>
+<span class="fc" id="L147">        model.addAttribute(RULES, ruleNameRepository.findAll());</span>
+
+<span class="fc" id="L149">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L150">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L152">        return REDIRECTRULELIST;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

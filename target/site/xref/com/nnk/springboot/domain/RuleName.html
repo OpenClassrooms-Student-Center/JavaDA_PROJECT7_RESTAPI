@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+<title>RuleName xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/com/nnk/springboot/domain/RuleName.html">View Javadoc</a></div><pre>
+
+<a name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> com.nnk.springboot.domain;
+<a name="2" href="#2">2</a>   
+<a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> jakarta.persistence.Column;
+<a name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> jakarta.persistence.Entity;
+<a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> jakarta.persistence.GeneratedValue;
+<a name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> jakarta.persistence.GenerationType;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> jakarta.persistence.Id;
+<a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> jakarta.persistence.Table;
+<a name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> jakarta.validation.constraints.NotBlank;
+<a name="10" href="#10">10</a>  
+<a name="11" href="#11">11</a>  @Entity
+<a name="12" href="#12">12</a>  @Table(name = <span class="jxr_string">"rulename"</span>)
+<a name="13" href="#13">13</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/nnk/springboot/domain/RuleName.html">RuleName</a> {
+<a name="14" href="#14">14</a>      @Id
+<a name="15" href="#15">15</a>      @GeneratedValue(strategy = GenerationType.AUTO)
+<a name="16" href="#16">16</a>      @Column(name = <span class="jxr_string">"id"</span>)
+<a name="17" href="#17">17</a>      <strong class="jxr_keyword">private</strong> Integer id;
+<a name="18" href="#18">18</a>  
+<a name="19" href="#19">19</a>      @Column(name = <span class="jxr_string">"name"</span>)
+<a name="20" href="#20">20</a>      @NotBlank(message = <span class="jxr_string">"Name is mandatory"</span>)
+<a name="21" href="#21">21</a>      <strong class="jxr_keyword">private</strong> String name;
+<a name="22" href="#22">22</a>  
+<a name="23" href="#23">23</a>      @Column(name = <span class="jxr_string">"description"</span>)
+<a name="24" href="#24">24</a>      <strong class="jxr_keyword">private</strong> String description;
+<a name="25" href="#25">25</a>  
+<a name="26" href="#26">26</a>      @Column(name = <span class="jxr_string">"json"</span>)
+<a name="27" href="#27">27</a>      <strong class="jxr_keyword">private</strong> String json;
+<a name="28" href="#28">28</a>  
+<a name="29" href="#29">29</a>      @Column(name = <span class="jxr_string">"template"</span>)
+<a name="30" href="#30">30</a>      <strong class="jxr_keyword">private</strong> String template;
+<a name="31" href="#31">31</a>  
+<a name="32" href="#32">32</a>      @Column(name = <span class="jxr_string">"sqlStr"</span>)
+<a name="33" href="#33">33</a>      <strong class="jxr_keyword">private</strong> String sqlStr;
+<a name="34" href="#34">34</a>  
+<a name="35" href="#35">35</a>      @Column(name = <span class="jxr_string">"sqlPart"</span>)
+<a name="36" href="#36">36</a>      <strong class="jxr_keyword">private</strong> String sqlPart;
+<a name="37" href="#37">37</a>  
+<a name="38" href="#38">38</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/nnk/springboot/domain/RuleName.html">RuleName</a>() {
+<a name="39" href="#39">39</a>      }
+<a name="40" href="#40">40</a>  
+<a name="41" href="#41">41</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/nnk/springboot/domain/RuleName.html">RuleName</a>(Integer id, String name, String description, String json, String template, String sqlStr,
+<a name="42" href="#42">42</a>              String sqlPart) {
+<a name="43" href="#43">43</a>          <strong class="jxr_keyword">this</strong>.id = id;
+<a name="44" href="#44">44</a>          <strong class="jxr_keyword">this</strong>.name = name;
+<a name="45" href="#45">45</a>          <strong class="jxr_keyword">this</strong>.description = description;
+<a name="46" href="#46">46</a>          <strong class="jxr_keyword">this</strong>.json = json;
+<a name="47" href="#47">47</a>          <strong class="jxr_keyword">this</strong>.template = template;
+<a name="48" href="#48">48</a>          <strong class="jxr_keyword">this</strong>.sqlStr = sqlStr;
+<a name="49" href="#49">49</a>          <strong class="jxr_keyword">this</strong>.sqlPart = sqlPart;
+<a name="50" href="#50">50</a>      }
+<a name="51" href="#51">51</a>  
+<a name="52" href="#52">52</a>      <em class="jxr_javadoccomment">/**</em>
+<a name="53" href="#53">53</a>  <em class="jxr_javadoccomment">     * @return Integer</em>
+<a name="54" href="#54">54</a>  <em class="jxr_javadoccomment">     */</em>
+<a name="55" href="#55">55</a>      <strong class="jxr_keyword">public</strong> Integer getId() {
+<a name="56" href="#56">56</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.id;
+<a name="57" href="#57">57</a>      }
+<a name="58" href="#58">58</a>  
+<a name="59" href="#59">59</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setId(Integer id) {
+<a name="60" href="#60">60</a>          <strong class="jxr_keyword">this</strong>.id = id;
+<a name="61" href="#61">61</a>      }
+<a name="62" href="#62">62</a>  
+<a name="63" href="#63">63</a>      <strong class="jxr_keyword">public</strong> String getName() {
+<a name="64" href="#64">64</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.name;
+<a name="65" href="#65">65</a>      }
+<a name="66" href="#66">66</a>  
+<a name="67" href="#67">67</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setName(String name) {
+<a name="68" href="#68">68</a>          <strong class="jxr_keyword">this</strong>.name = name;
+<a name="69" href="#69">69</a>      }
+<a name="70" href="#70">70</a>  
+<a name="71" href="#71">71</a>      <strong class="jxr_keyword">public</strong> String getDescription() {
+<a name="72" href="#72">72</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.description;
+<a name="73" href="#73">73</a>      }
+<a name="74" href="#74">74</a>  
+<a name="75" href="#75">75</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setDescription(String description) {
+<a name="76" href="#76">76</a>          <strong class="jxr_keyword">this</strong>.description = description;
+<a name="77" href="#77">77</a>      }
+<a name="78" href="#78">78</a>  
+<a name="79" href="#79">79</a>      <strong class="jxr_keyword">public</strong> String getJson() {
+<a name="80" href="#80">80</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.json;
+<a name="81" href="#81">81</a>      }
+<a name="82" href="#82">82</a>  
+<a name="83" href="#83">83</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setJson(String json) {
+<a name="84" href="#84">84</a>          <strong class="jxr_keyword">this</strong>.json = json;
+<a name="85" href="#85">85</a>      }
+<a name="86" href="#86">86</a>  
+<a name="87" href="#87">87</a>      <strong class="jxr_keyword">public</strong> String getTemplate() {
+<a name="88" href="#88">88</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.template;
+<a name="89" href="#89">89</a>      }
+<a name="90" href="#90">90</a>  
+<a name="91" href="#91">91</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setTemplate(String template) {
+<a name="92" href="#92">92</a>          <strong class="jxr_keyword">this</strong>.template = template;
+<a name="93" href="#93">93</a>      }
+<a name="94" href="#94">94</a>  
+<a name="95" href="#95">95</a>      <strong class="jxr_keyword">public</strong> String getSqlStr() {
+<a name="96" href="#96">96</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.sqlStr;
+<a name="97" href="#97">97</a>      }
+<a name="98" href="#98">98</a>  
+<a name="99" href="#99">99</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSqlStr(String sqlStr) {
+<a name="100" href="#100">100</a>         <strong class="jxr_keyword">this</strong>.sqlStr = sqlStr;
+<a name="101" href="#101">101</a>     }
+<a name="102" href="#102">102</a> 
+<a name="103" href="#103">103</a>     <strong class="jxr_keyword">public</strong> String getSqlPart() {
+<a name="104" href="#104">104</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.sqlPart;
+<a name="105" href="#105">105</a>     }
+<a name="106" href="#106">106</a> 
+<a name="107" href="#107">107</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setSqlPart(String sqlPart) {
+<a name="108" href="#108">108</a>         <strong class="jxr_keyword">this</strong>.sqlPart = sqlPart;
+<a name="109" href="#109">109</a>     }
+<a name="110" href="#110">110</a> 
+<a name="111" href="#111">111</a> }
+</pre>
+<hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
+</html>
+
