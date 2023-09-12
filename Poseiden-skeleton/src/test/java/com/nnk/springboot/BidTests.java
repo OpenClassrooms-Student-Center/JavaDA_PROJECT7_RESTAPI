@@ -21,7 +21,11 @@ public class BidTests {
 
 	@Test
 	public void bidListTest() {
-		BidList bid = new BidList("Account Test", "Type Test", 10d);
+		BidList bid = new BidList(/*"Account Test", "Type Test", 10d*/);
+		bid.setAccount("Account Test");
+		bid.setType("Type Test");
+		bid.setBidQuantity(10d); // TODO: Verifier que le 10d correspond bien a BidQuantity
+
 
 		// Save
 		bid = bidListRepository.save(bid);

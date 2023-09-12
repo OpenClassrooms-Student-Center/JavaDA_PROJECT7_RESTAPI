@@ -8,5 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
+    //TODO : JpaSpecificationExecutor à l'air d'être un outil pour faire des recherches avancé dans la base de donnée.
+    //  Faire plus de recherches.
+    public User findByUsername(String username);
 
 }

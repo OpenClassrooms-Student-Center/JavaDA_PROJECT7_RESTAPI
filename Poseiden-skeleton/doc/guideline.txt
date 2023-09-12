@@ -27,5 +27,5 @@
 1. Create unit test and place in package com.nnk.springboot in folder test > java
 
 ## Security
-1. Create user service to load user from  database and place in package com.nnk.springboot.services
+1. Create user service to load user from database and place in package com.nnk.springboot.services
 2. Add configuration class and place in package com.nnk.springboot.config
