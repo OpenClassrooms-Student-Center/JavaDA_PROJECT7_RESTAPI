@@ -3,8 +3,8 @@ package com.nnk.springboot.domain;
 import org.springframework.beans.factory.annotation.Required;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 import java.sql.Timestamp;
 
