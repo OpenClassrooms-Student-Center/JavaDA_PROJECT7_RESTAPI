@@ -13,7 +13,10 @@ public class Rating {
     @Column(length = 125)
     private String fitchRating;
     @Id
+    @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotBlank
+    @NotNull
     private Integer id;
     @Column(length = 125)
     private String moodysRating;
