@@ -11,5 +11,18 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "bidlist")
 public class BidList {
+    public BidList(String accountTest, String typeTest, double v) {
+    }
+
+    public Integer getBidListId() {
+        return null;
+    }
+
+    public double getBidQuantity() {
+        return 0;
+    }
+
+    public void setBidQuantity(double v) {
+    }
     // TODO: Map columns in data table BIDLIST with corresponding java fields
 }
