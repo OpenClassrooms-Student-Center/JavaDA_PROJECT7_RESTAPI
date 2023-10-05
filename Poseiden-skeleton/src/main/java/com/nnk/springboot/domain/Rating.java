@@ -3,7 +3,6 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "rating")
@@ -14,20 +13,23 @@ public class Rating {
     private String fitchRating;
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotBlank
     @NotNull
     private Integer id;
     @Column(length = 125)
     private String moodysRating;
-    private Integer orderNumber;
+    @Column(name = "orderNumber")
+    private Integer order;
     @Column(length = 125)
     private String sandPRating;
 
-    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer orderNumber) {
+    public Rating() {};
+
+    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer order) {
         this.fitchRating = fitchRating;
         this.moodysRating = moodysRating;
-        this.orderNumber = orderNumber;
+        this.order = order;
         this.sandPRating = sandPRating;
     }
 
@@ -56,11 +58,11 @@ public class Rating {
     }
 
     public Integer getOrderNumber() {
-        return orderNumber;
+        return order;
     }
 
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrderNumber(Integer order) {
+        this.order = order;
     }
 
     public String getSandPRating() {

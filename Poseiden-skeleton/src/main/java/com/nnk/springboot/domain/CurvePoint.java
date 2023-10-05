@@ -11,6 +11,10 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
+    @Id
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     public CurvePoint(int i, double v, double v1) {
     }
 
