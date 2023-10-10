@@ -17,8 +17,12 @@ import java.util.Optional;
 @Controller
 public class RatingController {
     // TODO: Inject Rating service
+    private final RatingService ratingService;
+
     @Autowired
-    RatingService ratingService;
+    public RatingController(RatingService ratingService) {
+        this.ratingService = ratingService;
+    }
 
     @RequestMapping("/rating/list")
     public String home(Model model)

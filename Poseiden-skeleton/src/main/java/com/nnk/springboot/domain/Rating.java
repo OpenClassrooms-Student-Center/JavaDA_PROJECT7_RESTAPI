@@ -15,7 +15,7 @@ public class Rating {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotBlank
-    @NotNull
+    @NotNull(message = "id is null")
     private Integer id;
     @Column(length = 125)
     private String moodysRating;
