@@ -1,9 +1,9 @@
 package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.TestVariables;
-import com.nnk.springboot.controllers.RatingController;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@SpringBootTest(classes = RatingController.class)
+@RunWith(MockitoJUnitRunner.class)
 public class RatingControllerTests extends TestVariables {
 }
