@@ -14,6 +14,7 @@ public abstract class TestVariables {
 
     public void initializeVariables() {
         rating = new Rating("moodysRating", "sandPRating", "fitchRating", 10);
+        rating.setId(1);
         ratingList = new ArrayList<>(List.of(rating));
         ratingOptional = Optional.of(rating);
 
