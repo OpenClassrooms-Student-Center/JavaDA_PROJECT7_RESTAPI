@@ -49,13 +49,13 @@ public class RatingServiceTests extends TestVariables {
     
     @Test
     public void findByIdTest() {
-        assertEquals(ratingOptional, ratingService.findById(1));
+        assertEquals(ratingOptional, ratingService.findById(rating.getId()));
         verify(ratingRepository, Mockito.times(1)).findById(any(Integer.class));
     }
     @Test
     public void findByIdTestIfNotFound() {
         when(ratingRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
-        assertEquals(Optional.empty(), ratingService.findById(1));
+        assertEquals(Optional.empty(), ratingService.findById(rating.getId()));
         verify(ratingRepository, Mockito.times(1)).findById(any(Integer.class));
     }
     @Test
@@ -68,7 +68,7 @@ public class RatingServiceTests extends TestVariables {
 
     @Test
     public void deleteByIdTest() {
-        ratingService.deleteById(1);
+        ratingService.deleteById(rating.getId());
         verify(ratingRepository, Mockito.times(1)).deleteById(any(Integer.class));
     }
     @Test
