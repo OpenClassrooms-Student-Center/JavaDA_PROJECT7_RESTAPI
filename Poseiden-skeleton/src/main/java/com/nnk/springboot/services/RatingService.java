@@ -23,10 +23,16 @@ public class RatingService {
     }
 
     public Optional<Rating> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
         return ratingRepository.findById(id);
     }
 
     public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
         ratingRepository.deleteById(id);
     }
 
