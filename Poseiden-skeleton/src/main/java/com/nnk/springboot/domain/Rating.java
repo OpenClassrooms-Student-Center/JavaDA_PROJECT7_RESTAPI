@@ -1,9 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "rating")
@@ -11,20 +10,29 @@ public class Rating {
     // TODO: Map columns in data table RATING with corresponding java fields
 
     @Column(length = 125)
+    @Size(max = 125, message = "fitchRating should be less than 126 characters")
     private String fitchRating;
+
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotBlank
-    @NotNull(message = "id is null")
+    @Min(value = 0, message = "id should be at least 0")
+    @Max(value = 255, message = "id should be less than 256")
+    @NotBlank(message = "id should not be blank")
+    @NotNull(message = "id should not be null")
     private Integer id;
-    @Column(length = 125)
-    @Size(max = 125)
-    private String moodysRating;
-    @Column(name = "orderNumber")
 
-    private Integer order;
     @Column(length = 125)
+    @Size(max = 125, message = "moodysRating should be less than 126 characters")
+    private String moodysRating;
+
+    @Column(name = "orderNumber")
+    @Min(value = 0, message = "order should be at least 0")
+    @Max(value = 255, message = "order should be less than 256")
+    private Integer order;
+
+    @Column(length = 125)
+    @Size(max = 125, message = "sandPRating should be less than 126 characters")
     private String sandPRating;
 
     public Rating() {};
