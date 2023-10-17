@@ -4,12 +4,13 @@ import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.controllers.RatingController;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -22,23 +23,23 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest(classes = RatingController.class)
 public class RatingControllerTests extends TestVariables {
 
+    @Autowired
     RatingController ratingController;
 
-    @Mock
+    @MockBean
     private RatingService ratingService;
 
-    @Mock
+    @MockBean
     private BindingResult bindingResult;
 
     private Model model;
 
-    @Before
+    @BeforeEach
     public void setUpPerTest() {
         initializeVariables();
-        ratingController = new RatingController(ratingService);
         model = new Model() {
             @Override
             public Model addAttribute(String attributeName, Object attributeValue) {

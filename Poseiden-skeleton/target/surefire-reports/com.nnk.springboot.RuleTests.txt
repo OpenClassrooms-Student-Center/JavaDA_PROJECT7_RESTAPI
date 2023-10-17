@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.RuleTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.032 s <<< FAILURE! - in com.nnk.springboot.RuleTests
-com.nnk.springboot.RuleTests.ruleTest  Time elapsed: 0.024 s  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.02 s <<< FAILURE! - in com.nnk.springboot.RuleTests
+com.nnk.springboot.RuleTests.ruleTest  Time elapsed: 0.018 s  <<< FAILURE!
 java.lang.AssertionError
 	at org.junit.Assert.fail(Assert.java:87)
 	at org.junit.Assert.assertTrue(Assert.java:42)

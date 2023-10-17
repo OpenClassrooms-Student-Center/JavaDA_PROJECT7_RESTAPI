@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "rating")
@@ -18,8 +19,10 @@ public class Rating {
     @NotNull(message = "id is null")
     private Integer id;
     @Column(length = 125)
+    @Size(max = 125)
     private String moodysRating;
     @Column(name = "orderNumber")
+
     private Integer order;
     @Column(length = 125)
     private String sandPRating;

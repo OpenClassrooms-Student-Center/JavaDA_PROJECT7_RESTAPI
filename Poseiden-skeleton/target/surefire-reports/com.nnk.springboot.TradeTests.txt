@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.nnk.springboot.TradeTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.015 s <<< FAILURE! - in com.nnk.springboot.TradeTests
-com.nnk.springboot.TradeTests.tradeTest  Time elapsed: 0.011 s  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.02 s <<< FAILURE! - in com.nnk.springboot.TradeTests
+com.nnk.springboot.TradeTests.tradeTest  Time elapsed: 0.015 s  <<< ERROR!
 org.springframework.orm.jpa.JpaSystemException: could not execute statement [Field 'account' doesn't have a default value] [insert into trade (trade_id) values (?)]
 	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:320)
 	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:229)
@@ -20,7 +20,7 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement [Fie
 	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
-	at jdk.proxy2/jdk.proxy2.$Proxy134.save(Unknown Source)
+	at jdk.proxy2/jdk.proxy2.$Proxy136.save(Unknown Source)
 	at com.nnk.springboot.TradeTests.tradeTest(TradeTests.java:27)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)

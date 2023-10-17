@@ -28,7 +28,7 @@ public class RatingController {
     public String home(Model model)
     {
         // TODO: find all Rating, add to model
-        model.addAttribute("ratingList", ratingService.findAll());
+        model.addAttribute("ratings", ratingService.findAll());
         return "rating/list";
     }
 
