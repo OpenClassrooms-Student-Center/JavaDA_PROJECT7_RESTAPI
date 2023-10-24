@@ -2,10 +2,12 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
+import org.springframework.context.annotation.PropertySource;
 
 @Entity
 @Table(name = "rating")
+@PropertySource("classpath:messages.properties")
 public class Rating {
     // TODO: Map columns in data table RATING with corresponding java fields
 
@@ -18,7 +20,6 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Min(value = 0, message = "id should be at least 0")
     @Max(value = 255, message = "id should be less than 256")
-    @NotBlank(message = "id should not be blank")
     @NotNull(message = "id should not be null")
     private Integer id;
 
@@ -68,11 +69,11 @@ public class Rating {
         this.moodysRating = moodysRating;
     }
 
-    public Integer getOrderNumber() {
+    public Integer getOrder() {
         return order;
     }
 
-    public void setOrderNumber(Integer order) {
+    public void setOrder(Integer order) {
         this.order = order;
     }
 

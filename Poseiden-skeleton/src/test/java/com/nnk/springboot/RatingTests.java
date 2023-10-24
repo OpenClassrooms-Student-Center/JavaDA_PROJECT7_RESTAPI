@@ -24,12 +24,12 @@ public class RatingTests {
 		// Save
 		rating = ratingRepository.save(rating);
 		assertNotNull(rating.getId());
-		assertTrue(rating.getOrderNumber() == 10);
+		assertTrue(rating.getOrder() == 10);
 
 		// Update
-		rating.setOrderNumber(20);
+		rating.setOrder(20);
 		rating = ratingRepository.save(rating);
-		assertTrue(rating.getOrderNumber() == 20);
+		assertTrue(rating.getOrder() == 20);
 
 		// Find
 		List<Rating> listResult = ratingRepository.findAll();
