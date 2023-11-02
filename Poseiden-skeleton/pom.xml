@@ -9,8 +9,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-skeleton</name>
-	<description>Demo project for Spring Boot</description>
+	<name>poseidon-skeleton</name>
+	<description>Poseidon project for OpenClassrooms</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
