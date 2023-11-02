@@ -14,7 +14,7 @@ import java.util.Objects;
 @Table(name = "bidlist")
 @NoArgsConstructor
 public class BidList {
-    // TODO: Map columns in data table BIDLIST with corresponding java fields
+    // TODO DONE:  Map columns in data table BIDLIST with corresponding java fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer BidListId;
