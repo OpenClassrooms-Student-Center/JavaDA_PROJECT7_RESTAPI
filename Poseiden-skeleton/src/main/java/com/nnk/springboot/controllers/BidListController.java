@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class BidListController {
@@ -22,7 +23,9 @@ public class BidListController {
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
-        // TODO: call service find all bids to show to the view
+        // TODO DONE: call service find all bids to show to the view
+        List<BidList> bidList = bidListService.findAllBid();
+        model.addAttribute("bidList",bidList);
         return "bidList/list";
     }
 
