@@ -26,5 +26,7 @@ public class BidListServiceImpl implements BidListService {
      *{@inheritDoc}
      */
     @Override
-    public void saveBid(BidList Bid) {bidListRepository.save(Bid);}
+    public void saveBid(BidList Bid) {
+        bidListRepository.save(Bid);
+    }
 }
