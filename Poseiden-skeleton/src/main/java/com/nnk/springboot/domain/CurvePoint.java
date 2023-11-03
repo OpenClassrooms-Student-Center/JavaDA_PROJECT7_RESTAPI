@@ -11,5 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
+    public CurvePoint(int i, double v, double v1) {
+    }
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 }
