@@ -14,8 +14,7 @@ public interface BidListService {
     List<BidList> findAllBid();
 
     /**
-     * save a list of Bids
-     * @return List of BidList
+     * save the bid in db
      */
      void saveBid(BidList Bid);
 
