@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Add New Rule</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/ruleName/validate}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{name}" id="name" placeholder="Name" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="description" class="col-sm-2 control-label">Description</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{description}" id="description" placeholder="Description" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="json" class="col-sm-2 control-label">Json</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{json}" id="json" placeholder="Json" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('json')}" th:errors="*{json}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="template" class="col-sm-2 control-label">Template</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{template}" id="template" placeholder="Template" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('template')}" th:errors="*{template}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sql" class="col-sm-2 control-label">SQL</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sql}" id="sql" placeholder="SQL" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('sql')}" th:errors="*{sql}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sqlPart" class="col-sm-2 control-label">SQL Part</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sqlPart}" id="sqlPart" placeholder="SQL Part" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('sqlPart')}" th:errors="*{sqlPart}"></p>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" href="/rule/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Add Rule">
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>

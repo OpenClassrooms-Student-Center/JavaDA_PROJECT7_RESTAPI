@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Home</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h2>Update CurvePoint</h2>
+	</div>
+
+	<div class="row">
+		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="term" class="col-sm-2 control-label">Term</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{term}" id="term" placeholder="Term" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('term')}" th:errors="*{term}"></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="value" class="col-sm-2 control-label">Value</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{value}" id="value" placeholder="Value" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('value')}" th:errors="*{value}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-12">
+					<input type="hidden" th:field="*{id}">
+					<a class="btn btn-danger btn-sm" href="/curvePoint/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Update Curve Point">
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
