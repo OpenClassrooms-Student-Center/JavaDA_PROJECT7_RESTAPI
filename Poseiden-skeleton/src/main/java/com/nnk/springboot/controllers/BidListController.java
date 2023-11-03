@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -40,8 +40,12 @@ public class BidListController {
         if (result.hasErrors()) {
             return "bidList/add";
         }
-        bidListService.saveBid(bid);
-        return "bidList/add";
+        try {
+            bidListService.saveBid(bid);
+            return "redirect:/bidList/list";
+        } catch (Exception e) {
+            return "bidList/add";
+        }
     }
 
     @GetMapping("/bidList/update/{id}")
