@@ -1,7 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.service.BidListService;
+import com.nnk.springboot.services.BidListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,14 +16,14 @@ import java.util.List;
 
 @Controller
 public class BidListController {
-    // TODO DONE: Inject Bid service
+    // TODO DONE: Inject Bid services
     @Autowired
     private BidListService bidListService;
 
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
-        // TODO DONE: call service find all bids to show to the view
+        // TODO DONE: call services find all bids to show to the view
         List<BidList> bidList = bidListService.findAllBid();
         model.addAttribute("bidList",bidList);
         return "bidList/list";
@@ -37,6 +37,10 @@ public class BidListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidList bid, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return bid list
+        if (result.hasErrors()) {
+            return "bidList/add";
+        }
+        bidListService.saveBid(bid);
         return "bidList/add";
     }
 
@@ -49,7 +53,7 @@ public class BidListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
+        // TODO: check required fields, if valid call services to update Bid and return list Bid
         return "redirect:/bidList/list";
     }
 

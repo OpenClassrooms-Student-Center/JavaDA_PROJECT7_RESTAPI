@@ -1,8 +1,8 @@
-package com.nnk.springboot.service.impl;
+package com.nnk.springboot.services.impl;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
-import com.nnk.springboot.service.BidListService;
+import com.nnk.springboot.services.BidListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +20,13 @@ public class BidListServiceImpl implements BidListService {
     @Override
     public List<BidList> findAllBid() {
         return bidListRepository.findAll();
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public void saveBid(BidList Bid) {
+        bidListRepository.save(Bid);
     }
 }

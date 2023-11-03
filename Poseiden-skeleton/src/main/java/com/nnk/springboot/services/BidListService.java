@@ -1,4 +1,4 @@
-package com.nnk.springboot.service;
+package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.BidList;
 
@@ -12,4 +12,11 @@ public interface BidListService {
      * @return List of BidList
      */
     List<BidList> findAllBid();
+
+    /**
+     * save a list of Bids
+     * @return List of BidList
+     */
+     void saveBid(BidList Bid);
+
 }

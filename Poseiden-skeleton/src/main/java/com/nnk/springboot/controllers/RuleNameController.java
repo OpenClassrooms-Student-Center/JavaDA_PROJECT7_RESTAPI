@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @Controller
 public class RuleNameController {
-    // TODO: Inject RuleName service
+    // TODO: Inject RuleName services
 
     @RequestMapping("/ruleName/list")
     public String home(Model model)
@@ -42,7 +42,7 @@ public class RuleNameController {
     @PostMapping("/ruleName/update/{id}")
     public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+        // TODO: check required fields, if valid call services to update RuleName and return RuleName list
         return "redirect:/ruleName/list";
     }
 
