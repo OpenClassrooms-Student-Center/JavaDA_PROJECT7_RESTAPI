@@ -17,9 +17,9 @@ public class Rating {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)/*
     @Min(value = 0, message = "id should be at least 0")
-    @Max(value = 255, message = "id should be less than 256")
+    @Max(value = 255, message = "id should be less than 256")*/
     @NotNull(message = "id should not be null")
     private Integer id;
 

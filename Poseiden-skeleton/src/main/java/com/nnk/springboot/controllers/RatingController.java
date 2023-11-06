@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Optional;
 
 @Controller
@@ -40,7 +41,11 @@ public class RatingController {
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
-        if(!result.hasErrors()) {
+
+        System.out.println(result);
+        System.out.println(result.getFieldError());
+        if(result.getErrorCount() == 1
+                && Arrays.stream(result.getFieldError().getCodes()).filter(p -> p.equals("NotNull.id")).count() == 1) {
             ratingService.save(rating);
         }
         return "rating/add";
@@ -59,7 +64,7 @@ public class RatingController {
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                                BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
-        if(!result.hasErrors()
+        if(result.getErrorCount() == 0
                 && ratingService.findById(id).isPresent()) {
             ratingService.save(rating);
         }

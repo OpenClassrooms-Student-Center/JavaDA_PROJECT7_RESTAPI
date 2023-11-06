@@ -1,8 +1,6 @@
 package com.nnk.springboot.integration;
 
 import com.nnk.springboot.TestVariables;
-import jakarta.inject.Inject;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
