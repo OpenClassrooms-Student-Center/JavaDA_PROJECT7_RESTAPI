@@ -16,7 +16,7 @@ public class Rating {
     private String fitchRating;
 
     @Id
-    @Column(name = "Id")
+    @Column(name = "Id", columnDefinition = "tinyint(4)")
     @GeneratedValue(strategy = GenerationType.AUTO)/*
     @Min(value = 0, message = "id should be at least 0")
     @Max(value = 255, message = "id should be less than 256")*/
@@ -27,7 +27,7 @@ public class Rating {
     @Size(max = 125, message = "moodysRating should be less than 126 characters")
     private String moodysRating;
 
-    @Column(name = "orderNumber")
+    @Column(name = "orderNumber", columnDefinition = "tinyint")
     @Min(value = 0, message = "order should be at least 0")
     @Max(value = 255, message = "order should be less than 256")
     private Integer order;

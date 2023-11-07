@@ -3,9 +3,8 @@ package com.nnk.springboot.integration;
 import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class RatingIntegrationTests extends TestVariables {
@@ -30,19 +30,22 @@ public class RatingIntegrationTests extends TestVariables {
     private RatingRepository ratingRepository;
 
     private Integer databaseSizeBefore;
-    private Integer databaseSizeAfter;
+
+    @BeforeAll
+    public void setUpGlobal() {
+        initializeVariables();
+        ratingRepository.save(rating);
+    }
 
     @BeforeEach
     public void setUpPerTest() {
         initializeVariables();
-        ratingRepository.delete(rating); // DOESN'T WORK ; EVERY TEST CREATES A NEW RATING WITH DIFFERENT ID
+        //ratingRepository.delete(rating); // DOESN'T WORK ; EVERY TEST CREATES A NEW RATING WITH DIFFERENT ID
         databaseSizeBefore = ratingRepository.findAll().size();
-        databaseSizeAfter = null;
     }
 
     public Integer databaseSizeChange() {
-        databaseSizeAfter = ratingRepository.findAll().size();
-        return databaseSizeAfter - databaseSizeBefore;
+        return ratingRepository.findAll().size() - databaseSizeBefore;
     }
 
     @Test
@@ -82,7 +85,6 @@ public class RatingIntegrationTests extends TestVariables {
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(rating.toString()))
                     .andExpect(status().is2xxSuccessful());
-            databaseSizeAfter = ratingRepository.findAll().size();
             assertEquals(1, databaseSizeChange());
         }
         @Test
@@ -105,7 +107,7 @@ public class RatingIntegrationTests extends TestVariables {
         @WithMockUser
         public void showUpdateFormTest () throws Exception {
             mockMvc.perform((get("/rating/update/" +
-                    ((Rating) ratingRepository.findAll().toArray()[0]).getId())))
+                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())))
                     .andExpect(status().is2xxSuccessful());
             assertEquals(0, databaseSizeChange());
 
@@ -119,6 +121,67 @@ public class RatingIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
 
             // INCORRECT ID ARBITRARY
+        }
+    }
+    @Nested
+    public class updateRatingTests
+    {
+        @Test
+        @WithMockUser
+        public void updateRatingTest () throws Exception {
+            mockMvc.perform(post("/rating/update/" +
+                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(rating.toString()))
+                    .andExpect(status().is3xxRedirection());
+            assertEquals(0, databaseSizeChange());
+        }
+
+        @Test
+        @WithMockUser
+        public void updateRatingTestIfInvalidRating () throws Exception {
+            rating.setFitchRating(longString);
+            mockMvc.perform(post("/rating/update/" +
+                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(rating.toString()))
+                    .andExpect(status().is3xxRedirection());
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser
+        public void updateRatingTestIfNotInDb () throws Exception {
+            mockMvc.perform(post("/rating/update/0")
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(rating.toString()))
+                    .andExpect(status().is3xxRedirection());
+            assertEquals(0, databaseSizeChange());
+        }
+    }
+    @Nested
+    public class deleteRatingTests
+    {
+        @Test
+        @WithMockUser
+        public void deleteRatingTest () throws Exception {
+            ratingRepository.save(rating);
+            Object[] ratings = ratingRepository.findAll().toArray();
+            rating.setId(((Rating) ratings[ratings.length - 1]).getId());
+
+            mockMvc.perform(get("/rating/delete/" + rating.getId()))
+                    .andExpect(status().is3xxRedirection());
+
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser
+        public void deleteRatingTestIfNotInDb () throws Exception {
+            mockMvc.perform(get("/rating/delete/0"))
+                    .andExpect(status().is3xxRedirection());
+            assertEquals(0, databaseSizeChange());
         }
     }
 }
