@@ -41,9 +41,6 @@ public class RatingController {
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
-
-        System.out.println(result);
-        System.out.println(result.getFieldError());
         if(result.getErrorCount() == 1
                 && Arrays.stream(result.getFieldError().getCodes()).filter(p -> p.equals("NotNull.id")).count() == 1) {
             ratingService.save(rating);
@@ -55,8 +52,12 @@ public class RatingController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
         Optional<Rating> rating = ratingService.findById(id);
-        if(rating.isPresent())
+        if(rating.isPresent()) {
             model.addAttribute("rating", rating.get());
+        }
+        else {
+            model.addAttribute("rating", new Rating());
+        }
         return "rating/update";
     }
 

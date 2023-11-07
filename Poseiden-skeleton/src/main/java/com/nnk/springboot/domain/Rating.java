@@ -84,4 +84,12 @@ public class Rating {
     public void setSandPRating(String sandPRating) {
         this.sandPRating = sandPRating;
     }
+
+    @Override
+    public String toString() {
+        return "&moodysRating=" + this.moodysRating +
+                "&sandPRating=" + this.sandPRating +
+                "&fitchRating=" + this.fitchRating +
+                "&order=" + this.order;
+    }
 }
