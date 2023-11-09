@@ -35,8 +35,16 @@ public class RatingIntegrationTests extends TestVariables {
 
     @BeforeAll
     public void setUpGlobal() {
+        System.out.println("---- SETUPGLOBAL");
         initializeVariables();
         ratingRepository.save(rating);
+        ratingId = rating.getId();
+        System.out.println(ratingId);
+    }
+
+    @AfterAll
+    public void cleanUpDatabase() {
+        ratingRepository.deleteById(ratingId);
     }
 
     @BeforeEach
@@ -44,6 +52,8 @@ public class RatingIntegrationTests extends TestVariables {
         initializeVariables();
         //ratingRepository.delete(rating); // DOESN'T WORK ; EVERY TEST CREATES A NEW RATING WITH DIFFERENT ID
         databaseSizeBefore = ratingRepository.findAll().size();
+        System.out.println("---- SETUPPERTEST");
+        System.out.println(databaseSizeBefore);
     }
 
     public Integer databaseSizeChange() {
@@ -52,7 +62,7 @@ public class RatingIntegrationTests extends TestVariables {
 
     public Boolean resultContainsRating(MvcResult result, Rating rating) throws UnsupportedEncodingException {
         String resultContent = result.getResponse().getContentAsString();
-        return resultContent.contains(rating.getId().toString())
+        return resultContent.contains(ratingId.toString())
                 && resultContent.contains(rating.getMoodysRating())
                 && resultContent.contains(rating.getSandPRating())
                 && resultContent.contains(rating.getFitchRating())
@@ -120,7 +130,7 @@ public class RatingIntegrationTests extends TestVariables {
         @WithMockUser
         public void showUpdateFormTest () throws Exception {
             MvcResult result = mockMvc.perform((get("/rating/update/" +
-                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())))
+                            (ratingId))))
                     .andExpect(status().is2xxSuccessful())
                     .andReturn();
             assertEquals(true, resultContainsRating(result, rating));

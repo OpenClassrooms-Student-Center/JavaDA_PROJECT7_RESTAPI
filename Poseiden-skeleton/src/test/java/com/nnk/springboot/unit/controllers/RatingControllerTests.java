@@ -14,9 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -43,6 +41,7 @@ public class RatingControllerTests extends TestVariables {
     @BeforeEach
     public void setUpPerTest() {
         initializeVariables();
+        rating.setId(1);
         model = new Model() {
             @Override
             public Model addAttribute(String attributeName, Object attributeValue) {
@@ -88,8 +87,7 @@ public class RatingControllerTests extends TestVariables {
         when(ratingService.findAll()).thenReturn(ratingList);
         when(ratingService.findById(any(Integer.class))).thenReturn(ratingOptional);
         when(ratingService.findById(any(Integer.class))).thenReturn(ratingOptional);
-        when(bindingResult.getErrorCount()).thenReturn(0);
-        when(bindingResult.getFieldError()).thenReturn(fieldError);
+        when(bindingResult.hasErrors()).thenReturn(false);
     }
 
     @Test
@@ -126,21 +124,13 @@ public class RatingControllerTests extends TestVariables {
     public class ValidateTests
     {
         @Test
-        public void validateTest () {when(bindingResult.getErrorCount()).thenReturn(1);
-            when(bindingResult.getFieldError()).thenReturn(fieldErrorIdNotNull);
+        public void validateTest () {
             assertEquals("rating/add", ratingController.validate(rating, bindingResult, model));
             verify(ratingService, Mockito.times(1)).save(any(Rating.class));
         }
         @Test
-        public void validateTestIfRatingHasNoError () {
-            when(bindingResult.getErrorCount()).thenReturn(0);
-            assertEquals("rating/add", ratingController.validate(rating, bindingResult, model));
-            verify(ratingService, Mockito.times(0)).save(any(Rating.class));
-        }
-        @Test
-        public void validateTestIfRatingHasUnexpectedError () {
-            when(bindingResult.getErrorCount()).thenReturn(1);
-            when(bindingResult.getFieldError()).thenReturn(fieldError);
+        public void validateTestIfInvalidRating () {
+            when(bindingResult.hasErrors()).thenReturn(true);
             assertEquals("rating/add", ratingController.validate(rating, bindingResult, model));
             verify(ratingService, Mockito.times(0)).save(any(Rating.class));
         }
@@ -167,7 +157,7 @@ public class RatingControllerTests extends TestVariables {
         }
         @Test
         public void updateRatingTestIfInvalidRating () {
-            when(bindingResult.getErrorCount()).thenReturn(1);
+            when(bindingResult.hasErrors()).thenReturn(true);
             assertEquals("redirect:/rating/list", ratingController.updateRating(rating.getId(), rating, bindingResult, model));
             verify(ratingService, Mockito.times(0)).findById(any(Integer.class));
             verify(ratingService, Mockito.times(0)).save(any(Rating.class));

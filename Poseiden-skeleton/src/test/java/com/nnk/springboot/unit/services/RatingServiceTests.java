@@ -29,6 +29,7 @@ public class RatingServiceTests extends TestVariables {
     @BeforeEach
     public void setUpPerTest() {
         initializeVariables();
+        rating.setId(1);
         when(ratingRepository.findAll()).thenReturn(ratingList);
         when(ratingRepository.findById(any(Integer.class))).thenReturn(ratingOptional);
     }

@@ -16,11 +16,8 @@ public class Rating {
     private String fitchRating;
 
     @Id
-    @Column(name = "Id", columnDefinition = "tinyint(4)")
-    @GeneratedValue(strategy = GenerationType.AUTO)/*
-    @Min(value = -128, message = "id should be more than -129")
-    @Max(value = 127, message = "id should be less than 128")*/
-    @NotNull(message = "id should not be null")
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(length = 125)

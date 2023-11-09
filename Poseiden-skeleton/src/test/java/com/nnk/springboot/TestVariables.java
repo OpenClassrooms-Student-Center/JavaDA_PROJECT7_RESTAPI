@@ -1,7 +1,6 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
-import org.springframework.validation.FieldError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +22,11 @@ public abstract class TestVariables {
     protected String ratingOrderMin;
     protected String ratingOrderMax;
     protected String ratingSandPRatingSize;
-
-    protected FieldError fieldError;
-    protected FieldError fieldErrorIdNotNull;
+    protected Integer ratingId;
 
     public void initializeVariables() {
         rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "fitchRatingTestValue", 10);
-        rating.setId(1);
+        //rating.setId(1);
         ratingList = new ArrayList<>(List.of(rating));
         ratingOptional = Optional.of(rating);
 
@@ -47,13 +44,6 @@ public abstract class TestVariables {
         ratingOrderMin = "order should be more than -129";
         ratingOrderMax = "order should be less than 128";
         ratingSandPRatingSize = "sandPRating should be less than 126 characters";
-
-        fieldError = new FieldError("objectName",
-                "field","rejectedValue",
-                false, new String[]{}, new String[]{}, "defaultMessage");
-        fieldErrorIdNotNull = new FieldError("objectName",
-                "field","rejectedValue",
-                false, new String[]{"NotNull.id"}, new String[]{}, "defaultMessage");
     }
 
 }

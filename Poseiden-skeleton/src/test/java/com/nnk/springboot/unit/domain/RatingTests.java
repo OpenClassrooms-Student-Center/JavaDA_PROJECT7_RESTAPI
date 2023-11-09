@@ -54,40 +54,6 @@ public class RatingTests extends TestVariables {
         }
 
         @Nested
-        public class IdTests
-        {
-            @Test
-            public void ValidationTestIfIdMax () {
-                rating.setId(128);
-                Set<ConstraintViolation<Rating>> result = validator.validate(rating);
-                assertEquals(1, result.size());
-                ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
-                assertEquals("id", constraintViolation.getPropertyPath().toString());
-                assertEquals(ratingIdMax, constraintViolation.getMessage());
-            }
-
-            @Test
-            public void ValidationTestIfIdMin () {
-                rating.setId(-129);
-                Set<ConstraintViolation<Rating>> result = validator.validate(rating);
-                assertEquals(1, result.size());
-                ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
-                assertEquals("id", constraintViolation.getPropertyPath().toString());
-                assertEquals(ratingIdMin, constraintViolation.getMessage());
-            }
-
-            @Test
-            public void ValidationTestIfIdNotNull () {
-                rating.setId(null);
-                Set<ConstraintViolation<Rating>> result = validator.validate(rating);
-                assertEquals(1, result.size());
-                ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
-                assertEquals("id", constraintViolation.getPropertyPath().toString());
-                assertEquals(ratingIdNotNull, constraintViolation.getMessage());
-            }
-        }
-
-        @Nested
         public class MoodysRatingTests
         {
             @Test
