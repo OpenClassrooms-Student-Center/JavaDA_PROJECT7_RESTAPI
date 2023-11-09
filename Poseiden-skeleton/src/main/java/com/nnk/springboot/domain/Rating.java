@@ -18,8 +18,8 @@ public class Rating {
     @Id
     @Column(name = "Id", columnDefinition = "tinyint(4)")
     @GeneratedValue(strategy = GenerationType.AUTO)/*
-    @Min(value = 0, message = "id should be at least 0")
-    @Max(value = 255, message = "id should be less than 256")*/
+    @Min(value = -128, message = "id should be more than -129")
+    @Max(value = 127, message = "id should be less than 128")*/
     @NotNull(message = "id should not be null")
     private Integer id;
 
@@ -28,15 +28,15 @@ public class Rating {
     private String moodysRating;
 
     @Column(name = "orderNumber", columnDefinition = "tinyint")
-    @Min(value = 0, message = "order should be at least 0")
-    @Max(value = 255, message = "order should be less than 256")
+    @Min(value = -128, message = "order should be more than -129")
+    @Max(value = 127, message = "order should be less than 128")
     private Integer order;
 
     @Column(length = 125)
     @Size(max = 125, message = "sandPRating should be less than 126 characters")
     private String sandPRating;
 
-    public Rating() {};
+    public Rating() {}
 
     public Rating(String moodysRating, String sandPRating, String fitchRating, Integer order) {
         this.fitchRating = fitchRating;

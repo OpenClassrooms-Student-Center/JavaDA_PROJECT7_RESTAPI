@@ -28,7 +28,7 @@ public abstract class TestVariables {
     protected FieldError fieldErrorIdNotNull;
 
     public void initializeVariables() {
-        rating = new Rating("moodysRating", "sandPRating", "fitchRating", 10);
+        rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "fitchRatingTestValue", 10);
         rating.setId(1);
         ratingList = new ArrayList<>(List.of(rating));
         ratingOptional = Optional.of(rating);
@@ -40,12 +40,12 @@ public abstract class TestVariables {
                 "635754452771884752599433457836";
 
         ratingFitchRatingSize = "fitchRating should be less than 126 characters";
-        ratingIdMin = "id should be at least 0";
-        ratingIdMax = "id should be less than 256";
+        ratingIdMin = "id should be more than -129";
+        ratingIdMax = "id should be less than 128";
         ratingIdNotNull = "id should not be null";
         ratingMoodysRatingSize = "moodysRating should be less than 126 characters";
-        ratingOrderMin = "order should be at least 0";
-        ratingOrderMax = "order should be less than 256";
+        ratingOrderMin = "order should be more than -129";
+        ratingOrderMax = "order should be less than 128";
         ratingSandPRatingSize = "sandPRating should be less than 126 characters";
 
         fieldError = new FieldError("objectName",

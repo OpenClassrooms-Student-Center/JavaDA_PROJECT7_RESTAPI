@@ -3,7 +3,6 @@ package com.nnk.springboot.integration;
 import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -48,6 +50,15 @@ public class RatingIntegrationTests extends TestVariables {
         return ratingRepository.findAll().size() - databaseSizeBefore;
     }
 
+    public Boolean resultContainsRating(MvcResult result, Rating rating) throws UnsupportedEncodingException {
+        String resultContent = result.getResponse().getContentAsString();
+        return resultContent.contains(rating.getId().toString())
+                && resultContent.contains(rating.getMoodysRating())
+                && resultContent.contains(rating.getSandPRating())
+                && resultContent.contains(rating.getFitchRating())
+                && resultContent.contains(rating.getOrder().toString());
+    }
+
     @Test
     public void contextLoads() {}
 
@@ -57,8 +68,10 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void homeTest () throws Exception {
-            mockMvc.perform(get("/rating/list"))
-                    .andExpect(status().is2xxSuccessful());
+            MvcResult result = mockMvc.perform(get("/rating/list"))
+                    .andExpect(status().is2xxSuccessful())
+                    .andReturn();
+            assertEquals(true, resultContainsRating(result, rating));
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -106,18 +119,20 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void showUpdateFormTest () throws Exception {
-            mockMvc.perform((get("/rating/update/" +
+            MvcResult result = mockMvc.perform((get("/rating/update/" +
                             ((Rating) ratingRepository.findAll().toArray()[0]).getId())))
-                    .andExpect(status().is2xxSuccessful());
+                    .andExpect(status().is2xxSuccessful())
+                    .andReturn();
+            assertEquals(true, resultContainsRating(result, rating));
             assertEquals(0, databaseSizeChange());
-
-            // SHOULD I CHECK IF RATING IS ADDED TO MODEL ?
         }
         @Test
         @WithMockUser
         public void showUpdateFormTestIfNotInDb () throws Exception {
-            mockMvc.perform((get("/rating/update/0")))
-                    .andExpect(status().is2xxSuccessful());
+            MvcResult result = mockMvc.perform((get("/rating/update/0")))
+                    .andExpect(status().is2xxSuccessful())
+                    .andReturn();
+            assertEquals(false, resultContainsRating(result, rating));
             assertEquals(0, databaseSizeChange());
 
             // INCORRECT ID ARBITRARY
@@ -173,7 +188,6 @@ public class RatingIntegrationTests extends TestVariables {
 
             mockMvc.perform(get("/rating/delete/" + rating.getId()))
                     .andExpect(status().is3xxRedirection());
-
             assertEquals(0, databaseSizeChange());
         }
         @Test

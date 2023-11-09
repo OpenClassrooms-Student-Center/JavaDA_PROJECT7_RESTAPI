@@ -58,7 +58,7 @@ public class RatingTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfIdMax () {
-                rating.setId(256);
+                rating.setId(128);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
@@ -68,7 +68,7 @@ public class RatingTests extends TestVariables {
 
             @Test
             public void ValidationTestIfIdMin () {
-                rating.setId(-1);
+                rating.setId(-129);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
@@ -106,7 +106,7 @@ public class RatingTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfOrderMax () {
-                rating.setOrder(256);
+                rating.setOrder(128);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
@@ -116,7 +116,7 @@ public class RatingTests extends TestVariables {
 
             @Test
             public void ValidationTestIfOrderMin () {
-                rating.setOrder(-1);
+                rating.setOrder(-129);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
