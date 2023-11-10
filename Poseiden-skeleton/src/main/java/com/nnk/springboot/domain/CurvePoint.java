@@ -16,24 +16,26 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Table(name = "curvepoint")
-@NoArgsConstructor
 public class CurvePoint {
 
     // TODO : Map columns in data table CURVEPOINT with corresponding java fields
     @Id
-    @Column(name = "")
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "curve_id")
     private Integer curveId;
 
+    @Column(name = "as_of_date")
     private Timestamp asOfDate;
 
+    @Column(name = "term")
     private Double term;
 
+    @Column(name = "value")
     private Double value;
 
+    @Column(name = "creation_date")
     private Timestamp creationDate;
 
-    public CurvePoint(int i, double v, double v1) {
-    }
 }
