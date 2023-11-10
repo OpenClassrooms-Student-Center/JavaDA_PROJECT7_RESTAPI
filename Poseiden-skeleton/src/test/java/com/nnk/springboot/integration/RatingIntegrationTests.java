@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class RatingIntegrationTests extends TestVariables {
 
     @Autowired
@@ -35,11 +37,9 @@ public class RatingIntegrationTests extends TestVariables {
 
     @BeforeAll
     public void setUpGlobal() {
-        System.out.println("---- SETUPGLOBAL");
         initializeVariables();
         ratingRepository.save(rating);
         ratingId = rating.getId();
-        System.out.println(ratingId);
     }
 
     @AfterAll
@@ -50,10 +50,7 @@ public class RatingIntegrationTests extends TestVariables {
     @BeforeEach
     public void setUpPerTest() {
         initializeVariables();
-        //ratingRepository.delete(rating); // DOESN'T WORK ; EVERY TEST CREATES A NEW RATING WITH DIFFERENT ID
         databaseSizeBefore = ratingRepository.findAll().size();
-        System.out.println("---- SETUPPERTEST");
-        System.out.println(databaseSizeBefore);
     }
 
     public Integer databaseSizeChange() {

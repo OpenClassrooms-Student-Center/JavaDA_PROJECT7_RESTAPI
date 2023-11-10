@@ -15,18 +15,15 @@ public abstract class TestVariables {
     protected String longString;
 
     protected String ratingFitchRatingSize;
-    protected String ratingIdMin;
-    protected String ratingIdMax;
-    protected String ratingIdNotNull;
     protected String ratingMoodysRatingSize;
     protected String ratingOrderMin;
     protected String ratingOrderMax;
     protected String ratingSandPRatingSize;
-    protected Integer ratingId;
+
+    protected Integer ratingId; // id of the rating created for integration tests
 
     public void initializeVariables() {
         rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "fitchRatingTestValue", 10);
-        //rating.setId(1);
         ratingList = new ArrayList<>(List.of(rating));
         ratingOptional = Optional.of(rating);
 
@@ -37,9 +34,6 @@ public abstract class TestVariables {
                 "635754452771884752599433457836";
 
         ratingFitchRatingSize = "fitchRating should be less than 126 characters";
-        ratingIdMin = "id should be more than -129";
-        ratingIdMax = "id should be less than 128";
-        ratingIdNotNull = "id should not be null";
         ratingMoodysRatingSize = "moodysRating should be less than 126 characters";
         ratingOrderMin = "order should be more than -129";
         ratingOrderMax = "order should be less than 128";
