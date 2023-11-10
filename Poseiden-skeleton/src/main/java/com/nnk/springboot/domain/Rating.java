@@ -21,17 +21,19 @@ public class Rating {
 
     // TODO: Map columns in data table RATING with corresponding java fields
     @Id
-    @Column(name = "")
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "moodys_rating")
     private String moodysRating;
 
+    @Column(name = "sandprating")
     private String sandPRating;
 
+    @Column(name = "fitch_rating")
     private String fitchRating;
 
+    @Column(name = "order_number")
     private Integer orderNumber;
 
-    public Rating(String moodys_rating, String sand_pRating, String fitch_rating, int i) {
-    }
 }
