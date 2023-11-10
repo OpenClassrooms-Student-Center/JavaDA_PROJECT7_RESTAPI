@@ -1,29 +1,28 @@
 
-CREATE TABLE BidList (
-  BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
-  account VARCHAR(30) NOT NULL,
-  type VARCHAR(30) NOT NULL,
-  bidQuantity DOUBLE,
-  askQuantity DOUBLE,
-  bid DOUBLE ,
-  ask DOUBLE,
-  benchmark VARCHAR(125),
-  bidListDate TIMESTAMP,
-  commentary VARCHAR(125),
-  security VARCHAR(125),
-  status VARCHAR(10),
-  trader VARCHAR(125),
-  book VARCHAR(125),
-  creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
-  revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
-  dealName VARCHAR(125),
-  dealType VARCHAR(125),
-  sourceListId VARCHAR(125),
-  side VARCHAR(125),
-
-  PRIMARY KEY (BidListId)
+CREATE TABLE `BidList` (
+  `BidListId` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `account` VARCHAR(30) NOT NULL,
+  `type` VARCHAR(30) NOT NULL,
+  `bidQuantity` DOUBLE,
+  `askQuantity` DOUBLE,
+  `bid` DOUBLE,
+  `ask` DOUBLE,
+  `benchmark` VARCHAR(125),
+  `bidListDate` TIMESTAMP,
+  `commentary` VARCHAR(125),
+  `security` VARCHAR(125),
+  `status` VARCHAR(10),
+  `trader` VARCHAR(125),
+  `book` VARCHAR(125),
+  `creationName` VARCHAR(125),
+  `creationDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `revisionName` VARCHAR(125),
+  `revisionDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `dealName` VARCHAR(125),
+  `dealType` VARCHAR(125),
+  `sourceListId` VARCHAR(125),
+  `side` VARCHAR(125),
+  PRIMARY KEY (`BidListId`)
 )
 
 CREATE TABLE Trade (
@@ -41,9 +40,9 @@ CREATE TABLE Trade (
   benchmark VARCHAR(125),
   book VARCHAR(125),
   creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
+  creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
+  revisionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   dealName VARCHAR(125),
   dealType VARCHAR(125),
   sourceListId VARCHAR(125),
@@ -58,7 +57,7 @@ CREATE TABLE CurvePoint (
   asOfDate TIMESTAMP,
   term DOUBLE ,
   value DOUBLE ,
-  creationDate TIMESTAMP ,
+  creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 
   PRIMARY KEY (Id)
 )
