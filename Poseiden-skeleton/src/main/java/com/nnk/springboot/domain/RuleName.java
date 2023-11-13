@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @Table(name = "rulename")
 public class RuleName {
 
-    // TODO: Map columns in data table RULENAME with corresponding java fields
+    // TODO DONE: Map columns in data table RULENAME with corresponding java fields
     @Id
     @Column(name = "id")
     private Integer id;

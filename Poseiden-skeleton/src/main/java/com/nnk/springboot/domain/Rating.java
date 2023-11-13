@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Rating {
 
-    // TODO: Map columns in data table RATING with corresponding java fields
+    // TODO DONE: Map columns in data table RATING with corresponding java fields
     @Id
     @Column(name = "id")
     private Integer id;
