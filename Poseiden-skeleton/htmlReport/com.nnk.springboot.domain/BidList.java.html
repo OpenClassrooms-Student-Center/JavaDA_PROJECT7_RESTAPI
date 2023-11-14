@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">BidList.java</span></div><h1>BidList.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+/*import org.springframework.beans.factory.annotation.Required;*/
+
+import jakarta.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.sql.Date;
+import java.sql.Timestamp;
+
+@Entity
+@Table(name = &quot;bidlist&quot;)
+public class BidList {
+    @Id
+    @Column(name = &quot;BidListId&quot;)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+<span class="fc" id="L19">    public BidList(String accountTest, String typeTest, double v) {</span>
+<span class="fc" id="L20">    }</span>
+
+    public Integer getBidListId() {
+<span class="fc" id="L23">        return null;</span>
+    }
+
+    public double getBidQuantity() {
+<span class="nc" id="L27">        return 0;</span>
+    }
+
+    public void setBidQuantity(double v) {
+<span class="nc" id="L31">    }</span>
+    // TODO: Map columns in data table BIDLIST with corresponding java fields
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,19 @@ public abstract class TestVariables {
 
     protected Integer ratingId; // id of the rating created for integration tests
 
+    protected User user;
+
+    protected String userUsernameSize;
+    protected String userPasswordSize;
+    protected String userFullNameSize;
+    protected String userRoleSize;
+    protected String userUsernameNotBlank;
+    protected String userPasswordNotBlank;
+    protected String userFullNameNotBlank;
+    protected String userRoleNotBlank;
+
     public void initializeVariables() {
-        rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "fitchRatingTestValue", 10);
+        rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);
         ratingList = new ArrayList<>(List.of(rating));
         ratingOptional = Optional.of(rating);
 
@@ -38,6 +50,21 @@ public abstract class TestVariables {
         ratingOrderMin = "order should be more than -129";
         ratingOrderMax = "order should be less than 128";
         ratingSandPRatingSize = "sandPRating should be less than 126 characters";
+
+        user = new User();
+        user.setUsername("usernameTestValue");
+        user.setPassword("passwordTestValue1!");
+        user.setFullname("fullNameTestValue");
+        user.setRole("USER");
+
+        userUsernameSize = "Username should be less than 126 characters";
+        userPasswordSize = "Password should be less than 126 characters";
+        userFullNameSize = "FullName should be less than 126 characters";
+        userRoleSize = "Role should be less than 126 characters";
+        userUsernameNotBlank = "Username is mandatory";
+        userPasswordNotBlank = "Password is mandatory";
+        userFullNameNotBlank = "FullName is mandatory";
+        userRoleNotBlank = "Role is mandatory";
     }
 
 }

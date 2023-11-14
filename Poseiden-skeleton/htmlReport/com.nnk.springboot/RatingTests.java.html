@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot</a> &gt; <span class="el_source">RatingTests.java</span></div><h1>RatingTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot;
+
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.repositories.RatingRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+<span class="fc" id="L15">public class RatingTests {</span>
+
+	@Autowired
+	private RatingRepository ratingRepository;
+
+	@Test
+	public void ratingTest() {
+<span class="fc" id="L22">		Rating rating = new Rating(&quot;Moodys Rating&quot;, &quot;Sand PRating&quot;, &quot;Fitch Rating&quot;, 10);</span>
+
+		// Save
+<span class="fc" id="L25">		rating = ratingRepository.save(rating);</span>
+<span class="fc" id="L26">		assertNotNull(rating.getId());</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">		assertTrue(rating.getOrder() == 10);</span>
+
+		// Update
+<span class="fc" id="L30">		rating.setOrder(20);</span>
+<span class="fc" id="L31">		rating = ratingRepository.save(rating);</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">		assertTrue(rating.getOrder() == 20);</span>
+
+		// Find
+<span class="fc" id="L35">		List&lt;Rating&gt; listResult = ratingRepository.findAll();</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">		assertTrue(listResult.size() &gt; 0);</span>
+
+		// Delete
+<span class="fc" id="L39">		Integer id = rating.getId();</span>
+<span class="fc" id="L40">		ratingRepository.delete(rating);</span>
+<span class="fc" id="L41">		Optional&lt;Rating&gt; ratingList = ratingRepository.findById(id);</span>
+<span class="fc" id="L42">		assertFalse(ratingList.isPresent());</span>
+<span class="fc" id="L43">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

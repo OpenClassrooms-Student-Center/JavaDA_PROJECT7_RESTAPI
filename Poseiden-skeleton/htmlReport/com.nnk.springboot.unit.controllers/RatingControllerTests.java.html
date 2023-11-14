@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RatingControllerTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.controllers</a> &gt; <span class="el_source">RatingControllerTests.java</span></div><h1>RatingControllerTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.controllers;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.controllers.RatingController;
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.services.RatingService;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = RatingController.class)
+<span class="fc" id="L28">public class RatingControllerTests extends TestVariables {</span>
+
+    @Autowired
+    RatingController ratingController;
+
+    @MockBean
+    private RatingService ratingService;
+
+    @MockBean
+    private BindingResult bindingResult;
+
+    private Model model;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L43">        initializeVariables();</span>
+<span class="fc" id="L44">        rating.setId(1);</span>
+<span class="fc" id="L45">        model = new Model() {</span>
+            @Override
+            public Model addAttribute(String attributeName, Object attributeValue) {
+<span class="fc" id="L48">                return null;</span>
+            }
+
+            @Override
+            public Model addAttribute(Object attributeValue) {
+<span class="nc" id="L53">                return null;</span>
+            }
+
+            @Override
+            public Model addAllAttributes(Collection&lt;?&gt; attributeValues) {
+<span class="nc" id="L58">                return null;</span>
+            }
+
+            @Override
+            public Model addAllAttributes(Map&lt;String, ?&gt; attributes) {
+<span class="nc" id="L63">                return null;</span>
+            }
+
+            @Override
+            public Model mergeAttributes(Map&lt;String, ?&gt; attributes) {
+<span class="nc" id="L68">                return null;</span>
+            }
+
+            @Override
+            public boolean containsAttribute(String attributeName) {
+<span class="nc" id="L73">                return false;</span>
+            }
+
+            @Override
+            public Object getAttribute(String attributeName) {
+<span class="nc" id="L78">                return null;</span>
+            }
+
+            @Override
+            public Map&lt;String, Object&gt; asMap() {
+<span class="nc" id="L83">                return null;</span>
+            }
+        };
+
+<span class="fc" id="L87">        when(ratingService.findAll()).thenReturn(ratingList);</span>
+<span class="fc" id="L88">        when(ratingService.findById(any(Integer.class))).thenReturn(ratingOptional);</span>
+<span class="fc" id="L89">        when(ratingService.findById(any(Integer.class))).thenReturn(ratingOptional);</span>
+<span class="fc" id="L90">        when(bindingResult.hasErrors()).thenReturn(false);</span>
+<span class="fc" id="L91">    }</span>
+
+    @Test
+<span class="fc" id="L94">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L97">    public class HomeTests</span>
+    {
+        @Test
+        public void homeTest () {
+<span class="fc" id="L101">            assertEquals(&quot;rating/list&quot;, ratingController.home(model));</span>
+<span class="fc" id="L102">            verify(ratingService, Mockito.times(1)).findAll();</span>
+<span class="fc" id="L103">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L107">    public class AddTests</span>
+    {
+        @Test
+        public void addRatingFormTest () {
+<span class="fc" id="L111">            assertEquals(&quot;rating/add&quot;, ratingController.addRatingForm(rating));</span>
+<span class="fc" id="L112">        }</span>
+        @Test
+        public void addRatingFormTestIfEmpty () {
+<span class="fc" id="L115">            assertEquals(&quot;rating/add&quot;, ratingController.addRatingForm(new Rating()));</span>
+<span class="fc" id="L116">        }</span>
+        @Test
+        public void addRatingFormTestIfNull () {
+<span class="fc" id="L119">            assertEquals(&quot;rating/add&quot;, ratingController.addRatingForm(null));</span>
+<span class="fc" id="L120">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L124">    public class ValidateTests</span>
+    {
+        @Test
+        public void validateTest () {
+<span class="fc" id="L128">            assertEquals(&quot;rating/add&quot;, ratingController.validate(rating, bindingResult, model));</span>
+<span class="fc" id="L129">            verify(ratingService, Mockito.times(1)).save(any(Rating.class));</span>
+<span class="fc" id="L130">        }</span>
+        @Test
+        public void validateTestIfInvalidRating () {
+<span class="fc" id="L133">            when(bindingResult.hasErrors()).thenReturn(true);</span>
+<span class="fc" id="L134">            assertEquals(&quot;rating/add&quot;, ratingController.validate(rating, bindingResult, model));</span>
+<span class="fc" id="L135">            verify(ratingService, Mockito.times(0)).save(any(Rating.class));</span>
+<span class="fc" id="L136">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L140">    public class ShowUpdateTests</span>
+    {
+        @Test
+        public void showUpdateFormTest () {
+<span class="fc" id="L144">            assertEquals(&quot;rating/update&quot;, ratingController.showUpdateForm(rating.getId(), model));</span>
+<span class="fc" id="L145">            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L146">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L150">    public class UpdateRatingTests</span>
+    {
+        @Test
+        public void updateRatingTest () {
+<span class="fc" id="L154">            assertEquals(&quot;redirect:/rating/list&quot;, ratingController.updateRating(rating.getId(), rating, bindingResult, model));</span>
+<span class="fc" id="L155">            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L156">            verify(ratingService, Mockito.times(1)).save(any(Rating.class));</span>
+<span class="fc" id="L157">        }</span>
+        @Test
+        public void updateRatingTestIfInvalidRating () {
+<span class="fc" id="L160">            when(bindingResult.hasErrors()).thenReturn(true);</span>
+<span class="fc" id="L161">            assertEquals(&quot;redirect:/rating/list&quot;, ratingController.updateRating(rating.getId(), rating, bindingResult, model));</span>
+<span class="fc" id="L162">            verify(ratingService, Mockito.times(0)).findById(any(Integer.class));</span>
+<span class="fc" id="L163">            verify(ratingService, Mockito.times(0)).save(any(Rating.class));</span>
+<span class="fc" id="L164">        }</span>
+        @Test
+        public void updateRatingTestIfRatingNotInDB () {
+<span class="fc" id="L167">            when(ratingService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="fc" id="L168">            assertEquals(&quot;redirect:/rating/list&quot;, ratingController.updateRating(rating.getId(), rating, bindingResult, model));</span>
+<span class="fc" id="L169">            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L170">            verify(ratingService, Mockito.times(0)).save(any(Rating.class));</span>
+<span class="fc" id="L171">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L175">    public class DeleteRatingTests</span>
+    {
+        @Test
+        public void deleteRatingTest () {
+<span class="fc" id="L179">            assertEquals(&quot;redirect:/rating/list&quot;, ratingController.deleteRating(rating.getId(), model));</span>
+<span class="fc" id="L180">            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L181">            verify(ratingService, Mockito.times(1)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L182">        }</span>
+        @Test
+        public void deleteRatingTestIfRatingNotInDB () {
+<span class="fc" id="L185">            when(ratingService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="fc" id="L186">            assertEquals(&quot;redirect:/rating/list&quot;, ratingController.deleteRating(rating.getId(), model));</span>
+<span class="fc" id="L187">            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L188">            verify(ratingService, Mockito.times(0)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L189">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

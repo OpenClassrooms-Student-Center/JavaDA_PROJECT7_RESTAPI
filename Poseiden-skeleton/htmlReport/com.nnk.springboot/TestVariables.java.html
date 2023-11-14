@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestVariables.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot</a> &gt; <span class="el_source">TestVariables.java</span></div><h1>TestVariables.java</h1><pre class="source lang-java linenums">package com.nnk.springboot;
+
+import com.nnk.springboot.domain.Rating;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+<span class="fc" id="L9">public abstract class TestVariables {</span>
+
+    protected Rating rating;
+    protected List&lt;Rating&gt; ratingList;
+    protected Optional&lt;Rating&gt; ratingOptional;
+
+    protected String longString;
+
+    protected String ratingFitchRatingSize;
+    protected String ratingMoodysRatingSize;
+    protected String ratingOrderMin;
+    protected String ratingOrderMax;
+    protected String ratingSandPRatingSize;
+
+    protected Integer ratingId; // id of the rating created for integration tests
+
+    public void initializeVariables() {
+<span class="fc" id="L26">        rating = new Rating(&quot;moodysRatingTestValue&quot;, &quot;sandPRatingTestValue&quot;, &quot;fitchRatingTestValue&quot;, 10);</span>
+<span class="fc" id="L27">        ratingList = new ArrayList&lt;&gt;(List.of(rating));</span>
+<span class="fc" id="L28">        ratingOptional = Optional.of(rating);</span>
+
+        // 126 characters string used for size validation
+<span class="fc" id="L31">        longString = &quot;85368220096847824275049423209683&quot; +</span>
+                &quot;35786401076532718070358521773728&quot; +
+                &quot;25842050212176069074456918678132&quot; +
+                &quot;635754452771884752599433457836&quot;;
+
+<span class="fc" id="L36">        ratingFitchRatingSize = &quot;fitchRating should be less than 126 characters&quot;;</span>
+<span class="fc" id="L37">        ratingMoodysRatingSize = &quot;moodysRating should be less than 126 characters&quot;;</span>
+<span class="fc" id="L38">        ratingOrderMin = &quot;order should be more than -129&quot;;</span>
+<span class="fc" id="L39">        ratingOrderMax = &quot;order should be less than 128&quot;;</span>
+<span class="fc" id="L40">        ratingSandPRatingSize = &quot;sandPRating should be less than 126 characters&quot;;</span>
+<span class="fc" id="L41">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
