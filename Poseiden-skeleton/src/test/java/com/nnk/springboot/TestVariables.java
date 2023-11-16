@@ -36,6 +36,7 @@ public abstract class TestVariables {
     protected String userPasswordNotBlank;
     protected String userFullNameNotBlank;
     protected String userRoleNotBlank;
+    protected Integer userId; // id of the rating created for integration tests
 
     public void initializeVariables() {
         rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);

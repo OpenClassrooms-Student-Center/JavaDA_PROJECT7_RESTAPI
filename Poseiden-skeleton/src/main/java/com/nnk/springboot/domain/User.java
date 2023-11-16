@@ -76,4 +76,12 @@ public class User {
         Boolean lowercase = password.matches(".*[a-z].*");
         return length && digit && nonword && uppercase && lowercase;
     }
+
+    @Override
+    public String toString() {
+        return "&username=" + this.username +
+                "&password=" + this.password +
+                "&fullname=" + this.fullname +
+                "&role=" + this.role;
+    }
 }

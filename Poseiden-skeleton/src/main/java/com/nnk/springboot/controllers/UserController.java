@@ -46,7 +46,6 @@ public class UserController {
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
     }
