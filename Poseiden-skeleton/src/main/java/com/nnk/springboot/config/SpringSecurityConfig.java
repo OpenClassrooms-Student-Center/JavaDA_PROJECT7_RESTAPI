@@ -54,8 +54,11 @@ public class SpringSecurityConfig {
         return http
                 .authorizeHttpRequests( auth -> {
                     auth.anyRequest().authenticated();
+                    // USE ROLES : ACCESS TO USER PAGES ONLY TO ADMIN ; OTHERS ONLY TO USER
                 })
                 .formLogin(withDefaults())
+                // ALL HAVE ACCESS
                 .build();
+        // DELETE SESSION COOKIE ON LOGOUT
     }
 }

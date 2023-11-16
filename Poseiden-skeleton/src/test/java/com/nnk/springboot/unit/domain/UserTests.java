@@ -135,4 +135,43 @@ public class UserTests extends TestVariables {
             }
         }
     }
+
+    @Nested
+    public class ValidatePasswordTests {
+
+        @Test
+        public void ValidatePasswordTest() {
+            assertTrue(user.validatePassword());
+        }
+
+        @Test
+        public void ValidatePasswordTestIfNoUppercase() {
+            user.setPassword("passwordtestvalue1!");
+            assertFalse(user.validatePassword());
+        }
+
+        @Test
+        public void ValidatePasswordTestIfNoLowercase() {
+            user.setPassword("PASSWORDTESTVALUE1!");
+            assertFalse(user.validatePassword());
+        }
+
+        @Test
+        public void ValidatePasswordTestIfNoDigit() {
+            user.setPassword("passwordTestValue!");
+            assertFalse(user.validatePassword());
+        }
+
+        @Test
+        public void ValidatePasswordTestIfNoNonWord() {
+            user.setPassword("passwordTestValue1");
+            assertFalse(user.validatePassword());
+        }
+
+        @Test
+        public void ValidatePasswordTestIfTooSmall() {
+            user.setPassword("P1!");
+            assertFalse(user.validatePassword());
+        }
+    }
 }

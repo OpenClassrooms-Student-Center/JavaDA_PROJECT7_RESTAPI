@@ -24,6 +24,9 @@ public abstract class TestVariables {
     protected Integer ratingId; // id of the rating created for integration tests
 
     protected User user;
+    protected List<User> userList;
+    protected Optional<User> userOptional;
+    protected String passwordIncorrect;
 
     protected String userUsernameSize;
     protected String userPasswordSize;
@@ -56,6 +59,10 @@ public abstract class TestVariables {
         user.setPassword("passwordTestValue1!");
         user.setFullname("fullNameTestValue");
         user.setRole("USER");
+        userList = new ArrayList<>(List.of(user));
+        userOptional = Optional.of(user);
+
+        passwordIncorrect = "psswrd";
 
         userUsernameSize = "Username should be less than 126 characters";
         userPasswordSize = "Password should be less than 126 characters";

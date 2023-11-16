@@ -18,7 +18,6 @@ public class User {
     @Column(length = 125)
     @Size(max = 125, message = "Password should be less than 126 characters")
     @NotBlank(message = "Password is mandatory")
-    // TO DO : check has uppercase, has number, has symbol, at least 8 characters
     private String password;
     @Column(length = 125)
     @Size(max = 125, message = "FullName should be less than 126 characters")
@@ -67,5 +66,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Boolean validatePassword() {
+        Boolean length = password.matches("\\S{8,}");
+        Boolean digit = password.matches(".*\\d.*");
+        Boolean nonword = password.matches(".*\\W.*");
+        Boolean uppercase = password.matches(".*[A-Z].*");
+        Boolean lowercase = password.matches(".*[a-z].*");
+        return length && digit && nonword && uppercase && lowercase;
     }
 }
