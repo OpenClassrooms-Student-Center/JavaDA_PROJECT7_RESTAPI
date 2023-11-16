@@ -126,8 +126,7 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void showUpdateFormTest () throws Exception {
-            MvcResult result = mockMvc.perform((get("/rating/update/" +
-                            (ratingId))))
+            MvcResult result = mockMvc.perform((get("/rating/update/" + ratingId)))
                     .andExpect(status().is2xxSuccessful())
                     .andReturn();
             assertEquals(true, resultContainsRating(result, rating));
@@ -151,8 +150,7 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void updateRatingTest () throws Exception {
-            mockMvc.perform(post("/rating/update/" +
-                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())
+            mockMvc.perform(post("/rating/update/" + ratingId)
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(rating.toString()))
@@ -164,8 +162,7 @@ public class RatingIntegrationTests extends TestVariables {
         @WithMockUser
         public void updateRatingTestIfInvalidRating () throws Exception {
             rating.setFitchRating(longString);
-            mockMvc.perform(post("/rating/update/" +
-                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())
+            mockMvc.perform(post("/rating/update/" + ratingId)
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(rating.toString()))
@@ -190,9 +187,6 @@ public class RatingIntegrationTests extends TestVariables {
         @WithMockUser
         public void deleteRatingTest () throws Exception {
             ratingRepository.save(rating);
-            Object[] ratings = ratingRepository.findAll().toArray();
-            rating.setId(((Rating) ratings[ratings.length - 1]).getId());
-
             mockMvc.perform(get("/rating/delete/" + rating.getId()))
                     .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
