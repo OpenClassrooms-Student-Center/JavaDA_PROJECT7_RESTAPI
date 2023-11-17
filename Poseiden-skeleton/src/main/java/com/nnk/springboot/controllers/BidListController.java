@@ -2,17 +2,16 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BidListController {
@@ -20,7 +19,12 @@ public class BidListController {
     @Autowired
     private BidListService bidListService;
 
-    @RequestMapping("/bidList/list")
+    @ModelAttribute("remoteUser")
+    public Object remoteUser(final HttpServletRequest request) {
+        return request.getRemoteUser();
+    }
+
+    @GetMapping("/bidList/list")
     public String home(Model model)
     {
         // TODO DONE: call services find all bids to show to the view
@@ -50,20 +54,46 @@ public class BidListController {
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
+        // TODO DONE: get Bid by Id and to model then show to the form
+
+
+        if (!bidListService.checkIfIdExists(id)) {
+            return "redirect:/bidList/list";
+        }
+        Optional<BidList> bid = bidListService.findBidById(id);
+        model.addAttribute("bidList",bid);
+
         return "bidList/update";
     }
 
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidList bidList,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call services to update Bid and return list Bid
-        return "redirect:/bidList/list";
+        // TODO DONE: check required fields, if valid call services to update Bid and return list Bid
+        if (!bidListService.checkIfIdExists(id)) {
+            return "redirect:/bidList/list";
+        }
+        if (result.hasErrors()) {
+            return "bidList/add";
+        }
+        try {
+            bidListService.saveBid(bidList);
+            return "redirect:/bidList/list";
+        }catch (Exception e) {
+            return "bidList/add";
+        }
     }
 
     @GetMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
+        if (!bidListService.checkIfIdExists(id)) {
+            return "redirect:/bidList/list";
+        }
+        Optional<BidList> bid = bidListService.findBidById(id);
+        bidListService.deleteBid(bid.get());
+        model.addAttribute("bidList", bidListService.findAllBid());
+
         return "redirect:/bidList/list";
     }
 }

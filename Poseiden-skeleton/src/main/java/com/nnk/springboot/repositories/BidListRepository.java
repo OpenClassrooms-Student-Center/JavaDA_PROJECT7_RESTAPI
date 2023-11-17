@@ -17,4 +17,7 @@ public interface BidListRepository extends JpaRepository<BidList, Integer> {
     void delete(BidList bid);
 
     Optional<BidList> findById(Integer id);
+
+    @Override
+    boolean existsById(Integer integer);
 }
