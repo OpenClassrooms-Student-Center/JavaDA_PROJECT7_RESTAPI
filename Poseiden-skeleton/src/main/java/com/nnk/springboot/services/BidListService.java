@@ -31,6 +31,12 @@ public interface BidListService {
      * @param id
      * @return
      */
+    BidList findByBidListId(Integer id);
+
+    /**
+     * @param id
+     * @return
+     */
     boolean checkIfIdExists(int id);
 
     /**

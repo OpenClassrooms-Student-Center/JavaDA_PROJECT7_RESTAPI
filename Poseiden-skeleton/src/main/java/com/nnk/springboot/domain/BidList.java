@@ -16,7 +16,7 @@ public class BidList {
     // TODO DONE:  Map columns in data table BIDLIST with corresponding java fields
     @Id
     @Column(name = "bid_list_id")
-    private Integer BidListId;
+    private Integer bidListId;
 
     @Column(name = "account")
     private String account;

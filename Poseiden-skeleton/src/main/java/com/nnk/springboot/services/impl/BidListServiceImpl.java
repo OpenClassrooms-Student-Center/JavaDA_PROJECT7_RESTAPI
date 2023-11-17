@@ -39,6 +39,13 @@ public class BidListServiceImpl implements BidListService {
         return bidListRepository.findById(id);
     }
 
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public BidList findByBidListId(Integer id){
+        return bidListRepository.findByBidListId(id);
+    }
 
     /**
      *{@inheritDoc}
