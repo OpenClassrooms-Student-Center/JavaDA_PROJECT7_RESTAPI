@@ -19,11 +19,6 @@ public class BidListController {
     @Autowired
     private BidListService bidListService;
 
-    @ModelAttribute("remoteUser")
-    public Object remoteUser(final HttpServletRequest request) {
-        return request.getRemoteUser();
-    }
-
     @GetMapping("/bidList/list")
     public String home(Model model)
     {
@@ -60,7 +55,7 @@ public class BidListController {
         if (!bidListService.checkIfIdExists(id)) {
             return "redirect:/bidList/list";
         }
-        Optional<BidList> bid = bidListService.findBidById(id);
+        BidList bid = bidListService.findByBidListId(id);
         model.addAttribute("bidList",bid);
 
         return "bidList/update";
@@ -90,8 +85,8 @@ public class BidListController {
         if (!bidListService.checkIfIdExists(id)) {
             return "redirect:/bidList/list";
         }
-        Optional<BidList> bid = bidListService.findBidById(id);
-        bidListService.deleteBid(bid.get());
+        BidList bid = bidListService.findByBidListId(id);
+        bidListService.deleteBid(bid);
         model.addAttribute("bidList", bidListService.findAllBid());
 
         return "redirect:/bidList/list";

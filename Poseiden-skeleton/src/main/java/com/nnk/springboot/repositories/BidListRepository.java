@@ -18,6 +18,8 @@ public interface BidListRepository extends JpaRepository<BidList, Integer> {
 
     Optional<BidList> findById(Integer id);
 
+    BidList findByBidListId(Integer id);
+
     @Override
     boolean existsById(Integer integer);
 }
