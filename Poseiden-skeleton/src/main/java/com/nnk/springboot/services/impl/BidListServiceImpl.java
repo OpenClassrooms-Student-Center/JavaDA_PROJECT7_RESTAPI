@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BidListServiceImpl implements BidListService {
@@ -28,5 +29,30 @@ public class BidListServiceImpl implements BidListService {
     @Override
     public void saveBid(BidList Bid) {
         bidListRepository.save(Bid);
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public Optional<BidList> findBidById(Integer id){
+        return bidListRepository.findById(id);
+    }
+
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public boolean checkIfIdExists(int id) {
+        return bidListRepository.existsById(id);
+    }
+
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public void deleteBid(BidList bid){
+        bidListRepository.delete(bid);
     }
 }
