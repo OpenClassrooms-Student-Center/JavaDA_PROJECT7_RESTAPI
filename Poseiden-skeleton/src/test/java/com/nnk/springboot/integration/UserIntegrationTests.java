@@ -136,13 +136,11 @@ public class UserIntegrationTests extends TestVariables {
         }
         @Test
         @WithMockUser
-        public void showUpdateFormTestIfNotInDb () throws Exception {
+        public void showUpdateFormTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform((get("/user/update/0")))
                     .andExpect(status().is2xxSuccessful())
                     .andReturn());
             assertEquals(0, databaseSizeChange());
-
-            // INCORRECT ID ARBITRARY
         }
     }
     @Nested
@@ -197,7 +195,7 @@ public class UserIntegrationTests extends TestVariables {
         }
         @Test
         @WithMockUser
-        public void deleteUserTestIfNotInDb () throws Exception {
+        public void deleteUserTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform(get("/user/delete/0"))
                     .andExpect(status().is3xxRedirection()));
             assertEquals(0, databaseSizeChange());
