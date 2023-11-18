@@ -3,6 +3,7 @@ package com.nnk.springboot.integration;
 import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -135,13 +137,8 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void showUpdateFormTestIfNotInDb () throws Exception {
-            MvcResult result = mockMvc.perform((get("/rating/update/0")))
-                    .andExpect(status().is2xxSuccessful())
-                    .andReturn();
-            assertEquals(false, resultContainsRating(result, rating));
+            assertThrows(ServletException.class, () -> mockMvc.perform((get("/rating/update/0"))));
             assertEquals(0, databaseSizeChange());
-
-            // INCORRECT ID ARBITRARY
         }
     }
     @Nested
@@ -172,11 +169,10 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void updateRatingTestIfNotInDb () throws Exception {
-            mockMvc.perform(post("/rating/update/0")
-                            .with(csrf())
-                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                            .content(rating.toString()))
-                    .andExpect(status().is3xxRedirection());
+            assertThrows(ServletException.class, () -> mockMvc.perform(post("/rating/update/0")
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .content(rating.toString())));
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -194,8 +190,7 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser
         public void deleteRatingTestIfNotInDb () throws Exception {
-            mockMvc.perform(get("/rating/delete/0"))
-                    .andExpect(status().is3xxRedirection());
+            assertThrows(ServletException.class, () -> mockMvc.perform(get("/rating/delete/0")));
             assertEquals(0, databaseSizeChange());
         }
     }

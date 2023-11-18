@@ -49,13 +49,8 @@ public class RatingController {
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
-        Optional<Rating> rating = ratingService.findById(id);
-        if(rating.isPresent()) {
-            model.addAttribute("rating", rating.get());
-        }
-        else {
-            model.addAttribute("rating", new Rating());
-        }
+        Rating rating = ratingService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
+        model.addAttribute("rating", rating);
         return "rating/update";
     }
 
@@ -63,8 +58,8 @@ public class RatingController {
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                                BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
-        if(!result.hasErrors()
-                && ratingService.findById(id).isPresent()) {
+        if(!result.hasErrors()) {
+            ratingService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
             ratingService.save(rating);
         }
         return "redirect:/rating/list";
@@ -73,10 +68,8 @@ public class RatingController {
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        Optional<Rating> ratingInDB = ratingService.findById(id);
-        if(ratingInDB.isPresent()) {
-            ratingService.deleteById(id);
-        }
+        ratingService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
+        ratingService.deleteById(id);
         return "redirect:/rating/list";
     }
 }

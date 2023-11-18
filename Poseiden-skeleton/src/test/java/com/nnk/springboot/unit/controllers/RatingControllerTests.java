@@ -144,6 +144,12 @@ public class RatingControllerTests extends TestVariables {
             assertEquals("rating/update", ratingController.showUpdateForm(rating.getId(), model));
             verify(ratingService, Mockito.times(1)).findById(any(Integer.class));
         }
+        @Test
+        public void showUpdateFormTestIfRatingNotFound () {
+            when(ratingService.findById(any(Integer.class))).thenReturn(Optional.empty());
+            assertThrows(IllegalArgumentException.class, () -> ratingController.showUpdateForm(rating.getId(), model));
+            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));
+        }
     }
 
     @Nested
@@ -165,7 +171,7 @@ public class RatingControllerTests extends TestVariables {
         @Test
         public void updateRatingTestIfRatingNotInDB () {
             when(ratingService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertEquals("redirect:/rating/list", ratingController.updateRating(rating.getId(), rating, bindingResult, model));
+            assertThrows(IllegalArgumentException.class, () -> ratingController.updateRating(rating.getId(), rating, bindingResult, model));
             verify(ratingService, Mockito.times(1)).findById(any(Integer.class));
             verify(ratingService, Mockito.times(0)).save(any(Rating.class));
         }
@@ -183,7 +189,7 @@ public class RatingControllerTests extends TestVariables {
         @Test
         public void deleteRatingTestIfRatingNotInDB () {
             when(ratingService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertEquals("redirect:/rating/list", ratingController.deleteRating(rating.getId(), model));
+            assertThrows(IllegalArgumentException.class, () -> ratingController.deleteRating(rating.getId(), model));
             verify(ratingService, Mockito.times(1)).findById(any(Integer.class));
             verify(ratingService, Mockito.times(0)).deleteById(any(Integer.class));
         }
