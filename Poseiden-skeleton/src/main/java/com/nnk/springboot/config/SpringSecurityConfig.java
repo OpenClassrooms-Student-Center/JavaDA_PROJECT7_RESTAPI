@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 
 import javax.sql.DataSource;
 
@@ -51,14 +53,16 @@ public class SpringSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
+        HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL));
         return http
-                .authorizeHttpRequests( auth -> {
-                    auth.anyRequest().authenticated();
-                    // USE ROLES : ACCESS TO USER PAGES ONLY TO ADMIN ; OTHERS ONLY TO USER
+                .authorizeHttpRequests( auth -> { auth
+                        .requestMatchers("login", "error").permitAll()
+                        .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
+                        .requestMatchers("/", "bidlist/**", "curve/**", "rating/**", "ruleName/**", "trade/**").hasAuthority("USER")
+                        .anyRequest().authenticated();
                 })
                 .formLogin(withDefaults())
-                // ALL HAVE ACCESS
+                .logout((logout) -> logout.addLogoutHandler(clearSiteData))
                 .build();
-        // DELETE SESSION COOKIE ON LOGOUT
     }
 }

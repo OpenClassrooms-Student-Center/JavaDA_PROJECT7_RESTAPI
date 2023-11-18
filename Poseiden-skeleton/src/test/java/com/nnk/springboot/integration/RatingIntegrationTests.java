@@ -75,7 +75,7 @@ public class RatingIntegrationTests extends TestVariables {
     public class homeTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
             MvcResult result = mockMvc.perform(get("/rating/list"))
                     .andExpect(status().is2xxSuccessful())
@@ -89,10 +89,17 @@ public class RatingIntegrationTests extends TestVariables {
     public class addRatingFormTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void addRatingFormTest () throws Exception {
             mockMvc.perform((get("/rating/add")))
                     .andExpect(status().is2xxSuccessful());
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser
+        public void addRatingFormTestIfNotAuthorized () throws Exception {
+            mockMvc.perform((get("/rating/add")))
+                    .andExpect(status().isForbidden());
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -100,7 +107,7 @@ public class RatingIntegrationTests extends TestVariables {
     public class validateTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
             mockMvc.perform(post("/rating/validate")
                             .with(csrf())
@@ -110,7 +117,7 @@ public class RatingIntegrationTests extends TestVariables {
             assertEquals(1, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void validateTestIfInvalidRating () throws Exception {
             rating.setFitchRating(longString);
             mockMvc.perform(post("/rating/validate")
@@ -120,13 +127,23 @@ public class RatingIntegrationTests extends TestVariables {
                     .andExpect(status().is2xxSuccessful());
             assertEquals(0, databaseSizeChange());
         }
+        @Test
+        @WithMockUser
+        public void validateTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(post("/rating/validate")
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(rating.toString()))
+                    .andExpect(status().isForbidden());
+            assertEquals(0, databaseSizeChange());
+        }
     }
 
     @Nested
     public class showUpdateFormTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
             MvcResult result = mockMvc.perform((get("/rating/update/" + ratingId)))
                     .andExpect(status().is2xxSuccessful())
@@ -135,17 +152,25 @@ public class RatingIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void showUpdateFormTestIfNotInDb () throws Exception {
             assertThrows(ServletException.class, () -> mockMvc.perform((get("/rating/update/0"))));
             assertEquals(0, databaseSizeChange());
         }
+        @Test
+        @WithMockUser
+        public void showUpdateFormTestIfNotAuthorized () throws Exception {
+            mockMvc.perform((get("/rating/update/" + ratingId)))
+                    .andExpect(status().isForbidden());
+            assertEquals(0, databaseSizeChange());
+        }
     }
+
     @Nested
     public class updateRatingTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void updateRatingTest () throws Exception {
             mockMvc.perform(post("/rating/update/" + ratingId)
                             .with(csrf())
@@ -154,9 +179,8 @@ public class RatingIntegrationTests extends TestVariables {
                     .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
-
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void updateRatingTestIfInvalidRating () throws Exception {
             rating.setFitchRating(longString);
             mockMvc.perform(post("/rating/update/" + ratingId)
@@ -167,7 +191,7 @@ public class RatingIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void updateRatingTestIfNotInDb () throws Exception {
             assertThrows(ServletException.class, () -> mockMvc.perform(post("/rating/update/0")
                     .with(csrf())
@@ -175,12 +199,22 @@ public class RatingIntegrationTests extends TestVariables {
                     .content(rating.toString())));
             assertEquals(0, databaseSizeChange());
         }
+        @Test
+        @WithMockUser
+        public void updateRatingTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(post("/rating/update/" + ratingId)
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(rating.toString()))
+                    .andExpect(status().isForbidden());
+            assertEquals(0, databaseSizeChange());
+        }
     }
     @Nested
     public class deleteRatingTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void deleteRatingTest () throws Exception {
             ratingRepository.save(rating);
             mockMvc.perform(get("/rating/delete/" + rating.getId()))
@@ -188,9 +222,16 @@ public class RatingIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "USER")
         public void deleteRatingTestIfNotInDb () throws Exception {
             assertThrows(ServletException.class, () -> mockMvc.perform(get("/rating/delete/0")));
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser
+        public void deleteRatingTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(get("/rating/delete/" + ratingId))
+                    .andExpect(status().isForbidden());
             assertEquals(0, databaseSizeChange());
         }
     }

@@ -74,12 +74,20 @@ public class UserIntegrationTests extends TestVariables {
     public class homeTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void homeTest () throws Exception {
             MvcResult result = mockMvc.perform(get("/user/list"))
                     .andExpect(status().is2xxSuccessful())
                     .andReturn();
             assertEquals(true, resultContainsUser(result, user));
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser(authorities = "USER")
+        public void homeTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(get("/user/list"))
+                    .andExpect(status().isForbidden())
+                    .andReturn();
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -88,10 +96,17 @@ public class UserIntegrationTests extends TestVariables {
     public class addUserFormTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void addUserFormTest () throws Exception {
             mockMvc.perform((get("/user/add")))
                     .andExpect(status().is2xxSuccessful());
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser(authorities = "USER")
+        public void addUserFormTestIfNotAuthorized () throws Exception {
+            mockMvc.perform((get("/user/add")))
+                    .andExpect(status().isForbidden());
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -99,7 +114,7 @@ public class UserIntegrationTests extends TestVariables {
     public class validateTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void validateTest () throws Exception {
             mockMvc.perform(post("/user/validate")
                             .with(csrf())
@@ -109,7 +124,7 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(1, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void validateTestIfInvalidUser () throws Exception {
             user.setFullname(longString);
             mockMvc.perform(post("/user/validate")
@@ -119,13 +134,23 @@ public class UserIntegrationTests extends TestVariables {
                     .andExpect(status().is2xxSuccessful());
             assertEquals(0, databaseSizeChange());
         }
+        @Test
+        @WithMockUser(authorities = "User")
+        public void validateTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(post("/user/validate")
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(user.toString()))
+                    .andExpect(status().isForbidden());
+            assertEquals(0, databaseSizeChange());
+        }
     }
 
     @Nested
     public class showUpdateFormTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void showUpdateFormTest () throws Exception {
             MvcResult result = mockMvc.perform((get("/user/update/" +
                             (userId))))
@@ -135,11 +160,19 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void showUpdateFormTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform((get("/user/update/0")))
                     .andExpect(status().is2xxSuccessful())
                     .andReturn());
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser(authorities = "USER")
+        public void showUpdateFormTestIfNotAuthorized () throws Exception {
+            mockMvc.perform((get("/user/update/" +
+                            (userId))))
+                    .andExpect(status().isForbidden());
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -147,7 +180,7 @@ public class UserIntegrationTests extends TestVariables {
     public class updateUserTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void updateUserTest () throws Exception {
             mockMvc.perform(post("/user/update/" + userId)
                             .with(csrf())
@@ -156,9 +189,8 @@ public class UserIntegrationTests extends TestVariables {
                     .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
-
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void updateUserTestIfInvalidUser () throws Exception {
             user.setFullname(longString);
             mockMvc.perform(post("/user/update/" + userId)
@@ -169,7 +201,7 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void updateUserTestIfNotInDb () throws Exception {
             mockMvc.perform(post("/user/update/0")
                             .with(csrf())
@@ -178,26 +210,40 @@ public class UserIntegrationTests extends TestVariables {
                     .andExpect(status().is2xxSuccessful());
             assertEquals(0, databaseSizeChange());
         }
+        @Test
+        @WithMockUser(authorities = "USER")
+        public void updateUserTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(post("/user/update/" + userId)
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(user.toString()))
+                    .andExpect(status().isForbidden());
+            assertEquals(0, databaseSizeChange());
+        }
     }
     @Nested
     public class deleteUserTests
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void deleteUserTest () throws Exception {
             userRepository.save(user);
-            Object[] users = userRepository.findAll().toArray();
-            user.setId(((User) users[users.length - 1]).getId());
-
             mockMvc.perform(get("/user/delete/" + user.getId()))
                     .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = "ADMIN")
         public void deleteUserTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform(get("/user/delete/0"))
                     .andExpect(status().is3xxRedirection()));
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser(authorities = "USER")
+        public void deleteUserTestIfNotAuthorized () throws Exception {
+            mockMvc.perform(get("/user/delete/" + userId))
+                    .andExpect(status().isForbidden());
             assertEquals(0, databaseSizeChange());
         }
     }
