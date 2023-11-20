@@ -153,7 +153,7 @@ public class RatingIntegrationTests extends TestVariables {
         }
         @Test
         @WithMockUser(authorities = "USER")
-        public void showUpdateFormTestIfNotInDb () throws Exception {
+        public void showUpdateFormTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform((get("/rating/update/0"))));
             assertEquals(0, databaseSizeChange());
         }
@@ -192,7 +192,7 @@ public class RatingIntegrationTests extends TestVariables {
         }
         @Test
         @WithMockUser(authorities = "USER")
-        public void updateRatingTestIfNotInDb () throws Exception {
+        public void updateRatingTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform(post("/rating/update/0")
                     .with(csrf())
                     .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -223,7 +223,7 @@ public class RatingIntegrationTests extends TestVariables {
         }
         @Test
         @WithMockUser(authorities = "USER")
-        public void deleteRatingTestIfNotInDb () throws Exception {
+        public void deleteRatingTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform(get("/rating/delete/0")));
             assertEquals(0, databaseSizeChange());
         }

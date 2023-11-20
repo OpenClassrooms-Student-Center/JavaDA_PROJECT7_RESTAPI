@@ -86,8 +86,7 @@ public class UserIntegrationTests extends TestVariables {
         @WithMockUser(authorities = "USER")
         public void homeTestIfNotAuthorized () throws Exception {
             mockMvc.perform(get("/user/list"))
-                    .andExpect(status().isForbidden())
-                    .andReturn();
+                    .andExpect(status().isForbidden());
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -163,8 +162,7 @@ public class UserIntegrationTests extends TestVariables {
         @WithMockUser(authorities = "ADMIN")
         public void showUpdateFormTestIfNotInDb () {
             assertThrows(ServletException.class, () -> mockMvc.perform((get("/user/update/0")))
-                    .andExpect(status().is2xxSuccessful())
-                    .andReturn());
+                    .andExpect(status().is2xxSuccessful()));
             assertEquals(0, databaseSizeChange());
         }
         @Test
