@@ -56,10 +56,10 @@ public class SpringSecurityConfig {
         HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL));
         return http
                 .authorizeHttpRequests( auth -> { auth
-                        .requestMatchers("login", "error").permitAll()
+                        .requestMatchers("error", "login").permitAll()
                         .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
                         .requestMatchers("/", "bidlist/**", "curve/**", "rating/**", "ruleName/**", "trade/**").hasAuthority("USER")
-                        .anyRequest().authenticated();
+                        .anyRequest().denyAll();
                 })
                 .formLogin(withDefaults())
                 .logout((logout) -> logout.addLogoutHandler(clearSiteData))

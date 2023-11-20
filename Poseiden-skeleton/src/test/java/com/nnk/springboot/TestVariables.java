@@ -2,12 +2,15 @@ package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.User;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public abstract class TestVariables {
+    protected Model model;
+
+    protected ModelAndView mav;
 
     protected Rating rating;
     protected List<Rating> ratingList;
@@ -39,6 +42,50 @@ public abstract class TestVariables {
     protected Integer userId; // id of the rating created for integration tests
 
     public void initializeVariables() {
+        model = new Model() {
+            @Override
+            public Model addAttribute(String attributeName, Object attributeValue) {
+                return null;
+            }
+
+            @Override
+            public Model addAttribute(Object attributeValue) {
+                return null;
+            }
+
+            @Override
+            public Model addAllAttributes(Collection<?> attributeValues) {
+                return null;
+            }
+
+            @Override
+            public Model addAllAttributes(Map<String, ?> attributes) {
+                return null;
+            }
+
+            @Override
+            public Model mergeAttributes(Map<String, ?> attributes) {
+                return null;
+            }
+
+            @Override
+            public boolean containsAttribute(String attributeName) {
+                return false;
+            }
+
+            @Override
+            public Object getAttribute(String attributeName) {
+                return null;
+            }
+
+            @Override
+            public Map<String, Object> asMap() {
+                return null;
+            }
+        };
+
+        mav = new ModelAndView();
+
         rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);
         ratingList = new ArrayList<>(List.of(rating));
         ratingOptional = Optional.of(rating);
