@@ -56,7 +56,8 @@ public class SpringSecurityConfig {
         HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL));
         return http
                 .authorizeHttpRequests( auth -> { auth
-                        .requestMatchers("error", "login").permitAll()
+                        .requestMatchers("login").permitAll()
+                        .requestMatchers("error").authenticated()
                         .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
                         .requestMatchers("/", "bidlist/**", "curve/**", "rating/**", "ruleName/**", "trade/**").hasAuthority("USER")
                         .anyRequest().denyAll();
