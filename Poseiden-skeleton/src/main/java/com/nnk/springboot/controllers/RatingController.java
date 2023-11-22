@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.security.Principal;
 
 @Controller
 public class RatingController {
@@ -25,10 +25,11 @@ public class RatingController {
     }
 
     @RequestMapping("/rating/list")
-    public String home(Model model)
+    public String home(Model model, Principal principal)
     {
         // TODO: find all Rating, add to model
         model.addAttribute("ratings", ratingService.findAll());
+        model.addAttribute("remoteUser", principal.getName());
         return "rating/list";
     }
 

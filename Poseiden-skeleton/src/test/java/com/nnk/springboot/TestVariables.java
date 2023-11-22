@@ -5,10 +5,12 @@ import com.nnk.springboot.domain.User;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.*;
 
 public abstract class TestVariables {
     protected Model model;
+    protected Principal principal;
 
     protected ModelAndView mav;
 
@@ -80,6 +82,13 @@ public abstract class TestVariables {
 
             @Override
             public Map<String, Object> asMap() {
+                return null;
+            }
+        };
+
+        principal = new Principal() {
+            @Override
+            public String getName() {
                 return null;
             }
         };

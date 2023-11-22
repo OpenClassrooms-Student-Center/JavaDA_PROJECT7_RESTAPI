@@ -52,7 +52,7 @@ public class RatingControllerTests extends TestVariables {
     {
         @Test
         public void homeTest () {
-            assertEquals("rating/list", ratingController.home(model));
+            assertEquals("rating/list", ratingController.home(model, principal));
             verify(ratingService, Mockito.times(1)).findAll();
         }
     }
