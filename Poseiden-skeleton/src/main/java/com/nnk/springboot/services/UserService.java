@@ -25,6 +25,13 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public User findByUsername(String username) {
+        if (username == null) {
+            throw new IllegalArgumentException("username is null");
+        }
+        return userRepository.findByUsername(username);
+    }
+
     public void deleteById(Integer id) {
         if (id == null) {
             throw new IllegalArgumentException("id is null");

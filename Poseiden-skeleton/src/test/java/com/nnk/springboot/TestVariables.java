@@ -1,7 +1,10 @@
 package com.nnk.springboot;
 
+import com.nnk.springboot.config.CustomUserDetails;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,7 +13,7 @@ import java.util.*;
 
 public abstract class TestVariables {
     protected Model model;
-    protected Principal principal;
+    protected Authentication authentication;
 
     protected ModelAndView mav;
 
@@ -86,10 +89,40 @@ public abstract class TestVariables {
             }
         };
 
-        principal = new Principal() {
+        authentication = new Authentication() {
+            @Override
+            public Collection<? extends GrantedAuthority> getAuthorities() {
+                return new CustomUserDetails(user).getAuthorities();
+            }
+
+            @Override
+            public Object getCredentials() {
+                return null;
+            }
+
+            @Override
+            public Object getDetails() {
+                return null;
+            }
+
+            @Override
+            public Object getPrincipal() {
+                return null;
+            }
+
+            @Override
+            public boolean isAuthenticated() {
+                return false;
+            }
+
+            @Override
+            public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+
+            }
+
             @Override
             public String getName() {
-                return null;
+                return user.getUsername();
             }
         };
 

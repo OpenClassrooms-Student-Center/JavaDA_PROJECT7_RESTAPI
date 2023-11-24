@@ -168,9 +168,11 @@ public class UserIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTestIfNotAuthorized () throws Exception {
-            mockMvc.perform((get("/user/update/" +
+            MvcResult result = mockMvc.perform((get("/user/update/" +
                             (userId))))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().is2xxSuccessful())
+                    .andReturn();
+            assertEquals(true, result.getResponse().getContentAsString().contains("Access Denied Exception"));
             assertEquals(0, databaseSizeChange());
         }
     }
@@ -211,11 +213,13 @@ public class UserIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateUserTestIfNotAuthorized () throws Exception {
-            mockMvc.perform(post("/user/update/" + userId)
+            MvcResult result = mockMvc.perform(post("/user/update/" + userId)
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(user.toString()))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().is2xxSuccessful())
+                    .andReturn();
+            assertEquals(true, result.getResponse().getContentAsString().contains("Access Denied Exception"));
             assertEquals(0, databaseSizeChange());
         }
     }

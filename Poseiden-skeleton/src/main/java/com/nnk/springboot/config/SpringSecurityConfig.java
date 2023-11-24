@@ -51,19 +51,32 @@ public class SpringSecurityConfig {
         ;
     }
 
+    /**
+     * This method controls the access to the different URLs based on the authenticated user<br>
+     * The login page is accessible to all<br>
+     * <b>There is additional filtering done in UserController</b> to give users access to their own update page
+     * and to give admins access to every user's update page
+     * (see UserController.showUpdateForm() and UserController.updateUser()<br>
+     * The error page is accessible to all authenticated users<br>
+     * The user part of the app is accessible only to admins<br>
+     * The rest of the app is accessible only to users
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL));
-        return http
+        http
                 .authorizeHttpRequests( auth -> { auth
                         .requestMatchers("login").permitAll()
-                        .requestMatchers("error").authenticated()
+                        .requestMatchers("user/update/**", "error").authenticated()
                         .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
-                        .requestMatchers("/", "bidlist/**", "curve/**", "rating/**", "ruleName/**", "trade/**").hasAuthority("USER")
-                        .anyRequest().denyAll();
+                        .anyRequest().hasAuthority("USER");
                 })
-                .formLogin(withDefaults())
-                .logout((logout) -> logout.addLogoutHandler(clearSiteData))
-                .build();
+                .formLogin(withDefaults());
+        http
+                .logout().deleteCookies("JSESSIONID");
+        return http.build();
     }
 }

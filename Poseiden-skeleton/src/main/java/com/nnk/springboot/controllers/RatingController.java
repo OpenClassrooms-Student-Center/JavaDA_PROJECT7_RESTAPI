@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,11 +26,11 @@ public class RatingController {
     }
 
     @RequestMapping("/rating/list")
-    public String home(Model model, Principal principal)
+    public String home(Model model, Authentication authentication)
     {
         // TODO: find all Rating, add to model
         model.addAttribute("ratings", ratingService.findAll());
-        model.addAttribute("remoteUser", principal.getName());
+        model.addAttribute("remoteUser", authentication.getName());
         return "rating/list";
     }
 
