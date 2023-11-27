@@ -2,7 +2,7 @@ package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.controllers.LoginController;
-import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,12 +20,12 @@ public class LoginControllerTests extends TestVariables {
     LoginController loginController;
     
     @MockBean
-    UserRepository userRepository;
+    UserService userService;
 
     @BeforeEach
     public void setUpPerTest() {
         initializeVariables();
-        when(userRepository.findAll()).thenReturn(userList);
+        when(userService.findAll()).thenReturn(userList);
     }
 
     @Test
