@@ -97,3 +97,16 @@ CREATE TABLE Users (
 
 insert into Users(fullname, username, password, role) values("Administrator", "admin", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "ADMIN");
 insert into Users(fullname, username, password, role) values("User", "user", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "USER");
+
+create table bidlist_SEQ (next_val bigint) engine=InnoDB;
+insert into bidlist_SEQ values ( 1 );
+create table curvepoint_SEQ (next_val bigint) engine=InnoDB;
+insert into curvepoint_SEQ values ( 1 );
+create table rating_SEQ (next_val bigint) engine=InnoDB;
+insert into rating_SEQ values ( 1 );
+create table rulename_SEQ (next_val bigint) engine=InnoDB;
+insert into rulename_SEQ values ( 1 );
+create table trade_SEQ (next_val bigint) engine=InnoDB;
+insert into trade_SEQ values ( 1 );
+create table users_SEQ (next_val bigint) engine=InnoDB;
+insert into users_SEQ values ( 3 );

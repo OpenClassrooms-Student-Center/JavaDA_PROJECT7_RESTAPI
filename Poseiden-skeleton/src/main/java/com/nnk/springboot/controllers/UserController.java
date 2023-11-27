@@ -82,7 +82,7 @@ public class UserController {
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model, Authentication authentication) {
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        if(user.getUsername() == authentication.getName()
+        if(user.getUsername().equals(authentication.getName())
                 || authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
             model.addAttribute("user", user);
             return "user/update";
@@ -109,7 +109,7 @@ public class UserController {
         if (result.hasErrors() || !user.validatePassword() || userService.findById(id).isEmpty()) {
             return "user/update";
         }
-        if(user.getUsername() == authentication.getName()
+        if(user.getUsername().equals(authentication.getName())
                 || authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));

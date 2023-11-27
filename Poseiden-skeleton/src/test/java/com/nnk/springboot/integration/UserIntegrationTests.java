@@ -176,6 +176,16 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(true, result.getResponse().getContentAsString().contains("Access Denied Exception"));
             assertEquals(0, databaseSizeChange());
         }
+        @Test
+        @WithMockUser(authorities = "USER", username = "usernameTestValue")
+        public void showUpdateFormTestIfLoggedInUser () throws Exception {
+            MvcResult result = mockMvc.perform((get("/user/update/" +
+                            (userId))))
+                    .andExpect(status().is2xxSuccessful())
+                    .andReturn();
+            assertEquals(true, resultContainsUser(result, user));
+            assertEquals(0, databaseSizeChange());
+        }
     }
     @Nested
     public class updateUserTests
@@ -221,6 +231,16 @@ public class UserIntegrationTests extends TestVariables {
                     .andExpect(status().is2xxSuccessful())
                     .andReturn();
             assertEquals(true, result.getResponse().getContentAsString().contains("Access Denied Exception"));
+            assertEquals(0, databaseSizeChange());
+        }
+        @Test
+        @WithMockUser(authorities = "USER", username = "usernameTestValue")
+        public void updateUserTestIfLoggedInUser () throws Exception {
+            mockMvc.perform(post("/user/update/" + userId)
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                            .content(user.toString()))
+                    .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
     }
