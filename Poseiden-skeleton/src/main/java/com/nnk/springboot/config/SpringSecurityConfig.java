@@ -11,8 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
-import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 
 import javax.sql.DataSource;
 
@@ -66,7 +64,6 @@ public class SpringSecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-        HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL));
         http.authorizeHttpRequests( auth -> { auth
                         .requestMatchers("login", "/app-logout").permitAll()
                         .requestMatchers("user/update/**", "error").authenticated()
