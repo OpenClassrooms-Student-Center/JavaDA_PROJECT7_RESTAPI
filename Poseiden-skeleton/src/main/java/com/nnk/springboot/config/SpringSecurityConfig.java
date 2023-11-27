@@ -67,16 +67,17 @@ public class SpringSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         HeaderWriterLogoutHandler clearSiteData = new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.ALL));
-        http
-                .authorizeHttpRequests( auth -> { auth
-                        .requestMatchers("login").permitAll()
+        http.authorizeHttpRequests( auth -> { auth
+                        .requestMatchers("login", "/app-logout").permitAll()
                         .requestMatchers("user/update/**", "error").authenticated()
                         .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
                         .anyRequest().hasAuthority("USER");
                 })
                 .formLogin(withDefaults());
-        http
-                .logout().deleteCookies("JSESSIONID");
+        http.logout((logout) -> logout
+                .logoutUrl("/app-logout")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true));
         return http.build();
     }
 }
