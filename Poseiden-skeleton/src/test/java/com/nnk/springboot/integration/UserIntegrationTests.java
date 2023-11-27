@@ -115,6 +115,7 @@ public class UserIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void validateTest () throws Exception {
+            user.setUsername("tempUserName"); // must change user.username because username column has unique constraint
             mockMvc.perform(post("/user/validate")
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -229,6 +230,7 @@ public class UserIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void deleteUserTest () throws Exception {
+            user.setUsername("tempUserName"); // must change user.username because username column has unique constraint
             userRepository.save(user);
             mockMvc.perform(get("/user/delete/" + user.getId()))
                     .andExpect(status().is3xxRedirection());

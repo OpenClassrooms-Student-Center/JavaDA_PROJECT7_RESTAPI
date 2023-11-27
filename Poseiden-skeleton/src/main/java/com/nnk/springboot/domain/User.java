@@ -25,7 +25,7 @@ public class User {
      * A String corresponding to the username of the User<br>
      * The corresponding column in the database is a varchar(125)
      */
-    @Column(length = 125)
+    @Column(length = 125, unique = true)
     @Size(max = 125, message = "Username should be less than 126 characters")
     @NotBlank(message = "Username is mandatory")
     private String username;
@@ -45,7 +45,6 @@ public class User {
      */
     @Column(length = 125)
     @Size(max = 125, message = "FullName should be less than 126 characters")
-    @NotBlank(message = "FullName is mandatory")
     private String fullname;
 
     /**
@@ -54,7 +53,6 @@ public class User {
      */
     @Column(length = 125)
     @Size(max = 125, message = "Role should be less than 126 characters")
-    @NotBlank(message = "Role is mandatory")
     private String role;
 
     public Integer getId() {

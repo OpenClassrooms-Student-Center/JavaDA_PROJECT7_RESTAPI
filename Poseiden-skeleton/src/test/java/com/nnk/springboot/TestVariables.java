@@ -42,8 +42,6 @@ public abstract class TestVariables {
     protected String userRoleSize;
     protected String userUsernameNotBlank;
     protected String userPasswordNotBlank;
-    protected String userFullNameNotBlank;
-    protected String userRoleNotBlank;
     protected Integer userId; // id of the rating created for integration tests
 
     public void initializeVariables() {
@@ -160,8 +158,6 @@ public abstract class TestVariables {
         userRoleSize = "Role should be less than 126 characters";
         userUsernameNotBlank = "Username is mandatory";
         userPasswordNotBlank = "Password is mandatory";
-        userFullNameNotBlank = "FullName is mandatory";
-        userRoleNotBlank = "Role is mandatory";
     }
 
 }

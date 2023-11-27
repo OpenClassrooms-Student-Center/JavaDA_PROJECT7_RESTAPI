@@ -99,16 +99,6 @@ public class UserTests extends TestVariables {
                 assertEquals("fullname", constraintViolation.getPropertyPath().toString());
                 assertEquals(userFullNameSize, constraintViolation.getMessage());
             }
-
-            @Test
-            public void ValidationTestIfFullNameNotBlank () {
-                user.setFullname(" ");
-                Set<ConstraintViolation<User>> result = validator.validate(user);
-                assertEquals(1, result.size());
-                ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];
-                assertEquals("fullname", constraintViolation.getPropertyPath().toString());
-                assertEquals(userFullNameNotBlank, constraintViolation.getMessage());
-            }
         }
 
         @Nested
@@ -122,16 +112,6 @@ public class UserTests extends TestVariables {
                 ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];
                 assertEquals("role", constraintViolation.getPropertyPath().toString());
                 assertEquals(userRoleSize, constraintViolation.getMessage());
-            }
-
-            @Test
-            public void ValidationTestIfRoleNotBlank () {
-                user.setRole(" ");
-                Set<ConstraintViolation<User>> result = validator.validate(user);
-                assertEquals(1, result.size());
-                ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];
-                assertEquals("role", constraintViolation.getPropertyPath().toString());
-                assertEquals(userRoleNotBlank, constraintViolation.getMessage());
             }
         }
     }
