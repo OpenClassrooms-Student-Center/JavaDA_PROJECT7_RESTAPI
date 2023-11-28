@@ -10,6 +10,9 @@ import java.util.Collection;
 import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
+    /**
+     * the domain User object that is mapped to a SpringSecurity UserDetails objects
+     */
     private User user;
 
     public CustomUserDetails(User user) {

@@ -14,14 +14,18 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig {
-
+    /**
+     * the persistence layer, defined in application.properties
+     */
     @Autowired
     private DataSource dataSource;
+
+    /**
+     * @return a CustomUserDetailsService that connects SpringSecurity UserDetails objects with domain User objects
+     */
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -40,6 +44,7 @@ public class SpringSecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
+
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())

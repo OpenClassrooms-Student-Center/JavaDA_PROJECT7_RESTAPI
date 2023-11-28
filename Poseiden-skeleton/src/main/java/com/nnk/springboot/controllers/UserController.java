@@ -42,7 +42,7 @@ public class UserController {
     /**
      * This method displays a form to add a new user to the database<br>
      * The user parameter will be overwritten with the form's values
-     * @param user
+     * @param user an empty user object that will receive the results of the form
      * @return A String corresponding to a thymeleaf template
      */
     @GetMapping("/user/add")
@@ -52,8 +52,8 @@ public class UserController {
 
     /**
      * This method adds a user to the database, after encrypting its password
-     * @param user
-     * @param result
+     * @param user a user object containing the user to be added to the database
+     * @param result the result of the user's validation
      * @param model
      * @return A String corresponding to a thymeleaf template
      */
@@ -72,9 +72,9 @@ public class UserController {
     /**
      * This method displays information about a specific user<br>
      * It also checks that the user making the request is allowed to do so. Any user can update its own profile,
-     * admins can update all user profiles
+     * admins can update all user profiles<br>
      * The displayed information can be modified
-     * @param id
+     * @param id the id of the user to display
      * @param model
      * @param authentication
      * @return A String corresponding to a thymeleaf template
@@ -96,9 +96,9 @@ public class UserController {
      * This method updates a user in the database, after encrypting its password<br>
      * It also checks that the user making the request is allowed to do so. Any user can update its own profile,
      * admins can update all user profiles
-     * @param id
-     * @param user
-     * @param result
+     * @param id the id of the user to update
+     * @param user the new user attributes
+     * @param result the result of the new user validation
      * @param model
      * @param authentication
      * @return A String corresponding to a thymeleaf template
@@ -125,7 +125,7 @@ public class UserController {
 
     /**
      * This method deletes a user from the database
-     * @param id
+     * @param id the id of the user to delete
      * @param model
      * @return A String corresponding to a thymeleaf template
      */
