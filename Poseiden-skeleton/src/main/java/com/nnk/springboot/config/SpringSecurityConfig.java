@@ -66,11 +66,11 @@ public class SpringSecurityConfig {
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> { auth
                         .requestMatchers("login", "/app-logout").permitAll()
-                        .requestMatchers("user/update/**", "error").authenticated()
+                        .requestMatchers("user/update/**", "error", "/").authenticated()
                         .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
                         .anyRequest().hasAuthority("USER");
                 })
-                .formLogin(withDefaults());
+                .formLogin((login) -> login.successForwardUrl("/"));
         http.logout((logout) -> logout
                 .logoutUrl("/app-logout")
                 .deleteCookies("JSESSIONID")

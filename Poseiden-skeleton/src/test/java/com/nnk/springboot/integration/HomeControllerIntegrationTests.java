@@ -38,10 +38,9 @@ public class HomeControllerIntegrationTests extends TestVariables {
                     .andExpect(status().is2xxSuccessful());
         }
         @Test
-        @WithMockUser
         public void homeTestIfNotAuthorized () throws Exception {
             mockMvc.perform(get("/"))
-                    .andExpect(status().isForbidden());
+                    .andExpect(status().is3xxRedirection());
         }
     }
 
