@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @Entity
 @Table(name = "rating")
-@PropertySource("classpath:messages.properties")
 public class Rating {
     // TODO: Map columns in data table RATING with corresponding java fields
 
