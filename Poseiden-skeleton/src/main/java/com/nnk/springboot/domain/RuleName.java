@@ -3,10 +3,6 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-
 @Entity
 @Table(name = "rulename")
 public class RuleName {

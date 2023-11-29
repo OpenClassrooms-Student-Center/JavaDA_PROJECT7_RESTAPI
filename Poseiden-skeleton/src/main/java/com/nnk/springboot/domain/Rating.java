@@ -3,7 +3,6 @@ package com.nnk.springboot.domain;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.*;
-import org.springframework.context.annotation.PropertySource;
 
 @Entity
 @Table(name = "rating")

@@ -26,11 +26,10 @@ public class RatingController {
     }
 
     @RequestMapping("/rating/list")
-    public String home(Model model, Authentication authentication)
+    public String home(Model model)
     {
         // TODO: find all Rating, add to model
         model.addAttribute("ratings", ratingService.findAll());
-        model.addAttribute("remoteUser", authentication.getName());
         return "rating/list";
     }
 
