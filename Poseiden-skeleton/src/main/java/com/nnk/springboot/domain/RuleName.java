@@ -103,4 +103,14 @@ public class RuleName {
     public void setSqlPart(String sqlPart) {
         this.sqlPart = sqlPart;
     }
+
+    @Override
+    public String toString() {
+        return "&name=" + this.name +
+                "&description=" + this.description +
+                "&json=" + this.json +
+                "&template=" + this.template +
+                "&sqlStr=" + this.sqlStr +
+                "&sqlPart=" + this.sqlPart;
+    }
 }

@@ -36,7 +36,6 @@ public abstract class TestVariables {
     protected String ratingOrderMin;
     protected String ratingOrderMax;
     protected String ratingSandPRatingSize;
-
     protected Integer ratingId; // id of the rating created for integration tests
     
     protected RuleName ruleName;
@@ -49,19 +48,19 @@ public abstract class TestVariables {
     protected String ruleNameTemplateSize;
     protected String ruleNameSqlStrSize;
     protected String ruleNameSqlPartSize;
+    protected Integer ruleNameId; // id of the ruleName created for integration tests
 
     protected User user;
     protected List<User> userList;
     protected Optional<User> userOptional;
     protected String passwordIncorrect;
-
     protected String userUsernameSize;
     protected String userPasswordSize;
     protected String userFullNameSize;
     protected String userRoleSize;
     protected String userUsernameNotBlank;
     protected String userPasswordNotBlank;
-    protected Integer userId; // id of the rating created for integration tests
+    protected Integer userId; // id of the user created for integration tests
 
     public void initializeVariables() {
         model = new Model() {
