@@ -40,7 +40,9 @@ public abstract class TestVariables {
     protected Integer ratingId; // id of the rating created for integration tests
     
     protected RuleName ruleName;
-    
+    protected List<RuleName> ruleNameList;
+    protected Optional<RuleName> ruleNameOptional;
+
     protected String ruleNameNameSize;
     protected String ruleNameDescriptionSize;
     protected String ruleNameJsonSize;
@@ -555,10 +557,6 @@ public abstract class TestVariables {
 
         mav = new ModelAndView();
 
-        rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);
-        ratingList = new ArrayList<>(List.of(rating));
-        ratingOptional = Optional.of(rating);
-
         // 126 characters string used for size validation
         longString126 = "85368220096847824275049423209683" +
                 "35786401076532718070358521773728" +
@@ -584,6 +582,10 @@ public abstract class TestVariables {
                 "75199818829449044168899552114360" +
                 "5";
 
+        rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);
+        ratingList = new ArrayList<>(List.of(rating));
+        ratingOptional = Optional.of(rating);
+
         ratingFitchRatingSize = "fitchRating should be less than 126 characters";
         ratingMoodysRatingSize = "moodysRating should be less than 126 characters";
         ratingOrderMin = "order should be more than -129";
@@ -591,7 +593,9 @@ public abstract class TestVariables {
         ratingSandPRatingSize = "sandPRating should be less than 126 characters";
 
         ruleName = new RuleName("nameTestValue", "descriptionTestValue", "jsonTestValue", "templateTestValue", "sqlStrTestValue","sqlPartTestValue");
-
+        ruleNameList = new ArrayList<>(List.of(ruleName));
+        ruleNameOptional = Optional.of(ruleName);
+        
         ruleNameNameSize = "name should be less than 126 characters";
         ruleNameDescriptionSize = "description should be less than 126 characters";
         ruleNameJsonSize = "json should be less than 126 characters";
