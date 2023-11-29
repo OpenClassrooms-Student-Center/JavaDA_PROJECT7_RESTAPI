@@ -44,7 +44,7 @@ public class UserTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfUsernameSize () {
-                user.setUsername(longString);
+                user.setUsername(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
                 ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];
@@ -68,7 +68,7 @@ public class UserTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfPasswordSize () {
-                user.setPassword(longString);
+                user.setPassword(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
                 ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];
@@ -92,7 +92,7 @@ public class UserTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfFullNameSize () {
-                user.setFullname(longString);
+                user.setFullname(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
                 ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];
@@ -106,7 +106,7 @@ public class UserTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfRoleSize () {
-                user.setRole(longString);
+                user.setRole(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
                 ConstraintViolation<User> constraintViolation = (ConstraintViolation<User>) result.toArray()[0];

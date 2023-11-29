@@ -44,7 +44,7 @@ public class RatingTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfFitchRatingSize () {
-                rating.setFitchRating(longString);
+                rating.setFitchRating(longString126);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
@@ -58,7 +58,7 @@ public class RatingTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfMoodysRatingSize () {
-                rating.setMoodysRating(longString);
+                rating.setMoodysRating(longString126);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];
@@ -96,7 +96,7 @@ public class RatingTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfSandPRatingSize () {
-                rating.setSandPRating(longString);
+                rating.setSandPRating(longString126);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
                 ConstraintViolation<Rating> constraintViolation = (ConstraintViolation<Rating>) result.toArray()[0];

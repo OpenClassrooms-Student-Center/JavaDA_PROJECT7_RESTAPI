@@ -44,7 +44,7 @@ public class RuleNameTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfNameSize () {
-                ruleName.setName(longString);
+                ruleName.setName(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
                 ConstraintViolation<RuleName> constraintViolation = (ConstraintViolation<RuleName>) result.toArray()[0];
@@ -58,7 +58,7 @@ public class RuleNameTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfDescriptionSize () {
-                ruleName.setDescription(longString);
+                ruleName.setDescription(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
                 ConstraintViolation<RuleName> constraintViolation = (ConstraintViolation<RuleName>) result.toArray()[0];
@@ -72,7 +72,7 @@ public class RuleNameTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfJsonSize () {
-                ruleName.setJson(longString);
+                ruleName.setJson(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
                 ConstraintViolation<RuleName> constraintViolation = (ConstraintViolation<RuleName>) result.toArray()[0];
@@ -100,7 +100,7 @@ public class RuleNameTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfSqlStrSize () {
-                ruleName.setSqlStr(longString);
+                ruleName.setSqlStr(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
                 ConstraintViolation<RuleName> constraintViolation = (ConstraintViolation<RuleName>) result.toArray()[0];
@@ -114,7 +114,7 @@ public class RuleNameTests extends TestVariables {
         {
             @Test
             public void ValidationTestIfSqlPartSize () {
-                ruleName.setSqlPart(longString);
+                ruleName.setSqlPart(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
                 ConstraintViolation<RuleName> constraintViolation = (ConstraintViolation<RuleName>) result.toArray()[0];

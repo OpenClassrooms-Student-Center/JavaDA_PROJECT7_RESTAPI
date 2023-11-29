@@ -126,7 +126,7 @@ public class UserIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void validateTestIfInvalidUser () throws Exception {
-            user.setFullname(longString);
+            user.setFullname(longString126);
             mockMvc.perform(post("/user/validate")
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -203,7 +203,7 @@ public class UserIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void updateUserTestIfInvalidUser () throws Exception {
-            user.setFullname(longString);
+            user.setFullname(longString126);
             mockMvc.perform(post("/user/update/" + userId)
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)

@@ -28,7 +28,7 @@ public abstract class TestVariables {
     protected List<Rating> ratingList;
     protected Optional<Rating> ratingOptional;
 
-    protected String longString;
+    protected String longString126;
     protected String longString513;
 
     protected String ratingFitchRatingSize;
@@ -560,7 +560,7 @@ public abstract class TestVariables {
         ratingOptional = Optional.of(rating);
 
         // 126 characters string used for size validation
-        longString = "85368220096847824275049423209683" +
+        longString126 = "85368220096847824275049423209683" +
                 "35786401076532718070358521773728" +
                 "25842050212176069074456918678132" +
                 "635754452771884752599433457836";
@@ -616,5 +616,4 @@ public abstract class TestVariables {
         userUsernameNotBlank = "Username is mandatory";
         userPasswordNotBlank = "Password is mandatory";
     }
-
 }

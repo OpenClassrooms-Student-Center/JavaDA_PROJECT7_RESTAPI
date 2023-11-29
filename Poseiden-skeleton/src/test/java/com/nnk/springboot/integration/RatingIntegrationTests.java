@@ -119,7 +119,7 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTestIfInvalidRating () throws Exception {
-            rating.setFitchRating(longString);
+            rating.setFitchRating(longString126);
             mockMvc.perform(post("/rating/validate")
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -182,7 +182,7 @@ public class RatingIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateRatingTestIfInvalidRating () throws Exception {
-            rating.setFitchRating(longString);
+            rating.setFitchRating(longString126);
             mockMvc.perform(post("/rating/update/" + ratingId)
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
