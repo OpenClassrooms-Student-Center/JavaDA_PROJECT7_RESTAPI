@@ -2,6 +2,7 @@ package com.nnk.springboot;
 
 import com.nnk.springboot.config.CustomUserDetails;
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -28,6 +29,7 @@ public abstract class TestVariables {
     protected Optional<Rating> ratingOptional;
 
     protected String longString;
+    protected String longString513;
 
     protected String ratingFitchRatingSize;
     protected String ratingMoodysRatingSize;
@@ -36,6 +38,15 @@ public abstract class TestVariables {
     protected String ratingSandPRatingSize;
 
     protected Integer ratingId; // id of the rating created for integration tests
+    
+    protected RuleName ruleName;
+    
+    protected String ruleNameNameSize;
+    protected String ruleNameDescriptionSize;
+    protected String ruleNameJsonSize;
+    protected String ruleNameTemplateSize;
+    protected String ruleNameSqlStrSize;
+    protected String ruleNameSqlPartSize;
 
     protected User user;
     protected List<User> userList;
@@ -554,12 +565,40 @@ public abstract class TestVariables {
                 "25842050212176069074456918678132" +
                 "635754452771884752599433457836";
 
+        // 513 characters string used for size validation
+        longString513 = "57967611163009735911423152900562" +
+                "97323731849038779577575329043705" +
+                "15892693415038843924665989616769" +
+                "75199818829449044168899552114360" +
+                "57967611163009735911423152900562" +
+                "97323731849038779577575329043705" +
+                "15892693415038843924665989616769" +
+                "75199818829449044168899552114360" +
+                "57967611163009735911423152900562" +
+                "97323731849038779577575329043705" +
+                "15892693415038843924665989616769" +
+                "75199818829449044168899552114360" +
+                "57967611163009735911423152900562" +
+                "97323731849038779577575329043705" +
+                "15892693415038843924665989616769" +
+                "75199818829449044168899552114360" +
+                "5";
+
         ratingFitchRatingSize = "fitchRating should be less than 126 characters";
         ratingMoodysRatingSize = "moodysRating should be less than 126 characters";
         ratingOrderMin = "order should be more than -129";
         ratingOrderMax = "order should be less than 128";
         ratingSandPRatingSize = "sandPRating should be less than 126 characters";
 
+        ruleName = new RuleName("nameTestValue", "descriptionTestValue", "jsonTestValue", "templateTestValue", "sqlStrTestValue","sqlPartTestValue");
+
+        ruleNameNameSize = "name should be less than 126 characters";
+        ruleNameDescriptionSize = "description should be less than 126 characters";
+        ruleNameJsonSize = "json should be less than 126 characters";
+        ruleNameTemplateSize = "template should be less than 513 characters";
+        ruleNameSqlStrSize = "sqlStr should be less than 126 characters";
+        ruleNameSqlPartSize = "sqlPart should be less than 126 characters";
+        
         user = new User();
         user.setUsername("usernameTestValue");
         user.setPassword("passwordTestValue1!");

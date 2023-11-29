@@ -1,6 +1,8 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -12,18 +14,97 @@ public class RuleName {
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    public RuleName(String ruleName, String description, String json, String template, String sql, String sqlPart) {
+
+    @Column(length = 125)
+    @Size(max = 125, message = "name should be less than 126 characters")
+    private String name;
+
+    @Column(length = 125)
+    @Size(max = 125, message = "description should be less than 126 characters")
+    private String description;
+
+    @Column(length = 125)
+    @Size(max = 125, message = "json should be less than 126 characters")
+    private String json;
+
+    @Column(length = 512)
+    @Size(max = 512, message = "template should be less than 513 characters")
+    private String template;
+
+    @Column(length = 512)
+    @Size(max = 125, message = "sqlStr should be less than 126 characters")
+    private String sqlStr;
+
+    @Column(length = 125)
+    @Size(max = 125, message = "sqlPart should be less than 126 characters")
+    private String sqlPart;
+
+    // TODO: Map columns in data table RULENAME with corresponding java fields
+
+    public RuleName() {}
+
+    public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {
+        this.name = name;
+        this.description = description;
+        this.json = json;
+        this.template = template;
+        this.sqlStr = sqlStr;
+        this.sqlPart = sqlPart;
     }
 
     public Integer getId() {
-        return null;
+        return id;
     }
 
-    public Object getName() {
-        return null;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setName(String ruleNameUpdate) {
+    public String getName() {
+        return name;
     }
-    // TODO: Map columns in data table RULENAME with corresponding java fields
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public String getSqlStr() {
+        return sqlStr;
+    }
+
+    public void setSqlStr(String sqlStr) {
+        this.sqlStr = sqlStr;
+    }
+
+    public String getSqlPart() {
+        return sqlPart;
+    }
+
+    public void setSqlPart(String sqlPart) {
+        this.sqlPart = sqlPart;
+    }
 }
