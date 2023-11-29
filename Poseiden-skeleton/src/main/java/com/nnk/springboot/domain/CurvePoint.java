@@ -87,9 +87,7 @@ public class CurvePoint {
     @Override
     public String toString() {
         return "&curveId=" + this.curveId +
-                "&asOfDate=" + this.asOfDate +
                 "&term=" + this.term +
-                "&value=" + this.value +
-        "&creationDate=" + this.creationDate;
+                "&value=" + this.value;
     }
 }
