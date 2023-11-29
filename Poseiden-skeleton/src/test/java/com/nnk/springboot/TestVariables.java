@@ -1,6 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.config.CustomUserDetails;
+import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.User;
@@ -24,12 +25,20 @@ public abstract class TestVariables {
 
     protected ModelAndView mav;
 
+    protected String longString126; // string of 126 characters used for tests
+    protected String longString513; // string of 513 characters used for tests
+
+
+    protected CurvePoint curvePoint;
+    protected List<CurvePoint> curvePointList;
+    protected Optional<CurvePoint> curvePointOptional;
+
+    protected String curvePointCreationDatePast;
+    protected Integer curvePointId; // id of the curvePoint created for integration tests
+    
     protected Rating rating;
     protected List<Rating> ratingList;
     protected Optional<Rating> ratingOptional;
-
-    protected String longString126;
-    protected String longString513;
 
     protected String ratingFitchRatingSize;
     protected String ratingMoodysRatingSize;
@@ -580,6 +589,12 @@ public abstract class TestVariables {
                 "15892693415038843924665989616769" +
                 "75199818829449044168899552114360" +
                 "5";
+
+        curvePoint = new CurvePoint(10,20,30);
+        curvePointList = new ArrayList<>(List.of(curvePoint));
+        curvePointOptional = Optional.of(curvePoint);
+
+        curvePointCreationDatePast = "creationDate should be in the past";
 
         rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);
         ratingList = new ArrayList<>(List.of(rating));
