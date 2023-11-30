@@ -45,6 +45,14 @@ public class SpringSecurityConfig {
         return authProvider;
     }
 
+    /**
+     * Spring Security expects the table UserDetails is mapped to to have a column containing a boolean
+     * indicating if the user is enabled, but the table "users" in the database doesn't have one.<br>
+     * This is circumvented by the use "'true' as enabled" in the sql query.
+     * @param auth
+     * @throws Exception
+     */
+
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
@@ -55,14 +63,18 @@ public class SpringSecurityConfig {
     }
 
     /**
-     * This method controls the access to the different URLs based on the authenticated user<br>
-     * The login page is accessible to all<br>
+     * This method controls the access to the different URLs based on the authenticated user<br><br>
+     * The login and logout page are accessible to all<br>
+     * The error page is accessible to all authenticated users<br>
      * <b>There is additional filtering done in UserController</b> to give users access to their own update page
      * and to give admins access to every user's update page
      * (see UserController.showUpdateForm() and UserController.updateUser()<br>
-     * The error page is accessible to all authenticated users<br>
-     * The user part of the app is accessible only to admins<br>
-     * The rest of the app is accessible only to users
+     * The user part of the app, "admin/home" and "secure/article-details" are accessible only to admins<br>
+     * The rest of the app is accessible only to users<br><br>
+     * After a successful login request, every user is forwarded to the "/" url,
+     * which is mapped onto the home() method of HomeController,
+     * which will redirect the user according to its role.<br><br>
+     * After logging out, the JSESSIONID is deleted, and the http session is invalidated.
      * @param http
      * @return
      * @throws Exception

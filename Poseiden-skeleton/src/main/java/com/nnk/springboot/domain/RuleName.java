@@ -27,7 +27,7 @@ public class RuleName {
     @Size(max = 512, message = "template should be less than 513 characters")
     private String template;
 
-    @Column(length = 512)
+    @Column(length = 125)
     @Size(max = 125, message = "sqlStr should be less than 126 characters")
     private String sqlStr;
 

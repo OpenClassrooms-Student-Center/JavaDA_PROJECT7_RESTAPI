@@ -36,8 +36,20 @@ public class HomeControllerTests extends TestVariables {
     public class HomeTests
     {
         @Test
-        public void homeTest () {
-            assertEquals("home", homeController.home(model, request));
+        public void homeTestIfAdmin () {
+            user.setRole("ADMIN");
+            assertEquals("redirect:/admin/home", homeController.home(model, request, authentication));
+        }
+
+        @Test
+        public void homeTestIfUser () {
+            assertEquals("redirect:/user/home", homeController.home(model, request, authentication));
+        }
+
+        @Test
+        public void homeTestIfNoRole () {
+            user.setRole("");
+            assertEquals("403", homeController.home(model, request, authentication));
         }
     }
 
@@ -46,7 +58,16 @@ public class HomeControllerTests extends TestVariables {
     {
         @Test
         public void adminHomeTest () {
-            assertEquals("redirect:/bidList/list", homeController.adminHome(model));
+            assertEquals("redirect:/user/list", homeController.adminHome(model));
+        }
+    }
+
+    @Nested
+    public class UserHomeTests
+    {
+        @Test
+        public void userHomeTest () {
+            assertEquals("redirect:/bidList/list", homeController.userHome(model));
         }
     }
 }

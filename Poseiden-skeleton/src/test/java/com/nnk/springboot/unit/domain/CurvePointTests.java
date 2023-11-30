@@ -39,19 +39,5 @@ public class CurvePointTests extends TestVariables {
             Set<ConstraintViolation<CurvePoint>> result = validator.validate(curvePoint);
             assertTrue(result.isEmpty());
         }
-
-        @Nested
-        public class CreationDateTests
-        {
-            @Test
-            public void ValidationTestIfCreationDateSize () {
-                curvePoint.setCreationDate(new Timestamp(System.currentTimeMillis() + 999999));
-                Set<ConstraintViolation<CurvePoint>> result = validator.validate(curvePoint);
-                assertEquals(1, result.size());
-                ConstraintViolation<CurvePoint> constraintViolation = (ConstraintViolation<CurvePoint>) result.toArray()[0];
-                assertEquals("creationDate", constraintViolation.getPropertyPath().toString());
-                assertEquals(curvePointCreationDatePast, constraintViolation.getMessage());
-            }
-        }
     }
 }

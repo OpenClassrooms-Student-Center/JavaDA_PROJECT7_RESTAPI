@@ -590,7 +590,7 @@ public abstract class TestVariables {
                 "75199818829449044168899552114360" +
                 "5";
 
-        curvePoint = new CurvePoint(10,20,30);
+        curvePoint = new CurvePoint(10, 20.0, 30.0);
         curvePointList = new ArrayList<>(List.of(curvePoint));
         curvePointOptional = Optional.of(curvePoint);
 

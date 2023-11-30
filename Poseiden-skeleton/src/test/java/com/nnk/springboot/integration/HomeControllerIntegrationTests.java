@@ -32,7 +32,19 @@ public class HomeControllerIntegrationTests extends TestVariables {
     public class homeTests
     {
         @Test
+        @WithMockUser(authorities = "ADMIN")
+        public void homeTestIfAdmin () throws Exception {
+            mockMvc.perform(get("/"))
+                    .andExpect(status().is3xxRedirection());
+        }
+        @Test
         @WithMockUser(authorities = "USER")
+        public void homeTestIfUser () throws Exception {
+            mockMvc.perform(get("/"))
+                    .andExpect(status().is3xxRedirection());
+        }
+        @Test
+        @WithMockUser()
         public void homeTest () throws Exception {
             mockMvc.perform(get("/"))
                     .andExpect(status().is2xxSuccessful());

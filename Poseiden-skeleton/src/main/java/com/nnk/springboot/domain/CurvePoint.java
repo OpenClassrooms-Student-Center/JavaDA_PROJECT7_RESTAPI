@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Entity
@@ -17,22 +18,20 @@ public class CurvePoint {
     @Column(name = "CurveId")
     private Integer curveId;
 
-    private Timestamp asOfDate;
+    private Date asOfDate;
 
-    private double term;
+    private Double term;
 
-    private double value;
+    private Double value;
 
-    @Past(message = "creationDate should be in the past")
-    private Timestamp creationDate;
+    private Date creationDate;
 
     public CurvePoint() {};
 
-    public CurvePoint(int curveId, double term, double value) {
+    public CurvePoint(int curveId, Double term, Double value) {
         this.curveId = curveId;
         this.term = term;
         this.value = value;
-        this.creationDate = new Timestamp(System.currentTimeMillis());
     }
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
 
@@ -52,7 +51,7 @@ public class CurvePoint {
         this.curveId = curveId;
     }
 
-    public Timestamp getAsOfDate() {
+    public Date getAsOfDate() {
         return asOfDate;
     }
 
@@ -60,23 +59,23 @@ public class CurvePoint {
         this.asOfDate = asOfDate;
     }
 
-    public double getTerm() {
+    public Double getTerm() {
         return term;
     }
 
-    public void setTerm(double term) {
+    public void setTerm(Double term) {
         this.term = term;
     }
 
-    public double getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public Timestamp getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
