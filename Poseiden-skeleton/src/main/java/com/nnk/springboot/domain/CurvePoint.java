@@ -1,9 +1,7 @@
 package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Past;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -55,7 +53,7 @@ public class CurvePoint {
         return asOfDate;
     }
 
-    public void setAsOfDate(Timestamp asOfDate) {
+    public void setAsOfDate(Date asOfDate) {
         this.asOfDate = asOfDate;
     }
 
@@ -79,7 +77,7 @@ public class CurvePoint {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

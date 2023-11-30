@@ -1,6 +1,5 @@
-
 CREATE TABLE BidList (
-  BidListId int NOT NULL AUTO_INCREMENT,
+  Id int NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
   type VARCHAR(30) NOT NULL,
   bidQuantity DOUBLE,
@@ -8,57 +7,57 @@ CREATE TABLE BidList (
   bid DOUBLE ,
   ask DOUBLE,
   benchmark VARCHAR(125),
-  bidListDate TIMESTAMP,
+  bidListDate DATETIME(6),
   commentary VARCHAR(125),
   security VARCHAR(125),
   status VARCHAR(10),
   trader VARCHAR(125),
   book VARCHAR(125),
   creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
+  creationDate DATETIME(6) ,
   revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
+  revisionDate DATETIME(6) ,
   dealName VARCHAR(125),
   dealType VARCHAR(125),
   sourceListId VARCHAR(125),
   side VARCHAR(125),
 
-  PRIMARY KEY (BidListId)
+  PRIMARY KEY (Id)
 );
 
 CREATE TABLE Trade (
-  TradeId int NOT NULL AUTO_INCREMENT,
+  Id int NOT NULL AUTO_INCREMENT,
   account VARCHAR(30) NOT NULL,
   type VARCHAR(30) NOT NULL,
   buyQuantity DOUBLE,
   sellQuantity DOUBLE,
   buyPrice DOUBLE ,
   sellPrice DOUBLE,
-  tradeDate TIMESTAMP,
+  tradeDate DATETIME(6),
   security VARCHAR(125),
   status VARCHAR(10),
   trader VARCHAR(125),
   benchmark VARCHAR(125),
   book VARCHAR(125),
   creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
+  creationDate DATETIME(6) ,
   revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
+  revisionDate DATETIME(6) ,
   dealName VARCHAR(125),
   dealType VARCHAR(125),
   sourceListId VARCHAR(125),
   side VARCHAR(125),
 
-  PRIMARY KEY (TradeId)
+  PRIMARY KEY (Id)
 );
 
 CREATE TABLE CurvePoint (
   Id int NOT NULL AUTO_INCREMENT,
   CurveId int,
-  asOfDate TIMESTAMP,
+  asOfDate DATETIME(6),
   term DOUBLE ,
   value DOUBLE ,
-  creationDate TIMESTAMP ,
+  creationDate DATETIME(6) ,
 
   PRIMARY KEY (Id)
 );
