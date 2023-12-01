@@ -36,4 +36,9 @@ public interface CurvePointService {
      * @return
      */
     boolean checkIfIdExists(int id);
+
+    /**
+     * @param curvePoint
+     */
+    void deleteCurvePoint(CurvePoint curvePoint);
 }

@@ -4,10 +4,12 @@ import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.services.CurvePointService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CurvePointServiceImpl implements CurvePointService {
 
     @Autowired
@@ -42,13 +44,22 @@ public class CurvePointServiceImpl implements CurvePointService {
      */
     @Override
     public CurvePoint findByCurvePointId(Integer id){
-        return curvePointRepository.findByCurvePointId(id);
+        return curvePointRepository.findByCurveId(id);
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public boolean checkIfIdExists(int id) {
-        return curvePointRepository.checkIfIdExists(id);
+        return curvePointRepository.existsById(id);
     }
 
-
+    /**
+     *{@inheritDoc}
+     */
+    @Override
+    public void deleteCurvePoint(CurvePoint curvePoint) {
+        curvePointRepository.delete(curvePoint);
+    }
 }
