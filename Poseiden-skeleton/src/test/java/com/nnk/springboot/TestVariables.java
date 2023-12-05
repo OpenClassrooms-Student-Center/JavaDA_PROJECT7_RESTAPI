@@ -83,6 +83,32 @@ public abstract class TestVariables {
     protected String ruleNameSqlPartSize;
     protected Integer ruleNameId; // id of the ruleName created for integration tests
 
+    protected Trade trade;
+    protected List<Trade> tradeList;
+    protected Optional<Trade> tradeOptional;
+
+    protected String tradeAccountSize;
+    protected String tradeAccountNotBlank;
+    protected String tradeTypeSize;
+    protected String tradeTypeNotBlank;
+    protected String tradeBuyQuantityPositiveOrZero;
+    protected String tradeSellQuantityPositiveOrZero;
+    protected String tradeBuyPricePositiveOrZero;
+    protected String tradeSellPricePositiveOrZero;
+    protected String tradeSecuritySize;
+    protected String tradeStatusSize;
+    protected String tradeTraderSize;
+    protected String tradeBenchmarkSize;
+    protected String tradeBookSize;
+    protected String tradeCreationNameSize;
+    protected String tradeRevisionNameSize;
+    protected String tradeDealNameSize;
+    protected String tradeDealTypeSize;
+    protected String tradeSourceListIdSize;
+    protected String tradeSideSize;
+    protected Integer tradeId; // id of the trade created for integration tests
+
+
     protected User user;
     protected List<User> userList;
     protected Optional<User> userOptional;
@@ -671,6 +697,30 @@ public abstract class TestVariables {
         ruleNameTemplateSize = "template should be less than 513 characters";
         ruleNameSqlStrSize = "sqlStr should be less than 126 characters";
         ruleNameSqlPartSize = "sqlPart should be less than 126 characters";
+
+        trade = new Trade("accountTestValue", "typeTestValue");
+        tradeList = new ArrayList<>(List.of(trade));
+        tradeOptional = Optional.of(trade);
+
+        tradeAccountSize = "account should be less than 31 characters";
+        tradeAccountNotBlank = "account is mandatory";
+        tradeTypeSize = "type should be less than 31 characters";
+        tradeTypeNotBlank = "type is mandatory";
+        tradeBuyQuantityPositiveOrZero = "buyQuantity should be a positive number or zero";
+        tradeSellQuantityPositiveOrZero = "sellQuantity should be a positive number or zero";
+        tradeBuyPricePositiveOrZero = "buyPrice should be a positive number or zero";
+        tradeSellPricePositiveOrZero = "sellPrice should be a positive number or zero";
+        tradeSecuritySize = "security should be less than 126 characters";
+        tradeStatusSize = "status should be less than 11 characters";
+        tradeTraderSize = "trader should be less than 126 characters";
+        tradeBenchmarkSize = "benchmark should be less than 126 characters";
+        tradeBookSize = "book should be less than 126 characters";
+        tradeCreationNameSize = "creationName should be less than 126 characters";
+        tradeRevisionNameSize = "revisionName should be less than 126 characters";
+        tradeDealNameSize = "dealName should be less than 126 characters";
+        tradeDealTypeSize = "dealType should be less than 126 characters";
+        tradeSourceListIdSize = "sourceListId should be less than 126 characters";
+        tradeSideSize = "side should be less than 126 characters";
         
         user = new User();
         user.setUsername("usernameTestValue");
