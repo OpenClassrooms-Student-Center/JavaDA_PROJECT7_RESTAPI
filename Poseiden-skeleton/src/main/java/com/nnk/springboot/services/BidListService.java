@@ -12,27 +12,27 @@ import java.util.Optional;
 public class BidListService {
 
     @Autowired
-    BidListRepository ratingRepository;
+    BidListRepository bidListRepository;
 
     public List<BidList> findAll() {
-        return ratingRepository.findAll();
+        return bidListRepository.findAll();
     }
 
     public Optional<BidList> findById(Integer id) {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
-        return ratingRepository.findById(id);
+        return bidListRepository.findById(id);
     }
 
     public void deleteById(Integer id) {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
-        ratingRepository.deleteById(id);
+        bidListRepository.deleteById(id);
     }
 
-    public void save(BidList rating) {
-        ratingRepository.save(rating);
+    public void save(BidList bidList) {
+        bidListRepository.save(bidList);
     }
 }
