@@ -1,10 +1,7 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.config.CustomUserDetails;
-import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.domain.User;
+import com.nnk.springboot.domain.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import org.springframework.security.core.Authentication;
@@ -25,9 +22,35 @@ public abstract class TestVariables {
 
     protected ModelAndView mav;
 
+    protected String longString31; // string of 31 characters used for tests
+    protected String longString11; // string of 11 characters used for tests
     protected String longString126; // string of 126 characters used for tests
     protected String longString513; // string of 513 characters used for tests
 
+    protected BidList bidList;
+    protected List<BidList> bidListList;
+    protected Optional<BidList> bidListOptional;
+
+    protected String bidListAccountSize;
+    protected String bidListAccountNotBlank;
+    protected String bidListTypeSize;
+    protected String bidListTypeNotBlank;
+    protected String bidListBidQuantityPositiveOrZero;
+    protected String bidListAskQuantityPositiveOrZero;
+    protected String bidListBidPositiveOrZero;
+    protected String bidListAskPositiveOrZero;
+    protected String bidListBenchmarkSize;
+    protected String bidListCommentarySize;
+    protected String bidListSecuritySize;
+    protected String bidListStatusSize;
+    protected String bidListTraderSize;
+    protected String bidListBookSize;
+    protected String bidListCreationNameSize;
+    protected String bidListRevisionNameSize;
+    protected String bidListDealNameSize;
+    protected String bidListDealTypeSize;
+    protected String bidListSourceListIdSize;
+    protected String bidListSideSize;
 
     protected CurvePoint curvePoint;
     protected List<CurvePoint> curvePointList;
@@ -565,6 +588,12 @@ public abstract class TestVariables {
 
         mav = new ModelAndView();
 
+        // 11 characters string used for size validation
+        longString11 = "85368220096";
+
+        // 31 characters string used for size validation
+        longString31 = "6357544527718847525994334578369";
+
         // 126 characters string used for size validation
         longString126 = "85368220096847824275049423209683" +
                 "35786401076532718070358521773728" +
@@ -590,6 +619,31 @@ public abstract class TestVariables {
                 "75199818829449044168899552114360" +
                 "5";
 
+        bidList = new BidList("accountTestValue", "typeTestValue", 10.0);
+        bidListList = new ArrayList<>(List.of(bidList));
+        bidListOptional = Optional.of(bidList);
+
+        bidListAccountSize = "account should be less than 31 characters";
+        bidListAccountNotBlank = "account is mandatory";
+        bidListTypeSize = "type should be less than 31 characters";
+        bidListTypeNotBlank = "type is mandatory";
+        bidListBidQuantityPositiveOrZero = "bidQuantity should be a positive number or zero";
+        bidListAskQuantityPositiveOrZero = "askQuantity should be a positive number or zero";
+        bidListBidPositiveOrZero = "bid should be a positive number or zero";
+        bidListAskPositiveOrZero = "ask should be a positive number or zero";
+        bidListBenchmarkSize = "benchmark should be less than 126 characters";
+        bidListCommentarySize = "commentary should be less than 126 characters";
+        bidListSecuritySize = "security should be less than 126 characters";
+        bidListStatusSize = "status should be less than 11 characters";
+        bidListTraderSize = "trader should be less than 126 characters";
+        bidListBookSize = "book should be less than 126 characters";
+        bidListCreationNameSize = "creationName should be less than 126 characters";
+        bidListRevisionNameSize = "revisionName should be less than 126 characters";
+        bidListDealNameSize = "dealName should be less than 126 characters";
+        bidListDealTypeSize = "dealType should be less than 126 characters";
+        bidListSourceListIdSize = "sourceListId should be less than 126 characters";
+        bidListSideSize = "side should be less than 126 characters";
+        
         curvePoint = new CurvePoint(10, 20.0, 30.0);
         curvePointList = new ArrayList<>(List.of(curvePoint));
         curvePointOptional = Optional.of(curvePoint);
