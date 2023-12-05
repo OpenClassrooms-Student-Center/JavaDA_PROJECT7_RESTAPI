@@ -51,6 +51,7 @@ public abstract class TestVariables {
     protected String bidListDealTypeSize;
     protected String bidListSourceListIdSize;
     protected String bidListSideSize;
+    protected Integer bidListId; // id of the bidList created for integration tests
 
     protected CurvePoint curvePoint;
     protected List<CurvePoint> curvePointList;
