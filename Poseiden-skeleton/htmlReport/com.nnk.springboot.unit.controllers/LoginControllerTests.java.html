@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginControllerTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.controllers</a> &gt; <span class="el_source">LoginControllerTests.java</span></div><h1>LoginControllerTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.controllers;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.controllers.LoginController;
+import com.nnk.springboot.services.UserService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = LoginController.class)
+<span class="fc" id="L17">public class LoginControllerTests extends TestVariables {</span>
+
+    @Autowired
+    LoginController loginController;
+    
+    @MockBean
+    UserService userService;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L27">        initializeVariables();</span>
+<span class="fc" id="L28">        when(userService.findAll()).thenReturn(userList);</span>
+<span class="fc" id="L29">    }</span>
+
+    @Test
+<span class="fc" id="L32">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L35">    public class LoginTests</span>
+    {
+        @Test
+        public void loginTest () {
+<span class="fc" id="L39">            mav.setViewName(&quot;login&quot;);</span>
+<span class="fc" id="L40">            assertEquals(mav.toString(), loginController.login().toString());</span>
+<span class="fc" id="L41">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L45">    public class GetAllUserArticlesTests</span>
+    {
+        @Test
+        public void getAllUserArticlesTest () {
+<span class="fc" id="L49">            mav.addObject(&quot;users&quot;, userList);</span>
+<span class="fc" id="L50">            mav.setViewName(&quot;user/list&quot;);</span>
+<span class="fc" id="L51">            assertEquals(mav.toString(), loginController.getAllUserArticles().toString());</span>
+<span class="fc" id="L52">        }</span>
+    }
+    
+    @Nested
+<span class="fc" id="L56">    public class ErrorTests</span>
+    {
+        @Test
+        public void errorTest () {
+<span class="fc" id="L60">            String errorMessage= &quot;You are not authorized for the requested data.&quot;;</span>
+<span class="fc" id="L61">            mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="fc" id="L62">            mav.setViewName(&quot;403&quot;);</span>
+<span class="fc" id="L63">            assertEquals(mav.toString(), loginController.error().toString());</span>
+<span class="fc" id="L64">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RuleNameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">RuleNameController.java</span></div><h1>RuleNameController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.services.RuleNameService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,44 +14,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-<span class="fc" id="L15">public class RuleNameController {</span>
+public class RuleNameController {
     // TODO: Inject RuleName service
+    private final RuleNameService ruleNameService;
+    
+    @Autowired
+<span class="fc" id="L22">    public RuleNameController(RuleNameService ruleNameService) {</span>
+<span class="fc" id="L23">        this.ruleNameService = ruleNameService;</span>
+<span class="fc" id="L24">    }</span>
 
     @RequestMapping(&quot;/ruleName/list&quot;)
     public String home(Model model)
     {
         // TODO: find all RuleName, add to model
-<span class="nc" id="L22">        return &quot;ruleName/list&quot;;</span>
+<span class="fc" id="L30">        model.addAttribute(&quot;ruleNames&quot;, ruleNameService.findAll());</span>
+<span class="fc" id="L31">        return &quot;ruleName/list&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/add&quot;)
-    public String addRuleForm(RuleName bid) {
-<span class="nc" id="L27">        return &quot;ruleName/add&quot;;</span>
+    public String addRuleNameForm(RuleName bid) {
+<span class="fc" id="L36">        return &quot;ruleName/add&quot;;</span>
     }
 
     @PostMapping(&quot;/ruleName/validate&quot;)
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return RuleName list
-<span class="nc" id="L33">        return &quot;ruleName/add&quot;;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L43">            ruleNameService.save(ruleName);</span>
+<span class="fc" id="L44">            return &quot;redirect:/ruleName/list&quot;;</span>
+        }            
+<span class="fc" id="L46">        return &quot;ruleName/add&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
-<span class="nc" id="L39">        return &quot;ruleName/update&quot;;</span>
+<span class="fc" id="L52">        RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L53">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
+<span class="fc" id="L54">        return &quot;ruleName/update&quot;;</span>
     }
 
     @PostMapping(&quot;/ruleName/update/{id}&quot;)
     public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-<span class="nc" id="L46">        return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L62">            ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L63">            ruleNameService.save(ruleName);</span>
+        }
+<span class="fc" id="L65">        return &quot;redirect:/ruleName/list&quot;;</span>
     }
 
     @GetMapping(&quot;/ruleName/delete/{id}&quot;)
     public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-<span class="nc" id="L52">        return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L71">        ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L72">        ruleNameService.deleteById(id);</span>
+<span class="fc" id="L73">        return &quot;redirect:/ruleName/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurvePointTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.domain</a> &gt; <span class="el_source">CurvePointTests.java</span></div><h1>CurvePointTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.domain;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.domain.CurvePoint;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.sql.Timestamp;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest(classes = CurvePoint.class)
+<span class="fc" id="L21">public class CurvePointTests extends TestVariables {</span>
+
+<span class="fc" id="L23">    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
+<span class="fc" id="L24">    Validator validator = factory.getValidator();</span>
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L28">        initializeVariables();</span>
+<span class="fc" id="L29">    }</span>
+
+    @Test
+<span class="fc" id="L32">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L35">    public class ValidationTests {</span>
+
+        @Test
+        public void ValidationTest() {
+<span class="fc" id="L39">            Set&lt;ConstraintViolation&lt;CurvePoint&gt;&gt; result = validator.validate(curvePoint);</span>
+<span class="fc" id="L40">            assertTrue(result.isEmpty());</span>
+<span class="fc" id="L41">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

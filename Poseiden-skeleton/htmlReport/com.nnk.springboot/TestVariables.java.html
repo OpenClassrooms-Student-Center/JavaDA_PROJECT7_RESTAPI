@@ -1,44 +1,743 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestVariables.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot</a> &gt; <span class="el_source">TestVariables.java</span></div><h1>TestVariables.java</h1><pre class="source lang-java linenums">package com.nnk.springboot;
 
-import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.config.CustomUserDetails;
+import com.nnk.springboot.domain.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.*;
 
-<span class="fc" id="L9">public abstract class TestVariables {</span>
+<span class="fc" id="L18">public abstract class TestVariables {</span>
+    protected Model model;
+    protected Authentication authentication;
+    protected HttpServletRequest request;
 
+    protected ModelAndView mav;
+
+    protected String longString31; // string of 31 characters used for tests
+    protected String longString11; // string of 11 characters used for tests
+    protected String longString126; // string of 126 characters used for tests
+    protected String longString513; // string of 513 characters used for tests
+
+    protected BidList bidList;
+    protected List&lt;BidList&gt; bidListList;
+    protected Optional&lt;BidList&gt; bidListOptional;
+
+    protected String bidListAccountSize;
+    protected String bidListAccountNotBlank;
+    protected String bidListTypeSize;
+    protected String bidListTypeNotBlank;
+    protected String bidListBidQuantityPositiveOrZero;
+    protected String bidListAskQuantityPositiveOrZero;
+    protected String bidListBidPositiveOrZero;
+    protected String bidListAskPositiveOrZero;
+    protected String bidListBenchmarkSize;
+    protected String bidListCommentarySize;
+    protected String bidListSecuritySize;
+    protected String bidListStatusSize;
+    protected String bidListTraderSize;
+    protected String bidListBookSize;
+    protected String bidListCreationNameSize;
+    protected String bidListRevisionNameSize;
+    protected String bidListDealNameSize;
+    protected String bidListDealTypeSize;
+    protected String bidListSourceListIdSize;
+    protected String bidListSideSize;
+    protected Integer bidListId; // id of the bidList created for integration tests
+
+    protected CurvePoint curvePoint;
+    protected List&lt;CurvePoint&gt; curvePointList;
+    protected Optional&lt;CurvePoint&gt; curvePointOptional;
+
+    protected String curvePointCreationDatePast;
+    protected Integer curvePointId; // id of the curvePoint created for integration tests
+    
     protected Rating rating;
     protected List&lt;Rating&gt; ratingList;
     protected Optional&lt;Rating&gt; ratingOptional;
-
-    protected String longString;
 
     protected String ratingFitchRatingSize;
     protected String ratingMoodysRatingSize;
     protected String ratingOrderMin;
     protected String ratingOrderMax;
     protected String ratingSandPRatingSize;
-
     protected Integer ratingId; // id of the rating created for integration tests
+    
+    protected RuleName ruleName;
+    protected List&lt;RuleName&gt; ruleNameList;
+    protected Optional&lt;RuleName&gt; ruleNameOptional;
+
+    protected String ruleNameNameSize;
+    protected String ruleNameDescriptionSize;
+    protected String ruleNameJsonSize;
+    protected String ruleNameTemplateSize;
+    protected String ruleNameSqlStrSize;
+    protected String ruleNameSqlPartSize;
+    protected Integer ruleNameId; // id of the ruleName created for integration tests
+
+    protected Trade trade;
+    protected List&lt;Trade&gt; tradeList;
+    protected Optional&lt;Trade&gt; tradeOptional;
+
+    protected String tradeAccountSize;
+    protected String tradeAccountNotBlank;
+    protected String tradeTypeSize;
+    protected String tradeTypeNotBlank;
+    protected String tradeBuyQuantityPositiveOrZero;
+    protected String tradeSellQuantityPositiveOrZero;
+    protected String tradeBuyPricePositiveOrZero;
+    protected String tradeSellPricePositiveOrZero;
+    protected String tradeSecuritySize;
+    protected String tradeStatusSize;
+    protected String tradeTraderSize;
+    protected String tradeBenchmarkSize;
+    protected String tradeBookSize;
+    protected String tradeCreationNameSize;
+    protected String tradeRevisionNameSize;
+    protected String tradeDealNameSize;
+    protected String tradeDealTypeSize;
+    protected String tradeSourceListIdSize;
+    protected String tradeSideSize;
+    protected Integer tradeId; // id of the trade created for integration tests
+
+
+    protected User user;
+    protected List&lt;User&gt; userList;
+    protected Optional&lt;User&gt; userOptional;
+    protected String passwordIncorrect;
+    protected String userUsernameSize;
+    protected String userPasswordSize;
+    protected String userFullNameSize;
+    protected String userRoleSize;
+    protected String userUsernameNotBlank;
+    protected String userPasswordNotBlank;
+    protected Integer userId; // id of the user created for integration tests
 
     public void initializeVariables() {
-<span class="fc" id="L26">        rating = new Rating(&quot;moodysRatingTestValue&quot;, &quot;sandPRatingTestValue&quot;, &quot;fitchRatingTestValue&quot;, 10);</span>
-<span class="fc" id="L27">        ratingList = new ArrayList&lt;&gt;(List.of(rating));</span>
-<span class="fc" id="L28">        ratingOptional = Optional.of(rating);</span>
+<span class="fc" id="L125">        model = new Model() {</span>
+            @Override
+            public Model addAttribute(String attributeName, Object attributeValue) {
+<span class="fc" id="L128">                return null;</span>
+            }
+
+            @Override
+            public Model addAttribute(Object attributeValue) {
+<span class="nc" id="L133">                return null;</span>
+            }
+
+            @Override
+            public Model addAllAttributes(Collection&lt;?&gt; attributeValues) {
+<span class="nc" id="L138">                return null;</span>
+            }
+
+            @Override
+            public Model addAllAttributes(Map&lt;String, ?&gt; attributes) {
+<span class="nc" id="L143">                return null;</span>
+            }
+
+            @Override
+            public Model mergeAttributes(Map&lt;String, ?&gt; attributes) {
+<span class="nc" id="L148">                return null;</span>
+            }
+
+            @Override
+            public boolean containsAttribute(String attributeName) {
+<span class="nc" id="L153">                return false;</span>
+            }
+
+            @Override
+            public Object getAttribute(String attributeName) {
+<span class="nc" id="L158">                return null;</span>
+            }
+
+            @Override
+            public Map&lt;String, Object&gt; asMap() {
+<span class="nc" id="L163">                return null;</span>
+            }
+        };
+
+<span class="fc" id="L167">        authentication = new Authentication() {</span>
+            @Override
+            public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="fc" id="L170">                return new CustomUserDetails(user).getAuthorities();</span>
+            }
+
+            @Override
+            public Object getCredentials() {
+<span class="nc" id="L175">                return null;</span>
+            }
+
+            @Override
+            public Object getDetails() {
+<span class="nc" id="L180">                return null;</span>
+            }
+
+            @Override
+            public Object getPrincipal() {
+<span class="nc" id="L185">                return null;</span>
+            }
+
+            @Override
+            public boolean isAuthenticated() {
+<span class="nc" id="L190">                return false;</span>
+            }
+
+            @Override
+            public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+
+<span class="nc" id="L196">            }</span>
+
+            @Override
+            public String getName() {
+<span class="fc" id="L200">                return user.getUsername();</span>
+            }
+        };
+
+<span class="fc" id="L204">        request = new HttpServletRequest() {</span>
+            @Override
+            public String getAuthType() {
+<span class="nc" id="L207">                return null;</span>
+            }
+
+            @Override
+            public Cookie[] getCookies() {
+<span class="nc" id="L212">                return new Cookie[0];</span>
+            }
+
+            @Override
+            public long getDateHeader(String name) {
+<span class="nc" id="L217">                return 0;</span>
+            }
+
+            @Override
+            public String getHeader(String name) {
+<span class="nc" id="L222">                return null;</span>
+            }
+
+            @Override
+            public Enumeration&lt;String&gt; getHeaders(String name) {
+<span class="nc" id="L227">                return null;</span>
+            }
+
+            @Override
+            public Enumeration&lt;String&gt; getHeaderNames() {
+<span class="nc" id="L232">                return null;</span>
+            }
+
+            @Override
+            public int getIntHeader(String name) {
+<span class="nc" id="L237">                return 0;</span>
+            }
+
+            @Override
+            public String getMethod() {
+<span class="nc" id="L242">                return null;</span>
+            }
+
+            @Override
+            public String getPathInfo() {
+<span class="nc" id="L247">                return null;</span>
+            }
+
+            @Override
+            public String getPathTranslated() {
+<span class="nc" id="L252">                return null;</span>
+            }
+
+            @Override
+            public String getContextPath() {
+<span class="nc" id="L257">                return null;</span>
+            }
+
+            @Override
+            public String getQueryString() {
+<span class="nc" id="L262">                return null;</span>
+            }
+
+            @Override
+            public String getRemoteUser() {
+<span class="fc" id="L267">                return user.getUsername();</span>
+            }
+
+            @Override
+            public boolean isUserInRole(String role) {
+<span class="nc" id="L272">                return false;</span>
+            }
+
+            @Override
+            public Principal getUserPrincipal() {
+<span class="nc" id="L277">                return null;</span>
+            }
+
+            @Override
+            public String getRequestedSessionId() {
+<span class="nc" id="L282">                return null;</span>
+            }
+
+            @Override
+            public String getRequestURI() {
+<span class="nc" id="L287">                return null;</span>
+            }
+
+            @Override
+            public StringBuffer getRequestURL() {
+<span class="nc" id="L292">                return null;</span>
+            }
+
+            @Override
+            public String getServletPath() {
+<span class="nc" id="L297">                return null;</span>
+            }
+
+            @Override
+            public HttpSession getSession(boolean create) {
+<span class="nc" id="L302">                return null;</span>
+            }
+
+            @Override
+            public HttpSession getSession() {
+<span class="fc" id="L307">                return new HttpSession() {</span>
+                    @Override
+                    public long getCreationTime() {
+<span class="nc" id="L310">                        return 0;</span>
+                    }
+
+                    @Override
+                    public String getId() {
+<span class="nc" id="L315">                        return null;</span>
+                    }
+
+                    @Override
+                    public long getLastAccessedTime() {
+<span class="nc" id="L320">                        return 0;</span>
+                    }
+
+                    @Override
+                    public ServletContext getServletContext() {
+<span class="nc" id="L325">                        return null;</span>
+                    }
+
+                    @Override
+                    public void setMaxInactiveInterval(int interval) {
+
+<span class="nc" id="L331">                    }</span>
+
+                    @Override
+                    public int getMaxInactiveInterval() {
+<span class="nc" id="L335">                        return 0;</span>
+                    }
+
+                    @Override
+                    public Object getAttribute(String name) {
+<span class="nc" id="L340">                        return null;</span>
+                    }
+
+                    @Override
+                    public Enumeration&lt;String&gt; getAttributeNames() {
+<span class="nc" id="L345">                        return null;</span>
+                    }
+
+                    @Override
+                    public void setAttribute(String name, Object value) {
+
+<span class="fc" id="L351">                    }</span>
+
+                    @Override
+                    public void removeAttribute(String name) {
+
+<span class="nc" id="L356">                    }</span>
+
+                    @Override
+                    public void invalidate() {
+
+<span class="nc" id="L361">                    }</span>
+
+                    @Override
+                    public boolean isNew() {
+<span class="nc" id="L365">                        return false;</span>
+                    }
+                };
+            }
+
+            @Override
+            public String changeSessionId() {
+<span class="nc" id="L372">                return null;</span>
+            }
+
+            @Override
+            public boolean isRequestedSessionIdValid() {
+<span class="nc" id="L377">                return false;</span>
+            }
+
+            @Override
+            public boolean isRequestedSessionIdFromCookie() {
+<span class="nc" id="L382">                return false;</span>
+            }
+
+            @Override
+            public boolean isRequestedSessionIdFromURL() {
+<span class="nc" id="L387">                return false;</span>
+            }
+
+            @Override
+            public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
+<span class="nc" id="L392">                return false;</span>
+            }
+
+            @Override
+            public void login(String username, String password) throws ServletException {
+
+<span class="nc" id="L398">            }</span>
+
+            @Override
+            public void logout() throws ServletException {
+
+<span class="nc" id="L403">            }</span>
+
+            @Override
+            public Collection&lt;Part&gt; getParts() throws IOException, ServletException {
+<span class="nc" id="L407">                return null;</span>
+            }
+
+            @Override
+            public Part getPart(String name) throws IOException, ServletException {
+<span class="nc" id="L412">                return null;</span>
+            }
+
+            @Override
+            public &lt;T extends HttpUpgradeHandler&gt; T upgrade(Class&lt;T&gt; httpUpgradeHandlerClass) throws IOException, ServletException {
+<span class="nc" id="L417">                return null;</span>
+            }
+
+            @Override
+            public Object getAttribute(String name) {
+<span class="nc" id="L422">                return null;</span>
+            }
+
+            @Override
+            public Enumeration&lt;String&gt; getAttributeNames() {
+<span class="nc" id="L427">                return null;</span>
+            }
+
+            @Override
+            public String getCharacterEncoding() {
+<span class="nc" id="L432">                return null;</span>
+            }
+
+            @Override
+            public void setCharacterEncoding(String encoding) throws UnsupportedEncodingException {
+
+<span class="nc" id="L438">            }</span>
+
+            @Override
+            public int getContentLength() {
+<span class="nc" id="L442">                return 0;</span>
+            }
+
+            @Override
+            public long getContentLengthLong() {
+<span class="nc" id="L447">                return 0;</span>
+            }
+
+            @Override
+            public String getContentType() {
+<span class="nc" id="L452">                return null;</span>
+            }
+
+            @Override
+            public ServletInputStream getInputStream() throws IOException {
+<span class="nc" id="L457">                return null;</span>
+            }
+
+            @Override
+            public String getParameter(String name) {
+<span class="nc" id="L462">                return null;</span>
+            }
+
+            @Override
+            public Enumeration&lt;String&gt; getParameterNames() {
+<span class="nc" id="L467">                return null;</span>
+            }
+
+            @Override
+            public String[] getParameterValues(String name) {
+<span class="nc" id="L472">                return new String[0];</span>
+            }
+
+            @Override
+            public Map&lt;String, String[]&gt; getParameterMap() {
+<span class="nc" id="L477">                return null;</span>
+            }
+
+            @Override
+            public String getProtocol() {
+<span class="nc" id="L482">                return null;</span>
+            }
+
+            @Override
+            public String getScheme() {
+<span class="nc" id="L487">                return null;</span>
+            }
+
+            @Override
+            public String getServerName() {
+<span class="nc" id="L492">                return null;</span>
+            }
+
+            @Override
+            public int getServerPort() {
+<span class="nc" id="L497">                return 0;</span>
+            }
+
+            @Override
+            public BufferedReader getReader() throws IOException {
+<span class="nc" id="L502">                return null;</span>
+            }
+
+            @Override
+            public String getRemoteAddr() {
+<span class="nc" id="L507">                return null;</span>
+            }
+
+            @Override
+            public String getRemoteHost() {
+<span class="nc" id="L512">                return null;</span>
+            }
+
+            @Override
+            public void setAttribute(String name, Object o) {
+
+<span class="nc" id="L518">            }</span>
+
+            @Override
+            public void removeAttribute(String name) {
+
+<span class="nc" id="L523">            }</span>
+
+            @Override
+            public Locale getLocale() {
+<span class="nc" id="L527">                return null;</span>
+            }
+
+            @Override
+            public Enumeration&lt;Locale&gt; getLocales() {
+<span class="nc" id="L532">                return null;</span>
+            }
+
+            @Override
+            public boolean isSecure() {
+<span class="nc" id="L537">                return false;</span>
+            }
+
+            @Override
+            public RequestDispatcher getRequestDispatcher(String path) {
+<span class="nc" id="L542">                return null;</span>
+            }
+
+            @Override
+            public int getRemotePort() {
+<span class="nc" id="L547">                return 0;</span>
+            }
+
+            @Override
+            public String getLocalName() {
+<span class="nc" id="L552">                return null;</span>
+            }
+
+            @Override
+            public String getLocalAddr() {
+<span class="nc" id="L557">                return null;</span>
+            }
+
+            @Override
+            public int getLocalPort() {
+<span class="nc" id="L562">                return 0;</span>
+            }
+
+            @Override
+            public ServletContext getServletContext() {
+<span class="nc" id="L567">                return null;</span>
+            }
+
+            @Override
+            public AsyncContext startAsync() throws IllegalStateException {
+<span class="nc" id="L572">                return null;</span>
+            }
+
+            @Override
+            public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) throws IllegalStateException {
+<span class="nc" id="L577">                return null;</span>
+            }
+
+            @Override
+            public boolean isAsyncStarted() {
+<span class="nc" id="L582">                return false;</span>
+            }
+
+            @Override
+            public boolean isAsyncSupported() {
+<span class="nc" id="L587">                return false;</span>
+            }
+
+            @Override
+            public AsyncContext getAsyncContext() {
+<span class="nc" id="L592">                return null;</span>
+            }
+
+            @Override
+            public DispatcherType getDispatcherType() {
+<span class="nc" id="L597">                return null;</span>
+            }
+
+            @Override
+            public String getRequestId() {
+<span class="nc" id="L602">                return null;</span>
+            }
+
+            @Override
+            public String getProtocolRequestId() {
+<span class="nc" id="L607">                return null;</span>
+            }
+
+            @Override
+            public ServletConnection getServletConnection() {
+<span class="nc" id="L612">                return null;</span>
+            }
+        };
+
+<span class="fc" id="L616">        mav = new ModelAndView();</span>
+
+        // 11 characters string used for size validation
+<span class="fc" id="L619">        longString11 = &quot;85368220096&quot;;</span>
+
+        // 31 characters string used for size validation
+<span class="fc" id="L622">        longString31 = &quot;6357544527718847525994334578369&quot;;</span>
 
         // 126 characters string used for size validation
-<span class="fc" id="L31">        longString = &quot;85368220096847824275049423209683&quot; +</span>
+<span class="fc" id="L625">        longString126 = &quot;85368220096847824275049423209683&quot; +</span>
                 &quot;35786401076532718070358521773728&quot; +
                 &quot;25842050212176069074456918678132&quot; +
                 &quot;635754452771884752599433457836&quot;;
 
-<span class="fc" id="L36">        ratingFitchRatingSize = &quot;fitchRating should be less than 126 characters&quot;;</span>
-<span class="fc" id="L37">        ratingMoodysRatingSize = &quot;moodysRating should be less than 126 characters&quot;;</span>
-<span class="fc" id="L38">        ratingOrderMin = &quot;order should be more than -129&quot;;</span>
-<span class="fc" id="L39">        ratingOrderMax = &quot;order should be less than 128&quot;;</span>
-<span class="fc" id="L40">        ratingSandPRatingSize = &quot;sandPRating should be less than 126 characters&quot;;</span>
-<span class="fc" id="L41">    }</span>
+        // 513 characters string used for size validation
+<span class="fc" id="L631">        longString513 = &quot;57967611163009735911423152900562&quot; +</span>
+                &quot;97323731849038779577575329043705&quot; +
+                &quot;15892693415038843924665989616769&quot; +
+                &quot;75199818829449044168899552114360&quot; +
+                &quot;57967611163009735911423152900562&quot; +
+                &quot;97323731849038779577575329043705&quot; +
+                &quot;15892693415038843924665989616769&quot; +
+                &quot;75199818829449044168899552114360&quot; +
+                &quot;57967611163009735911423152900562&quot; +
+                &quot;97323731849038779577575329043705&quot; +
+                &quot;15892693415038843924665989616769&quot; +
+                &quot;75199818829449044168899552114360&quot; +
+                &quot;57967611163009735911423152900562&quot; +
+                &quot;97323731849038779577575329043705&quot; +
+                &quot;15892693415038843924665989616769&quot; +
+                &quot;75199818829449044168899552114360&quot; +
+                &quot;5&quot;;
 
+<span class="fc" id="L649">        bidList = new BidList(&quot;accountTestValue&quot;, &quot;typeTestValue&quot;, 10.0);</span>
+<span class="fc" id="L650">        bidListList = new ArrayList&lt;&gt;(List.of(bidList));</span>
+<span class="fc" id="L651">        bidListOptional = Optional.of(bidList);</span>
+
+<span class="fc" id="L653">        bidListAccountSize = &quot;account should be less than 31 characters&quot;;</span>
+<span class="fc" id="L654">        bidListAccountNotBlank = &quot;account is mandatory&quot;;</span>
+<span class="fc" id="L655">        bidListTypeSize = &quot;type should be less than 31 characters&quot;;</span>
+<span class="fc" id="L656">        bidListTypeNotBlank = &quot;type is mandatory&quot;;</span>
+<span class="fc" id="L657">        bidListBidQuantityPositiveOrZero = &quot;bidQuantity should be a positive number or zero&quot;;</span>
+<span class="fc" id="L658">        bidListAskQuantityPositiveOrZero = &quot;askQuantity should be a positive number or zero&quot;;</span>
+<span class="fc" id="L659">        bidListBidPositiveOrZero = &quot;bid should be a positive number or zero&quot;;</span>
+<span class="fc" id="L660">        bidListAskPositiveOrZero = &quot;ask should be a positive number or zero&quot;;</span>
+<span class="fc" id="L661">        bidListBenchmarkSize = &quot;benchmark should be less than 126 characters&quot;;</span>
+<span class="fc" id="L662">        bidListCommentarySize = &quot;commentary should be less than 126 characters&quot;;</span>
+<span class="fc" id="L663">        bidListSecuritySize = &quot;security should be less than 126 characters&quot;;</span>
+<span class="fc" id="L664">        bidListStatusSize = &quot;status should be less than 11 characters&quot;;</span>
+<span class="fc" id="L665">        bidListTraderSize = &quot;trader should be less than 126 characters&quot;;</span>
+<span class="fc" id="L666">        bidListBookSize = &quot;book should be less than 126 characters&quot;;</span>
+<span class="fc" id="L667">        bidListCreationNameSize = &quot;creationName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L668">        bidListRevisionNameSize = &quot;revisionName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L669">        bidListDealNameSize = &quot;dealName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L670">        bidListDealTypeSize = &quot;dealType should be less than 126 characters&quot;;</span>
+<span class="fc" id="L671">        bidListSourceListIdSize = &quot;sourceListId should be less than 126 characters&quot;;</span>
+<span class="fc" id="L672">        bidListSideSize = &quot;side should be less than 126 characters&quot;;</span>
+        
+<span class="fc" id="L674">        curvePoint = new CurvePoint(10, 20.0, 30.0);</span>
+<span class="fc" id="L675">        curvePointList = new ArrayList&lt;&gt;(List.of(curvePoint));</span>
+<span class="fc" id="L676">        curvePointOptional = Optional.of(curvePoint);</span>
+
+<span class="fc" id="L678">        curvePointCreationDatePast = &quot;creationDate should be in the past&quot;;</span>
+
+<span class="fc" id="L680">        rating = new Rating(&quot;moodysRatingTestValue&quot;, &quot;sandPRatingTestValue&quot;, &quot;UsernameTestValue&quot;, 10);</span>
+<span class="fc" id="L681">        ratingList = new ArrayList&lt;&gt;(List.of(rating));</span>
+<span class="fc" id="L682">        ratingOptional = Optional.of(rating);</span>
+
+<span class="fc" id="L684">        ratingFitchRatingSize = &quot;fitchRating should be less than 126 characters&quot;;</span>
+<span class="fc" id="L685">        ratingMoodysRatingSize = &quot;moodysRating should be less than 126 characters&quot;;</span>
+<span class="fc" id="L686">        ratingOrderMin = &quot;order should be more than -129&quot;;</span>
+<span class="fc" id="L687">        ratingOrderMax = &quot;order should be less than 128&quot;;</span>
+<span class="fc" id="L688">        ratingSandPRatingSize = &quot;sandPRating should be less than 126 characters&quot;;</span>
+
+<span class="fc" id="L690">        ruleName = new RuleName(&quot;nameTestValue&quot;, &quot;descriptionTestValue&quot;, &quot;jsonTestValue&quot;, &quot;templateTestValue&quot;, &quot;sqlStrTestValue&quot;,&quot;sqlPartTestValue&quot;);</span>
+<span class="fc" id="L691">        ruleNameList = new ArrayList&lt;&gt;(List.of(ruleName));</span>
+<span class="fc" id="L692">        ruleNameOptional = Optional.of(ruleName);</span>
+        
+<span class="fc" id="L694">        ruleNameNameSize = &quot;name should be less than 126 characters&quot;;</span>
+<span class="fc" id="L695">        ruleNameDescriptionSize = &quot;description should be less than 126 characters&quot;;</span>
+<span class="fc" id="L696">        ruleNameJsonSize = &quot;json should be less than 126 characters&quot;;</span>
+<span class="fc" id="L697">        ruleNameTemplateSize = &quot;template should be less than 513 characters&quot;;</span>
+<span class="fc" id="L698">        ruleNameSqlStrSize = &quot;sqlStr should be less than 126 characters&quot;;</span>
+<span class="fc" id="L699">        ruleNameSqlPartSize = &quot;sqlPart should be less than 126 characters&quot;;</span>
+
+<span class="fc" id="L701">        trade = new Trade(&quot;accountTestValue&quot;, &quot;typeTestValue&quot;, 10.0);</span>
+<span class="fc" id="L702">        tradeList = new ArrayList&lt;&gt;(List.of(trade));</span>
+<span class="fc" id="L703">        tradeOptional = Optional.of(trade);</span>
+
+<span class="fc" id="L705">        tradeAccountSize = &quot;account should be less than 31 characters&quot;;</span>
+<span class="fc" id="L706">        tradeAccountNotBlank = &quot;account is mandatory&quot;;</span>
+<span class="fc" id="L707">        tradeTypeSize = &quot;type should be less than 31 characters&quot;;</span>
+<span class="fc" id="L708">        tradeTypeNotBlank = &quot;type is mandatory&quot;;</span>
+<span class="fc" id="L709">        tradeBuyQuantityPositiveOrZero = &quot;buyQuantity should be a positive number or zero&quot;;</span>
+<span class="fc" id="L710">        tradeSellQuantityPositiveOrZero = &quot;sellQuantity should be a positive number or zero&quot;;</span>
+<span class="fc" id="L711">        tradeBuyPricePositiveOrZero = &quot;buyPrice should be a positive number or zero&quot;;</span>
+<span class="fc" id="L712">        tradeSellPricePositiveOrZero = &quot;sellPrice should be a positive number or zero&quot;;</span>
+<span class="fc" id="L713">        tradeSecuritySize = &quot;security should be less than 126 characters&quot;;</span>
+<span class="fc" id="L714">        tradeStatusSize = &quot;status should be less than 11 characters&quot;;</span>
+<span class="fc" id="L715">        tradeTraderSize = &quot;trader should be less than 126 characters&quot;;</span>
+<span class="fc" id="L716">        tradeBenchmarkSize = &quot;benchmark should be less than 126 characters&quot;;</span>
+<span class="fc" id="L717">        tradeBookSize = &quot;book should be less than 126 characters&quot;;</span>
+<span class="fc" id="L718">        tradeCreationNameSize = &quot;creationName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L719">        tradeRevisionNameSize = &quot;revisionName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L720">        tradeDealNameSize = &quot;dealName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L721">        tradeDealTypeSize = &quot;dealType should be less than 126 characters&quot;;</span>
+<span class="fc" id="L722">        tradeSourceListIdSize = &quot;sourceListId should be less than 126 characters&quot;;</span>
+<span class="fc" id="L723">        tradeSideSize = &quot;side should be less than 126 characters&quot;;</span>
+        
+<span class="fc" id="L725">        user = new User();</span>
+<span class="fc" id="L726">        user.setUsername(&quot;usernameTestValue&quot;);</span>
+<span class="fc" id="L727">        user.setPassword(&quot;passwordTestValue1!&quot;);</span>
+<span class="fc" id="L728">        user.setFullname(&quot;fullNameTestValue&quot;);</span>
+<span class="fc" id="L729">        user.setRole(&quot;USER&quot;);</span>
+<span class="fc" id="L730">        userList = new ArrayList&lt;&gt;(List.of(user));</span>
+<span class="fc" id="L731">        userOptional = Optional.of(user);</span>
+
+<span class="fc" id="L733">        passwordIncorrect = &quot;psswrd&quot;;</span>
+
+<span class="fc" id="L735">        userUsernameSize = &quot;Username should be less than 126 characters&quot;;</span>
+<span class="fc" id="L736">        userPasswordSize = &quot;Password should be less than 126 characters&quot;;</span>
+<span class="fc" id="L737">        userFullNameSize = &quot;FullName should be less than 126 characters&quot;;</span>
+<span class="fc" id="L738">        userRoleSize = &quot;Role should be less than 126 characters&quot;;</span>
+<span class="fc" id="L739">        userUsernameNotBlank = &quot;Username is mandatory&quot;;</span>
+<span class="fc" id="L740">        userPasswordNotBlank = &quot;Password is mandatory&quot;;</span>
+<span class="fc" id="L741">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

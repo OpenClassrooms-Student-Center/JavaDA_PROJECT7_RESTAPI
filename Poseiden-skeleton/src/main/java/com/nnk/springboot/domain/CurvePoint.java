@@ -49,20 +49,8 @@ public class CurvePoint {
         this.curveId = curveId;
     }
 
-    public Date getAsOfDate() {
-        return asOfDate;
-    }
-
-    public void setAsOfDate(Date asOfDate) {
-        this.asOfDate = asOfDate;
-    }
-
     public Double getTerm() {
         return term;
-    }
-
-    public void setTerm(Double term) {
-        this.term = term;
     }
 
     public Double getValue() {
@@ -71,14 +59,6 @@ public class CurvePoint {
 
     public void setValue(Double value) {
         this.value = value;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
     }
 
     @Override

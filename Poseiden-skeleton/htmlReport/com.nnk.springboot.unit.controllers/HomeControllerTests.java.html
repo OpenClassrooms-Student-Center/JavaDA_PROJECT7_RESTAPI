@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeControllerTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.controllers</a> &gt; <span class="el_source">HomeControllerTests.java</span></div><h1>HomeControllerTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.controllers;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.controllers.HomeController;
+import com.nnk.springboot.services.UserService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = HomeController.class)
+<span class="fc" id="L18">public class HomeControllerTests extends TestVariables {</span>
+
+    @Autowired
+    HomeController homeController;
+
+    @MockBean
+    UserService userService;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L28">        initializeVariables();</span>
+<span class="fc" id="L29">        when(userService.findByUsername(any(String.class))).thenReturn(user);</span>
+<span class="fc" id="L30">    }</span>
+
+    @Test
+<span class="fc" id="L33">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L36">    public class HomeTests</span>
+    {
+        @Test
+        public void homeTestIfAdmin () {
+<span class="fc" id="L40">            user.setRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L41">            assertEquals(&quot;redirect:/admin/home&quot;, homeController.home(model, request, authentication));</span>
+<span class="fc" id="L42">        }</span>
+
+        @Test
+        public void homeTestIfUser () {
+<span class="fc" id="L46">            assertEquals(&quot;redirect:/user/home&quot;, homeController.home(model, request, authentication));</span>
+<span class="fc" id="L47">        }</span>
+
+        @Test
+        public void homeTestIfNoRole () {
+<span class="fc" id="L51">            user.setRole(&quot;&quot;);</span>
+<span class="fc" id="L52">            assertEquals(&quot;403&quot;, homeController.home(model, request, authentication));</span>
+<span class="fc" id="L53">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L57">    public class AdminHomeTests</span>
+    {
+        @Test
+        public void adminHomeTest () {
+<span class="fc" id="L61">            assertEquals(&quot;redirect:/user/list&quot;, homeController.adminHome(model));</span>
+<span class="fc" id="L62">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L66">    public class UserHomeTests</span>
+    {
+        @Test
+        public void userHomeTest () {
+<span class="fc" id="L70">            assertEquals(&quot;redirect:/bidList/list&quot;, homeController.userHome(model));</span>
+<span class="fc" id="L71">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

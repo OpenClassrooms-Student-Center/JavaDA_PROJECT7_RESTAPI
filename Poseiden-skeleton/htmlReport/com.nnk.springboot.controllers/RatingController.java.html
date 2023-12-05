@@ -3,6 +3,7 @@
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.security.Principal;
 
 @Controller
 public class RatingController {
@@ -20,64 +21,58 @@ public class RatingController {
     private final RatingService ratingService;
 
     @Autowired
-<span class="fc" id="L23">    public RatingController(RatingService ratingService) {</span>
-<span class="fc" id="L24">        this.ratingService = ratingService;</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L24">    public RatingController(RatingService ratingService) {</span>
+<span class="fc" id="L25">        this.ratingService = ratingService;</span>
+<span class="fc" id="L26">    }</span>
 
     @RequestMapping(&quot;/rating/list&quot;)
     public String home(Model model)
     {
         // TODO: find all Rating, add to model
-<span class="fc" id="L31">        model.addAttribute(&quot;ratings&quot;, ratingService.findAll());</span>
-<span class="fc" id="L32">        return &quot;rating/list&quot;;</span>
+<span class="fc" id="L32">        model.addAttribute(&quot;ratings&quot;, ratingService.findAll());</span>
+<span class="fc" id="L33">        return &quot;rating/list&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/add&quot;)
     public String addRatingForm(Rating rating) {
-<span class="fc" id="L37">        return &quot;rating/add&quot;;</span>
+<span class="fc" id="L38">        return &quot;rating/add&quot;;</span>
     }
 
     @PostMapping(&quot;/rating/validate&quot;)
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L44">            ratingService.save(rating);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L45">            ratingService.save(rating);</span>
+<span class="fc" id="L46">            return &quot;redirect:/rating/list&quot;;</span>
         }
-<span class="fc" id="L46">        return &quot;rating/add&quot;;</span>
+<span class="fc" id="L48">        return &quot;rating/add&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
-<span class="fc" id="L52">        Optional&lt;Rating&gt; rating = ratingService.findById(id);</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if(rating.isPresent()) {</span>
-<span class="fc" id="L54">            model.addAttribute(&quot;rating&quot;, rating.get());</span>
-        }
-        else {
-<span class="fc" id="L57">            model.addAttribute(&quot;rating&quot;, new Rating());</span>
-        }
-<span class="fc" id="L59">        return &quot;rating/update&quot;;</span>
+<span class="fc" id="L54">        Rating rating = ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L55">        model.addAttribute(&quot;rating&quot;, rating);</span>
+<span class="fc" id="L56">        return &quot;rating/update&quot;;</span>
     }
 
     @PostMapping(&quot;/rating/update/{id}&quot;)
     public String updateRating(@PathVariable(&quot;id&quot;) Integer id, @Valid Rating rating,
                                BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        if(!result.hasErrors()</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">                &amp;&amp; ratingService.findById(id).isPresent()) {</span>
-<span class="fc" id="L68">            ratingService.save(rating);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L64">            ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L65">            ratingService.save(rating);</span>
         }
-<span class="fc" id="L70">        return &quot;redirect:/rating/list&quot;;</span>
+<span class="fc" id="L67">        return &quot;redirect:/rating/list&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/delete/{id}&quot;)
     public String deleteRating(@PathVariable(&quot;id&quot;) Integer id, Model model) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
-<span class="fc" id="L76">        Optional&lt;Rating&gt; ratingInDB = ratingService.findById(id);</span>
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        if(ratingInDB.isPresent()) {</span>
-<span class="fc" id="L78">            ratingService.deleteById(id);</span>
-        }
-<span class="fc" id="L80">        return &quot;redirect:/rating/list&quot;;</span>
+<span class="fc" id="L73">        ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L74">        ratingService.deleteById(id);</span>
+<span class="fc" id="L75">        return &quot;redirect:/rating/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

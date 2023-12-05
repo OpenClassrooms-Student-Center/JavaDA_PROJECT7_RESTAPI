@@ -1,34 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">BidList.java</span></div><h1>BidList.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
 
-/*import org.springframework.beans.factory.annotation.Required;*/
-
 import jakarta.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.sql.Date;
-import java.sql.Timestamp;
+
+import jakarta.validation.constraints.*;
+
+import java.util.Date;
 
 @Entity
 @Table(name = &quot;bidlist&quot;)
 public class BidList {
+
     @Id
-    @Column(name = &quot;BidListId&quot;)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = &quot;Id&quot;)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-<span class="fc" id="L19">    public BidList(String accountTest, String typeTest, double v) {</span>
-<span class="fc" id="L20">    }</span>
 
-    public Integer getBidListId() {
-<span class="fc" id="L23">        return null;</span>
+    @Column(length = 30, nullable = false)
+    @Size(max = 30, message = &quot;account should be less than 31 characters&quot;)
+    @NotBlank(message = &quot;account is mandatory&quot;)
+    private String account;
+
+    @Column(length = 30, nullable = false)
+    @Size(max = 30, message = &quot;type should be less than 31 characters&quot;)
+    @NotBlank(message = &quot;type is mandatory&quot;)
+    private String type;
+
+    @Column
+    @PositiveOrZero(message = &quot;bidQuantity should be a positive number or zero&quot;)
+    private Double bidQuantity;
+
+    @Column
+    @PositiveOrZero(message = &quot;askQuantity should be a positive number or zero&quot;)
+    private Double askQuantity;
+
+    @Column
+    @PositiveOrZero(message = &quot;bid should be a positive number or zero&quot;)
+    private Double bid;
+
+    @Column
+    @PositiveOrZero(message = &quot;ask should be a positive number or zero&quot;)
+    private Double ask;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;benchmark should be less than 126 characters&quot;)
+    private String benchmark;
+
+    @Column
+    private Date bidListDate;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;commentary should be less than 126 characters&quot;)
+    private String commentary;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;security should be less than 126 characters&quot;)
+    private String security;
+
+    @Column(length = 10)
+    @Size(max = 10, message = &quot;status should be less than 11 characters&quot;)
+    private String status;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;trader should be less than 126 characters&quot;)
+    private String trader;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;book should be less than 126 characters&quot;)
+    private String book;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;creationName should be less than 126 characters&quot;)
+    private String creationName;
+
+    @Column
+    private Date creationDate;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;revisionName should be less than 126 characters&quot;)
+    private String revisionName;
+
+    @Column
+    private Date revisionDate;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;dealName should be less than 126 characters&quot;)
+    private String dealName;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;dealType should be less than 126 characters&quot;)
+    private String dealType;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;sourceListId should be less than 126 characters&quot;)
+    private String sourceListId;
+
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;side should be less than 126 characters&quot;)
+    private String side;
+
+<span class="fc" id="L101">    public BidList() {}</span>
+
+<span class="fc" id="L103">    public BidList(String account, String type, Double bidQuantity) {</span>
+<span class="fc" id="L104">        this.account = account;</span>
+<span class="fc" id="L105">        this.type = type;</span>
+<span class="fc" id="L106">        this.bidQuantity = bidQuantity;</span>
+<span class="fc" id="L107">    }</span>
+
+    public Integer getId() {
+<span class="fc" id="L110">        return id;</span>
     }
 
-    public double getBidQuantity() {
-<span class="nc" id="L27">        return 0;</span>
+    public void setId(Integer id) {
+<span class="fc" id="L114">        this.id = id;</span>
+<span class="fc" id="L115">    }</span>
+
+    public String getAccount() {
+<span class="fc" id="L118">        return account;</span>
     }
 
-    public void setBidQuantity(double v) {
-<span class="nc" id="L31">    }</span>
-    // TODO: Map columns in data table BIDLIST with corresponding java fields
+    public void setAccount(String account) {
+<span class="fc" id="L122">        this.account = account;</span>
+<span class="fc" id="L123">    }</span>
+
+    public String getType() {
+<span class="fc" id="L126">        return type;</span>
+    }
+
+    public void setType(String type) {
+<span class="fc" id="L130">        this.type = type;</span>
+<span class="fc" id="L131">    }</span>
+
+    public Double getBidQuantity() {
+<span class="fc" id="L134">        return bidQuantity;</span>
+    }
+
+    public void setBidQuantity(Double bidQuantity) {
+<span class="fc" id="L138">        this.bidQuantity = bidQuantity;</span>
+<span class="fc" id="L139">    }</span>
+
+    public void setAskQuantity(Double askQuantity) {
+<span class="fc" id="L142">        this.askQuantity = askQuantity;</span>
+<span class="fc" id="L143">    }</span>
+
+    public void setBid(Double bid) {
+<span class="fc" id="L146">        this.bid = bid;</span>
+<span class="fc" id="L147">    }</span>
+
+    public void setAsk(Double ask) {
+<span class="fc" id="L150">        this.ask = ask;</span>
+<span class="fc" id="L151">    }</span>
+
+    public void setBenchmark(String benchmark) {
+<span class="fc" id="L154">        this.benchmark = benchmark;</span>
+<span class="fc" id="L155">    }</span>
+
+    public void setCommentary(String commentary) {
+<span class="fc" id="L158">        this.commentary = commentary;</span>
+<span class="fc" id="L159">    }</span>
+
+    public void setSecurity(String security) {
+<span class="fc" id="L162">        this.security = security;</span>
+<span class="fc" id="L163">    }</span>
+    public void setStatus(String status) {
+<span class="fc" id="L165">        this.status = status;</span>
+<span class="fc" id="L166">    }</span>
+
+    public void setTrader(String trader) {
+<span class="fc" id="L169">        this.trader = trader;</span>
+<span class="fc" id="L170">    }</span>
+
+    public void setBook(String book) {
+<span class="fc" id="L173">        this.book = book;</span>
+<span class="fc" id="L174">    }</span>
+
+    public void setCreationName(String creationName) {
+<span class="fc" id="L177">        this.creationName = creationName;</span>
+<span class="fc" id="L178">    }</span>
+
+    public void setRevisionName(String revisionName) {
+<span class="fc" id="L181">        this.revisionName = revisionName;</span>
+<span class="fc" id="L182">    }</span>
+
+    public void setDealName(String dealName) {
+<span class="fc" id="L185">        this.dealName = dealName;</span>
+<span class="fc" id="L186">    }</span>
+
+    public void setDealType(String dealType) {
+<span class="fc" id="L189">        this.dealType = dealType;</span>
+<span class="fc" id="L190">    }</span>
+
+    public void setSourceListId(String sourceListId) {
+<span class="fc" id="L193">        this.sourceListId = sourceListId;</span>
+<span class="fc" id="L194">    }</span>
+
+    public void setSide(String side) {
+<span class="fc" id="L197">        this.side = side;</span>
+<span class="fc" id="L198">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L202">        return &quot;&amp;account=&quot; + this.account +</span>
+                &quot;&amp;type=&quot; + this.type +
+                &quot;&amp;bidQuantity=&quot; + this.bidQuantity;
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

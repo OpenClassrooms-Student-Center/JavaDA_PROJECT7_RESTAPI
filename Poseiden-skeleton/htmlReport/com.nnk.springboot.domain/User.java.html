@@ -1,61 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import jakarta.validation.constraints.NotBlank;
+
+/**
+ * Objects of this class represent a user of the application&lt;br&gt;
+ * This class is mapped to the table users in the database&lt;br&gt;
+ * This class is used for authentication through the CustomUserDetails class
+ */
 
 @Entity
 @Table(name = &quot;users&quot;)
-<span class="fc" id="L8">public class User {</span>
+<span class="fc" id="L16">public class User {</span>
+    /**
+     * An Integer corresponding to the id of the User in the database
+     */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+
+    /**
+     * A String corresponding to the username of the User&lt;br&gt;
+     * The corresponding column in the database is a varchar(125)
+     */
+    @Column(length = 125, unique = true)
+    @Size(max = 125, message = &quot;Username should be less than 126 characters&quot;)
     @NotBlank(message = &quot;Username is mandatory&quot;)
     private String username;
+
+    /**
+     * A String corresponding to the hashed password of the User&lt;br&gt;
+     * The corresponding column in the database is a varchar(125)
+     */
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;Password should be less than 126 characters&quot;)
     @NotBlank(message = &quot;Password is mandatory&quot;)
     private String password;
-    @NotBlank(message = &quot;FullName is mandatory&quot;)
+
+    /**
+     * A String corresponding to the fullname of the User&lt;br&gt;
+     * The corresponding column in the database is a varchar(125)
+     */
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;FullName should be less than 126 characters&quot;)
     private String fullname;
-    @NotBlank(message = &quot;Role is mandatory&quot;)
+
+    /**
+     * A String corresponding to the role of the User&lt;br&gt;
+     * The corresponding column in the database is a varchar(125)
+     */
+    @Column(length = 125)
+    @Size(max = 125, message = &quot;Role should be less than 126 characters&quot;)
     private String role;
 
     public Integer getId() {
-<span class="nc" id="L22">        return id;</span>
+<span class="fc" id="L59">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="nc" id="L26">        this.id = id;</span>
-<span class="nc" id="L27">    }</span>
+<span class="fc" id="L63">        this.id = id;</span>
+<span class="fc" id="L64">    }</span>
 
     public String getUsername() {
-<span class="nc" id="L30">        return username;</span>
+<span class="fc" id="L67">        return username;</span>
     }
 
     public void setUsername(String username) {
-<span class="nc" id="L34">        this.username = username;</span>
-<span class="nc" id="L35">    }</span>
+<span class="fc" id="L71">        this.username = username;</span>
+<span class="fc" id="L72">    }</span>
 
     public String getPassword() {
-<span class="nc" id="L38">        return password;</span>
+<span class="fc" id="L75">        return password;</span>
     }
 
     public void setPassword(String password) {
-<span class="nc" id="L42">        this.password = password;</span>
-<span class="nc" id="L43">    }</span>
+<span class="fc" id="L79">        this.password = password;</span>
+<span class="fc" id="L80">    }</span>
 
     public String getFullname() {
-<span class="nc" id="L46">        return fullname;</span>
+<span class="fc" id="L83">        return fullname;</span>
     }
 
     public void setFullname(String fullname) {
-<span class="nc" id="L50">        this.fullname = fullname;</span>
-<span class="nc" id="L51">    }</span>
+<span class="fc" id="L87">        this.fullname = fullname;</span>
+<span class="fc" id="L88">    }</span>
 
     public String getRole() {
-<span class="nc" id="L54">        return role;</span>
+<span class="fc" id="L91">        return role;</span>
     }
 
     public void setRole(String role) {
-<span class="nc" id="L58">        this.role = role;</span>
-<span class="nc" id="L59">    }</span>
+<span class="fc" id="L95">        this.role = role;</span>
+<span class="fc" id="L96">    }</span>
+
+    /**
+     * This method validates that the user's password :&lt;br&gt;
+     * -is at least 8 characters long&lt;br&gt;
+     * -includes a number&lt;br&gt;
+     * -includes a non-word character&lt;br&gt;
+     * -includes an uppercase character&lt;br&gt;
+     * -includes a lowercase character&lt;br&gt;
+     * &lt;b&gt;This method is intended to be used BEFORE the password is hashed&lt;/b&gt;&lt;br&gt;
+     * Once the user has been saved to the database and its password has been hashed,
+     * the result of this method is not correlated to the strength of the password anymore
+     * @return true if the password meets the requirements
+     */
+    public Boolean validatePassword() {
+<span class="fc" id="L111">        Boolean length = password.matches(&quot;\\S{8,}&quot;);</span>
+<span class="fc" id="L112">        Boolean digit = password.matches(&quot;.*\\d.*&quot;);</span>
+<span class="fc" id="L113">        Boolean nonword = password.matches(&quot;.*\\W.*&quot;);</span>
+<span class="fc" id="L114">        Boolean uppercase = password.matches(&quot;.*[A-Z].*&quot;);</span>
+<span class="fc" id="L115">        Boolean lowercase = password.matches(&quot;.*[a-z].*&quot;);</span>
+<span class="fc bfc" id="L116" title="All 10 branches covered.">        return length &amp;&amp; digit &amp;&amp; nonword &amp;&amp; uppercase &amp;&amp; lowercase;</span>
+    }
+
+    /**
+     * This method translates the User object to a String object formatted like the output
+     * of a html form&lt;br&gt;
+     * It is used for integration tests
+     * @return a String containing the username, password, fullname, and role of the User
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L127">        return &quot;&amp;username=&quot; + this.username +</span>
+                &quot;&amp;password=&quot; + this.password +
+                &quot;&amp;fullname=&quot; + this.fullname +
+                &quot;&amp;role=&quot; + this.role;
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

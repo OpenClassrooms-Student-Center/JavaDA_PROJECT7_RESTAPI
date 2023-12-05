@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CurveControllerTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.controllers</a> &gt; <span class="el_source">CurveControllerTests.java</span></div><h1>CurveControllerTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.controllers;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.controllers.CurveController;
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.services.CurvePointService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.validation.BindingResult;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = CurveController.class)
+<span class="fc" id="L25">public class CurveControllerTests extends TestVariables {</span>
+
+    @Autowired
+    CurveController curveController;
+
+    @MockBean
+    private CurvePointService curvePointService;
+
+    @MockBean
+    private BindingResult bindingResult;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L38">        initializeVariables();</span>
+<span class="fc" id="L39">        curvePoint.setId(1);</span>
+
+<span class="fc" id="L41">        when(curvePointService.findAll()).thenReturn(curvePointList);</span>
+<span class="fc" id="L42">        when(curvePointService.findById(any(Integer.class))).thenReturn(curvePointOptional);</span>
+<span class="fc" id="L43">        when(curvePointService.findById(any(Integer.class))).thenReturn(curvePointOptional);</span>
+<span class="fc" id="L44">        when(bindingResult.hasErrors()).thenReturn(false);</span>
+<span class="fc" id="L45">    }</span>
+
+    @Test
+<span class="fc" id="L48">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L51">    public class HomeTests</span>
+    {
+        @Test
+        public void homeTest () {
+<span class="fc" id="L55">            assertEquals(&quot;curvePoint/list&quot;, curveController.home(model));</span>
+<span class="fc" id="L56">            verify(curvePointService, Mockito.times(1)).findAll();</span>
+<span class="fc" id="L57">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L61">    public class AddTests</span>
+    {
+        @Test
+        public void addCurvePointFormTest () {
+<span class="fc" id="L65">            assertEquals(&quot;curvePoint/add&quot;, curveController.addCurvePointForm(curvePoint));</span>
+<span class="fc" id="L66">        }</span>
+        @Test
+        public void addCurvePointFormTestIfEmpty () {
+<span class="fc" id="L69">            assertEquals(&quot;curvePoint/add&quot;, curveController.addCurvePointForm(new CurvePoint()));</span>
+<span class="fc" id="L70">        }</span>
+        @Test
+        public void addCurvePointFormTestIfNull () {
+<span class="fc" id="L73">            assertEquals(&quot;curvePoint/add&quot;, curveController.addCurvePointForm(null));</span>
+<span class="fc" id="L74">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L78">    public class ValidateTests</span>
+    {
+        @Test
+        public void validateTest () {
+<span class="fc" id="L82">            assertEquals(&quot;redirect:/curvePoint/list&quot;, curveController.validate(curvePoint, bindingResult, model));</span>
+<span class="fc" id="L83">            verify(curvePointService, Mockito.times(1)).save(any(CurvePoint.class));</span>
+<span class="fc" id="L84">        }</span>
+        @Test
+        public void validateTestIfInvalidCurvePoint () {
+<span class="fc" id="L87">            when(bindingResult.hasErrors()).thenReturn(true);</span>
+<span class="fc" id="L88">            assertEquals(&quot;curvePoint/add&quot;, curveController.validate(curvePoint, bindingResult, model));</span>
+<span class="fc" id="L89">            verify(curvePointService, Mockito.times(0)).save(any(CurvePoint.class));</span>
+<span class="fc" id="L90">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L94">    public class ShowUpdateTests</span>
+    {
+        @Test
+        public void showUpdateFormTest () {
+<span class="fc" id="L98">            assertEquals(&quot;curvePoint/update&quot;, curveController.showUpdateForm(curvePoint.getId(), model));</span>
+<span class="fc" id="L99">            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L100">        }</span>
+        @Test
+        public void showUpdateFormTestIfCurvePointNotFound () {
+<span class="fc" id="L103">            when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="pc" id="L104">            assertThrows(IllegalArgumentException.class, () -&gt; curveController.showUpdateForm(curvePoint.getId(), model));</span>
+<span class="fc" id="L105">            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L106">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L110">    public class UpdateCurvePointTests</span>
+    {
+        @Test
+        public void updateCurvePointTest () {
+<span class="fc" id="L114">            assertEquals(&quot;redirect:/curvePoint/list&quot;, curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));</span>
+<span class="fc" id="L115">            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L116">            verify(curvePointService, Mockito.times(1)).save(any(CurvePoint.class));</span>
+<span class="fc" id="L117">        }</span>
+        @Test
+        public void updateCurvePointTestIfInvalidCurvePoint () {
+<span class="fc" id="L120">            when(bindingResult.hasErrors()).thenReturn(true);</span>
+<span class="fc" id="L121">            assertEquals(&quot;redirect:/curvePoint/list&quot;, curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));</span>
+<span class="fc" id="L122">            verify(curvePointService, Mockito.times(0)).findById(any(Integer.class));</span>
+<span class="fc" id="L123">            verify(curvePointService, Mockito.times(0)).save(any(CurvePoint.class));</span>
+<span class="fc" id="L124">        }</span>
+        @Test
+        public void updateCurvePointTestIfCurvePointNotInDB () {
+<span class="fc" id="L127">            when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="pc" id="L128">            assertThrows(IllegalArgumentException.class, () -&gt; curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));</span>
+<span class="fc" id="L129">            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L130">            verify(curvePointService, Mockito.times(0)).save(any(CurvePoint.class));</span>
+<span class="fc" id="L131">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L135">    public class DeleteCurvePointTests</span>
+    {
+        @Test
+        public void deleteCurvePointTest () {
+<span class="fc" id="L139">            assertEquals(&quot;redirect:/curvePoint/list&quot;, curveController.deleteCurvePoint(curvePoint.getId(), model));</span>
+<span class="fc" id="L140">            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L141">            verify(curvePointService, Mockito.times(1)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L142">        }</span>
+        @Test
+        public void deleteCurvePointTestIfCurvePointNotInDB () {
+<span class="fc" id="L145">            when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="pc" id="L146">            assertThrows(IllegalArgumentException.class, () -&gt; curveController.deleteCurvePoint(curvePoint.getId(), model));</span>
+<span class="fc" id="L147">            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L148">            verify(curvePointService, Mockito.times(0)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L149">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

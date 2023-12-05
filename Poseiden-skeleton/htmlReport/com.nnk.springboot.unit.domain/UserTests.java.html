@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.domain</a> &gt; <span class="el_source">UserTests.java</span></div><h1>UserTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.domain;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.domain.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest(classes = User.class)
+<span class="fc" id="L20">public class UserTests extends TestVariables {</span>
+
+<span class="fc" id="L22">    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
+<span class="fc" id="L23">    Validator validator = factory.getValidator();</span>
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L27">        initializeVariables();</span>
+<span class="fc" id="L28">    }</span>
+
+    @Test
+<span class="fc" id="L31">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L34">    public class ValidationTests {</span>
+
+        @Test
+        public void ValidationTest() {
+<span class="fc" id="L38">            Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L39">            assertTrue(result.isEmpty());</span>
+<span class="fc" id="L40">        }</span>
+
+        @Nested
+<span class="fc" id="L43">        public class UsernameTests</span>
+        {
+            @Test
+            public void ValidationTestIfUsernameSize () {
+<span class="fc" id="L47">                user.setUsername(longString126);</span>
+<span class="fc" id="L48">                Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L49">                assertEquals(1, result.size());</span>
+<span class="fc" id="L50">                ConstraintViolation&lt;User&gt; constraintViolation = (ConstraintViolation&lt;User&gt;) result.toArray()[0];</span>
+<span class="fc" id="L51">                assertEquals(&quot;username&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L52">                assertEquals(userUsernameSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L53">            }</span>
+
+            @Test
+            public void ValidationTestIfUsernameNotBlank () {
+<span class="fc" id="L57">                user.setUsername(&quot; &quot;);</span>
+<span class="fc" id="L58">                Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L59">                assertEquals(1, result.size());</span>
+<span class="fc" id="L60">                ConstraintViolation&lt;User&gt; constraintViolation = (ConstraintViolation&lt;User&gt;) result.toArray()[0];</span>
+<span class="fc" id="L61">                assertEquals(&quot;username&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L62">                assertEquals(userUsernameNotBlank, constraintViolation.getMessage());</span>
+<span class="fc" id="L63">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L67">        public class PasswordTests</span>
+        {
+            @Test
+            public void ValidationTestIfPasswordSize () {
+<span class="fc" id="L71">                user.setPassword(longString126);</span>
+<span class="fc" id="L72">                Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L73">                assertEquals(1, result.size());</span>
+<span class="fc" id="L74">                ConstraintViolation&lt;User&gt; constraintViolation = (ConstraintViolation&lt;User&gt;) result.toArray()[0];</span>
+<span class="fc" id="L75">                assertEquals(&quot;password&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L76">                assertEquals(userPasswordSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L77">            }</span>
+
+            @Test
+            public void ValidationTestIfPasswordNotBlank () {
+<span class="fc" id="L81">                user.setPassword(&quot; &quot;);</span>
+<span class="fc" id="L82">                Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L83">                assertEquals(1, result.size());</span>
+<span class="fc" id="L84">                ConstraintViolation&lt;User&gt; constraintViolation = (ConstraintViolation&lt;User&gt;) result.toArray()[0];</span>
+<span class="fc" id="L85">                assertEquals(&quot;password&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L86">                assertEquals(userPasswordNotBlank, constraintViolation.getMessage());</span>
+<span class="fc" id="L87">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L91">        public class FullNameTests</span>
+        {
+            @Test
+            public void ValidationTestIfFullNameSize () {
+<span class="fc" id="L95">                user.setFullname(longString126);</span>
+<span class="fc" id="L96">                Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L97">                assertEquals(1, result.size());</span>
+<span class="fc" id="L98">                ConstraintViolation&lt;User&gt; constraintViolation = (ConstraintViolation&lt;User&gt;) result.toArray()[0];</span>
+<span class="fc" id="L99">                assertEquals(&quot;fullname&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L100">                assertEquals(userFullNameSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L101">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L105">        public class RoleTests</span>
+        {
+            @Test
+            public void ValidationTestIfRoleSize () {
+<span class="fc" id="L109">                user.setRole(longString126);</span>
+<span class="fc" id="L110">                Set&lt;ConstraintViolation&lt;User&gt;&gt; result = validator.validate(user);</span>
+<span class="fc" id="L111">                assertEquals(1, result.size());</span>
+<span class="fc" id="L112">                ConstraintViolation&lt;User&gt; constraintViolation = (ConstraintViolation&lt;User&gt;) result.toArray()[0];</span>
+<span class="fc" id="L113">                assertEquals(&quot;role&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L114">                assertEquals(userRoleSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L115">            }</span>
+        }
+    }
+
+    @Nested
+<span class="fc" id="L120">    public class ValidatePasswordTests {</span>
+
+        @Test
+        public void ValidatePasswordTest() {
+<span class="fc" id="L124">            assertTrue(user.validatePassword());</span>
+<span class="fc" id="L125">        }</span>
+
+        @Test
+        public void ValidatePasswordTestIfNoUppercase() {
+<span class="fc" id="L129">            user.setPassword(&quot;passwordtestvalue1!&quot;);</span>
+<span class="fc" id="L130">            assertFalse(user.validatePassword());</span>
+<span class="fc" id="L131">        }</span>
+
+        @Test
+        public void ValidatePasswordTestIfNoLowercase() {
+<span class="fc" id="L135">            user.setPassword(&quot;PASSWORDTESTVALUE1!&quot;);</span>
+<span class="fc" id="L136">            assertFalse(user.validatePassword());</span>
+<span class="fc" id="L137">        }</span>
+
+        @Test
+        public void ValidatePasswordTestIfNoDigit() {
+<span class="fc" id="L141">            user.setPassword(&quot;passwordTestValue!&quot;);</span>
+<span class="fc" id="L142">            assertFalse(user.validatePassword());</span>
+<span class="fc" id="L143">        }</span>
+
+        @Test
+        public void ValidatePasswordTestIfNoNonWord() {
+<span class="fc" id="L147">            user.setPassword(&quot;passwordTestValue1&quot;);</span>
+<span class="fc" id="L148">            assertFalse(user.validatePassword());</span>
+<span class="fc" id="L149">        }</span>
+
+        @Test
+        public void ValidatePasswordTestIfTooSmall() {
+<span class="fc" id="L153">            user.setPassword(&quot;P1!&quot;);</span>
+<span class="fc" id="L154">            assertFalse(user.validatePassword());</span>
+<span class="fc" id="L155">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

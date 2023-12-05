@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.domain</a> &gt; <span class="el_source">BidListTests.java</span></div><h1>BidListTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.domain;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.domain.BidList;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest(classes = BidList.class)
+<span class="fc" id="L20">public class BidListTests extends TestVariables {</span>
+
+<span class="fc" id="L22">    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();</span>
+<span class="fc" id="L23">    Validator validator = factory.getValidator();</span>
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L27">        initializeVariables();</span>
+<span class="fc" id="L28">    }</span>
+
+    @Test
+    public void contextLoads() {
+<span class="fc" id="L32">    }</span>
+
+    @Nested
+<span class="fc" id="L35">    public class ValidationTests {</span>
+
+        @Test
+        public void validationTest() {
+<span class="fc" id="L39">            Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L40">            assertTrue(result.isEmpty());</span>
+<span class="fc" id="L41">        }</span>
+
+        @Nested
+<span class="fc" id="L44">        public class AccountTests {</span>
+            @Test
+            public void validationTestIfAccountIsBlank() {
+<span class="fc" id="L47">                bidList.setAccount(&quot;&quot;);</span>
+<span class="fc" id="L48">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L49">                assertEquals(1, result.size());</span>
+<span class="fc" id="L50">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L51">                assertEquals(&quot;account&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L52">                assertEquals(bidListAccountNotBlank, constraintViolation.getMessage());</span>
+<span class="fc" id="L53">            }</span>
+
+            @Test
+            public void validationTestIfAccountSize() {
+<span class="fc" id="L57">                bidList.setAccount(longString31);</span>
+<span class="fc" id="L58">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L59">                assertEquals(1, result.size());</span>
+<span class="fc" id="L60">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L61">                assertEquals(&quot;account&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L62">                assertEquals(bidListAccountSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L63">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L67">        public class TypeTests {</span>
+            @Test
+            public void validationTestIfTypeIsBlank() {
+<span class="fc" id="L70">                bidList.setType(&quot;&quot;);</span>
+<span class="fc" id="L71">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L72">                assertEquals(1, result.size());</span>
+<span class="fc" id="L73">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L74">                assertEquals(&quot;type&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L75">                assertEquals(bidListTypeNotBlank, constraintViolation.getMessage());</span>
+<span class="fc" id="L76">            }</span>
+
+            @Test
+            public void validationTestIfTypeSize() {
+<span class="fc" id="L80">                bidList.setType(longString31);</span>
+<span class="fc" id="L81">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L82">                assertEquals(1, result.size());</span>
+<span class="fc" id="L83">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L84">                assertEquals(&quot;type&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L85">                assertEquals(bidListTypeSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L86">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L90">        public class BidQuantityTests {</span>
+            @Test
+            public void validationTestIfBidQuantityNegative() {
+<span class="fc" id="L93">                bidList.setBidQuantity(-5.0);</span>
+<span class="fc" id="L94">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L95">                assertEquals(1, result.size());</span>
+<span class="fc" id="L96">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L97">                assertEquals(&quot;bidQuantity&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L98">                assertEquals(bidListBidQuantityPositiveOrZero, constraintViolation.getMessage());</span>
+<span class="fc" id="L99">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L103">        public class AskQuantityTests {</span>
+            @Test
+            public void validationTestIfAskQuantityNegative() {
+<span class="fc" id="L106">                bidList.setAskQuantity(-5.0);</span>
+<span class="fc" id="L107">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L108">                assertEquals(1, result.size());</span>
+<span class="fc" id="L109">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L110">                assertEquals(&quot;askQuantity&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L111">                assertEquals(bidListAskQuantityPositiveOrZero, constraintViolation.getMessage());</span>
+<span class="fc" id="L112">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L116">        public class BidTests {</span>
+            @Test
+            public void validationTestIfBidNegative() {
+<span class="fc" id="L119">                bidList.setBid(-5.0);</span>
+<span class="fc" id="L120">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L121">                assertEquals(1, result.size());</span>
+<span class="fc" id="L122">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L123">                assertEquals(&quot;bid&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L124">                assertEquals(bidListBidPositiveOrZero, constraintViolation.getMessage());</span>
+<span class="fc" id="L125">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L129">        public class AskTests {</span>
+            @Test
+            public void validationTestIfAskNegative() {
+<span class="fc" id="L132">                bidList.setAsk(-5.0);</span>
+<span class="fc" id="L133">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L134">                assertEquals(1, result.size());</span>
+<span class="fc" id="L135">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L136">                assertEquals(&quot;ask&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L137">                assertEquals(bidListAskPositiveOrZero, constraintViolation.getMessage());</span>
+<span class="fc" id="L138">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L142">        public class BenchmarkTests {</span>
+            @Test
+            public void validationTestIfBenchmarkSize() {
+<span class="fc" id="L145">                bidList.setBenchmark(longString126);</span>
+<span class="fc" id="L146">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L147">                assertEquals(1, result.size());</span>
+<span class="fc" id="L148">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L149">                assertEquals(&quot;benchmark&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L150">                assertEquals(bidListBenchmarkSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L151">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L155">        public class CommentaryTests {</span>
+            @Test
+            public void validationTestIfCommentarySize() {
+<span class="fc" id="L158">                bidList.setCommentary(longString126);</span>
+<span class="fc" id="L159">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L160">                assertEquals(1, result.size());</span>
+<span class="fc" id="L161">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L162">                assertEquals(&quot;commentary&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L163">                assertEquals(bidListCommentarySize, constraintViolation.getMessage());</span>
+<span class="fc" id="L164">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L168">        public class SecurityTests {</span>
+            @Test
+            public void validationTestIfSecuritySize() {
+<span class="fc" id="L171">                bidList.setSecurity(longString126);</span>
+<span class="fc" id="L172">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L173">                assertEquals(1, result.size());</span>
+<span class="fc" id="L174">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L175">                assertEquals(&quot;security&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L176">                assertEquals(bidListSecuritySize, constraintViolation.getMessage());</span>
+<span class="fc" id="L177">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L181">        public class StatusTests {</span>
+            @Test
+            public void validationTestIfStatusSize() {
+<span class="fc" id="L184">                bidList.setStatus(longString11);</span>
+<span class="fc" id="L185">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L186">                assertEquals(1, result.size());</span>
+<span class="fc" id="L187">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L188">                assertEquals(&quot;status&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L189">                assertEquals(bidListStatusSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L190">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L194">        public class TraderTests {</span>
+            @Test
+            public void validationTestIfTraderSize() {
+<span class="fc" id="L197">                bidList.setTrader(longString126);</span>
+<span class="fc" id="L198">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L199">                assertEquals(1, result.size());</span>
+<span class="fc" id="L200">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L201">                assertEquals(&quot;trader&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L202">                assertEquals(bidListTraderSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L203">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L207">        public class BookTests {</span>
+            @Test
+            public void validationTestIfBookSize() {
+<span class="fc" id="L210">                bidList.setBook(longString126);</span>
+<span class="fc" id="L211">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L212">                assertEquals(1, result.size());</span>
+<span class="fc" id="L213">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L214">                assertEquals(&quot;book&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L215">                assertEquals(bidListBookSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L216">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L220">        public class CreationNameTests {</span>
+            @Test
+            public void validationTestIfCreationNameSize() {
+<span class="fc" id="L223">                bidList.setCreationName(longString126);</span>
+<span class="fc" id="L224">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L225">                assertEquals(1, result.size());</span>
+<span class="fc" id="L226">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L227">                assertEquals(&quot;creationName&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L228">                assertEquals(bidListCreationNameSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L229">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L233">        public class RevisionNameTests {</span>
+            @Test
+            public void validationTestIfRevisionNameSize() {
+<span class="fc" id="L236">                bidList.setRevisionName(longString126);</span>
+<span class="fc" id="L237">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L238">                assertEquals(1, result.size());</span>
+<span class="fc" id="L239">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L240">                assertEquals(&quot;revisionName&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L241">                assertEquals(bidListRevisionNameSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L242">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L246">        public class DealNameTests {</span>
+            @Test
+            public void validationTestIfDealNameSize() {
+<span class="fc" id="L249">                bidList.setDealName(longString126);</span>
+<span class="fc" id="L250">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L251">                assertEquals(1, result.size());</span>
+<span class="fc" id="L252">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L253">                assertEquals(&quot;dealName&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L254">                assertEquals(bidListDealNameSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L255">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L259">        public class DealTypeTests {</span>
+            @Test
+            public void validationTestIfDealTypeSize() {
+<span class="fc" id="L262">                bidList.setDealType(longString126);</span>
+<span class="fc" id="L263">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L264">                assertEquals(1, result.size());</span>
+<span class="fc" id="L265">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L266">                assertEquals(&quot;dealType&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L267">                assertEquals(bidListDealTypeSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L268">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L272">        public class SourceListIdTests {</span>
+            @Test
+            public void validationTestIfSourceListIdSize() {
+<span class="fc" id="L275">                bidList.setSourceListId(longString126);</span>
+<span class="fc" id="L276">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L277">                assertEquals(1, result.size());</span>
+<span class="fc" id="L278">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L279">                assertEquals(&quot;sourceListId&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L280">                assertEquals(bidListSourceListIdSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L281">            }</span>
+        }
+
+        @Nested
+<span class="fc" id="L285">        public class SideTests {</span>
+            @Test
+            public void validationTestIfSideSize() {
+<span class="fc" id="L288">                bidList.setSide(longString126);</span>
+<span class="fc" id="L289">                Set&lt;ConstraintViolation&lt;BidList&gt;&gt; result = validator.validate(bidList);</span>
+<span class="fc" id="L290">                assertEquals(1, result.size());</span>
+<span class="fc" id="L291">                ConstraintViolation&lt;BidList&gt; constraintViolation = (ConstraintViolation&lt;BidList&gt;) result.toArray()[0];</span>
+<span class="fc" id="L292">                assertEquals(&quot;side&quot;, constraintViolation.getPropertyPath().toString());</span>
+<span class="fc" id="L293">                assertEquals(bidListSideSize, constraintViolation.getMessage());</span>
+<span class="fc" id="L294">            }</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

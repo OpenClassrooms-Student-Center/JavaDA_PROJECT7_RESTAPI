@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BidListIntegrationTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.integration</a> &gt; <span class="el_source">BidListIntegrationTests.java</span></div><h1>BidListIntegrationTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.integration;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.repositories.BidListRepository;
+import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.UnsupportedEncodingException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
+<span class="fc" id="L30">public class BidListIntegrationTests extends TestVariables {</span>
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private BidListRepository bidListRepository;
+
+    private Integer databaseSizeBefore;
+
+    @BeforeAll
+    public void setUpGlobal() {
+<span class="fc" id="L42">        initializeVariables();</span>
+<span class="fc" id="L43">        bidListRepository.save(bidList);</span>
+<span class="fc" id="L44">        bidListId = bidList.getId();</span>
+<span class="fc" id="L45">    }</span>
+
+    @AfterAll
+    public void cleanUpDatabase() {
+<span class="fc" id="L49">        bidListRepository.deleteById(bidListId);</span>
+<span class="fc" id="L50">    }</span>
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L54">        initializeVariables();</span>
+<span class="fc" id="L55">        databaseSizeBefore = bidListRepository.findAll().size();</span>
+<span class="fc" id="L56">    }</span>
+
+    public Integer databaseSizeChange() {
+<span class="fc" id="L59">        return bidListRepository.findAll().size() - databaseSizeBefore;</span>
+    }
+
+    public Boolean resultContainsBidList(MvcResult result, BidList bidList) throws UnsupportedEncodingException {
+<span class="fc" id="L63">        String resultContent = result.getResponse().getContentAsString();</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        return resultContent.contains(bidListId.toString())</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(bidList.getAccount())</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(bidList.getType())</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(bidList.getBidQuantity().toString());</span>
+    }
+
+    @Test
+<span class="fc" id="L71">    public void contextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L74">    public class homeTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void homeTest () throws Exception {
+<span class="fc" id="L79">            MvcResult result = mockMvc.perform(get(&quot;/bidList/list&quot;))</span>
+<span class="fc" id="L80">                    .andExpect(status().is2xxSuccessful())</span>
+<span class="fc" id="L81">                    .andReturn();</span>
+<span class="fc" id="L82">            assertEquals(true, resultContainsBidList(result, bidList));</span>
+<span class="fc" id="L83">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L84">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L88">    public class addBidListFormTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void addBidListFormTest () throws Exception {
+<span class="fc" id="L93">            mockMvc.perform((get(&quot;/bidList/add&quot;)))</span>
+<span class="fc" id="L94">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L95">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L96">        }</span>
+        @Test
+        @WithMockUser
+        public void addBidListFormTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L100">            mockMvc.perform((get(&quot;/bidList/add&quot;)))</span>
+<span class="fc" id="L101">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L102">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L103">        }</span>
+    }
+    @Nested
+<span class="fc" id="L106">    public class validateTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void validateTest () throws Exception {
+<span class="fc" id="L111">            mockMvc.perform(post(&quot;/bidList/validate&quot;)</span>
+<span class="fc" id="L112">                            .with(csrf())</span>
+<span class="fc" id="L113">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L114">                            .content(bidList.toString()))</span>
+<span class="fc" id="L115">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L116">            assertEquals(1, databaseSizeChange());</span>
+<span class="fc" id="L117">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void validateTestIfInvalidBidList () throws Exception {
+<span class="fc" id="L121">            bidList.setAccount(longString126);</span>
+<span class="fc" id="L122">            mockMvc.perform(post(&quot;/bidList/validate&quot;)</span>
+<span class="fc" id="L123">                            .with(csrf())</span>
+<span class="fc" id="L124">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L125">                            .content(bidList.toString()))</span>
+<span class="fc" id="L126">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L127">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L128">        }</span>
+        @Test
+        @WithMockUser
+        public void validateTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L132">            mockMvc.perform(post(&quot;/bidList/validate&quot;)</span>
+<span class="fc" id="L133">                            .with(csrf())</span>
+<span class="fc" id="L134">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L135">                            .content(bidList.toString()))</span>
+<span class="fc" id="L136">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L137">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L138">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L142">    public class showUpdateFormTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void showUpdateFormTest () throws Exception {
+<span class="fc" id="L147">            MvcResult result = mockMvc.perform((get(&quot;/bidList/update/&quot; + bidListId)))</span>
+<span class="fc" id="L148">                    .andExpect(status().is2xxSuccessful())</span>
+<span class="fc" id="L149">                    .andReturn();</span>
+<span class="fc" id="L150">            assertEquals(true, resultContainsBidList(result, bidList));</span>
+<span class="fc" id="L151">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L152">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void showUpdateFormTestIfNotInDb () {
+<span class="pc" id="L156">            assertThrows(ServletException.class, () -&gt; mockMvc.perform((get(&quot;/bidList/update/0&quot;))));</span>
+<span class="fc" id="L157">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L158">        }</span>
+        @Test
+        @WithMockUser
+        public void showUpdateFormTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L162">            mockMvc.perform((get(&quot;/bidList/update/&quot; + bidListId)))</span>
+<span class="fc" id="L163">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L164">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L165">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L169">    public class updateBidListTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void updateBidListTest () throws Exception {
+<span class="fc" id="L174">            mockMvc.perform(post(&quot;/bidList/update/&quot; + bidListId)</span>
+<span class="fc" id="L175">                            .with(csrf())</span>
+<span class="fc" id="L176">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L177">                            .content(bidList.toString()))</span>
+<span class="fc" id="L178">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L179">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L180">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void updateBidListTestIfInvalidBidList () throws Exception {
+<span class="fc" id="L184">            bidList.setAccount(longString126);</span>
+<span class="fc" id="L185">            mockMvc.perform(post(&quot;/bidList/update/&quot; + bidListId)</span>
+<span class="fc" id="L186">                            .with(csrf())</span>
+<span class="fc" id="L187">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L188">                            .content(bidList.toString()))</span>
+<span class="fc" id="L189">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L190">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L191">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void updateBidListTestIfNotInDb () {
+<span class="pc" id="L195">            assertThrows(ServletException.class, () -&gt; mockMvc.perform(post(&quot;/bidList/update/0&quot;)</span>
+<span class="fc" id="L196">                    .with(csrf())</span>
+<span class="fc" id="L197">                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L198">                    .content(bidList.toString())));</span>
+<span class="fc" id="L199">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L200">        }</span>
+        @Test
+        @WithMockUser
+        public void updateBidListTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L204">            mockMvc.perform(post(&quot;/bidList/update/&quot; + bidListId)</span>
+<span class="fc" id="L205">                            .with(csrf())</span>
+<span class="fc" id="L206">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L207">                            .content(bidList.toString()))</span>
+<span class="fc" id="L208">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L209">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L210">        }</span>
+    }
+    @Nested
+<span class="fc" id="L213">    public class deleteBidListTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void deleteBidListTest () throws Exception {
+<span class="fc" id="L218">            bidListRepository.save(bidList);</span>
+<span class="fc" id="L219">            mockMvc.perform(get(&quot;/bidList/delete/&quot; + bidList.getId()))</span>
+<span class="fc" id="L220">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L221">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L222">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void deleteBidListTestIfNotInDb () {
+<span class="pc" id="L226">            assertThrows(ServletException.class, () -&gt; mockMvc.perform(get(&quot;/bidList/delete/0&quot;)));</span>
+<span class="fc" id="L227">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L228">        }</span>
+        @Test
+        @WithMockUser
+        public void deleteBidListTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L232">            mockMvc.perform(get(&quot;/bidList/delete/&quot; + bidListId))</span>
+<span class="fc" id="L233">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L234">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L235">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

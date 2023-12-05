@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginControllerIntegrationTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.integration</a> &gt; <span class="el_source">LoginControllerIntegrationTests.java</span></div><h1>LoginControllerIntegrationTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.integration;
+
+import com.nnk.springboot.TestVariables;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+<span class="fc" id="L18">public class LoginControllerIntegrationTests extends TestVariables {</span>
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L25">        initializeVariables();</span>
+<span class="fc" id="L26">    }</span>
+
+    @Test
+<span class="fc" id="L29">    public void contextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L32">    public class loginTests</span>
+    {
+        @Test
+        public void loginTest () throws Exception {
+<span class="fc" id="L36">            mockMvc.perform(get(&quot;/login&quot;))</span>
+<span class="fc" id="L37">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L38">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L42">    public class getAllUserArticlesTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;ADMIN&quot;)
+        public void getAllUserArticlesTest () throws Exception {
+<span class="fc" id="L47">            mockMvc.perform(get(&quot;/secure/article-details&quot;))</span>
+<span class="fc" id="L48">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L49">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void getAllUserArticlesTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L53">            mockMvc.perform(get(&quot;/secure/article-details&quot;))</span>
+<span class="fc" id="L54">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L55">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L59">    public class errorTests</span>
+    {
+        @Test
+        @WithMockUser(username = &quot;USERNAME&quot;)
+        public void errorTest () throws Exception {
+<span class="fc" id="L64">            mockMvc.perform(get(&quot;/error&quot;))</span>
+<span class="fc" id="L65">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L66">        }</span>
+
+        @Test
+        public void errorTestIfNotAuthenticated () throws Exception {
+<span class="fc" id="L70">            mockMvc.perform(get(&quot;/error&quot;))</span>
+<span class="fc" id="L71">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L72">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

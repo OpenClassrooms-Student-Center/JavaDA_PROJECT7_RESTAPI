@@ -3,6 +3,7 @@
 import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-<span class="fc" id="L28">public class RatingIntegrationTests extends TestVariables {</span>
+<span class="fc" id="L30">public class RatingIntegrationTests extends TestVariables {</span>
 
     @Autowired
     private MockMvc mockMvc;
@@ -37,173 +39,201 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @BeforeAll
     public void setUpGlobal() {
-<span class="fc" id="L40">        initializeVariables();</span>
-<span class="fc" id="L41">        ratingRepository.save(rating);</span>
-<span class="fc" id="L42">        ratingId = rating.getId();</span>
-<span class="fc" id="L43">    }</span>
+<span class="fc" id="L42">        initializeVariables();</span>
+<span class="fc" id="L43">        ratingRepository.save(rating);</span>
+<span class="fc" id="L44">        ratingId = rating.getId();</span>
+<span class="fc" id="L45">    }</span>
 
     @AfterAll
     public void cleanUpDatabase() {
-<span class="fc" id="L47">        ratingRepository.deleteById(ratingId);</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L49">        ratingRepository.deleteById(ratingId);</span>
+<span class="fc" id="L50">    }</span>
 
     @BeforeEach
     public void setUpPerTest() {
-<span class="fc" id="L52">        initializeVariables();</span>
-<span class="fc" id="L53">        databaseSizeBefore = ratingRepository.findAll().size();</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L54">        initializeVariables();</span>
+<span class="fc" id="L55">        databaseSizeBefore = ratingRepository.findAll().size();</span>
+<span class="fc" id="L56">    }</span>
 
     public Integer databaseSizeChange() {
-<span class="fc" id="L57">        return ratingRepository.findAll().size() - databaseSizeBefore;</span>
+<span class="fc" id="L59">        return ratingRepository.findAll().size() - databaseSizeBefore;</span>
     }
 
     public Boolean resultContainsRating(MvcResult result, Rating rating) throws UnsupportedEncodingException {
-<span class="fc" id="L61">        String resultContent = result.getResponse().getContentAsString();</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        return resultContent.contains(ratingId.toString())</span>
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getMoodysRating())</span>
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getSandPRating())</span>
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getFitchRating())</span>
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getOrder().toString());</span>
+<span class="fc" id="L63">        String resultContent = result.getResponse().getContentAsString();</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        return resultContent.contains(ratingId.toString())</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getMoodysRating())</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getSandPRating())</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getFitchRating())</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">                &amp;&amp; resultContent.contains(rating.getOrder().toString());</span>
     }
 
     @Test
-<span class="fc" id="L70">    public void contextLoads() {}</span>
+<span class="fc" id="L72">    public void contextLoads() {}</span>
 
     @Nested
-<span class="fc" id="L73">    public class homeTests</span>
+<span class="fc" id="L75">    public class homeTests</span>
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void homeTest () throws Exception {
-<span class="fc" id="L78">            MvcResult result = mockMvc.perform(get(&quot;/rating/list&quot;))</span>
-<span class="fc" id="L79">                    .andExpect(status().is2xxSuccessful())</span>
-<span class="fc" id="L80">                    .andReturn();</span>
-<span class="fc" id="L81">            assertEquals(true, resultContainsRating(result, rating));</span>
-<span class="fc" id="L82">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L83">        }</span>
+<span class="fc" id="L80">            MvcResult result = mockMvc.perform(get(&quot;/rating/list&quot;))</span>
+<span class="fc" id="L81">                    .andExpect(status().is2xxSuccessful())</span>
+<span class="fc" id="L82">                    .andReturn();</span>
+<span class="fc" id="L83">            assertEquals(true, resultContainsRating(result, rating));</span>
+<span class="fc" id="L84">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L85">        }</span>
     }
 
     @Nested
-<span class="fc" id="L87">    public class addRatingFormTests</span>
+<span class="fc" id="L89">    public class addRatingFormTests</span>
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void addRatingFormTest () throws Exception {
-<span class="fc" id="L92">            mockMvc.perform((get(&quot;/rating/add&quot;)))</span>
-<span class="fc" id="L93">                    .andExpect(status().is2xxSuccessful());</span>
-<span class="fc" id="L94">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L95">        }</span>
-    }
-    @Nested
-<span class="fc" id="L98">    public class validateTests</span>
-    {
+<span class="fc" id="L94">            mockMvc.perform((get(&quot;/rating/add&quot;)))</span>
+<span class="fc" id="L95">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L96">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L97">        }</span>
         @Test
         @WithMockUser
+        public void addRatingFormTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L101">            mockMvc.perform((get(&quot;/rating/add&quot;)))</span>
+<span class="fc" id="L102">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L103">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L104">        }</span>
+    }
+    @Nested
+<span class="fc" id="L107">    public class validateTests</span>
+    {
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void validateTest () throws Exception {
-<span class="fc" id="L103">            mockMvc.perform(post(&quot;/rating/validate&quot;)</span>
-<span class="fc" id="L104">                            .with(csrf())</span>
-<span class="fc" id="L105">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
-<span class="fc" id="L106">                            .content(rating.toString()))</span>
-<span class="fc" id="L107">                    .andExpect(status().is2xxSuccessful());</span>
-<span class="fc" id="L108">            assertEquals(1, databaseSizeChange());</span>
-<span class="fc" id="L109">        }</span>
+<span class="fc" id="L112">            mockMvc.perform(post(&quot;/rating/validate&quot;)</span>
+<span class="fc" id="L113">                            .with(csrf())</span>
+<span class="fc" id="L114">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L115">                            .content(rating.toString()))</span>
+<span class="fc" id="L116">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L117">            assertEquals(1, databaseSizeChange());</span>
+<span class="fc" id="L118">        }</span>
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void validateTestIfInvalidRating () throws Exception {
-<span class="fc" id="L113">            rating.setFitchRating(longString);</span>
-<span class="fc" id="L114">            mockMvc.perform(post(&quot;/rating/validate&quot;)</span>
-<span class="fc" id="L115">                            .with(csrf())</span>
-<span class="fc" id="L116">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
-<span class="fc" id="L117">                            .content(rating.toString()))</span>
-<span class="fc" id="L118">                    .andExpect(status().is2xxSuccessful());</span>
-<span class="fc" id="L119">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L120">        }</span>
+<span class="fc" id="L122">            rating.setFitchRating(longString126);</span>
+<span class="fc" id="L123">            mockMvc.perform(post(&quot;/rating/validate&quot;)</span>
+<span class="fc" id="L124">                            .with(csrf())</span>
+<span class="fc" id="L125">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L126">                            .content(rating.toString()))</span>
+<span class="fc" id="L127">                    .andExpect(status().is2xxSuccessful());</span>
+<span class="fc" id="L128">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L129">        }</span>
+        @Test
+        @WithMockUser
+        public void validateTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L133">            mockMvc.perform(post(&quot;/rating/validate&quot;)</span>
+<span class="fc" id="L134">                            .with(csrf())</span>
+<span class="fc" id="L135">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L136">                            .content(rating.toString()))</span>
+<span class="fc" id="L137">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L138">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L139">        }</span>
     }
 
     @Nested
-<span class="fc" id="L124">    public class showUpdateFormTests</span>
+<span class="fc" id="L143">    public class showUpdateFormTests</span>
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void showUpdateFormTest () throws Exception {
-<span class="fc" id="L129">            MvcResult result = mockMvc.perform((get(&quot;/rating/update/&quot; +</span>
-<span class="fc" id="L130">                            (ratingId))))</span>
-<span class="fc" id="L131">                    .andExpect(status().is2xxSuccessful())</span>
-<span class="fc" id="L132">                    .andReturn();</span>
-<span class="fc" id="L133">            assertEquals(true, resultContainsRating(result, rating));</span>
-<span class="fc" id="L134">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L135">        }</span>
+<span class="fc" id="L148">            MvcResult result = mockMvc.perform((get(&quot;/rating/update/&quot; + ratingId)))</span>
+<span class="fc" id="L149">                    .andExpect(status().is2xxSuccessful())</span>
+<span class="fc" id="L150">                    .andReturn();</span>
+<span class="fc" id="L151">            assertEquals(true, resultContainsRating(result, rating));</span>
+<span class="fc" id="L152">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L153">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void showUpdateFormTestIfNotInDb () {
+<span class="pc" id="L157">            assertThrows(ServletException.class, () -&gt; mockMvc.perform((get(&quot;/rating/update/0&quot;))));</span>
+<span class="fc" id="L158">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L159">        }</span>
         @Test
         @WithMockUser
-        public void showUpdateFormTestIfNotInDb () throws Exception {
-<span class="fc" id="L139">            MvcResult result = mockMvc.perform((get(&quot;/rating/update/0&quot;)))</span>
-<span class="fc" id="L140">                    .andExpect(status().is2xxSuccessful())</span>
-<span class="fc" id="L141">                    .andReturn();</span>
-<span class="fc" id="L142">            assertEquals(false, resultContainsRating(result, rating));</span>
-<span class="fc" id="L143">            assertEquals(0, databaseSizeChange());</span>
-
-            // INCORRECT ID ARBITRARY
-<span class="fc" id="L146">        }</span>
+        public void showUpdateFormTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L163">            mockMvc.perform((get(&quot;/rating/update/&quot; + ratingId)))</span>
+<span class="fc" id="L164">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L165">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L166">        }</span>
     }
+
     @Nested
-<span class="fc" id="L149">    public class updateRatingTests</span>
+<span class="fc" id="L170">    public class updateRatingTests</span>
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void updateRatingTest () throws Exception {
-<span class="fc" id="L154">            mockMvc.perform(post(&quot;/rating/update/&quot; +</span>
-<span class="fc" id="L155">                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())</span>
-<span class="fc" id="L156">                            .with(csrf())</span>
-<span class="fc" id="L157">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
-<span class="fc" id="L158">                            .content(rating.toString()))</span>
-<span class="fc" id="L159">                    .andExpect(status().is3xxRedirection());</span>
-<span class="fc" id="L160">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L161">        }</span>
-
+<span class="fc" id="L175">            mockMvc.perform(post(&quot;/rating/update/&quot; + ratingId)</span>
+<span class="fc" id="L176">                            .with(csrf())</span>
+<span class="fc" id="L177">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L178">                            .content(rating.toString()))</span>
+<span class="fc" id="L179">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L180">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L181">        }</span>
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void updateRatingTestIfInvalidRating () throws Exception {
-<span class="fc" id="L166">            rating.setFitchRating(longString);</span>
-<span class="fc" id="L167">            mockMvc.perform(post(&quot;/rating/update/&quot; +</span>
-<span class="fc" id="L168">                            ((Rating) ratingRepository.findAll().toArray()[0]).getId())</span>
-<span class="fc" id="L169">                            .with(csrf())</span>
-<span class="fc" id="L170">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
-<span class="fc" id="L171">                            .content(rating.toString()))</span>
-<span class="fc" id="L172">                    .andExpect(status().is3xxRedirection());</span>
-<span class="fc" id="L173">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L174">        }</span>
+<span class="fc" id="L185">            rating.setFitchRating(longString126);</span>
+<span class="fc" id="L186">            mockMvc.perform(post(&quot;/rating/update/&quot; + ratingId)</span>
+<span class="fc" id="L187">                            .with(csrf())</span>
+<span class="fc" id="L188">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L189">                            .content(rating.toString()))</span>
+<span class="fc" id="L190">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L191">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L192">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void updateRatingTestIfNotInDb () {
+<span class="pc" id="L196">            assertThrows(ServletException.class, () -&gt; mockMvc.perform(post(&quot;/rating/update/0&quot;)</span>
+<span class="fc" id="L197">                    .with(csrf())</span>
+<span class="fc" id="L198">                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L199">                    .content(rating.toString())));</span>
+<span class="fc" id="L200">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L201">        }</span>
         @Test
         @WithMockUser
-        public void updateRatingTestIfNotInDb () throws Exception {
-<span class="fc" id="L178">            mockMvc.perform(post(&quot;/rating/update/0&quot;)</span>
-<span class="fc" id="L179">                            .with(csrf())</span>
-<span class="fc" id="L180">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
-<span class="fc" id="L181">                            .content(rating.toString()))</span>
-<span class="fc" id="L182">                    .andExpect(status().is3xxRedirection());</span>
-<span class="fc" id="L183">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L184">        }</span>
+        public void updateRatingTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L205">            mockMvc.perform(post(&quot;/rating/update/&quot; + ratingId)</span>
+<span class="fc" id="L206">                            .with(csrf())</span>
+<span class="fc" id="L207">                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)</span>
+<span class="fc" id="L208">                            .content(rating.toString()))</span>
+<span class="fc" id="L209">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L210">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L211">        }</span>
     }
     @Nested
-<span class="fc" id="L187">    public class deleteRatingTests</span>
+<span class="fc" id="L214">    public class deleteRatingTests</span>
     {
         @Test
-        @WithMockUser
+        @WithMockUser(authorities = &quot;USER&quot;)
         public void deleteRatingTest () throws Exception {
-<span class="fc" id="L192">            ratingRepository.save(rating);</span>
-<span class="fc" id="L193">            Object[] ratings = ratingRepository.findAll().toArray();</span>
-<span class="fc" id="L194">            rating.setId(((Rating) ratings[ratings.length - 1]).getId());</span>
-
-<span class="fc" id="L196">            mockMvc.perform(get(&quot;/rating/delete/&quot; + rating.getId()))</span>
-<span class="fc" id="L197">                    .andExpect(status().is3xxRedirection());</span>
-<span class="fc" id="L198">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L199">        }</span>
+<span class="fc" id="L219">            ratingRepository.save(rating);</span>
+<span class="fc" id="L220">            mockMvc.perform(get(&quot;/rating/delete/&quot; + rating.getId()))</span>
+<span class="fc" id="L221">                    .andExpect(status().is3xxRedirection());</span>
+<span class="fc" id="L222">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L223">        }</span>
+        @Test
+        @WithMockUser(authorities = &quot;USER&quot;)
+        public void deleteRatingTestIfNotInDb () {
+<span class="pc" id="L227">            assertThrows(ServletException.class, () -&gt; mockMvc.perform(get(&quot;/rating/delete/0&quot;)));</span>
+<span class="fc" id="L228">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L229">        }</span>
         @Test
         @WithMockUser
-        public void deleteRatingTestIfNotInDb () throws Exception {
-<span class="fc" id="L203">            mockMvc.perform(get(&quot;/rating/delete/0&quot;))</span>
-<span class="fc" id="L204">                    .andExpect(status().is3xxRedirection());</span>
-<span class="fc" id="L205">            assertEquals(0, databaseSizeChange());</span>
-<span class="fc" id="L206">        }</span>
+        public void deleteRatingTestIfNotAuthorized () throws Exception {
+<span class="fc" id="L233">            mockMvc.perform(get(&quot;/rating/delete/&quot; + ratingId))</span>
+<span class="fc" id="L234">                    .andExpect(status().isForbidden());</span>
+<span class="fc" id="L235">            assertEquals(0, databaseSizeChange());</span>
+<span class="fc" id="L236">        }</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeServiceTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.services</a> &gt; <span class="el_source">TradeServiceTests.java</span></div><h1>TradeServiceTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.services;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.services.TradeService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = TradeService.class)
+<span class="fc" id="L22">public class TradeServiceTests extends TestVariables {</span>
+
+    @Autowired
+    TradeService tradeService;
+
+    @MockBean
+    private TradeRepository tradeRepository;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L32">        initializeVariables();</span>
+<span class="fc" id="L33">        trade.setId(1);</span>
+<span class="fc" id="L34">        when(tradeRepository.findAll()).thenReturn(tradeList);</span>
+<span class="fc" id="L35">        when(tradeRepository.findById(any(Integer.class))).thenReturn(tradeOptional);</span>
+<span class="fc" id="L36">    }</span>
+
+    @Test
+<span class="fc" id="L39">    public void ContextLoads() {}</span>
+
+    @Test
+    public void findAllTest() {
+<span class="fc" id="L43">        assertEquals(tradeList, tradeService.findAll());</span>
+<span class="fc" id="L44">        verify(tradeRepository, Mockito.times(1)).findAll();</span>
+<span class="fc" id="L45">    }</span>
+    
+    @Test
+    public void findByIdTest() {
+<span class="fc" id="L49">        assertEquals(tradeOptional, tradeService.findById(trade.getId()));</span>
+<span class="fc" id="L50">        verify(tradeRepository, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L51">    }</span>
+    @Test
+    public void findByIdTestIfNotFound() {
+<span class="fc" id="L54">        when(tradeRepository.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="fc" id="L55">        assertEquals(Optional.empty(), tradeService.findById(trade.getId()));</span>
+<span class="fc" id="L56">        verify(tradeRepository, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L57">    }</span>
+    @Test
+    public void findByIdTestIfIdNotValid() {
+<span class="pc" id="L60">        assertThrows(IllegalArgumentException.class, () -&gt; tradeService.findById(null));</span>
+<span class="fc" id="L61">        verify(tradeRepository, Mockito.times(0)).findById(any(Integer.class));</span>
+<span class="fc" id="L62">    }</span>
+
+    @Test
+    public void deleteByIdTest() {
+<span class="fc" id="L66">        tradeService.deleteById(trade.getId());</span>
+<span class="fc" id="L67">        verify(tradeRepository, Mockito.times(1)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L68">    }</span>
+    @Test
+    public void deleteByIdTestIfIdNotValid() {
+<span class="pc" id="L71">        assertThrows(IllegalArgumentException.class, () -&gt; tradeService.deleteById(null));</span>
+<span class="fc" id="L72">        verify(tradeRepository, Mockito.times(0)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L73">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

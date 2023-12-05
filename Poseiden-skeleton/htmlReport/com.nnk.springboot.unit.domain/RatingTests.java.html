@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.*;
         {
             @Test
             public void ValidationTestIfFitchRatingSize () {
-<span class="fc" id="L47">                rating.setFitchRating(longString);</span>
+<span class="fc" id="L47">                rating.setFitchRating(longString126);</span>
 <span class="fc" id="L48">                Set&lt;ConstraintViolation&lt;Rating&gt;&gt; result = validator.validate(rating);</span>
 <span class="fc" id="L49">                assertEquals(1, result.size());</span>
 <span class="fc" id="L50">                ConstraintViolation&lt;Rating&gt; constraintViolation = (ConstraintViolation&lt;Rating&gt;) result.toArray()[0];</span>
@@ -58,7 +58,7 @@ import static org.junit.jupiter.api.Assertions.*;
         {
             @Test
             public void ValidationTestIfMoodysRatingSize () {
-<span class="fc" id="L61">                rating.setMoodysRating(longString);</span>
+<span class="fc" id="L61">                rating.setMoodysRating(longString126);</span>
 <span class="fc" id="L62">                Set&lt;ConstraintViolation&lt;Rating&gt;&gt; result = validator.validate(rating);</span>
 <span class="fc" id="L63">                assertEquals(1, result.size());</span>
 <span class="fc" id="L64">                ConstraintViolation&lt;Rating&gt; constraintViolation = (ConstraintViolation&lt;Rating&gt;) result.toArray()[0];</span>
@@ -96,7 +96,7 @@ import static org.junit.jupiter.api.Assertions.*;
         {
             @Test
             public void ValidationTestIfSandPRatingSize () {
-<span class="fc" id="L99">                rating.setSandPRating(longString);</span>
+<span class="fc" id="L99">                rating.setSandPRating(longString126);</span>
 <span class="fc" id="L100">                Set&lt;ConstraintViolation&lt;Rating&gt;&gt; result = validator.validate(rating);</span>
 <span class="fc" id="L101">                assertEquals(1, result.size());</span>
 <span class="fc" id="L102">                ConstraintViolation&lt;Rating&gt; constraintViolation = (ConstraintViolation&lt;Rating&gt;) result.toArray()[0];</span>

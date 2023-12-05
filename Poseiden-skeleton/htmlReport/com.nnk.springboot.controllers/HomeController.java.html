@@ -1,24 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">HomeController.java</span></div><h1>HomeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.nnk.springboot.domain.User;
+
+import java.util.Collection;
 
 @Controller
-<span class="fc" id="L8">public class HomeController</span>
+<span class="fc" id="L17">public class HomeController</span>
 {
+	@Autowired
+	UserService userService;
+
 	@RequestMapping(&quot;/&quot;)
-	public String home(Model model)
+	public String home(Model model, HttpServletRequest request, Authentication authentication)
 	{
-<span class="nc" id="L13">		return &quot;home&quot;;</span>
+<span class="fc" id="L25">		User remoteUser = userService.findByUsername(request.getRemoteUser());</span>
+<span class="fc" id="L26">		request.getSession().setAttribute(&quot;remoteUser&quot;, remoteUser.getUsername());</span>
+<span class="fc" id="L27">		Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
+<span class="pc bpc" id="L28" title="1 of 4 branches missed.">		if(authorities!=null &amp;&amp; !authorities.isEmpty()) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">			if (authorities.contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
+<span class="fc" id="L30">				return &quot;redirect:/admin/home&quot;;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">			} else if (authorities.contains(new SimpleGrantedAuthority(&quot;USER&quot;))) {</span>
+<span class="fc" id="L32">				return &quot;redirect:/user/home&quot;;</span>
+			}
+		}
+<span class="fc" id="L35">		return &quot;403&quot;;</span>
 	}
 
 	@RequestMapping(&quot;/admin/home&quot;)
 	public String adminHome(Model model)
 	{
-<span class="nc" id="L19">		return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L41">		return &quot;redirect:/user/list&quot;;</span>
 	}
 
+	@RequestMapping(&quot;/user/home&quot;)
+	public String userHome(Model model)
+	{
+<span class="fc" id="L47">		return &quot;redirect:/bidList/list&quot;;</span>
+	}
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

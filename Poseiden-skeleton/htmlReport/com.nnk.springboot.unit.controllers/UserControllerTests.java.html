@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserControllerTests.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.unit.controllers</a> &gt; <span class="el_source">UserControllerTests.java</span></div><h1>UserControllerTests.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.unit.controllers;
+
+import com.nnk.springboot.TestVariables;
+import com.nnk.springboot.config.CustomUserDetails;
+import com.nnk.springboot.controllers.UserController;
+import com.nnk.springboot.domain.User;
+import com.nnk.springboot.services.UserService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.validation.BindingResult;
+
+import java.util.Collection;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = UserController.class)
+<span class="fc" id="L29">public class UserControllerTests extends TestVariables {</span>
+    
+    @Autowired
+    UserController userController;
+    
+    @MockBean
+    private UserService userService;
+    
+    @MockBean
+    private BindingResult bindingResult;
+
+    @BeforeEach
+    public void setUpPerTest() {
+<span class="fc" id="L42">        initializeVariables();</span>
+<span class="fc" id="L43">        rating.setId(1);</span>
+
+<span class="fc" id="L45">        when(userService.findAll()).thenReturn(userList);</span>
+<span class="fc" id="L46">        when(userService.findById(any(Integer.class))).thenReturn(userOptional);</span>
+<span class="fc" id="L47">        when(userService.findByUsername(any(String.class))).thenReturn(user);</span>
+<span class="fc" id="L48">        when(bindingResult.hasErrors()).thenReturn(false);</span>
+<span class="fc" id="L49">    }</span>
+
+    @Test
+<span class="fc" id="L52">    public void ContextLoads() {}</span>
+
+    @Nested
+<span class="fc" id="L55">    public class homeTests</span>
+    {
+        @Test
+        public void homeTest () {
+<span class="fc" id="L59">            assertEquals(&quot;user/list&quot;, userController.home(model));</span>
+<span class="fc" id="L60">            verify(userService, Mockito.times(1)).findAll();</span>
+<span class="fc" id="L61">        }</span>
+    }
+    
+    @Nested
+<span class="fc" id="L65">    public class addUserTests</span>
+    {
+        @Test
+        public void addUserTest () {
+<span class="fc" id="L69">            assertEquals(&quot;user/add&quot;, userController.addUser(user));</span>
+<span class="fc" id="L70">        }</span>
+        @Test
+        public void addUserTestIfEmpty () {
+<span class="fc" id="L73">            assertEquals(&quot;user/add&quot;, userController.addUser(new User()));</span>
+<span class="fc" id="L74">        }</span>
+        @Test
+        public void addUserTestIfNull () {
+<span class="fc" id="L77">            assertEquals(&quot;user/add&quot;, userController.addUser(null));</span>
+<span class="fc" id="L78">        }</span>
+    }
+    
+    @Nested
+<span class="fc" id="L82">    public class validateTests</span>
+    {
+        @Test
+        public void validateTest () {
+<span class="fc" id="L86">            assertEquals(&quot;redirect:/user/list&quot;, userController.validate(user, bindingResult, model));</span>
+<span class="fc" id="L87">            verify(userService, Mockito.times(1)).save(any(User.class));</span>
+<span class="fc" id="L88">            verify(userService, Mockito.times(1)).findAll();</span>
+<span class="fc" id="L89">        }</span>
+
+        @Test
+        public void validateTestIfIncorrectUser () {
+<span class="fc" id="L93">            when(bindingResult.hasErrors()).thenReturn(true);</span>
+<span class="fc" id="L94">            assertEquals(&quot;user/add&quot;, userController.validate(user, bindingResult, model));</span>
+<span class="fc" id="L95">            verify(userService, Mockito.times(0)).save(any(User.class));</span>
+<span class="fc" id="L96">            verify(userService, Mockito.times(0)).findAll();</span>
+<span class="fc" id="L97">        }</span>
+
+        @Test
+        public void validateTestIfIncorrectPassword () {
+<span class="fc" id="L101">            user.setPassword(passwordIncorrect);</span>
+<span class="fc" id="L102">            assertEquals(&quot;user/add&quot;, userController.validate(user, bindingResult, model));</span>
+<span class="fc" id="L103">            verify(userService, Mockito.times(0)).save(any(User.class));</span>
+<span class="fc" id="L104">            verify(userService, Mockito.times(0)).findAll();</span>
+<span class="fc" id="L105">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L109">    public class showUpdateFormTests</span>
+    {
+        @Test
+        public void showUpdateFormTest () {
+<span class="fc" id="L113">            assertEquals(&quot;user/update&quot;, userController.showUpdateForm(1, model, authentication));</span>
+<span class="fc" id="L114">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L115">        }</span>
+
+        @Test
+        public void showUpdateFormTestIfUserNotFound () {
+<span class="fc" id="L119">            when(userService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="pc" id="L120">            assertThrows(IllegalArgumentException.class, () -&gt; userController.showUpdateForm(user.getId(), model, authentication));</span>
+<span class="fc" id="L121">            verify(userService, Mockito.times(1)).findById(null);</span>
+<span class="fc" id="L122">        }</span>
+
+        @Test
+        public void showUpdateFormTestIfRequestByAdmin () {
+<span class="fc" id="L126">            user.setRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L127">            assertEquals(&quot;user/update&quot;, userController.showUpdateForm(1, model, authentication));</span>
+<span class="fc" id="L128">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L129">        }</span>
+
+        @Test
+        public void showUpdateFormTestIfRequestByAnotherUser () {
+
+<span class="fc" id="L134">            authentication = new Authentication() {</span>
+                @Override
+                public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="fc" id="L137">                    return new CustomUserDetails(user).getAuthorities();</span>
+                }
+
+                @Override
+                public Object getCredentials() {
+<span class="nc" id="L142">                    return null;</span>
+                }
+
+                @Override
+                public Object getDetails() {
+<span class="nc" id="L147">                    return null;</span>
+                }
+
+                @Override
+                public Object getPrincipal() {
+<span class="nc" id="L152">                    return null;</span>
+                }
+
+                @Override
+                public boolean isAuthenticated() {
+<span class="nc" id="L157">                    return false;</span>
+                }
+
+                @Override
+                public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+
+<span class="nc" id="L163">                }</span>
+
+                @Override
+                public String getName() {
+<span class="fc" id="L167">                    return &quot;notTheRightUsername&quot;;</span>
+                }
+            };
+<span class="fc" id="L170">            assertEquals(&quot;403&quot;, userController.showUpdateForm(1, model, authentication));</span>
+<span class="fc" id="L171">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L172">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L176">    public class updateUserTests</span>
+    {
+        @Test
+        public void updateUserTest () {
+<span class="fc" id="L180">            assertEquals(&quot;redirect:/user/list&quot;, userController.updateUser(1, user, bindingResult, model, authentication));</span>
+<span class="fc" id="L181">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L182">            verify(userService, Mockito.times(1)).save(any(User.class));</span>
+<span class="fc" id="L183">        }</span>
+
+        @Test
+        public void updateUserTestIfInvalidUser () {
+<span class="fc" id="L187">            when(bindingResult.hasErrors()).thenReturn(true);</span>
+<span class="fc" id="L188">            assertEquals(&quot;user/update&quot;, userController.updateUser(1, user, bindingResult, model, authentication));</span>
+<span class="fc" id="L189">            verify(userService, Mockito.times(0)).findById(any(Integer.class));</span>
+<span class="fc" id="L190">            verify(userService, Mockito.times(0)).save(any(User.class));</span>
+<span class="fc" id="L191">        }</span>
+
+        @Test
+        public void updateUserTestIfInvalidPassword () {
+<span class="fc" id="L195">            user.setPassword(passwordIncorrect);</span>
+<span class="fc" id="L196">            assertEquals(&quot;user/update&quot;, userController.updateUser(1, user, bindingResult, model, authentication));</span>
+<span class="fc" id="L197">            verify(userService, Mockito.times(0)).findById(any(Integer.class));</span>
+<span class="fc" id="L198">            verify(userService, Mockito.times(0)).save(any(User.class));</span>
+<span class="fc" id="L199">        }</span>
+
+        @Test
+        public void updateUserTestIfUserNotInDB () {
+<span class="fc" id="L203">            when(userService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="fc" id="L204">            assertEquals(&quot;user/update&quot;, userController.updateUser(1, user, bindingResult, model, authentication));</span>
+<span class="fc" id="L205">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L206">            verify(userService, Mockito.times(0)).save(any(User.class));</span>
+<span class="fc" id="L207">        }</span>
+
+        @Test
+        public void updateUserTestIfRequestByAdmin () {
+<span class="fc" id="L211">            user.setRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L212">            assertEquals(&quot;redirect:/user/list&quot;, userController.updateUser(1, user, bindingResult, model, authentication));</span>
+<span class="fc" id="L213">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L214">            verify(userService, Mockito.times(1)).save(any(User.class));</span>
+<span class="fc" id="L215">        }</span>
+
+        @Test
+        public void updateUserTestIfRequestByAnotherUser () {
+
+<span class="fc" id="L220">            authentication = new Authentication() {</span>
+                @Override
+                public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="fc" id="L223">                    return new CustomUserDetails(user).getAuthorities();</span>
+                }
+
+                @Override
+                public Object getCredentials() {
+<span class="nc" id="L228">                    return null;</span>
+                }
+
+                @Override
+                public Object getDetails() {
+<span class="nc" id="L233">                    return null;</span>
+                }
+
+                @Override
+                public Object getPrincipal() {
+<span class="nc" id="L238">                    return null;</span>
+                }
+
+                @Override
+                public boolean isAuthenticated() {
+<span class="nc" id="L243">                    return false;</span>
+                }
+
+                @Override
+                public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+
+<span class="nc" id="L249">                }</span>
+
+                @Override
+                public String getName() {
+<span class="fc" id="L253">                    return &quot;notTheRightUsername&quot;;</span>
+                }
+            };
+<span class="fc" id="L256">            assertEquals(&quot;403&quot;, userController.updateUser(1, user, bindingResult, model, authentication));</span>
+<span class="fc" id="L257">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L258">            verify(userService, Mockito.times(0)).save(any(User.class));</span>
+<span class="fc" id="L259">        }</span>
+    }
+
+    @Nested
+<span class="fc" id="L263">    public class deleteUserTests</span>
+    {
+        @Test
+        public void deleteUserTest () {
+<span class="fc" id="L267">            assertEquals(&quot;redirect:/user/list&quot;, userController.deleteUser(1, model));</span>
+<span class="fc" id="L268">            verify(userService, Mockito.times(1)).findById(any(Integer.class));</span>
+<span class="fc" id="L269">            verify(userService, Mockito.times(1)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L270">            verify(userService, Mockito.times(1)).findAll();</span>
+<span class="fc" id="L271">        }</span>
+
+        @Test
+        public void deleteUserTestIfUserNotFound () {
+<span class="fc" id="L275">            when(userService.findById(any(Integer.class))).thenReturn(Optional.empty());</span>
+<span class="pc" id="L276">            assertThrows(IllegalArgumentException.class, () -&gt; userController.deleteUser(user.getId(), model));</span>
+<span class="fc" id="L277">            verify(userService, Mockito.times(1)).findById(null);</span>
+<span class="fc" id="L278">            verify(userService, Mockito.times(0)).deleteById(any(Integer.class));</span>
+<span class="fc" id="L279">            verify(userService, Mockito.times(0)).findAll();</span>
+<span class="fc" id="L280">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
