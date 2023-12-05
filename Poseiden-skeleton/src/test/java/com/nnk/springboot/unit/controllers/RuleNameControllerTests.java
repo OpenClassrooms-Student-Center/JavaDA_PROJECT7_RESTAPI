@@ -79,7 +79,7 @@ public class RuleNameControllerTests extends TestVariables {
     {
         @Test
         public void validateTest () {
-            assertEquals("ruleName/add", ruleNameController.validate(ruleName, bindingResult, model));
+            assertEquals("redirect:/ruleName/list", ruleNameController.validate(ruleName, bindingResult, model));
             verify(ruleNameService, Mockito.times(1)).save(any(RuleName.class));
         }
         @Test

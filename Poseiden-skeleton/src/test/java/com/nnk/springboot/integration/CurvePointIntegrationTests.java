@@ -113,7 +113,7 @@ public class CurvePointIntegrationTests extends TestVariables {
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(curvePoint.toString()))
-                    .andExpect(status().is2xxSuccessful());
+                    .andExpect(status().is3xxRedirection());
             assertEquals(1, databaseSizeChange());
         }
         /*@Test

@@ -79,7 +79,7 @@ public class RatingControllerTests extends TestVariables {
     {
         @Test
         public void validateTest () {
-            assertEquals("rating/add", ratingController.validate(rating, bindingResult, model));
+            assertEquals("redirect:/rating/list", ratingController.validate(rating, bindingResult, model));
             verify(ratingService, Mockito.times(1)).save(any(Rating.class));
         }
         @Test

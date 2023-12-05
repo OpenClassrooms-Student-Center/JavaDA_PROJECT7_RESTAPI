@@ -43,6 +43,7 @@ public class RatingController {
         // TODO: check data valid and save to db, after saving return Rating list
         if(!result.hasErrors()) {
             ratingService.save(rating);
+            return "redirect:/rating/list";
         }
         return "rating/add";
     }

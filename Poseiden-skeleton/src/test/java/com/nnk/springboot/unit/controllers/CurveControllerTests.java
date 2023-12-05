@@ -79,7 +79,7 @@ public class CurveControllerTests extends TestVariables {
     {
         @Test
         public void validateTest () {
-            assertEquals("curvePoint/add", curveController.validate(curvePoint, bindingResult, model));
+            assertEquals("redirect:/curvePoint/list", curveController.validate(curvePoint, bindingResult, model));
             verify(curvePointService, Mockito.times(1)).save(any(CurvePoint.class));
         }
         @Test
