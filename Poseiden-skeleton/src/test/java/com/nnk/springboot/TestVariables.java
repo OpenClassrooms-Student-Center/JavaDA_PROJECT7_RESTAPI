@@ -698,7 +698,7 @@ public abstract class TestVariables {
         ruleNameSqlStrSize = "sqlStr should be less than 126 characters";
         ruleNameSqlPartSize = "sqlPart should be less than 126 characters";
 
-        trade = new Trade("accountTestValue", "typeTestValue");
+        trade = new Trade("accountTestValue", "typeTestValue", 10.0);
         tradeList = new ArrayList<>(List.of(trade));
         tradeOptional = Optional.of(trade);
 
