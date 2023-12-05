@@ -1,0 +1,38 @@
+package com.nnk.springboot.services;
+
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.TradeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class TradeService {
+
+    @Autowired
+    TradeRepository tradeRepository;
+
+    public List<Trade> findAll() {
+        return tradeRepository.findAll();
+    }
+
+    public Optional<Trade> findById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+        return tradeRepository.findById(id);
+    }
+
+    public void deleteById(Integer id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+        tradeRepository.deleteById(id);
+    }
+
+    public void save(Trade trade) {
+        tradeRepository.save(trade);
+    }
+}
