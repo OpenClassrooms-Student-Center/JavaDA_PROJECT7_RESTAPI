@@ -71,8 +71,7 @@ public class BidListIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests
-    {
+    public class homeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -85,8 +84,7 @@ public class BidListIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addBidListFormTests
-    {
+    public class addBidListFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addBidListFormTest () throws Exception {
@@ -103,8 +101,7 @@ public class BidListIntegrationTests extends TestVariables {
         }
     }
     @Nested
-    public class validateTests
-    {
+    public class validateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -139,8 +136,7 @@ public class BidListIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests
-    {
+    public class showUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -166,8 +162,7 @@ public class BidListIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateBidListTests
-    {
+    public class updateBidListTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateBidListTest () throws Exception {
@@ -210,8 +205,7 @@ public class BidListIntegrationTests extends TestVariables {
         }
     }
     @Nested
-    public class deleteBidListTests
-    {
+    public class deleteBidListTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteBidListTest () throws Exception {

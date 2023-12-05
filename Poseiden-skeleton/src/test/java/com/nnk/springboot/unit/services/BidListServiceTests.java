@@ -4,6 +4,7 @@ import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.repositories.BidListRepository;
 import com.nnk.springboot.services.BidListService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,37 +39,49 @@ public class BidListServiceTests extends TestVariables {
     @Test
     public void ContextLoads() {}
 
-    @Test
-    public void findAllTest() {
-        assertEquals(bidListList, bidListService.findAll());
-        verify(bidListRepository, Mockito.times(1)).findAll();
-    }
-    
-    @Test
-    public void findByIdTest() {
-        assertEquals(bidListOptional, bidListService.findById(bidList.getId()));
-        verify(bidListRepository, Mockito.times(1)).findById(any(Integer.class));
-    }
-    @Test
-    public void findByIdTestIfNotFound() {
-        when(bidListRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
-        assertEquals(Optional.empty(), bidListService.findById(bidList.getId()));
-        verify(bidListRepository, Mockito.times(1)).findById(any(Integer.class));
-    }
-    @Test
-    public void findByIdTestIfIdNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> bidListService.findById(null));
-        verify(bidListRepository, Mockito.times(0)).findById(any(Integer.class));
+    @Nested
+    public class findAllTests {
+        @Test
+        public void findAllTest() {
+            assertEquals(bidListList, bidListService.findAll());
+            verify(bidListRepository, Mockito.times(1)).findAll();
+        }
     }
 
-    @Test
-    public void deleteByIdTest() {
-        bidListService.deleteById(bidList.getId());
-        verify(bidListRepository, Mockito.times(1)).deleteById(any(Integer.class));
+    @Nested
+    public class findByIdTests {
+        @Test
+        public void findByIdTest() {
+            assertEquals(bidListOptional, bidListService.findById(bidList.getId()));
+            verify(bidListRepository, Mockito.times(1)).findById(any(Integer.class));
+        }
+
+        @Test
+        public void findByIdTestIfNotFound() {
+            when(bidListRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+            assertEquals(Optional.empty(), bidListService.findById(bidList.getId()));
+            verify(bidListRepository, Mockito.times(1)).findById(any(Integer.class));
+        }
+
+        @Test
+        public void findByIdTestIfIdNotValid() {
+            assertThrows(IllegalArgumentException.class, () -> bidListService.findById(null));
+            verify(bidListRepository, Mockito.times(0)).findById(any(Integer.class));
+        }
     }
-    @Test
-    public void deleteByIdTestIfIdNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> bidListService.deleteById(null));
-        verify(bidListRepository, Mockito.times(0)).deleteById(any(Integer.class));
+
+    @Nested
+    public class deleteByIdTests {
+        @Test
+        public void deleteByIdTest() {
+            bidListService.deleteById(bidList.getId());
+            verify(bidListRepository, Mockito.times(1)).deleteById(any(Integer.class));
+        }
+
+        @Test
+        public void deleteByIdTestIfIdNotValid() {
+            assertThrows(IllegalArgumentException.class, () -> bidListService.deleteById(null));
+            verify(bidListRepository, Mockito.times(0)).deleteById(any(Integer.class));
+        }
     }
 }

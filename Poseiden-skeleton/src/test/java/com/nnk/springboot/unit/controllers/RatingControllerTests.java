@@ -48,8 +48,7 @@ public class RatingControllerTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class HomeTests
-    {
+    public class HomeTests {
         @Test
         public void homeTest () {
             assertEquals("rating/list", ratingController.home(model));
@@ -58,8 +57,7 @@ public class RatingControllerTests extends TestVariables {
     }
 
     @Nested
-    public class AddTests
-    {
+    public class AddRatingFormTests {
         @Test
         public void addRatingFormTest () {
             assertEquals("rating/add", ratingController.addRatingForm(rating));
@@ -75,8 +73,7 @@ public class RatingControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ValidateTests
-    {
+    public class ValidateTests {
         @Test
         public void validateTest () {
             assertEquals("redirect:/rating/list", ratingController.validate(rating, bindingResult, model));
@@ -91,8 +88,7 @@ public class RatingControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ShowUpdateTests
-    {
+    public class ShowUpdateFormTests {
         @Test
         public void showUpdateFormTest () {
             assertEquals("rating/update", ratingController.showUpdateForm(rating.getId(), model));
@@ -107,8 +103,7 @@ public class RatingControllerTests extends TestVariables {
     }
 
     @Nested
-    public class UpdateRatingTests
-    {
+    public class UpdateRatingTests {
         @Test
         public void updateRatingTest () {
             assertEquals("redirect:/rating/list", ratingController.updateRating(rating.getId(), rating, bindingResult, model));
@@ -132,8 +127,7 @@ public class RatingControllerTests extends TestVariables {
     }
 
     @Nested
-    public class DeleteRatingTests
-    {
+    public class DeleteRatingTests {
         @Test
         public void deleteRatingTest () {
             assertEquals("redirect:/rating/list", ratingController.deleteRating(rating.getId(), model));

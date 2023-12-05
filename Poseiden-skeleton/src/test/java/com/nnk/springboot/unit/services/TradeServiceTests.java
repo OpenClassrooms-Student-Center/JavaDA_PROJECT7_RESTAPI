@@ -4,6 +4,7 @@ import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.services.TradeService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,37 +39,49 @@ public class TradeServiceTests extends TestVariables {
     @Test
     public void ContextLoads() {}
 
-    @Test
-    public void findAllTest() {
-        assertEquals(tradeList, tradeService.findAll());
-        verify(tradeRepository, Mockito.times(1)).findAll();
-    }
-    
-    @Test
-    public void findByIdTest() {
-        assertEquals(tradeOptional, tradeService.findById(trade.getId()));
-        verify(tradeRepository, Mockito.times(1)).findById(any(Integer.class));
-    }
-    @Test
-    public void findByIdTestIfNotFound() {
-        when(tradeRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
-        assertEquals(Optional.empty(), tradeService.findById(trade.getId()));
-        verify(tradeRepository, Mockito.times(1)).findById(any(Integer.class));
-    }
-    @Test
-    public void findByIdTestIfIdNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> tradeService.findById(null));
-        verify(tradeRepository, Mockito.times(0)).findById(any(Integer.class));
+    @Nested
+    public class findAllTests {
+        @Test
+        public void findAllTest() {
+            assertEquals(tradeList, tradeService.findAll());
+            verify(tradeRepository, Mockito.times(1)).findAll();
+        }
     }
 
-    @Test
-    public void deleteByIdTest() {
-        tradeService.deleteById(trade.getId());
-        verify(tradeRepository, Mockito.times(1)).deleteById(any(Integer.class));
+    @Nested
+    public class findByIdTests {
+        @Test
+        public void findByIdTest() {
+            assertEquals(tradeOptional, tradeService.findById(trade.getId()));
+            verify(tradeRepository, Mockito.times(1)).findById(any(Integer.class));
+        }
+
+        @Test
+        public void findByIdTestIfNotFound() {
+            when(tradeRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+            assertEquals(Optional.empty(), tradeService.findById(trade.getId()));
+            verify(tradeRepository, Mockito.times(1)).findById(any(Integer.class));
+        }
+
+        @Test
+        public void findByIdTestIfIdNotValid() {
+            assertThrows(IllegalArgumentException.class, () -> tradeService.findById(null));
+            verify(tradeRepository, Mockito.times(0)).findById(any(Integer.class));
+        }
     }
-    @Test
-    public void deleteByIdTestIfIdNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> tradeService.deleteById(null));
-        verify(tradeRepository, Mockito.times(0)).deleteById(any(Integer.class));
+
+    @Nested
+    public class deleteByIdTests {
+        @Test
+        public void deleteByIdTest() {
+            tradeService.deleteById(trade.getId());
+            verify(tradeRepository, Mockito.times(1)).deleteById(any(Integer.class));
+        }
+
+        @Test
+        public void deleteByIdTestIfIdNotValid() {
+            assertThrows(IllegalArgumentException.class, () -> tradeService.deleteById(null));
+            verify(tradeRepository, Mockito.times(0)).deleteById(any(Integer.class));
+        }
     }
 }

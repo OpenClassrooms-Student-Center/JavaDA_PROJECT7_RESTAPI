@@ -29,8 +29,7 @@ public class LoginControllerIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class loginTests
-    {
+    public class loginTests {
         @Test
         public void loginTest () throws Exception {
             mockMvc.perform(get("/login"))
@@ -39,8 +38,7 @@ public class LoginControllerIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class getAllUserArticlesTests
-    {
+    public class getAllUserArticlesTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void getAllUserArticlesTest () throws Exception {
@@ -56,8 +54,7 @@ public class LoginControllerIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class errorTests
-    {
+    public class errorTests {
         @Test
         @WithMockUser(username = "USERNAME")
         public void errorTest () throws Exception {

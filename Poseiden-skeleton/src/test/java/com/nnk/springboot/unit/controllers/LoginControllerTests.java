@@ -32,8 +32,7 @@ public class LoginControllerTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class LoginTests
-    {
+    public class LoginTests {
         @Test
         public void loginTest () {
             mav.setViewName("login");
@@ -42,8 +41,7 @@ public class LoginControllerTests extends TestVariables {
     }
 
     @Nested
-    public class GetAllUserArticlesTests
-    {
+    public class GetAllUserArticlesTests {
         @Test
         public void getAllUserArticlesTest () {
             mav.addObject("users", userList);
@@ -53,8 +51,7 @@ public class LoginControllerTests extends TestVariables {
     }
     
     @Nested
-    public class ErrorTests
-    {
+    public class ErrorTests {
         @Test
         public void errorTest () {
             String errorMessage= "You are not authorized for the requested data.";

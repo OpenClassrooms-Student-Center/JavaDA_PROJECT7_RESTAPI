@@ -58,7 +58,7 @@ public class BidListControllerTests extends TestVariables {
     }
 
     @Nested
-    public class AddTests
+    public class AddBidListFormTests
     {
         @Test
         public void addBidListFormTest () {
@@ -91,7 +91,7 @@ public class BidListControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ShowUpdateTests
+    public class ShowUpdateFormTests
     {
         @Test
         public void showUpdateFormTest () {

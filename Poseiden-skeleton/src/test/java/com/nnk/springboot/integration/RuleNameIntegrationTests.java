@@ -74,8 +74,7 @@ public class RuleNameIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests
-    {
+    public class homeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -88,8 +87,7 @@ public class RuleNameIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addRuleNameFormTests
-    {
+    public class addRuleNameFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addRuleNameFormTest () throws Exception {
@@ -105,9 +103,9 @@ public class RuleNameIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class validateTests
-    {
+    public class validateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -142,8 +140,7 @@ public class RuleNameIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests
-    {
+    public class showUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -169,8 +166,7 @@ public class RuleNameIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateRuleNameTests
-    {
+    public class updateRuleNameTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateRuleNameTest () throws Exception {
@@ -212,9 +208,9 @@ public class RuleNameIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class deleteRuleNameTests
-    {
+    public class deleteRuleNameTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteRuleNameTest () throws Exception {

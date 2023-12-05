@@ -29,8 +29,7 @@ public class HomeControllerIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests
-    {
+    public class homeTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void homeTestIfAdmin () throws Exception {
@@ -57,8 +56,7 @@ public class HomeControllerIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class adminHomeTests
-    {
+    public class adminHomeTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void adminHomeTest () throws Exception {

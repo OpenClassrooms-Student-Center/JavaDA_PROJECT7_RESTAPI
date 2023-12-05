@@ -58,8 +58,7 @@ public class RuleNameControllerTests extends TestVariables {
     }
 
     @Nested
-    public class AddTests
-    {
+    public class AddRuleNameFormTests {
         @Test
         public void addRuleNameFormTest () {
             assertEquals("ruleName/add", ruleNameController.addRuleNameForm(ruleName));
@@ -75,8 +74,7 @@ public class RuleNameControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ValidateTests
-    {
+    public class ValidateTests {
         @Test
         public void validateTest () {
             assertEquals("redirect:/ruleName/list", ruleNameController.validate(ruleName, bindingResult, model));
@@ -91,8 +89,7 @@ public class RuleNameControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ShowUpdateTests
-    {
+    public class ShowUpdateFormTests {
         @Test
         public void showUpdateFormTest () {
             assertEquals("ruleName/update", ruleNameController.showUpdateForm(ruleName.getId(), model));
@@ -107,8 +104,7 @@ public class RuleNameControllerTests extends TestVariables {
     }
 
     @Nested
-    public class UpdateRuleNameTests
-    {
+    public class UpdateRuleNameTests {
         @Test
         public void updateRuleNameTest () {
             assertEquals("redirect:/ruleName/list", ruleNameController.updateRuleName(ruleName.getId(), ruleName, bindingResult, model));
@@ -132,8 +128,7 @@ public class RuleNameControllerTests extends TestVariables {
     }
 
     @Nested
-    public class DeleteRuleNameTests
-    {
+    public class DeleteRuleNameTests {
         @Test
         public void deleteRuleNameTest () {
             assertEquals("redirect:/ruleName/list", ruleNameController.deleteRuleName(ruleName.getId(), model));

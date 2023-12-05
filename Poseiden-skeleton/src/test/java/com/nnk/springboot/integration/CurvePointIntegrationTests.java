@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,8 +71,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests
-    {
+    public class homeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -86,8 +84,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addCurvePointFormTests
-    {
+    public class addCurvePointFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addCurvePointFormTest () throws Exception {
@@ -103,9 +100,9 @@ public class CurvePointIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class validateTests
-    {
+    public class validateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -116,17 +113,6 @@ public class CurvePointIntegrationTests extends TestVariables {
                     .andExpect(status().is3xxRedirection());
             assertEquals(1, databaseSizeChange());
         }
-        /*@Test
-        @WithMockUser(authorities = "USER")
-        public void validateTestIfInvalidCurvePoint () throws Exception {
-            curvePoint.setCreationDate(new Timestamp(System.currentTimeMillis() + 999999));
-            mockMvc.perform(post("/curvePoint/validate")
-                            .with(csrf())
-                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                            .content(curvePoint.toString()))
-                    .andExpect(status().is2xxSuccessful());
-            assertEquals(0, databaseSizeChange());
-        }*/
         @Test
         @WithMockUser
         public void validateTestIfNotAuthorized () throws Exception {
@@ -140,8 +126,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests
-    {
+    public class showUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -167,8 +152,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateCurvePointTests
-    {
+    public class updateCurvePointTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateCurvePointTest () throws Exception {
@@ -179,17 +163,6 @@ public class CurvePointIntegrationTests extends TestVariables {
                     .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
-        /*@Test
-        @WithMockUser(authorities = "USER")
-        public void updateCurvePointTestIfInvalidCurvePoint () throws Exception {
-            curvePoint.setCreationDate(new Timestamp(System.currentTimeMillis() + 999999));
-            mockMvc.perform(post("/curvePoint/update/" + curvePointId)
-                            .with(csrf())
-                            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                            .content(curvePoint.toString()))
-                    .andExpect(status().is3xxRedirection());
-            assertEquals(0, databaseSizeChange());
-        }*/
         @Test
         @WithMockUser(authorities = "USER")
         public void updateCurvePointTestIfNotInDb () {
@@ -210,9 +183,9 @@ public class CurvePointIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class deleteCurvePointTests
-    {
+    public class deleteCurvePointTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteCurvePointTest () throws Exception {

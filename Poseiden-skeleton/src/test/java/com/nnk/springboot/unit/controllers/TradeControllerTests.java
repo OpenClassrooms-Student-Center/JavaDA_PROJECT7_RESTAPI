@@ -48,8 +48,7 @@ public class TradeControllerTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class HomeTests
-    {
+    public class HomeTests {
         @Test
         public void homeTest () {
             assertEquals("trade/list", tradeController.home(model));
@@ -58,8 +57,7 @@ public class TradeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class AddTests
-    {
+    public class AddTradeFormTests {
         @Test
         public void addTradeFormTest () {
             assertEquals("trade/add", tradeController.addTradeForm(trade));
@@ -75,8 +73,7 @@ public class TradeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ValidateTests
-    {
+    public class ValidateTests {
         @Test
         public void validateTest () {
             assertEquals("redirect:/trade/list", tradeController.validate(trade, bindingResult, model));
@@ -91,8 +88,7 @@ public class TradeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ShowUpdateTests
-    {
+    public class ShowUpdateFormTests {
         @Test
         public void showUpdateFormTest () {
             assertEquals("trade/update", tradeController.showUpdateForm(trade.getId(), model));
@@ -107,8 +103,7 @@ public class TradeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class UpdateTradeTests
-    {
+    public class UpdateTradeTests {
         @Test
         public void updateTradeTest () {
             assertEquals("redirect:/trade/list", tradeController.updateTrade(trade.getId(), trade, bindingResult, model));
@@ -132,8 +127,7 @@ public class TradeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class DeleteTradeTests
-    {
+    public class DeleteTradeTests {
         @Test
         public void deleteTradeTest () {
             assertEquals("redirect:/trade/list", tradeController.deleteTrade(trade.getId(), model));

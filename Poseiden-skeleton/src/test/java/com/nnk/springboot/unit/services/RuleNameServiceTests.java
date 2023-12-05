@@ -4,6 +4,7 @@ import com.nnk.springboot.TestVariables;
 import com.nnk.springboot.repositories.RuleNameRepository;
 import com.nnk.springboot.services.RuleNameService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,39 +37,52 @@ public class RuleNameServiceTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
-
-    @Test
-    public void findAllTest() {
-        assertEquals(ruleNameList, ruleNameService.findAll());
-        verify(ruleNameRepository, Mockito.times(1)).findAll();
-    }
-    
-    @Test
-    public void findByIdTest() {
-        assertEquals(ruleNameOptional, ruleNameService.findById(ruleName.getId()));
-        verify(ruleNameRepository, Mockito.times(1)).findById(any(Integer.class));
-    }
-    @Test
-    public void findByIdTestIfNotFound() {
-        when(ruleNameRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
-        assertEquals(Optional.empty(), ruleNameService.findById(ruleName.getId()));
-        verify(ruleNameRepository, Mockito.times(1)).findById(any(Integer.class));
-    }
-    @Test
-    public void findByIdTestIfIdNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> ruleNameService.findById(null));
-        verify(ruleNameRepository, Mockito.times(0)).findById(any(Integer.class));
+    public void ContextLoads() {
     }
 
-    @Test
-    public void deleteByIdTest() {
-        ruleNameService.deleteById(ruleName.getId());
-        verify(ruleNameRepository, Mockito.times(1)).deleteById(any(Integer.class));
+    @Nested
+    public class findAllTests {
+        @Test
+        public void findAllTest() {
+            assertEquals(ruleNameList, ruleNameService.findAll());
+            verify(ruleNameRepository, Mockito.times(1)).findAll();
+        }
     }
-    @Test
-    public void deleteByIdTestIfIdNotValid() {
-        assertThrows(IllegalArgumentException.class, () -> ruleNameService.deleteById(null));
-        verify(ruleNameRepository, Mockito.times(0)).deleteById(any(Integer.class));
+
+    @Nested
+    public class findByIdTests {
+        @Test
+        public void findByIdTest() {
+            assertEquals(ruleNameOptional, ruleNameService.findById(ruleName.getId()));
+            verify(ruleNameRepository, Mockito.times(1)).findById(any(Integer.class));
+        }
+
+        @Test
+        public void findByIdTestIfNotFound() {
+            when(ruleNameRepository.findById(any(Integer.class))).thenReturn(Optional.empty());
+            assertEquals(Optional.empty(), ruleNameService.findById(ruleName.getId()));
+            verify(ruleNameRepository, Mockito.times(1)).findById(any(Integer.class));
+        }
+
+        @Test
+        public void findByIdTestIfIdNotValid() {
+            assertThrows(IllegalArgumentException.class, () -> ruleNameService.findById(null));
+            verify(ruleNameRepository, Mockito.times(0)).findById(any(Integer.class));
+        }
+    }
+
+    @Nested
+    public class deleteByIdTests {
+        @Test
+        public void deleteByIdTest() {
+            ruleNameService.deleteById(ruleName.getId());
+            verify(ruleNameRepository, Mockito.times(1)).deleteById(any(Integer.class));
+        }
+
+        @Test
+        public void deleteByIdTestIfIdNotValid() {
+            assertThrows(IllegalArgumentException.class, () -> ruleNameService.deleteById(null));
+            verify(ruleNameRepository, Mockito.times(0)).deleteById(any(Integer.class));
+        }
     }
 }

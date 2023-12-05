@@ -48,8 +48,7 @@ public class CurveControllerTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class HomeTests
-    {
+    public class HomeTests {
         @Test
         public void homeTest () {
             assertEquals("curvePoint/list", curveController.home(model));
@@ -58,8 +57,7 @@ public class CurveControllerTests extends TestVariables {
     }
 
     @Nested
-    public class AddTests
-    {
+    public class AddCurvePointFormTests {
         @Test
         public void addCurvePointFormTest () {
             assertEquals("curvePoint/add", curveController.addCurvePointForm(curvePoint));
@@ -75,8 +73,7 @@ public class CurveControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ValidateTests
-    {
+    public class ValidateTests {
         @Test
         public void validateTest () {
             assertEquals("redirect:/curvePoint/list", curveController.validate(curvePoint, bindingResult, model));
@@ -91,8 +88,7 @@ public class CurveControllerTests extends TestVariables {
     }
 
     @Nested
-    public class ShowUpdateTests
-    {
+    public class ShowUpdateFormTests {
         @Test
         public void showUpdateFormTest () {
             assertEquals("curvePoint/update", curveController.showUpdateForm(curvePoint.getId(), model));
@@ -107,8 +103,7 @@ public class CurveControllerTests extends TestVariables {
     }
 
     @Nested
-    public class UpdateCurvePointTests
-    {
+    public class UpdateCurvePointTests {
         @Test
         public void updateCurvePointTest () {
             assertEquals("redirect:/curvePoint/list", curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
@@ -132,8 +127,7 @@ public class CurveControllerTests extends TestVariables {
     }
 
     @Nested
-    public class DeleteCurvePointTests
-    {
+    public class DeleteCurvePointTests {
         @Test
         public void deleteCurvePointTest () {
             assertEquals("redirect:/curvePoint/list", curveController.deleteCurvePoint(curvePoint.getId(), model));

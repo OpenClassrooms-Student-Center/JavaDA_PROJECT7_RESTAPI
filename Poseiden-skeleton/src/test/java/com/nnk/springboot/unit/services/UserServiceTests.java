@@ -41,8 +41,7 @@ public class UserServiceTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class findAllTests
-    {
+    public class findAllTests {
         @Test
         public void findAllTest () {
             assertEquals(userList, userService.findAll());
@@ -73,8 +72,7 @@ public class UserServiceTests extends TestVariables {
     }
 
     @Nested
-    public class findByUsernameTests
-    {
+    public class findByUsernameTests {
         @Test
         public void findByUsernameTest () {
             assertEquals(user, userService.findByUsername(user.getUsername()));

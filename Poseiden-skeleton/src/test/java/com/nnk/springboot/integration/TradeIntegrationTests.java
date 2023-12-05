@@ -71,8 +71,7 @@ public class TradeIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests
-    {
+    public class homeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -85,8 +84,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addTradeFormTests
-    {
+    public class addTradeFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addTradeFormTest () throws Exception {
@@ -102,9 +100,9 @@ public class TradeIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class validateTests
-    {
+    public class validateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -139,8 +137,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests
-    {
+    public class showUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -166,8 +163,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateTradeTests
-    {
+    public class updateTradeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateTradeTest () throws Exception {
@@ -209,9 +205,9 @@ public class TradeIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class deleteTradeTests
-    {
+    public class deleteTradeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteTradeTest () throws Exception {

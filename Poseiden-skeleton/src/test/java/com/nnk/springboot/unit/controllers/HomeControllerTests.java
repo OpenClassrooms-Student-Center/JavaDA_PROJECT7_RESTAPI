@@ -33,8 +33,7 @@ public class HomeControllerTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class HomeTests
-    {
+    public class HomeTests {
         @Test
         public void homeTestIfAdmin () {
             user.setRole("ADMIN");
@@ -54,8 +53,7 @@ public class HomeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class AdminHomeTests
-    {
+    public class AdminHomeTests {
         @Test
         public void adminHomeTest () {
             assertEquals("redirect:/user/list", homeController.adminHome(model));
@@ -63,8 +61,7 @@ public class HomeControllerTests extends TestVariables {
     }
 
     @Nested
-    public class UserHomeTests
-    {
+    public class UserHomeTests {
         @Test
         public void userHomeTest () {
             assertEquals("redirect:/bidList/list", homeController.userHome(model));

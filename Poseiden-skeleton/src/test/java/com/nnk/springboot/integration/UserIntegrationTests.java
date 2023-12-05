@@ -71,8 +71,7 @@ public class UserIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests
-    {
+    public class homeTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void homeTest () throws Exception {
@@ -92,8 +91,7 @@ public class UserIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addUserFormTests
-    {
+    public class addUserFormTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void addUserFormTest () throws Exception {
@@ -109,9 +107,9 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class validateTests
-    {
+    public class validateTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void validateTest () throws Exception {
@@ -147,8 +145,7 @@ public class UserIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests
-    {
+    public class showUpdateFormTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void showUpdateFormTest () throws Exception {
@@ -187,9 +184,9 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class updateUserTests
-    {
+    public class updateUserTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void updateUserTest () throws Exception {
@@ -244,9 +241,9 @@ public class UserIntegrationTests extends TestVariables {
             assertEquals(0, databaseSizeChange());
         }
     }
+
     @Nested
-    public class deleteUserTests
-    {
+    public class deleteUserTests {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void deleteUserTest () throws Exception {
