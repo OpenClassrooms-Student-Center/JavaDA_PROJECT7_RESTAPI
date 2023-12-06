@@ -118,7 +118,7 @@ public class BidListControllerTests extends TestVariables {
         @Test
         public void updateBidListTestIfInvalidBidList () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("redirect:/bidList/list", bidListController.updateBidList(bidList.getId(), bidList, bindingResult, model));
+            assertEquals("redirect:/bidList/update/{id}", bidListController.updateBidList(bidList.getId(), bidList, bindingResult, model));
             verify(bidListService, Mockito.times(0)).findById(any(Integer.class));
             verify(bidListService, Mockito.times(0)).save(any(BidList.class));
         }

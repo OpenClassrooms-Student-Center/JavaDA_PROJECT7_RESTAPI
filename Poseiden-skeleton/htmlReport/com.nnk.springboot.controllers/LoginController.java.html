@@ -7,33 +7,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-<span class="fc" id="L10">public class LoginController {</span>
+public class LoginController {
+
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+<span class="fc" id="L15">    public LoginController(UserService userService) {</span>
+<span class="fc" id="L16">        this.userService = userService;</span>
+<span class="fc" id="L17">    }</span>
 
     @GetMapping(&quot;login&quot;)
     public ModelAndView login() {
-<span class="fc" id="L17">        ModelAndView mav = new ModelAndView();</span>
-<span class="fc" id="L18">        mav.setViewName(&quot;login&quot;);</span>
-<span class="fc" id="L19">        return mav;</span>
+<span class="fc" id="L21">        ModelAndView mav = new ModelAndView();</span>
+<span class="fc" id="L22">        mav.setViewName(&quot;login&quot;);</span>
+<span class="fc" id="L23">        return mav;</span>
     }
 
     @GetMapping(&quot;secure/article-details&quot;)
     public ModelAndView getAllUserArticles() {
-<span class="fc" id="L24">        ModelAndView mav = new ModelAndView();</span>
-<span class="fc" id="L25">        mav.addObject(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L26">        mav.setViewName(&quot;user/list&quot;);</span>
-<span class="fc" id="L27">        return mav;</span>
+<span class="fc" id="L28">        ModelAndView mav = new ModelAndView();</span>
+<span class="fc" id="L29">        mav.addObject(&quot;users&quot;, userService.findAll());</span>
+<span class="fc" id="L30">        mav.setViewName(&quot;user/list&quot;);</span>
+<span class="fc" id="L31">        return mav;</span>
     }
 
     @GetMapping(&quot;error&quot;)
     public ModelAndView error() {
-<span class="fc" id="L32">        ModelAndView mav = new ModelAndView();</span>
-<span class="fc" id="L33">        String errorMessage= &quot;You are not authorized for the requested data.&quot;;</span>
-<span class="fc" id="L34">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
-<span class="fc" id="L35">        mav.setViewName(&quot;403&quot;);</span>
-<span class="fc" id="L36">        return mav;</span>
+<span class="fc" id="L36">        ModelAndView mav = new ModelAndView();</span>
+<span class="fc" id="L37">        String errorMessage= &quot;You are not authorized for the requested data.&quot;;</span>
+<span class="fc" id="L38">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="fc" id="L39">        mav.setViewName(&quot;403&quot;);</span>
+<span class="fc" id="L40">        return mav;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

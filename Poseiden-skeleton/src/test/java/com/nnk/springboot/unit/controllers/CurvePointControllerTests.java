@@ -1,7 +1,7 @@
 package com.nnk.springboot.unit.controllers;
 
 import com.nnk.springboot.TestVariables;
-import com.nnk.springboot.controllers.CurveController;
+import com.nnk.springboot.controllers.CurvePointController;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurvePointService;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,11 +21,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = CurveController.class)
-public class CurveControllerTests extends TestVariables {
+@SpringBootTest(classes = CurvePointController.class)
+public class CurvePointControllerTests extends TestVariables {
 
     @Autowired
-    CurveController curveController;
+    CurvePointController curvePointController;
 
     @MockBean
     private CurvePointService curvePointService;
@@ -51,7 +51,7 @@ public class CurveControllerTests extends TestVariables {
     public class HomeTests {
         @Test
         public void homeTest () {
-            assertEquals("curvePoint/list", curveController.home(model));
+            assertEquals("curvePoint/list", curvePointController.home(model));
             verify(curvePointService, Mockito.times(1)).findAll();
         }
     }
@@ -60,15 +60,15 @@ public class CurveControllerTests extends TestVariables {
     public class AddCurvePointFormTests {
         @Test
         public void addCurvePointFormTest () {
-            assertEquals("curvePoint/add", curveController.addCurvePointForm(curvePoint));
+            assertEquals("curvePoint/add", curvePointController.addCurvePointForm(curvePoint));
         }
         @Test
         public void addCurvePointFormTestIfEmpty () {
-            assertEquals("curvePoint/add", curveController.addCurvePointForm(new CurvePoint()));
+            assertEquals("curvePoint/add", curvePointController.addCurvePointForm(new CurvePoint()));
         }
         @Test
         public void addCurvePointFormTestIfNull () {
-            assertEquals("curvePoint/add", curveController.addCurvePointForm(null));
+            assertEquals("curvePoint/add", curvePointController.addCurvePointForm(null));
         }
     }
 
@@ -76,13 +76,13 @@ public class CurveControllerTests extends TestVariables {
     public class ValidateTests {
         @Test
         public void validateTest () {
-            assertEquals("redirect:/curvePoint/list", curveController.validate(curvePoint, bindingResult, model));
+            assertEquals("redirect:/curvePoint/list", curvePointController.validate(curvePoint, bindingResult, model));
             verify(curvePointService, Mockito.times(1)).save(any(CurvePoint.class));
         }
         @Test
         public void validateTestIfInvalidCurvePoint () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("curvePoint/add", curveController.validate(curvePoint, bindingResult, model));
+            assertEquals("curvePoint/add", curvePointController.validate(curvePoint, bindingResult, model));
             verify(curvePointService, Mockito.times(0)).save(any(CurvePoint.class));
         }
     }
@@ -91,13 +91,13 @@ public class CurveControllerTests extends TestVariables {
     public class ShowUpdateFormTests {
         @Test
         public void showUpdateFormTest () {
-            assertEquals("curvePoint/update", curveController.showUpdateForm(curvePoint.getId(), model));
+            assertEquals("curvePoint/update", curvePointController.showUpdateForm(curvePoint.getId(), model));
             verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
         }
         @Test
         public void showUpdateFormTestIfCurvePointNotFound () {
             when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> curveController.showUpdateForm(curvePoint.getId(), model));
+            assertThrows(IllegalArgumentException.class, () -> curvePointController.showUpdateForm(curvePoint.getId(), model));
             verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
         }
     }
@@ -106,21 +106,21 @@ public class CurveControllerTests extends TestVariables {
     public class UpdateCurvePointTests {
         @Test
         public void updateCurvePointTest () {
-            assertEquals("redirect:/curvePoint/list", curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
+            assertEquals("redirect:/curvePoint/list", curvePointController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
             verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
             verify(curvePointService, Mockito.times(1)).save(any(CurvePoint.class));
         }
         @Test
         public void updateCurvePointTestIfInvalidCurvePoint () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("redirect:/curvePoint/list", curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
+            assertEquals("redirect:/curvePoint/update/{id}", curvePointController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
             verify(curvePointService, Mockito.times(0)).findById(any(Integer.class));
             verify(curvePointService, Mockito.times(0)).save(any(CurvePoint.class));
         }
         @Test
         public void updateCurvePointTestIfCurvePointNotInDB () {
             when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> curveController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
+            assertThrows(IllegalArgumentException.class, () -> curvePointController.updateCurvePoint(curvePoint.getId(), curvePoint, bindingResult, model));
             verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
             verify(curvePointService, Mockito.times(0)).save(any(CurvePoint.class));
         }
@@ -130,14 +130,14 @@ public class CurveControllerTests extends TestVariables {
     public class DeleteCurvePointTests {
         @Test
         public void deleteCurvePointTest () {
-            assertEquals("redirect:/curvePoint/list", curveController.deleteCurvePoint(curvePoint.getId(), model));
+            assertEquals("redirect:/curvePoint/list", curvePointController.deleteCurvePoint(curvePoint.getId(), model));
             verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
             verify(curvePointService, Mockito.times(1)).deleteById(any(Integer.class));
         }
         @Test
         public void deleteCurvePointTestIfCurvePointNotInDB () {
             when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> curveController.deleteCurvePoint(curvePoint.getId(), model));
+            assertThrows(IllegalArgumentException.class, () -> curvePointController.deleteCurvePoint(curvePoint.getId(), model));
             verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
             verify(curvePointService, Mockito.times(0)).deleteById(any(Integer.class));
         }

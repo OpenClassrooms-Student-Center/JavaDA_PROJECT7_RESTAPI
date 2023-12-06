@@ -2,6 +2,7 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,12 @@ import java.util.Optional;
 @Service
 public class TradeService {
 
+    private final TradeRepository tradeRepository;
+
     @Autowired
-    TradeRepository tradeRepository;
+    public TradeService(TradeRepository tradeRepository) {
+        this.tradeRepository = tradeRepository;
+    }
 
     public List<Trade> findAll() {
         return tradeRepository.findAll();

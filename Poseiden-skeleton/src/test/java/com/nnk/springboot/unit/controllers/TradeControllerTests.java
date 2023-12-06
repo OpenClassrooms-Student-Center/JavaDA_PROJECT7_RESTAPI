@@ -113,7 +113,7 @@ public class TradeControllerTests extends TestVariables {
         @Test
         public void updateTradeTestIfInvalidTrade () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("redirect:/trade/list", tradeController.updateTrade(trade.getId(), trade, bindingResult, model));
+            assertEquals("redirect:/trade/update/{id}", tradeController.updateTrade(trade.getId(), trade, bindingResult, model));
             verify(tradeService, Mockito.times(0)).findById(any(Integer.class));
             verify(tradeService, Mockito.times(0)).save(any(Trade.class));
         }

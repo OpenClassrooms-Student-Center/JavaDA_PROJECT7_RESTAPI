@@ -2,6 +2,7 @@
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,31 +10,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-<span class="fc" id="L12">public class TradeService {</span>
+public class TradeService {
+
+    private final TradeRepository tradeRepository;
 
     @Autowired
-    TradeRepository tradeRepository;
+<span class="fc" id="L18">    public TradeService(TradeRepository tradeRepository) {</span>
+<span class="fc" id="L19">        this.tradeRepository = tradeRepository;</span>
+<span class="fc" id="L20">    }</span>
 
     public List&lt;Trade&gt; findAll() {
-<span class="fc" id="L18">        return tradeRepository.findAll();</span>
+<span class="fc" id="L23">        return tradeRepository.findAll();</span>
     }
 
     public Optional&lt;Trade&gt; findById(Integer id) {
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (id == null) {</span>
-<span class="fc" id="L23">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (id == null) {</span>
+<span class="fc" id="L28">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L25">        return tradeRepository.findById(id);</span>
+<span class="fc" id="L30">        return tradeRepository.findById(id);</span>
     }
 
     public void deleteById(Integer id) {
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (id == null) {</span>
-<span class="fc" id="L30">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (id == null) {</span>
+<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L32">        tradeRepository.deleteById(id);</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L37">        tradeRepository.deleteById(id);</span>
+<span class="fc" id="L38">    }</span>
 
     public void save(Trade trade) {
-<span class="fc" id="L36">        tradeRepository.save(trade);</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L41">        tradeRepository.save(trade);</span>
+<span class="fc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

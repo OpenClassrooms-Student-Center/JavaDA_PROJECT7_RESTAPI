@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,66 +11,103 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 public class TradeController {
-    // TODO: Inject Trade service
     private final TradeService tradeService;
 
     @Autowired
-<span class="fc" id="L23">    public TradeController(TradeService tradeService) {</span>
-<span class="fc" id="L24">        this.tradeService = tradeService;</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L21">    public TradeController(TradeService tradeService) {</span>
+<span class="fc" id="L22">        this.tradeService = tradeService;</span>
+<span class="fc" id="L23">    }</span>
 
+    /**
+     * This method displays the list of all trades in the database
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @RequestMapping(&quot;/trade/list&quot;)
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
-<span class="fc" id="L31">        model.addAttribute(&quot;trades&quot;, tradeService.findAll());</span>
-<span class="fc" id="L32">        return &quot;trade/list&quot;;</span>
+<span class="fc" id="L33">        model.addAttribute(&quot;trades&quot;, tradeService.findAll());</span>
+<span class="fc" id="L34">        return &quot;trade/list&quot;;</span>
     }
 
+    /**
+     * This method displays a form to add a new trade to the database&lt;br&gt;
+     * The trade parameter will be overwritten with the form's values
+     * @param trade an empty trade object that will receive the results of the form
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/trade/add&quot;)
-    public String addTradeForm(Trade bid) {
-<span class="fc" id="L37">        return &quot;trade/add&quot;;</span>
+    public String addTradeForm(Trade trade) {
+<span class="fc" id="L45">        return &quot;trade/add&quot;;</span>
     }
 
+    /**
+     * This method adds a trade to the database, after checking its validity&lt;br&gt;
+     * Upon resolution it redirects to trade/list
+     * @param trade a trade object containing the trade to be added to the database
+     * @param result the result of the trade's validation
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @PostMapping(&quot;/trade/validate&quot;)
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L44">            tradeService.save(trade);</span>
-<span class="fc" id="L45">            return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L59">            tradeService.save(trade);</span>
+<span class="fc" id="L60">            return &quot;redirect:/trade/list&quot;;</span>
         }
-<span class="fc" id="L47">        return &quot;trade/add&quot;;</span>
+<span class="fc" id="L62">        return &quot;trade/add&quot;;</span>
     }
 
+    /**
+     * This method displays information about a specific trade&lt;br&gt;
+     * The displayed information can be modified
+     * @param id the id of the trade to display
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/trade/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
-<span class="fc" id="L53">        Trade trade = tradeService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id)));</span>
-<span class="fc" id="L54">        model.addAttribute(&quot;trade&quot;, trade);</span>
-<span class="fc" id="L55">        return &quot;trade/update&quot;;</span>
+<span class="fc" id="L74">        Trade trade = tradeService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id)));</span>
+<span class="fc" id="L75">        model.addAttribute(&quot;trade&quot;, trade);</span>
+<span class="fc" id="L76">        return &quot;trade/update&quot;;</span>
     }
 
+    /**
+     * This method updates a trade in the database, after encrypting its password&lt;br&gt;
+     * Upon resolution it redirects to trade/list
+     * @param id the id of the trade to update
+     * @param trade the new trade attributes
+     * @param result the result of the new trade validation
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @PostMapping(&quot;/trade/update/{id}&quot;)
     public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L63">            tradeService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L64">            tradeService.save(trade);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L92">            tradeService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L93">            tradeService.save(trade);</span>
+<span class="fc" id="L94">            return &quot;redirect:/trade/list&quot;;</span>
         }
-<span class="fc" id="L66">        return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L96">        return &quot;redirect:/trade/update/{id}&quot;;</span>
     }
 
+    /**
+     * This method deletes a trade from the database&lt;br&gt;
+     * Upon resolution it redirects to trade/list
+     * @param id the id of the trade to delete
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/trade/delete/{id}&quot;)
     public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find Trade by Id and delete the Trade, return to Trade list
-<span class="fc" id="L72">        tradeService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id)));</span>
-<span class="fc" id="L73">        tradeService.deleteById(id);</span>
-<span class="fc" id="L74">        return &quot;redirect:/trade/list&quot;;</span>
+<span class="fc" id="L108">        tradeService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid trade Id:&quot; + id)));</span>
+<span class="fc" id="L109">        tradeService.deleteById(id);</span>
+<span class="fc" id="L110">        return &quot;redirect:/trade/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

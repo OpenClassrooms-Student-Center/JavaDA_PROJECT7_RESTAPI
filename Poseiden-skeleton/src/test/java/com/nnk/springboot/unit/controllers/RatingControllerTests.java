@@ -113,7 +113,7 @@ public class RatingControllerTests extends TestVariables {
         @Test
         public void updateRatingTestIfInvalidRating () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("redirect:/rating/list", ratingController.updateRating(rating.getId(), rating, bindingResult, model));
+            assertEquals("redirect:/rating/update/{id}", ratingController.updateRating(rating.getId(), rating, bindingResult, model));
             verify(ratingService, Mockito.times(0)).findById(any(Integer.class));
             verify(ratingService, Mockito.times(0)).save(any(Rating.class));
         }

@@ -180,7 +180,7 @@ public class UserControllerTests extends TestVariables {
         @Test
         public void updateUserTestIfInvalidUser () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("user/update", userController.updateUser(1, user, bindingResult, model, authentication));
+            assertEquals("redirect:/user/update/{id}", userController.updateUser(1, user, bindingResult, model, authentication));
             verify(userService, Mockito.times(0)).findById(any(Integer.class));
             verify(userService, Mockito.times(0)).save(any(User.class));
         }
@@ -188,7 +188,7 @@ public class UserControllerTests extends TestVariables {
         @Test
         public void updateUserTestIfInvalidPassword () {
             user.setPassword(passwordIncorrect);
-            assertEquals("user/update", userController.updateUser(1, user, bindingResult, model, authentication));
+            assertEquals("redirect:/user/update/{id}", userController.updateUser(1, user, bindingResult, model, authentication));
             verify(userService, Mockito.times(0)).findById(any(Integer.class));
             verify(userService, Mockito.times(0)).save(any(User.class));
         }
@@ -196,7 +196,7 @@ public class UserControllerTests extends TestVariables {
         @Test
         public void updateUserTestIfUserNotInDB () {
             when(userService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertEquals("user/update", userController.updateUser(1, user, bindingResult, model, authentication));
+            assertEquals("redirect:/user/update/{id}", userController.updateUser(1, user, bindingResult, model, authentication));
             verify(userService, Mockito.times(1)).findById(any(Integer.class));
             verify(userService, Mockito.times(0)).save(any(User.class));
         }

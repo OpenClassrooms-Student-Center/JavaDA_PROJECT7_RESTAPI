@@ -2,8 +2,6 @@
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,66 +11,103 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import jakarta.validation.Valid;
 
 @Controller
 public class BidListController {
-    // TODO: Inject Bid service
     private final BidListService bidListService;
 
     @Autowired
-<span class="fc" id="L24">    public BidListController(BidListService bidListService) {</span>
-<span class="fc" id="L25">        this.bidListService = bidListService;</span>
-<span class="fc" id="L26">    }</span>
+<span class="fc" id="L21">    public BidListController(BidListService bidListService) {</span>
+<span class="fc" id="L22">        this.bidListService = bidListService;</span>
+<span class="fc" id="L23">    }</span>
 
+    /**
+     * This method displays the list of all bidLists in the database
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @RequestMapping(&quot;/bidList/list&quot;)
     public String home(Model model)
     {
-        // TODO: call service find all bids to show to the view
-<span class="fc" id="L32">        model.addAttribute(&quot;bidLists&quot;, bidListService.findAll());</span>
-<span class="fc" id="L33">        return &quot;bidList/list&quot;;</span>
+<span class="fc" id="L33">        model.addAttribute(&quot;bidLists&quot;, bidListService.findAll());</span>
+<span class="fc" id="L34">        return &quot;bidList/list&quot;;</span>
     }
 
+    /**
+     * This method displays a form to add a new bidList to the database&lt;br&gt;
+     * The bidList parameter will be overwritten with the form's values
+     * @param bidList an empty bidList object that will receive the results of the form
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/bidList/add&quot;)
     public String addBidListForm(BidList bidList) {
-<span class="fc" id="L38">        return &quot;bidList/add&quot;;</span>
+<span class="fc" id="L45">        return &quot;bidList/add&quot;;</span>
     }
 
+    /**
+     * This method adds a bidList to the database, after checking its validity&lt;br&gt;
+     * Upon resolution it redirects to bidList/list
+     * @param bidList a bidList object containing the bidList to be added to the database
+     * @param result the result of the bidList's validation
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @PostMapping(&quot;/bidList/validate&quot;)
     public String validate(@Valid BidList bidList, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return bid list
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
-<span class="fc" id="L45">            bidListService.save(bidList);</span>
-<span class="fc" id="L46">            return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L59">            bidListService.save(bidList);</span>
+<span class="fc" id="L60">            return &quot;redirect:/bidList/list&quot;;</span>
         }
-<span class="fc" id="L48">        return &quot;bidList/add&quot;;</span>
+<span class="fc" id="L62">        return &quot;bidList/add&quot;;</span>
     }
 
+    /**
+     * This method displays information about a specific bidList&lt;br&gt;
+     * The displayed information can be modified
+     * @param id the id of the bidList to display
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/bidList/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get Bid by Id and to model then show to the form
-<span class="fc" id="L54">        BidList bidList = bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid bidList Id:&quot; + id)));</span>
-<span class="fc" id="L55">        model.addAttribute(&quot;bidList&quot;, bidList);</span>
-<span class="fc" id="L56">        return &quot;bidList/update&quot;;</span>
+<span class="fc" id="L74">        BidList bidList = bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid bidList Id:&quot; + id)));</span>
+<span class="fc" id="L75">        model.addAttribute(&quot;bidList&quot;, bidList);</span>
+<span class="fc" id="L76">        return &quot;bidList/update&quot;;</span>
     }
 
+    /**
+     * This method updates a bidList in the database, after encrypting its password&lt;br&gt;
+     * Upon resolution it redirects to bidList/list
+     * @param id the id of the bidList to update
+     * @param bidList the new bidList attributes
+     * @param result the result of the new bidList validation
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @PostMapping(&quot;/bidList/update/{id}&quot;)
     public String updateBidList(@PathVariable(&quot;id&quot;) Integer id, @Valid BidList bidList,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
-<span class="fc bfc" id="L63" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L64">            bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L65">            bidListService.save(bidList);</span>
+                              BindingResult result, Model model) {
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L92">            bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L93">            bidListService.save(bidList);</span>
+<span class="fc" id="L94">            return &quot;redirect:/bidList/list&quot;;</span>
         }
-<span class="fc" id="L67">        return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L96">        return &quot;redirect:/bidList/update/{id}&quot;;</span>
     }
 
+    /**
+     * This method deletes a bidList from the database&lt;br&gt;
+     * Upon resolution it redirects to bidList/list
+     * @param id the id of the bidList to delete
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/bidList/delete/{id}&quot;)
     public String deleteBidList(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
-<span class="fc" id="L73">        bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid bidList Id:&quot; + id)));</span>
-<span class="fc" id="L74">        bidListService.deleteById(id);</span>
-<span class="fc" id="L75">        return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L108">        bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid bidList Id:&quot; + id)));</span>
+<span class="fc" id="L109">        bidListService.deleteById(id);</span>
+<span class="fc" id="L110">        return &quot;redirect:/bidList/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

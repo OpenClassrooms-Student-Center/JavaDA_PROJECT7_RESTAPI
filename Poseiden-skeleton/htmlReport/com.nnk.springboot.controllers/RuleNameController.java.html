@@ -11,66 +11,106 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @Controller
 public class RuleNameController {
-    // TODO: Inject RuleName service
     private final RuleNameService ruleNameService;
     
     @Autowired
-<span class="fc" id="L22">    public RuleNameController(RuleNameService ruleNameService) {</span>
-<span class="fc" id="L23">        this.ruleNameService = ruleNameService;</span>
-<span class="fc" id="L24">    }</span>
+<span class="fc" id="L21">    public RuleNameController(RuleNameService ruleNameService) {</span>
+<span class="fc" id="L22">        this.ruleNameService = ruleNameService;</span>
+<span class="fc" id="L23">    }</span>
 
+    /**
+     * This method displays the list of all ruleNames in the database
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @RequestMapping(&quot;/ruleName/list&quot;)
     public String home(Model model)
     {
         // TODO: find all RuleName, add to model
-<span class="fc" id="L30">        model.addAttribute(&quot;ruleNames&quot;, ruleNameService.findAll());</span>
-<span class="fc" id="L31">        return &quot;ruleName/list&quot;;</span>
+<span class="fc" id="L34">        model.addAttribute(&quot;ruleNames&quot;, ruleNameService.findAll());</span>
+<span class="fc" id="L35">        return &quot;ruleName/list&quot;;</span>
     }
 
+    /**
+     * This method displays a form to add a new ruleName to the database&lt;br&gt;
+     * The ruleName parameter will be overwritten with the form's values
+     * @param ruleName an empty ruleName object that will receive the results of the form
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/ruleName/add&quot;)
-    public String addRuleNameForm(RuleName bid) {
-<span class="fc" id="L36">        return &quot;ruleName/add&quot;;</span>
-    }
-
-    @PostMapping(&quot;/ruleName/validate&quot;)
-    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
-<span class="fc bfc" id="L42" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L43">            ruleNameService.save(ruleName);</span>
-<span class="fc" id="L44">            return &quot;redirect:/ruleName/list&quot;;</span>
-        }            
+    public String addRuleNameForm(RuleName ruleName) {
 <span class="fc" id="L46">        return &quot;ruleName/add&quot;;</span>
     }
 
+    /**
+     * This method adds a ruleName to the database, after checking its validity&lt;br&gt;
+     * Upon resolution it redirects to ruleName/list
+     * @param ruleName a ruleName object containing the ruleName to be added to the database
+     * @param result the result of the ruleName's validation
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
+    @PostMapping(&quot;/ruleName/validate&quot;)
+    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L60">            ruleNameService.save(ruleName);</span>
+<span class="fc" id="L61">            return &quot;redirect:/ruleName/list&quot;;</span>
+        }            
+<span class="fc" id="L63">        return &quot;ruleName/add&quot;;</span>
+    }
+
+    /**
+     * This method displays information about a specific ruleName&lt;br&gt;
+     * The displayed information can be modified
+     * @param id the id of the ruleName to display
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/ruleName/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
         // TODO: get RuleName by Id and to model then show to the form
-<span class="fc" id="L52">        RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L53">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
-<span class="fc" id="L54">        return &quot;ruleName/update&quot;;</span>
+<span class="fc" id="L76">        RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L77">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
+<span class="fc" id="L78">        return &quot;ruleName/update&quot;;</span>
     }
 
+    /**
+     * This method updates a ruleName in the database, after encrypting its password&lt;br&gt;
+     * Upon resolution it redirects to ruleName/list
+     * @param id the id of the ruleName to update
+     * @param ruleName the new ruleName attributes
+     * @param result the result of the new ruleName validation
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @PostMapping(&quot;/ruleName/update/{id}&quot;)
     public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L62">            ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L63">            ruleNameService.save(ruleName);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L94">            ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L95">            ruleNameService.save(ruleName);</span>
+<span class="fc" id="L96">            return &quot;redirect:/ruleName/list&quot;;</span>
         }
-<span class="fc" id="L65">        return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L98">        return &quot;redirect:/ruleName/update/{id}&quot;;</span>
     }
 
+    /**
+     * This method deletes a ruleName from the database&lt;br&gt;
+     * Upon resolution it redirects to ruleName/list
+     * @param id the id of the ruleName to delete
+     * @param model
+     * @return A String corresponding to a thymeleaf template
+     */
     @GetMapping(&quot;/ruleName/delete/{id}&quot;)
     public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) {
         // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-<span class="fc" id="L71">        ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L72">        ruleNameService.deleteById(id);</span>
-<span class="fc" id="L73">        return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L111">        ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L112">        ruleNameService.deleteById(id);</span>
+<span class="fc" id="L113">        return &quot;redirect:/ruleName/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

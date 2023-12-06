@@ -205,7 +205,7 @@ public class UserIntegrationTests extends TestVariables {
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(user.toString()))
-                    .andExpect(status().is2xxSuccessful());
+                    .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
         @Test
@@ -215,7 +215,7 @@ public class UserIntegrationTests extends TestVariables {
                             .with(csrf())
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                             .content(user.toString()))
-                    .andExpect(status().is2xxSuccessful());
+                    .andExpect(status().is3xxRedirection());
             assertEquals(0, databaseSizeChange());
         }
         @Test

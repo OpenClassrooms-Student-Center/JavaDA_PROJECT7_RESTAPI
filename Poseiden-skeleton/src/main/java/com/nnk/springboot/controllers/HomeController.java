@@ -16,9 +16,20 @@ import java.util.Collection;
 @Controller
 public class HomeController
 {
-	@Autowired
-	UserService userService;
+	private final UserService userService;
 
+	@Autowired
+	public HomeController(UserService userService) {
+		this.userService = userService;
+	}
+
+	/**
+	 * This method redirects the user to the home page corresponging to its role
+	 * @param model
+	 * @param request
+	 * @param authentication
+	 * @return A String corresponding to a thymeleaf template
+	 */
 	@RequestMapping("/")
 	public String home(Model model, HttpServletRequest request, Authentication authentication)
 	{
@@ -35,12 +46,22 @@ public class HomeController
 		return "403";
 	}
 
+	/**
+	 * This method redirects to the admin home page
+	 * @param model
+	 * @return A String corresponding to a thymeleaf template
+	 */
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model)
 	{
 		return "redirect:/user/list";
 	}
 
+	/**
+	 * This method redirects to the user home page
+	 * @param model
+	 * @return A String corresponding to a thymeleaf template
+	 */
 	@RequestMapping("/user/home")
 	public String userHome(Model model)
 	{

@@ -9,8 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public LoginController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("login")
     public ModelAndView login() {

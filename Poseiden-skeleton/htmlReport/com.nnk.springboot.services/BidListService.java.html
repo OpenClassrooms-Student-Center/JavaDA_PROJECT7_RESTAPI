@@ -2,6 +2,7 @@
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,31 +10,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-<span class="fc" id="L12">public class BidListService {</span>
+public class BidListService {
+
+    private final BidListRepository bidListRepository;
 
     @Autowired
-    BidListRepository bidListRepository;
+<span class="fc" id="L18">    public BidListService(BidListRepository bidListRepository) {</span>
+<span class="fc" id="L19">        this.bidListRepository = bidListRepository;</span>
+<span class="fc" id="L20">    }</span>
 
     public List&lt;BidList&gt; findAll() {
-<span class="fc" id="L18">        return bidListRepository.findAll();</span>
+<span class="fc" id="L23">        return bidListRepository.findAll();</span>
     }
 
     public Optional&lt;BidList&gt; findById(Integer id) {
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (id == null) {</span>
-<span class="fc" id="L23">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (id == null) {</span>
+<span class="fc" id="L28">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L25">        return bidListRepository.findById(id);</span>
+<span class="fc" id="L30">        return bidListRepository.findById(id);</span>
     }
 
     public void deleteById(Integer id) {
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if (id == null) {</span>
-<span class="fc" id="L30">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (id == null) {</span>
+<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L32">        bidListRepository.deleteById(id);</span>
-<span class="fc" id="L33">    }</span>
+<span class="fc" id="L37">        bidListRepository.deleteById(id);</span>
+<span class="fc" id="L38">    }</span>
 
     public void save(BidList bidList) {
-<span class="fc" id="L36">        bidListRepository.save(bidList);</span>
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L41">        bidListRepository.save(bidList);</span>
+<span class="fc" id="L42">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

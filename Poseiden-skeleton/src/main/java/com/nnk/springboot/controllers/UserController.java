@@ -1,8 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.config.CustomUserDetails;
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,12 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.security.Principal;
+import jakarta.validation.Valid;
 
-/**
- * This class is the controller for the User class
- */
 @Controller
 public class UserController {
     @Autowired
@@ -107,7 +101,7 @@ public class UserController {
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model, Authentication authentication) {
         if (result.hasErrors() || !user.validatePassword() || userService.findById(id).isEmpty()) {
-            return "user/update";
+            return "redirect:/user/update/{id}";
         }
         if(user.getUsername().equals(authentication.getName())
                 || authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {

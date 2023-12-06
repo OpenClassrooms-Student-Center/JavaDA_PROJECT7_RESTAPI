@@ -114,7 +114,7 @@ public class RuleNameControllerTests extends TestVariables {
         @Test
         public void updateRuleNameTestIfInvalidRuleName () {
             when(bindingResult.hasErrors()).thenReturn(true);
-            assertEquals("redirect:/ruleName/list", ruleNameController.updateRuleName(ruleName.getId(), ruleName, bindingResult, model));
+            assertEquals("redirect:/ruleName/update/{id}", ruleNameController.updateRuleName(ruleName.getId(), ruleName, bindingResult, model));
             verify(ruleNameService, Mockito.times(0)).findById(any(Integer.class));
             verify(ruleNameService, Mockito.times(0)).save(any(RuleName.class));
         }

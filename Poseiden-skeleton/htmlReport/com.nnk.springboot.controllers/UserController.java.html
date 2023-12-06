@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.config.CustomUserDetails;
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,14 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.security.Principal;
+import jakarta.validation.Valid;
 
-/**
- * This class is the controller for the User class
- */
 @Controller
-<span class="fc" id="L26">public class UserController {</span>
+<span class="fc" id="L20">public class UserController {</span>
     @Autowired
     private UserService userService;
 
@@ -35,8 +29,8 @@ import java.security.Principal;
     @RequestMapping(&quot;/user/list&quot;)
     public String home(Model model)
     {
-<span class="fc" id="L38">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L39">        return &quot;user/list&quot;;</span>
+<span class="fc" id="L32">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="fc" id="L33">        return &quot;user/list&quot;;</span>
     }
 
     /**
@@ -47,7 +41,7 @@ import java.security.Principal;
      */
     @GetMapping(&quot;/user/add&quot;)
     public String addUser(User user) {
-<span class="fc" id="L50">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L44">        return &quot;user/add&quot;;</span>
     }
 
     /**
@@ -59,14 +53,14 @@ import java.security.Principal;
      */
     @PostMapping(&quot;/user/validate&quot;)
     public String validate(@Valid User user, BindingResult result, Model model) {
-<span class="fc bfc" id="L62" title="All 4 branches covered.">        if (!result.hasErrors() &amp;&amp; user.validatePassword()) {</span>
-<span class="fc" id="L63">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
-<span class="fc" id="L64">            user.setPassword(encoder.encode(user.getPassword()));</span>
-<span class="fc" id="L65">            userService.save(user);</span>
-<span class="fc" id="L66">            model.addAttribute(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L67">            return &quot;redirect:/user/list&quot;;</span>
+<span class="fc bfc" id="L56" title="All 4 branches covered.">        if (!result.hasErrors() &amp;&amp; user.validatePassword()) {</span>
+<span class="fc" id="L57">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L58">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L59">            userService.save(user);</span>
+<span class="fc" id="L60">            model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="fc" id="L61">            return &quot;redirect:/user/list&quot;;</span>
         }
-<span class="fc" id="L69">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L63">        return &quot;user/add&quot;;</span>
     }
 
     /**
@@ -81,14 +75,14 @@ import java.security.Principal;
      */
     @GetMapping(&quot;/user/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, Authentication authentication) {
-<span class="fc" id="L84">        User user = userService.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc bfc" id="L85" title="All 2 branches covered.">        if(user.getUsername().equals(authentication.getName())</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">                || authentication.getAuthorities().contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
-<span class="fc" id="L87">            model.addAttribute(&quot;user&quot;, user);</span>
-<span class="fc" id="L88">            return &quot;user/update&quot;;</span>
+<span class="fc" id="L78">        User user = userService.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if(user.getUsername().equals(authentication.getName())</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">                || authentication.getAuthorities().contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
+<span class="fc" id="L81">            model.addAttribute(&quot;user&quot;, user);</span>
+<span class="fc" id="L82">            return &quot;user/update&quot;;</span>
         }
         else {
-<span class="fc" id="L91">            return &quot;403&quot;;</span>
+<span class="fc" id="L85">            return &quot;403&quot;;</span>
         }
     }
 
@@ -106,20 +100,20 @@ import java.security.Principal;
     @PostMapping(&quot;/user/update/{id}&quot;)
     public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid User user,
                              BindingResult result, Model model, Authentication authentication) {
-<span class="fc bfc" id="L109" title="All 6 branches covered.">        if (result.hasErrors() || !user.validatePassword() || userService.findById(id).isEmpty()) {</span>
-<span class="fc" id="L110">            return &quot;user/update&quot;;</span>
+<span class="fc bfc" id="L103" title="All 6 branches covered.">        if (result.hasErrors() || !user.validatePassword() || userService.findById(id).isEmpty()) {</span>
+<span class="fc" id="L104">            return &quot;redirect:/user/update/{id}&quot;;</span>
         }
-<span class="fc bfc" id="L112" title="All 2 branches covered.">        if(user.getUsername().equals(authentication.getName())</span>
-<span class="fc bfc" id="L113" title="All 2 branches covered.">                || authentication.getAuthorities().contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
-<span class="fc" id="L114">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
-<span class="fc" id="L115">            user.setPassword(encoder.encode(user.getPassword()));</span>
-<span class="fc" id="L116">            user.setId(id);</span>
-<span class="fc" id="L117">            userService.save(user);</span>
-<span class="fc" id="L118">            model.addAttribute(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L119">            return &quot;redirect:/user/list&quot;;</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if(user.getUsername().equals(authentication.getName())</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                || authentication.getAuthorities().contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
+<span class="fc" id="L108">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L109">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L110">            user.setId(id);</span>
+<span class="fc" id="L111">            userService.save(user);</span>
+<span class="fc" id="L112">            model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="fc" id="L113">            return &quot;redirect:/user/list&quot;;</span>
         }
         else {
-<span class="fc" id="L122">            return &quot;403&quot;;</span>
+<span class="fc" id="L116">            return &quot;403&quot;;</span>
         }
     }
 
@@ -131,10 +125,10 @@ import java.security.Principal;
      */
     @GetMapping(&quot;/user/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L134">        userService.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L135">        userService.deleteById(id);</span>
-<span class="fc" id="L136">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L137">        return &quot;redirect:/user/list&quot;;</span>
+<span class="fc" id="L128">        userService.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L129">        userService.deleteById(id);</span>
+<span class="fc" id="L130">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
+<span class="fc" id="L131">        return &quot;redirect:/user/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

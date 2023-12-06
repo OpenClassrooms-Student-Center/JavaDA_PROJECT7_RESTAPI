@@ -14,37 +14,58 @@ import com.nnk.springboot.domain.User;
 import java.util.Collection;
 
 @Controller
-<span class="fc" id="L17">public class HomeController</span>
+public class HomeController
 {
-	@Autowired
-	UserService userService;
+	private final UserService userService;
 
+	@Autowired
+<span class="fc" id="L22">	public HomeController(UserService userService) {</span>
+<span class="fc" id="L23">		this.userService = userService;</span>
+<span class="fc" id="L24">	}</span>
+
+	/**
+	 * This method redirects the user to the home page corresponging to its role
+	 * @param model
+	 * @param request
+	 * @param authentication
+	 * @return A String corresponding to a thymeleaf template
+	 */
 	@RequestMapping(&quot;/&quot;)
 	public String home(Model model, HttpServletRequest request, Authentication authentication)
 	{
-<span class="fc" id="L25">		User remoteUser = userService.findByUsername(request.getRemoteUser());</span>
-<span class="fc" id="L26">		request.getSession().setAttribute(&quot;remoteUser&quot;, remoteUser.getUsername());</span>
-<span class="fc" id="L27">		Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
-<span class="pc bpc" id="L28" title="1 of 4 branches missed.">		if(authorities!=null &amp;&amp; !authorities.isEmpty()) {</span>
-<span class="fc bfc" id="L29" title="All 2 branches covered.">			if (authorities.contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
-<span class="fc" id="L30">				return &quot;redirect:/admin/home&quot;;</span>
-<span class="fc bfc" id="L31" title="All 2 branches covered.">			} else if (authorities.contains(new SimpleGrantedAuthority(&quot;USER&quot;))) {</span>
-<span class="fc" id="L32">				return &quot;redirect:/user/home&quot;;</span>
+<span class="fc" id="L36">		User remoteUser = userService.findByUsername(request.getRemoteUser());</span>
+<span class="fc" id="L37">		request.getSession().setAttribute(&quot;remoteUser&quot;, remoteUser.getUsername());</span>
+<span class="fc" id="L38">		Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
+<span class="pc bpc" id="L39" title="1 of 4 branches missed.">		if(authorities!=null &amp;&amp; !authorities.isEmpty()) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">			if (authorities.contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
+<span class="fc" id="L41">				return &quot;redirect:/admin/home&quot;;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">			} else if (authorities.contains(new SimpleGrantedAuthority(&quot;USER&quot;))) {</span>
+<span class="fc" id="L43">				return &quot;redirect:/user/home&quot;;</span>
 			}
 		}
-<span class="fc" id="L35">		return &quot;403&quot;;</span>
+<span class="fc" id="L46">		return &quot;403&quot;;</span>
 	}
 
+	/**
+	 * This method redirects to the admin home page
+	 * @param model
+	 * @return A String corresponding to a thymeleaf template
+	 */
 	@RequestMapping(&quot;/admin/home&quot;)
 	public String adminHome(Model model)
 	{
-<span class="fc" id="L41">		return &quot;redirect:/user/list&quot;;</span>
+<span class="fc" id="L57">		return &quot;redirect:/user/list&quot;;</span>
 	}
 
+	/**
+	 * This method redirects to the user home page
+	 * @param model
+	 * @return A String corresponding to a thymeleaf template
+	 */
 	@RequestMapping(&quot;/user/home&quot;)
 	public String userHome(Model model)
 	{
-<span class="fc" id="L47">		return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L68">		return &quot;redirect:/bidList/list&quot;;</span>
 	}
 
 }
