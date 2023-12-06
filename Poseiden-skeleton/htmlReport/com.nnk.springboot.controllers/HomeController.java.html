@@ -38,9 +38,9 @@ public class HomeController
 <span class="fc" id="L38">		Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span>
 <span class="pc bpc" id="L39" title="1 of 4 branches missed.">		if(authorities!=null &amp;&amp; !authorities.isEmpty()) {</span>
 <span class="fc bfc" id="L40" title="All 2 branches covered.">			if (authorities.contains(new SimpleGrantedAuthority(&quot;ADMIN&quot;))) {</span>
-<span class="fc" id="L41">				return &quot;redirect:/admin/home&quot;;</span>
+<span class="fc" id="L41">				return &quot;redirect:/home/admin&quot;;</span>
 <span class="fc bfc" id="L42" title="All 2 branches covered.">			} else if (authorities.contains(new SimpleGrantedAuthority(&quot;USER&quot;))) {</span>
-<span class="fc" id="L43">				return &quot;redirect:/user/home&quot;;</span>
+<span class="fc" id="L43">				return &quot;redirect:/home/user&quot;;</span>
 			}
 		}
 <span class="fc" id="L46">		return &quot;403&quot;;</span>
@@ -51,7 +51,7 @@ public class HomeController
 	 * @param model
 	 * @return A String corresponding to a thymeleaf template
 	 */
-	@RequestMapping(&quot;/admin/home&quot;)
+	@RequestMapping(&quot;/home/admin&quot;)
 	public String adminHome(Model model)
 	{
 <span class="fc" id="L57">		return &quot;redirect:/user/list&quot;;</span>
@@ -62,7 +62,7 @@ public class HomeController
 	 * @param model
 	 * @return A String corresponding to a thymeleaf template
 	 */
-	@RequestMapping(&quot;/user/home&quot;)
+	@RequestMapping(&quot;/home/user&quot;)
 	public String userHome(Model model)
 	{
 <span class="fc" id="L68">		return &quot;redirect:/bidList/list&quot;;</span>

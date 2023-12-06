@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RatingController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: RatingController (com.nnk.springboot.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RatingController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.controllers;
+&nbsp;
+&nbsp;import com.nnk.springboot.domain.Rating;
+&nbsp;import com.nnk.springboot.services.RatingService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;
+&nbsp;@Controller
+&nbsp;public class RatingController {
+&nbsp;    private final RatingService ratingService;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public RatingController(RatingService ratingService) {</b>
+<b class="fc">&nbsp;        this.ratingService = ratingService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays the list of all ratings in the database
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @RequestMapping(&quot;/rating/list&quot;)
+&nbsp;    public String home(Model model)
+&nbsp;    {
+<b class="fc">&nbsp;        model.addAttribute(&quot;ratings&quot;, ratingService.findAll());</b>
+<b class="fc">&nbsp;        return &quot;rating/list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays a form to add a new rating to the database&lt;br&gt;
+&nbsp;     * The rating parameter will be overwritten with the form&#39;s values
+&nbsp;     * @param rating an empty rating object that will receive the results of the form
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/rating/add&quot;)
+&nbsp;    public String addRatingForm(Rating rating) {
+<b class="fc">&nbsp;        return &quot;rating/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method adds a rating to the database, after checking its validity&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to rating/list
+&nbsp;     * @param rating a rating object containing the rating to be added to the database
+&nbsp;     * @param result the result of the rating&#39;s validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/rating/validate&quot;)
+&nbsp;    public String validate(@Valid Rating rating, BindingResult result, Model model) {
+<b class="fc">&nbsp;        if (!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            ratingService.save(rating);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/rating/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;rating/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays information about a specific rating&lt;br&gt;
+&nbsp;     * The displayed information can be modified
+&nbsp;     * @param id the id of the rating to display
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/rating/update/{id}&quot;)
+&nbsp;    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<b class="fc">&nbsp;        Rating rating = ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;rating&quot;, rating);</b>
+<b class="fc">&nbsp;        return &quot;rating/update&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method updates a rating in the database, after encrypting its password&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to rating/list
+&nbsp;     * @param id the id of the rating to update
+&nbsp;     * @param rating the new rating attributes
+&nbsp;     * @param result the result of the new rating validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/rating/update/{id}&quot;)
+&nbsp;    public String updateRating(@PathVariable(&quot;id&quot;) Integer id, @Valid Rating rating,
+&nbsp;                              BindingResult result, Model model) {
+<b class="fc">&nbsp;        if(!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</b>
+<b class="fc">&nbsp;            ratingService.save(rating);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/rating/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;redirect:/rating/update/{id}&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method deletes a rating from the database&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to rating/list
+&nbsp;     * @param id the id of the rating to delete
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/rating/delete/{id}&quot;)
+&nbsp;    public String deleteRating(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<b class="fc">&nbsp;        ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        ratingService.deleteById(id);</b>
+<b class="fc">&nbsp;        return &quot;redirect:/rating/list&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

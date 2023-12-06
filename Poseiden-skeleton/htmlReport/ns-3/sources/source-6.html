@@ -1,0 +1,218 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RuleNameController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: RuleNameController (com.nnk.springboot.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RuleNameController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.controllers;
+&nbsp;
+&nbsp;import com.nnk.springboot.domain.RuleName;
+&nbsp;import com.nnk.springboot.services.RuleNameService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;
+&nbsp;@Controller
+&nbsp;public class RuleNameController {
+&nbsp;    private final RuleNameService ruleNameService;
+&nbsp;    
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public RuleNameController(RuleNameService ruleNameService) {</b>
+<b class="fc">&nbsp;        this.ruleNameService = ruleNameService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays the list of all ruleNames in the database
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @RequestMapping(&quot;/ruleName/list&quot;)
+&nbsp;    public String home(Model model)
+&nbsp;    {
+&nbsp;        // TODO: find all RuleName, add to model
+<b class="fc">&nbsp;        model.addAttribute(&quot;ruleNames&quot;, ruleNameService.findAll());</b>
+<b class="fc">&nbsp;        return &quot;ruleName/list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays a form to add a new ruleName to the database&lt;br&gt;
+&nbsp;     * The ruleName parameter will be overwritten with the form&#39;s values
+&nbsp;     * @param ruleName an empty ruleName object that will receive the results of the form
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/ruleName/add&quot;)
+&nbsp;    public String addRuleNameForm(RuleName ruleName) {
+<b class="fc">&nbsp;        return &quot;ruleName/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method adds a ruleName to the database, after checking its validity&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to ruleName/list
+&nbsp;     * @param ruleName a ruleName object containing the ruleName to be added to the database
+&nbsp;     * @param result the result of the ruleName&#39;s validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/ruleName/validate&quot;)
+&nbsp;    public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
+<b class="fc">&nbsp;        if(!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            ruleNameService.save(ruleName);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/ruleName/list&quot;;</b>
+&nbsp;        }            
+<b class="fc">&nbsp;        return &quot;ruleName/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays information about a specific ruleName&lt;br&gt;
+&nbsp;     * The displayed information can be modified
+&nbsp;     * @param id the id of the ruleName to display
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/ruleName/update/{id}&quot;)
+&nbsp;    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+&nbsp;        // TODO: get RuleName by Id and to model then show to the form
+<b class="fc">&nbsp;        RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;ruleName&quot;, ruleName);</b>
+<b class="fc">&nbsp;        return &quot;ruleName/update&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method updates a ruleName in the database, after encrypting its password&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to ruleName/list
+&nbsp;     * @param id the id of the ruleName to update
+&nbsp;     * @param ruleName the new ruleName attributes
+&nbsp;     * @param result the result of the new ruleName validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/ruleName/update/{id}&quot;)
+&nbsp;    public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
+&nbsp;                             BindingResult result, Model model) {
+<b class="fc">&nbsp;        if(!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</b>
+<b class="fc">&nbsp;            ruleNameService.save(ruleName);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/ruleName/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;redirect:/ruleName/update/{id}&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method deletes a ruleName from the database&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to ruleName/list
+&nbsp;     * @param id the id of the ruleName to delete
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/ruleName/delete/{id}&quot;)
+&nbsp;    public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+&nbsp;        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+<b class="fc">&nbsp;        ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        ruleNameService.deleteById(id);</b>
+<b class="fc">&nbsp;        return &quot;redirect:/ruleName/list&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Rating</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: Rating (com.nnk.springboot.domain)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Rating</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Rating$HibernateInstantiator$CgWe6rMr</td>
+  </tr>
+  <tr>
+    <td class="name">Rating$HibernateInstantiator$fdpKlqb9</td>
+  </tr>
+  <tr>
+    <td class="name">Rating$HibernateProxy$QxR9BE5H</td>
+  </tr>
+  <tr>
+    <td class="name">Rating$HibernateProxy$us7aJIZZ</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.domain;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;import jakarta.validation.constraints.*;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;rating&quot;)
+&nbsp;public class Rating {
+&nbsp;    // TODO: Map columns in data table RATING with corresponding java fields
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;fitchRating should be less than 126 characters&quot;)
+&nbsp;    private String fitchRating;
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @Column(name = &quot;Id&quot;)
+&nbsp;    @GeneratedValue(strategy = GenerationType.AUTO)
+&nbsp;    private Integer id;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;moodysRating should be less than 126 characters&quot;)
+&nbsp;    private String moodysRating;
+&nbsp;
+&nbsp;    @Column(name = &quot;orderNumber&quot;, columnDefinition = &quot;tinyint&quot;)
+&nbsp;    @Min(value = -128, message = &quot;order should be more than -129&quot;)
+&nbsp;    @Max(value = 127, message = &quot;order should be less than 128&quot;)
+&nbsp;    private Integer order;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;sandPRating should be less than 126 characters&quot;)
+&nbsp;    private String sandPRating;
+&nbsp;
+<b class="fc">&nbsp;    public Rating() {}</b>
+&nbsp;
+<b class="fc">&nbsp;    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer order) {</b>
+<b class="fc">&nbsp;        this.fitchRating = fitchRating;</b>
+<b class="fc">&nbsp;        this.moodysRating = moodysRating;</b>
+<b class="fc">&nbsp;        this.order = order;</b>
+<b class="fc">&nbsp;        this.sandPRating = sandPRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getFitchRating() {
+<b class="fc">&nbsp;        return fitchRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setFitchRating(String fitchRating) {
+<b class="fc">&nbsp;        this.fitchRating = fitchRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getId() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId(Integer id) {
+<b class="fc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getMoodysRating() {
+<b class="fc">&nbsp;        return moodysRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setMoodysRating(String moodysRating) {
+<b class="fc">&nbsp;        this.moodysRating = moodysRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getOrder() {
+<b class="fc">&nbsp;        return order;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setOrder(Integer order) {
+<b class="fc">&nbsp;        this.order = order;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSandPRating() {
+<b class="fc">&nbsp;        return sandPRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSandPRating(String sandPRating) {
+<b class="fc">&nbsp;        this.sandPRating = sandPRating;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return &quot;&amp;moodysRating=&quot; + this.moodysRating +</b>
+&nbsp;                &quot;&amp;sandPRating=&quot; + this.sandPRating +
+&nbsp;                &quot;&amp;fitchRating=&quot; + this.fitchRating +
+&nbsp;                &quot;&amp;order=&quot; + this.order;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

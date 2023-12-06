@@ -1,0 +1,167 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LoginController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: LoginController (com.nnk.springboot.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoginController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (27/27)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.controllers;
+&nbsp;
+&nbsp;import com.nnk.springboot.services.UserService;
+&nbsp;import jakarta.servlet.RequestDispatcher;
+&nbsp;import jakarta.servlet.http.HttpServletRequest;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.servlet.ModelAndView;
+&nbsp;
+&nbsp;@Controller
+&nbsp;public class LoginController {
+&nbsp;
+&nbsp;    private final UserService userService;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public LoginController(UserService userService) {</b>
+<b class="fc">&nbsp;        this.userService = userService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;login&quot;)
+&nbsp;    public ModelAndView login() {
+<b class="fc">&nbsp;        ModelAndView mav = new ModelAndView();</b>
+<b class="fc">&nbsp;        mav.setViewName(&quot;login&quot;);</b>
+<b class="fc">&nbsp;        return mav;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;secure/article-details&quot;)
+&nbsp;    public ModelAndView getAllUserArticles() {
+<b class="fc">&nbsp;        ModelAndView mav = new ModelAndView();</b>
+<b class="fc">&nbsp;        mav.addObject(&quot;users&quot;, userService.findAll());</b>
+<b class="fc">&nbsp;        mav.setViewName(&quot;user/list&quot;);</b>
+<b class="fc">&nbsp;        return mav;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(&quot;error&quot;)
+&nbsp;    public ModelAndView error(HttpServletRequest request) {
+<b class="fc">&nbsp;        ModelAndView mav = new ModelAndView();</b>
+&nbsp;        String errorMessage;
+<b class="fc">&nbsp;        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (status != null) {</b>
+<b class="fc">&nbsp;            Integer statusCode = Integer.valueOf(status.toString());</b>
+<b class="fc">&nbsp;            if(statusCode == HttpStatus.FORBIDDEN.value()) {</b>
+<b class="fc">&nbsp;                errorMessage = &quot;You are not authorized for the requested data.&quot;;</b>
+<b class="fc">&nbsp;                mav.addObject(&quot;errorMsg&quot;, errorMessage);</b>
+<b class="fc">&nbsp;                mav.setViewName(&quot;403&quot;);</b>
+<b class="fc">&nbsp;                return mav;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            else if(statusCode == HttpStatus.NOT_FOUND.value()) {</b>
+<b class="fc">&nbsp;                errorMessage = &quot;The requested resource cannot be found.&quot;;</b>
+<b class="fc">&nbsp;                mav.addObject(&quot;errorMsg&quot;, errorMessage);</b>
+<b class="fc">&nbsp;                mav.setViewName(&quot;404&quot;);</b>
+<b class="fc">&nbsp;                return mav;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        errorMessage = &quot;Something went wrong.&quot;;</b>
+<b class="fc">&nbsp;        mav.addObject(&quot;errorMsg&quot;, errorMessage);</b>
+<b class="fc">&nbsp;        mav.setViewName(&quot;error&quot;);</b>
+<b class="fc">&nbsp;        return mav;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

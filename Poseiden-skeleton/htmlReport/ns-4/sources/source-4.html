@@ -1,0 +1,238 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RuleName</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: RuleName (com.nnk.springboot.domain)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RuleName</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/23)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RuleName$HibernateInstantiator$19TQDn0j</td>
+  </tr>
+  <tr>
+    <td class="name">RuleName$HibernateInstantiator$AqTOkSyD</td>
+  </tr>
+  <tr>
+    <td class="name">RuleName$HibernateProxy$fOIXGCZE</td>
+  </tr>
+  <tr>
+    <td class="name">RuleName$HibernateProxy$W28gZGfg</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.domain;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import jakarta.validation.constraints.Size;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;rulename&quot;)
+&nbsp;public class RuleName {
+&nbsp;    @Id
+&nbsp;    @Column(name = &quot;Id&quot;)
+&nbsp;    @GeneratedValue(strategy = GenerationType.AUTO)
+&nbsp;    private Integer id;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;name should be less than 126 characters&quot;)
+&nbsp;    private String name;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;description should be less than 126 characters&quot;)
+&nbsp;    private String description;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;json should be less than 126 characters&quot;)
+&nbsp;    private String json;
+&nbsp;
+&nbsp;    @Column(length = 512)
+&nbsp;    @Size(max = 512, message = &quot;template should be less than 513 characters&quot;)
+&nbsp;    private String template;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;sqlStr should be less than 126 characters&quot;)
+&nbsp;    private String sqlStr;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;sqlPart should be less than 126 characters&quot;)
+&nbsp;    private String sqlPart;
+&nbsp;
+&nbsp;    // TODO: Map columns in data table RULENAME with corresponding java fields
+&nbsp;
+<b class="fc">&nbsp;    public RuleName() {}</b>
+&nbsp;
+<b class="fc">&nbsp;    public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.description = description;</b>
+<b class="fc">&nbsp;        this.json = json;</b>
+<b class="fc">&nbsp;        this.template = template;</b>
+<b class="fc">&nbsp;        this.sqlStr = sqlStr;</b>
+<b class="fc">&nbsp;        this.sqlPart = sqlPart;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getId() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId(Integer id) {
+<b class="fc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setName(String name) {
+<b class="fc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getDescription() {
+<b class="fc">&nbsp;        return description;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDescription(String description) {
+<b class="fc">&nbsp;        this.description = description;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getJson() {
+<b class="fc">&nbsp;        return json;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setJson(String json) {
+<b class="fc">&nbsp;        this.json = json;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getTemplate() {
+<b class="fc">&nbsp;        return template;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTemplate(String template) {
+<b class="fc">&nbsp;        this.template = template;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSqlStr() {
+<b class="fc">&nbsp;        return sqlStr;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSqlStr(String sqlStr) {
+<b class="fc">&nbsp;        this.sqlStr = sqlStr;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSqlPart() {
+<b class="fc">&nbsp;        return sqlPart;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSqlPart(String sqlPart) {
+<b class="fc">&nbsp;        this.sqlPart = sqlPart;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return &quot;&amp;name=&quot; + this.name +</b>
+&nbsp;                &quot;&amp;description=&quot; + this.description +
+&nbsp;                &quot;&amp;json=&quot; + this.json +
+&nbsp;                &quot;&amp;template=&quot; + this.template +
+&nbsp;                &quot;&amp;sqlStr=&quot; + this.sqlStr +
+&nbsp;                &quot;&amp;sqlPart=&quot; + this.sqlPart;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

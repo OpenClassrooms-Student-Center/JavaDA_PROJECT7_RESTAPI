@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CurvePointController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: CurvePointController (com.nnk.springboot.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CurvePointController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.controllers;
+&nbsp;
+&nbsp;import com.nnk.springboot.domain.CurvePoint;
+&nbsp;import com.nnk.springboot.services.CurvePointService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;
+&nbsp;@Controller
+&nbsp;public class CurvePointController {
+&nbsp;    private final CurvePointService curvePointService;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public CurvePointController(CurvePointService curvePointService) {</b>
+<b class="fc">&nbsp;        this.curvePointService = curvePointService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays the list of all curvePoints in the database
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @RequestMapping(&quot;/curvePoint/list&quot;)
+&nbsp;    public String home(Model model)
+&nbsp;    {
+<b class="fc">&nbsp;        model.addAttribute(&quot;curvePoints&quot;, curvePointService.findAll());</b>
+<b class="fc">&nbsp;        return &quot;curvePoint/list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays a form to add a new curvePoint to the database&lt;br&gt;
+&nbsp;     * The curvePoint parameter will be overwritten with the form&#39;s values
+&nbsp;     * @param curvePoint an empty curvePoint object that will receive the results of the form
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/curvePoint/add&quot;)
+&nbsp;    public String addCurvePointForm(CurvePoint curvePoint) {
+<b class="fc">&nbsp;        return &quot;curvePoint/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method adds a curvePoint to the database, after checking its validity&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to curvePoint/list
+&nbsp;     * @param curvePoint a curvePoint object containing the curvePoint to be added to the database
+&nbsp;     * @param result the result of the curvePoint&#39;s validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/curvePoint/validate&quot;)
+&nbsp;    public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
+<b class="fc">&nbsp;        if (!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            curvePointService.save(curvePoint);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/curvePoint/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;curvePoint/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays information about a specific curvePoint&lt;br&gt;
+&nbsp;     * The displayed information can be modified
+&nbsp;     * @param id the id of the curvePoint to display
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/curvePoint/update/{id}&quot;)
+&nbsp;    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<b class="fc">&nbsp;        CurvePoint curvePoint = curvePointService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;curvePoint&quot;, curvePoint);</b>
+<b class="fc">&nbsp;        return &quot;curvePoint/update&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method updates a curvePoint in the database, after encrypting its password&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to curvePoint/list
+&nbsp;     * @param id the id of the curvePoint to update
+&nbsp;     * @param curvePoint the new curvePoint attributes
+&nbsp;     * @param result the result of the new curvePoint validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/curvePoint/update/{id}&quot;)
+&nbsp;    public String updateCurvePoint(@PathVariable(&quot;id&quot;) Integer id, @Valid CurvePoint curvePoint,
+&nbsp;                              BindingResult result, Model model) {
+<b class="fc">&nbsp;        if(!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            curvePointService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</b>
+<b class="fc">&nbsp;            curvePointService.save(curvePoint);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/curvePoint/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;redirect:/curvePoint/update/{id}&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method deletes a curvePoint from the database&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to curvePoint/list
+&nbsp;     * @param id the id of the curvePoint to delete
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/curvePoint/delete/{id}&quot;)
+&nbsp;    public String deleteCurvePoint(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<b class="fc">&nbsp;        curvePointService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        curvePointService.deleteById(id);</b>
+<b class="fc">&nbsp;        return &quot;redirect:/curvePoint/list&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

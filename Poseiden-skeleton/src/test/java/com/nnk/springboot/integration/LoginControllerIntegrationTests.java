@@ -11,6 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -56,14 +57,21 @@ public class LoginControllerIntegrationTests extends TestVariables {
     @Nested
     public class errorTests {
         @Test
-        @WithMockUser(username = "USERNAME")
-        public void errorTest () throws Exception {
+        @WithMockUser(authorities = "ADMIN")
+        public void errorTestIfAdmin () throws Exception {
             mockMvc.perform(get("/error"))
-                    .andExpect(status().is2xxSuccessful());
+                    .andExpect(status().is2xxSuccessful())
+                    .andExpect(content().string(org.hamcrest.Matchers.containsString("Unknown Exception")));
         }
-
         @Test
-        public void errorTestIfNotAuthenticated () throws Exception {
+        @WithMockUser(authorities = "USER")
+        public void errorTestIfUser () throws Exception {
+            mockMvc.perform(get("/error"))
+                    .andExpect(status().is2xxSuccessful())
+                    .andExpect(content().string(org.hamcrest.Matchers.containsString("Unknown Exception")));
+        }
+        @Test
+        public void errorTestIfNotAuthorized () throws Exception {
             mockMvc.perform(get("/error"))
                     .andExpect(status().is3xxRedirection());
         }

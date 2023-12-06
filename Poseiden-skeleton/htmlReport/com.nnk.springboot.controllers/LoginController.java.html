@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.services.UserService;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,32 +15,51 @@ public class LoginController {
     private final UserService userService;
 
     @Autowired
-<span class="fc" id="L15">    public LoginController(UserService userService) {</span>
-<span class="fc" id="L16">        this.userService = userService;</span>
-<span class="fc" id="L17">    }</span>
+<span class="fc" id="L18">    public LoginController(UserService userService) {</span>
+<span class="fc" id="L19">        this.userService = userService;</span>
+<span class="fc" id="L20">    }</span>
 
     @GetMapping(&quot;login&quot;)
     public ModelAndView login() {
-<span class="fc" id="L21">        ModelAndView mav = new ModelAndView();</span>
-<span class="fc" id="L22">        mav.setViewName(&quot;login&quot;);</span>
-<span class="fc" id="L23">        return mav;</span>
+<span class="fc" id="L24">        ModelAndView mav = new ModelAndView();</span>
+<span class="fc" id="L25">        mav.setViewName(&quot;login&quot;);</span>
+<span class="fc" id="L26">        return mav;</span>
     }
 
     @GetMapping(&quot;secure/article-details&quot;)
     public ModelAndView getAllUserArticles() {
-<span class="fc" id="L28">        ModelAndView mav = new ModelAndView();</span>
-<span class="fc" id="L29">        mav.addObject(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L30">        mav.setViewName(&quot;user/list&quot;);</span>
-<span class="fc" id="L31">        return mav;</span>
+<span class="fc" id="L31">        ModelAndView mav = new ModelAndView();</span>
+<span class="fc" id="L32">        mav.addObject(&quot;users&quot;, userService.findAll());</span>
+<span class="fc" id="L33">        mav.setViewName(&quot;user/list&quot;);</span>
+<span class="fc" id="L34">        return mav;</span>
     }
 
     @GetMapping(&quot;error&quot;)
-    public ModelAndView error() {
-<span class="fc" id="L36">        ModelAndView mav = new ModelAndView();</span>
-<span class="fc" id="L37">        String errorMessage= &quot;You are not authorized for the requested data.&quot;;</span>
-<span class="fc" id="L38">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
-<span class="fc" id="L39">        mav.setViewName(&quot;403&quot;);</span>
-<span class="fc" id="L40">        return mav;</span>
+    public ModelAndView error(HttpServletRequest request) {
+<span class="fc" id="L39">        ModelAndView mav = new ModelAndView();</span>
+        String errorMessage;
+<span class="fc" id="L41">        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);</span>
+
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (status != null) {</span>
+<span class="fc" id="L44">            Integer statusCode = Integer.valueOf(status.toString());</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            if(statusCode == HttpStatus.FORBIDDEN.value()) {</span>
+<span class="fc" id="L46">                errorMessage = &quot;You are not authorized for the requested data.&quot;;</span>
+<span class="fc" id="L47">                mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="fc" id="L48">                mav.setViewName(&quot;403&quot;);</span>
+<span class="fc" id="L49">                return mav;</span>
+            }
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            else if(statusCode == HttpStatus.NOT_FOUND.value()) {</span>
+<span class="fc" id="L52">                errorMessage = &quot;The requested resource cannot be found.&quot;;</span>
+<span class="fc" id="L53">                mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="fc" id="L54">                mav.setViewName(&quot;404&quot;);</span>
+<span class="fc" id="L55">                return mav;</span>
+            }
+        }
+
+<span class="fc" id="L59">        errorMessage = &quot;Something went wrong.&quot;;</span>
+<span class="fc" id="L60">        mav.addObject(&quot;errorMsg&quot;, errorMessage);</span>
+<span class="fc" id="L61">        mav.setViewName(&quot;error&quot;);</span>
+<span class="fc" id="L62">        return mav;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

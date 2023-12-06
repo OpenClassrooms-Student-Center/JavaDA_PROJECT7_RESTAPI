@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BidListController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: BidListController (com.nnk.springboot.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BidListController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.controllers;
+&nbsp;
+&nbsp;import com.nnk.springboot.domain.BidList;
+&nbsp;import com.nnk.springboot.services.BidListService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Controller;
+&nbsp;import org.springframework.ui.Model;
+&nbsp;import org.springframework.validation.BindingResult;
+&nbsp;import org.springframework.web.bind.annotation.GetMapping;
+&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+&nbsp;import org.springframework.web.bind.annotation.PostMapping;
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+&nbsp;
+&nbsp;import jakarta.validation.Valid;
+&nbsp;
+&nbsp;@Controller
+&nbsp;public class BidListController {
+&nbsp;    private final BidListService bidListService;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public BidListController(BidListService bidListService) {</b>
+<b class="fc">&nbsp;        this.bidListService = bidListService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays the list of all bidLists in the database
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @RequestMapping(&quot;/bidList/list&quot;)
+&nbsp;    public String home(Model model)
+&nbsp;    {
+<b class="fc">&nbsp;        model.addAttribute(&quot;bidLists&quot;, bidListService.findAll());</b>
+<b class="fc">&nbsp;        return &quot;bidList/list&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays a form to add a new bidList to the database&lt;br&gt;
+&nbsp;     * The bidList parameter will be overwritten with the form&#39;s values
+&nbsp;     * @param bidList an empty bidList object that will receive the results of the form
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/bidList/add&quot;)
+&nbsp;    public String addBidListForm(BidList bidList) {
+<b class="fc">&nbsp;        return &quot;bidList/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method adds a bidList to the database, after checking its validity&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to bidList/list
+&nbsp;     * @param bidList a bidList object containing the bidList to be added to the database
+&nbsp;     * @param result the result of the bidList&#39;s validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/bidList/validate&quot;)
+&nbsp;    public String validate(@Valid BidList bidList, BindingResult result, Model model) {
+<b class="fc">&nbsp;        if (!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            bidListService.save(bidList);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/bidList/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;bidList/add&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method displays information about a specific bidList&lt;br&gt;
+&nbsp;     * The displayed information can be modified
+&nbsp;     * @param id the id of the bidList to display
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/bidList/update/{id}&quot;)
+&nbsp;    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<b class="fc">&nbsp;        BidList bidList = bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid bidList Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        model.addAttribute(&quot;bidList&quot;, bidList);</b>
+<b class="fc">&nbsp;        return &quot;bidList/update&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method updates a bidList in the database, after encrypting its password&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to bidList/list
+&nbsp;     * @param id the id of the bidList to update
+&nbsp;     * @param bidList the new bidList attributes
+&nbsp;     * @param result the result of the new bidList validation
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/bidList/update/{id}&quot;)
+&nbsp;    public String updateBidList(@PathVariable(&quot;id&quot;) Integer id, @Valid BidList bidList,
+&nbsp;                              BindingResult result, Model model) {
+<b class="fc">&nbsp;        if(!result.hasErrors()) {</b>
+<b class="fc">&nbsp;            bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</b>
+<b class="fc">&nbsp;            bidListService.save(bidList);</b>
+<b class="fc">&nbsp;            return &quot;redirect:/bidList/list&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;redirect:/bidList/update/{id}&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method deletes a bidList from the database&lt;br&gt;
+&nbsp;     * Upon resolution it redirects to bidList/list
+&nbsp;     * @param id the id of the bidList to delete
+&nbsp;     * @param model
+&nbsp;     * @return A String corresponding to a thymeleaf template
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/bidList/delete/{id}&quot;)
+&nbsp;    public String deleteBidList(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<b class="fc">&nbsp;        bidListService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid bidList Id:&quot; + id)));</b>
+<b class="fc">&nbsp;        bidListService.deleteById(id);</b>
+<b class="fc">&nbsp;        return &quot;redirect:/bidList/list&quot;;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,328 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BidList</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nnk.springboot.domain</a>
+</div>
+
+<h1>Coverage Summary for Class: BidList (com.nnk.springboot.domain)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BidList</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/29)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">BidList$HibernateInstantiator$DGRzkcRD</td>
+  </tr>
+  <tr>
+    <td class="name">BidList$HibernateInstantiator$GvmNqkIa</td>
+  </tr>
+  <tr>
+    <td class="name">BidList$HibernateProxy$2jn7Na8S</td>
+  </tr>
+  <tr>
+    <td class="name">BidList$HibernateProxy$YKBzptuG</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/29)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nnk.springboot.domain;
+&nbsp;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;import jakarta.validation.constraints.*;
+&nbsp;
+&nbsp;import java.util.Date;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name = &quot;bidlist&quot;)
+&nbsp;public class BidList {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @Column(name = &quot;Id&quot;)
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private Integer id;
+&nbsp;
+&nbsp;    @Column(length = 30, nullable = false)
+&nbsp;    @Size(max = 30, message = &quot;account should be less than 31 characters&quot;)
+&nbsp;    @NotBlank(message = &quot;account is mandatory&quot;)
+&nbsp;    private String account;
+&nbsp;
+&nbsp;    @Column(length = 30, nullable = false)
+&nbsp;    @Size(max = 30, message = &quot;type should be less than 31 characters&quot;)
+&nbsp;    @NotBlank(message = &quot;type is mandatory&quot;)
+&nbsp;    private String type;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    @PositiveOrZero(message = &quot;bidQuantity should be a positive number or zero&quot;)
+&nbsp;    private Double bidQuantity;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    @PositiveOrZero(message = &quot;askQuantity should be a positive number or zero&quot;)
+&nbsp;    private Double askQuantity;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    @PositiveOrZero(message = &quot;bid should be a positive number or zero&quot;)
+&nbsp;    private Double bid;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    @PositiveOrZero(message = &quot;ask should be a positive number or zero&quot;)
+&nbsp;    private Double ask;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;benchmark should be less than 126 characters&quot;)
+&nbsp;    private String benchmark;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private Date bidListDate;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;commentary should be less than 126 characters&quot;)
+&nbsp;    private String commentary;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;security should be less than 126 characters&quot;)
+&nbsp;    private String security;
+&nbsp;
+&nbsp;    @Column(length = 10)
+&nbsp;    @Size(max = 10, message = &quot;status should be less than 11 characters&quot;)
+&nbsp;    private String status;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;trader should be less than 126 characters&quot;)
+&nbsp;    private String trader;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;book should be less than 126 characters&quot;)
+&nbsp;    private String book;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;creationName should be less than 126 characters&quot;)
+&nbsp;    private String creationName;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private Date creationDate;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;revisionName should be less than 126 characters&quot;)
+&nbsp;    private String revisionName;
+&nbsp;
+&nbsp;    @Column
+&nbsp;    private Date revisionDate;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;dealName should be less than 126 characters&quot;)
+&nbsp;    private String dealName;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;dealType should be less than 126 characters&quot;)
+&nbsp;    private String dealType;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;sourceListId should be less than 126 characters&quot;)
+&nbsp;    private String sourceListId;
+&nbsp;
+&nbsp;    @Column(length = 125)
+&nbsp;    @Size(max = 125, message = &quot;side should be less than 126 characters&quot;)
+&nbsp;    private String side;
+&nbsp;
+<b class="fc">&nbsp;    public BidList() {}</b>
+&nbsp;
+<b class="fc">&nbsp;    public BidList(String account, String type, Double bidQuantity) {</b>
+<b class="fc">&nbsp;        this.account = account;</b>
+<b class="fc">&nbsp;        this.type = type;</b>
+<b class="fc">&nbsp;        this.bidQuantity = bidQuantity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Integer getId() {
+<b class="fc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId(Integer id) {
+<b class="fc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getAccount() {
+<b class="fc">&nbsp;        return account;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAccount(String account) {
+<b class="fc">&nbsp;        this.account = account;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getType() {
+<b class="fc">&nbsp;        return type;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setType(String type) {
+<b class="fc">&nbsp;        this.type = type;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Double getBidQuantity() {
+<b class="fc">&nbsp;        return bidQuantity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBidQuantity(Double bidQuantity) {
+<b class="fc">&nbsp;        this.bidQuantity = bidQuantity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAskQuantity(Double askQuantity) {
+<b class="fc">&nbsp;        this.askQuantity = askQuantity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBid(Double bid) {
+<b class="fc">&nbsp;        this.bid = bid;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAsk(Double ask) {
+<b class="fc">&nbsp;        this.ask = ask;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBenchmark(String benchmark) {
+<b class="fc">&nbsp;        this.benchmark = benchmark;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCommentary(String commentary) {
+<b class="fc">&nbsp;        this.commentary = commentary;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSecurity(String security) {
+<b class="fc">&nbsp;        this.security = security;</b>
+&nbsp;    }
+&nbsp;    public void setStatus(String status) {
+<b class="fc">&nbsp;        this.status = status;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTrader(String trader) {
+<b class="fc">&nbsp;        this.trader = trader;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBook(String book) {
+<b class="fc">&nbsp;        this.book = book;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCreationName(String creationName) {
+<b class="fc">&nbsp;        this.creationName = creationName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRevisionName(String revisionName) {
+<b class="fc">&nbsp;        this.revisionName = revisionName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDealName(String dealName) {
+<b class="fc">&nbsp;        this.dealName = dealName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDealType(String dealType) {
+<b class="fc">&nbsp;        this.dealType = dealType;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSourceListId(String sourceListId) {
+<b class="fc">&nbsp;        this.sourceListId = sourceListId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setSide(String side) {
+<b class="fc">&nbsp;        this.side = side;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return &quot;&amp;account=&quot; + this.account +</b>
+&nbsp;                &quot;&amp;type=&quot; + this.type +
+&nbsp;                &quot;&amp;bidQuantity=&quot; + this.bidQuantity;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-06 18:41</div>
+</div>
+</body>
+</html>
