@@ -38,9 +38,9 @@ public class HomeController
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		if(authorities!=null && !authorities.isEmpty()) {
 			if (authorities.contains(new SimpleGrantedAuthority("ADMIN"))) {
-				return "redirect:/admin/home";
+				return "redirect:/home/admin";
 			} else if (authorities.contains(new SimpleGrantedAuthority("USER"))) {
-				return "redirect:/user/home";
+				return "redirect:/home/user";
 			}
 		}
 		return "403";
@@ -51,7 +51,7 @@ public class HomeController
 	 * @param model
 	 * @return A String corresponding to a thymeleaf template
 	 */
-	@RequestMapping("/admin/home")
+	@RequestMapping("/home/admin")
 	public String adminHome(Model model)
 	{
 		return "redirect:/user/list";
@@ -62,7 +62,7 @@ public class HomeController
 	 * @param model
 	 * @return A String corresponding to a thymeleaf template
 	 */
-	@RequestMapping("/user/home")
+	@RequestMapping("/home/user")
 	public String userHome(Model model)
 	{
 		return "redirect:/bidList/list";

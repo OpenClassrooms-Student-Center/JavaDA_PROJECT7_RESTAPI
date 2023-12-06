@@ -37,12 +37,12 @@ public class HomeControllerTests extends TestVariables {
         @Test
         public void homeTestIfAdmin () {
             user.setRole("ADMIN");
-            assertEquals("redirect:/admin/home", homeController.home(model, request, authentication));
+            assertEquals("redirect:/home/admin", homeController.home(model, request, authentication));
         }
 
         @Test
         public void homeTestIfUser () {
-            assertEquals("redirect:/user/home", homeController.home(model, request, authentication));
+            assertEquals("redirect:/home/user", homeController.home(model, request, authentication));
         }
 
         @Test

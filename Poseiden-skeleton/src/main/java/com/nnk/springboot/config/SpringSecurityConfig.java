@@ -69,7 +69,7 @@ public class SpringSecurityConfig {
      * <b>There is additional filtering done in UserController</b> to give users access to their own update page
      * and to give admins access to every user's update page
      * (see UserController.showUpdateForm() and UserController.updateUser()<br>
-     * The user part of the app, "admin/home" and "secure/article-details" are accessible only to admins<br>
+     * The user part of the app, "home/admin" and "secure/article-details" are accessible only to admins<br>
      * The rest of the app is accessible only to users<br><br>
      * After a successful login request, every user is forwarded to the "/" url,
      * which is mapped onto the home() method of HomeController,
@@ -84,7 +84,7 @@ public class SpringSecurityConfig {
         http.authorizeHttpRequests( auth -> { auth
                         .requestMatchers("login", "/app-logout").permitAll()
                         .requestMatchers("user/update/**", "error", "/").authenticated()
-                        .requestMatchers("user/**", "admin/home", "secure/article-details").hasAuthority("ADMIN")
+                        .requestMatchers("user/**", "home/admin", "secure/article-details").hasAuthority("ADMIN")
                         .anyRequest().hasAuthority("USER");
                 })
                 .formLogin((login) -> login.successForwardUrl("/"));

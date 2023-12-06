@@ -60,13 +60,13 @@ public class HomeControllerIntegrationTests extends TestVariables {
         @Test
         @WithMockUser(authorities = "ADMIN")
         public void adminHomeTest () throws Exception {
-            mockMvc.perform(get("/admin/home"))
+            mockMvc.perform(get("/home/admin"))
                     .andExpect(status().is3xxRedirection());
         }
         @Test
         @WithMockUser(authorities = "USER")
         public void adminHomeTestIfNotAuthorized () throws Exception {
-            mockMvc.perform(get("/admin/home"))
+            mockMvc.perform(get("/home/admin"))
                     .andExpect(status().isForbidden());
         }
     }
