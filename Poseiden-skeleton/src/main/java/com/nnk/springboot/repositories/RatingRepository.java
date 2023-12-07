@@ -18,8 +18,6 @@ public interface RatingRepository extends JpaRepository<Rating, Integer> {
 
     Optional<Rating> findById(Integer id);
 
-    Rating findByRatingId(Integer id);
-
     @Override
     boolean existsById(Integer integer);
 }

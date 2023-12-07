@@ -44,7 +44,7 @@ public class RatingServiceImpl implements RatingService {
      */
     @Override
     public Rating findByRatingId(Integer id){
-        return ratingRepository.findByRatingId(id);
+        return ratingRepository.findById(id).get();
     }
 
     /**
