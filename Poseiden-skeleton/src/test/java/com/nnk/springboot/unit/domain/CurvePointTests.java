@@ -27,13 +27,13 @@ public class CurvePointTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
     public class ValidationTests {
 
         @Test
-        public void ValidationTest() {
+        public void validationTest() {
             Set<ConstraintViolation<CurvePoint>> result = validator.validate(curvePoint);
             assertTrue(result.isEmpty());
         }

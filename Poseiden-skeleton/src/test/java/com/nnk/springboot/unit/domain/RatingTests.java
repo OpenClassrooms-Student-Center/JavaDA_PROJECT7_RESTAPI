@@ -28,13 +28,13 @@ public class RatingTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
     public class ValidationTests {
 
         @Test
-        public void ValidationTest() {
+        public void validationTest() {
             Set<ConstraintViolation<Rating>> result = validator.validate(rating);
             assertTrue(result.isEmpty());
         }
@@ -43,7 +43,7 @@ public class RatingTests extends TestVariables {
         public class FitchRatingTests
         {
             @Test
-            public void ValidationTestIfFitchRatingSize () {
+            public void validationTestIfFitchRatingSize () {
                 rating.setFitchRating(longString126);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
@@ -57,7 +57,7 @@ public class RatingTests extends TestVariables {
         public class MoodysRatingTests
         {
             @Test
-            public void ValidationTestIfMoodysRatingSize () {
+            public void validationTestIfMoodysRatingSize () {
                 rating.setMoodysRating(longString126);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
@@ -71,7 +71,7 @@ public class RatingTests extends TestVariables {
         public class OrderTests
         {
             @Test
-            public void ValidationTestIfOrderMax () {
+            public void validationTestIfOrderMax () {
                 rating.setOrder(128);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
@@ -81,7 +81,7 @@ public class RatingTests extends TestVariables {
             }
 
             @Test
-            public void ValidationTestIfOrderMin () {
+            public void validationTestIfOrderMin () {
                 rating.setOrder(-129);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());
@@ -95,7 +95,7 @@ public class RatingTests extends TestVariables {
         public class SandPRatingTests
         {
             @Test
-            public void ValidationTestIfSandPRatingSize () {
+            public void validationTestIfSandPRatingSize () {
                 rating.setSandPRating(longString126);
                 Set<ConstraintViolation<Rating>> result = validator.validate(rating);
                 assertEquals(1, result.size());

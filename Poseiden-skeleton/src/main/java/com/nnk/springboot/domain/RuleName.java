@@ -35,8 +35,6 @@ public class RuleName {
     @Size(max = 125, message = "sqlPart should be less than 126 characters")
     private String sqlPart;
 
-    // TODO: Map columns in data table RULENAME with corresponding java fields
-
     public RuleName() {}
 
     public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {

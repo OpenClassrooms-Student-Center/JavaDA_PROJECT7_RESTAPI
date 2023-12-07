@@ -36,10 +36,10 @@ public class RatingServiceTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
-    public class findAllTests {
+    public class FindAllTests {
         @Test
         public void findAllTest() {
             assertEquals(ratingList, ratingService.findAll());
@@ -48,7 +48,7 @@ public class RatingServiceTests extends TestVariables {
     }
 
     @Nested
-    public class findByIdTests {
+    public class FindByIdTests {
         @Test
         public void findByIdTest() {
             assertEquals(ratingOptional, ratingService.findById(rating.getId()));
@@ -70,7 +70,7 @@ public class RatingServiceTests extends TestVariables {
     }
 
     @Nested
-    public class deleteByIdTests {
+    public class DeleteByIdTests {
         @Test
         public void deleteByIdTest() {
             ratingService.deleteById(rating.getId());

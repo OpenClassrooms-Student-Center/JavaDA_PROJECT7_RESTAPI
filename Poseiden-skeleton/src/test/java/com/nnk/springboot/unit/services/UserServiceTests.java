@@ -38,10 +38,10 @@ public class UserServiceTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
-    public class findAllTests {
+    public class FindAllTests {
         @Test
         public void findAllTest () {
             assertEquals(userList, userService.findAll());
@@ -50,7 +50,7 @@ public class UserServiceTests extends TestVariables {
     }
 
     @Nested
-    public class findByIdTests {
+    public class FindByIdTests {
         @Test
         public void findByIdTest() {
             assertEquals(userOptional, userService.findById(user.getId()));
@@ -72,7 +72,7 @@ public class UserServiceTests extends TestVariables {
     }
 
     @Nested
-    public class findByUsernameTests {
+    public class FindByUsernameTests {
         @Test
         public void findByUsernameTest () {
             assertEquals(user, userService.findByUsername(user.getUsername()));
@@ -86,7 +86,7 @@ public class UserServiceTests extends TestVariables {
     }
 
     @Nested
-    public class deleteByIdTests {
+    public class DeleteByIdTests {
         @Test
         public void deleteByIdTest() {
             userService.deleteById(user.getId());

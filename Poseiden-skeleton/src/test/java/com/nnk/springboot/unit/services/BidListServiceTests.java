@@ -37,10 +37,10 @@ public class BidListServiceTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
-    public class findAllTests {
+    public class FindAllTests {
         @Test
         public void findAllTest() {
             assertEquals(bidListList, bidListService.findAll());
@@ -49,7 +49,7 @@ public class BidListServiceTests extends TestVariables {
     }
 
     @Nested
-    public class findByIdTests {
+    public class FindByIdTests {
         @Test
         public void findByIdTest() {
             assertEquals(bidListOptional, bidListService.findById(bidList.getId()));
@@ -71,7 +71,7 @@ public class BidListServiceTests extends TestVariables {
     }
 
     @Nested
-    public class deleteByIdTests {
+    public class DeleteByIdTests {
         @Test
         public void deleteByIdTest() {
             bidListService.deleteById(bidList.getId());

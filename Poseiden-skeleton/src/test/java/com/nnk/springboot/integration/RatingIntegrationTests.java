@@ -72,7 +72,7 @@ public class RatingIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests {
+    public class HomeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -85,7 +85,7 @@ public class RatingIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addRatingFormTests {
+    public class AddRatingFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addRatingFormTest () throws Exception {
@@ -103,7 +103,7 @@ public class RatingIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class validateTests {
+    public class ValidateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -138,7 +138,7 @@ public class RatingIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests {
+    public class ShowUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -164,7 +164,7 @@ public class RatingIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateRatingTests {
+    public class UpdateRatingTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateRatingTest () throws Exception {
@@ -208,7 +208,7 @@ public class RatingIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class deleteRatingTests {
+    public class DeleteRatingTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteRatingTest () throws Exception {

@@ -28,13 +28,13 @@ public class RuleNameTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
     public class ValidationTests {
 
         @Test
-        public void ValidationTest() {
+        public void validationTest() {
             Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
             assertTrue(result.isEmpty());
         }
@@ -43,7 +43,7 @@ public class RuleNameTests extends TestVariables {
         public class NameTests
         {
             @Test
-            public void ValidationTestIfNameSize () {
+            public void validationTestIfNameSize () {
                 ruleName.setName(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
@@ -57,7 +57,7 @@ public class RuleNameTests extends TestVariables {
         public class DescriptionTests
         {
             @Test
-            public void ValidationTestIfDescriptionSize () {
+            public void validationTestIfDescriptionSize () {
                 ruleName.setDescription(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
@@ -71,7 +71,7 @@ public class RuleNameTests extends TestVariables {
         public class JsonTests
         {
             @Test
-            public void ValidationTestIfJsonSize () {
+            public void validationTestIfJsonSize () {
                 ruleName.setJson(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
@@ -85,7 +85,7 @@ public class RuleNameTests extends TestVariables {
         public class TemplateTests
         {
             @Test
-            public void ValidationTestIfTemplateSize () {
+            public void validationTestIfTemplateSize () {
                 ruleName.setTemplate(longString513);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
@@ -99,7 +99,7 @@ public class RuleNameTests extends TestVariables {
         public class SqlStrTests
         {
             @Test
-            public void ValidationTestIfSqlStrSize () {
+            public void validationTestIfSqlStrSize () {
                 ruleName.setSqlStr(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());
@@ -113,7 +113,7 @@ public class RuleNameTests extends TestVariables {
         public class SqlPartTests
         {
             @Test
-            public void ValidationTestIfSqlPartSize () {
+            public void validationTestIfSqlPartSize () {
                 ruleName.setSqlPart(longString126);
                 Set<ConstraintViolation<RuleName>> result = validator.validate(ruleName);
                 assertEquals(1, result.size());

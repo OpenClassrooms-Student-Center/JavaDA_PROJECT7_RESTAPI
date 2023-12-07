@@ -52,7 +52,7 @@ public class UserControllerTests extends TestVariables {
     public void ContextLoads() {}
 
     @Nested
-    public class homeTests {
+    public class HomeTests {
         @Test
         public void homeTest () {
             assertEquals("user/list", userController.home(model));
@@ -61,7 +61,7 @@ public class UserControllerTests extends TestVariables {
     }
     
     @Nested
-    public class addUserTests {
+    public class AddUserTests {
         @Test
         public void addUserTest () {
             assertEquals("user/add", userController.addUser(user));
@@ -77,7 +77,7 @@ public class UserControllerTests extends TestVariables {
     }
     
     @Nested
-    public class validateTests {
+    public class ValidateTests {
         @Test
         public void validateTest () {
             assertEquals("redirect:/user/list", userController.validate(user, bindingResult, model));
@@ -103,7 +103,7 @@ public class UserControllerTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests {
+    public class ShowUpdateFormTests {
         @Test
         public void showUpdateFormTest () {
             assertEquals("user/update", userController.showUpdateForm(1, model, authentication));
@@ -169,7 +169,7 @@ public class UserControllerTests extends TestVariables {
     }
 
     @Nested
-    public class updateUserTests {
+    public class UpdateUserTests {
         @Test
         public void updateUserTest () {
             assertEquals("redirect:/user/list", userController.updateUser(1, user, bindingResult, model, authentication));
@@ -255,7 +255,7 @@ public class UserControllerTests extends TestVariables {
     }
 
     @Nested
-    public class deleteUserTests {
+    public class DeleteUserTests {
         @Test
         public void deleteUserTest () {
             assertEquals("redirect:/user/list", userController.deleteUser(1, model));

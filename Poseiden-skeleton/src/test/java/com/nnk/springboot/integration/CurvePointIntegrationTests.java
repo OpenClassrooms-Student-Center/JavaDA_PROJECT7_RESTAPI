@@ -71,7 +71,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests {
+    public class HomeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -84,7 +84,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addCurvePointFormTests {
+    public class AddCurvePointFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addCurvePointFormTest () throws Exception {
@@ -102,7 +102,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class validateTests {
+    public class ValidateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -126,7 +126,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests {
+    public class ShowUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -152,7 +152,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateCurvePointTests {
+    public class UpdateCurvePointTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateCurvePointTest () throws Exception {
@@ -185,7 +185,7 @@ public class CurvePointIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class deleteCurvePointTests {
+    public class DeleteCurvePointTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteCurvePointTest () throws Exception {

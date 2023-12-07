@@ -71,7 +71,7 @@ public class TradeIntegrationTests extends TestVariables {
     public void contextLoads() {}
 
     @Nested
-    public class homeTests {
+    public class HomeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void homeTest () throws Exception {
@@ -84,7 +84,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class addTradeFormTests {
+    public class AddTradeFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void addTradeFormTest () throws Exception {
@@ -102,7 +102,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class validateTests {
+    public class ValidateTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void validateTest () throws Exception {
@@ -137,7 +137,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class showUpdateFormTests {
+    public class ShowUpdateFormTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void showUpdateFormTest () throws Exception {
@@ -163,7 +163,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class updateTradeTests {
+    public class UpdateTradeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void updateTradeTest () throws Exception {
@@ -207,7 +207,7 @@ public class TradeIntegrationTests extends TestVariables {
     }
 
     @Nested
-    public class deleteTradeTests {
+    public class DeleteTradeTests {
         @Test
         @WithMockUser(authorities = "USER")
         public void deleteTradeTest () throws Exception {

@@ -30,7 +30,6 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
-        // TODO: find all RuleName, add to model
         model.addAttribute("ruleNames", ruleNameService.findAll());
         return "ruleName/list";
     }
@@ -72,7 +71,6 @@ public class RuleNameController {
      */
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
         RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
         model.addAttribute("ruleName", ruleName);
         return "ruleName/update";
@@ -107,7 +105,6 @@ public class RuleNameController {
      */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
         ruleNameService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
         ruleNameService.deleteById(id);
         return "redirect:/ruleName/list";

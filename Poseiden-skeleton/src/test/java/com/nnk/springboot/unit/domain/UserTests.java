@@ -28,13 +28,13 @@ public class UserTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {}
+    public void contextLoads() {}
 
     @Nested
     public class ValidationTests {
 
         @Test
-        public void ValidationTest() {
+        public void validationTest() {
             Set<ConstraintViolation<User>> result = validator.validate(user);
             assertTrue(result.isEmpty());
         }
@@ -43,7 +43,7 @@ public class UserTests extends TestVariables {
         public class UsernameTests
         {
             @Test
-            public void ValidationTestIfUsernameSize () {
+            public void validationTestIfUsernameSize () {
                 user.setUsername(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
@@ -53,7 +53,7 @@ public class UserTests extends TestVariables {
             }
 
             @Test
-            public void ValidationTestIfUsernameNotBlank () {
+            public void validationTestIfUsernameNotBlank () {
                 user.setUsername(" ");
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
@@ -67,7 +67,7 @@ public class UserTests extends TestVariables {
         public class PasswordTests
         {
             @Test
-            public void ValidationTestIfPasswordSize () {
+            public void validationTestIfPasswordSize () {
                 user.setPassword(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
@@ -77,7 +77,7 @@ public class UserTests extends TestVariables {
             }
 
             @Test
-            public void ValidationTestIfPasswordNotBlank () {
+            public void validationTestIfPasswordNotBlank () {
                 user.setPassword(" ");
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
@@ -91,7 +91,7 @@ public class UserTests extends TestVariables {
         public class FullNameTests
         {
             @Test
-            public void ValidationTestIfFullNameSize () {
+            public void validationTestIfFullNameSize () {
                 user.setFullname(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
@@ -105,7 +105,7 @@ public class UserTests extends TestVariables {
         public class RoleTests
         {
             @Test
-            public void ValidationTestIfRoleSize () {
+            public void validationTestIfRoleSize () {
                 user.setRole(longString126);
                 Set<ConstraintViolation<User>> result = validator.validate(user);
                 assertEquals(1, result.size());
@@ -120,36 +120,36 @@ public class UserTests extends TestVariables {
     public class ValidatePasswordTests {
 
         @Test
-        public void ValidatePasswordTest() {
+        public void validatePasswordTest() {
             assertTrue(user.validatePassword());
         }
 
         @Test
-        public void ValidatePasswordTestIfNoUppercase() {
+        public void validatePasswordTestIfNoUppercase() {
             user.setPassword("passwordtestvalue1!");
             assertFalse(user.validatePassword());
         }
 
         @Test
-        public void ValidatePasswordTestIfNoLowercase() {
+        public void validatePasswordTestIfNoLowercase() {
             user.setPassword("PASSWORDTESTVALUE1!");
             assertFalse(user.validatePassword());
         }
 
         @Test
-        public void ValidatePasswordTestIfNoDigit() {
+        public void validatePasswordTestIfNoDigit() {
             user.setPassword("passwordTestValue!");
             assertFalse(user.validatePassword());
         }
 
         @Test
-        public void ValidatePasswordTestIfNoNonWord() {
+        public void validatePasswordTestIfNoNonWord() {
             user.setPassword("passwordTestValue1");
             assertFalse(user.validatePassword());
         }
 
         @Test
-        public void ValidatePasswordTestIfTooSmall() {
+        public void validatePasswordTestIfTooSmall() {
             user.setPassword("P1!");
             assertFalse(user.validatePassword());
         }

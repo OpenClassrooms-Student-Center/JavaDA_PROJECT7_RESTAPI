@@ -37,11 +37,11 @@ public class RuleNameServiceTests extends TestVariables {
     }
 
     @Test
-    public void ContextLoads() {
+    public void contextLoads() {
     }
 
     @Nested
-    public class findAllTests {
+    public class FindAllTests {
         @Test
         public void findAllTest() {
             assertEquals(ruleNameList, ruleNameService.findAll());
@@ -50,7 +50,7 @@ public class RuleNameServiceTests extends TestVariables {
     }
 
     @Nested
-    public class findByIdTests {
+    public class FindByIdTests {
         @Test
         public void findByIdTest() {
             assertEquals(ruleNameOptional, ruleNameService.findById(ruleName.getId()));
@@ -72,7 +72,7 @@ public class RuleNameServiceTests extends TestVariables {
     }
 
     @Nested
-    public class deleteByIdTests {
+    public class DeleteByIdTests {
         @Test
         public void deleteByIdTest() {
             ruleNameService.deleteById(ruleName.getId());

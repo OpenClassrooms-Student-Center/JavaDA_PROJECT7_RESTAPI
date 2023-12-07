@@ -7,8 +7,6 @@ import jakarta.validation.constraints.*;
 @Entity
 @Table(name = "rating")
 public class Rating {
-    // TODO: Map columns in data table RATING with corresponding java fields
-
     @Column(length = 125)
     @Size(max = 125, message = "fitchRating should be less than 126 characters")
     private String fitchRating;
