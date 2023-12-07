@@ -30,9 +30,8 @@ public class RuleNameController {
     @RequestMapping(&quot;/ruleName/list&quot;)
     public String home(Model model)
     {
-        // TODO: find all RuleName, add to model
-<span class="fc" id="L34">        model.addAttribute(&quot;ruleNames&quot;, ruleNameService.findAll());</span>
-<span class="fc" id="L35">        return &quot;ruleName/list&quot;;</span>
+<span class="fc" id="L33">        model.addAttribute(&quot;ruleNames&quot;, ruleNameService.findAll());</span>
+<span class="fc" id="L34">        return &quot;ruleName/list&quot;;</span>
     }
 
     /**
@@ -43,7 +42,7 @@ public class RuleNameController {
      */
     @GetMapping(&quot;/ruleName/add&quot;)
     public String addRuleNameForm(RuleName ruleName) {
-<span class="fc" id="L46">        return &quot;ruleName/add&quot;;</span>
+<span class="fc" id="L45">        return &quot;ruleName/add&quot;;</span>
     }
 
     /**
@@ -56,11 +55,11 @@ public class RuleNameController {
      */
     @PostMapping(&quot;/ruleName/validate&quot;)
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L60">            ruleNameService.save(ruleName);</span>
-<span class="fc" id="L61">            return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L59">            ruleNameService.save(ruleName);</span>
+<span class="fc" id="L60">            return &quot;redirect:/ruleName/list&quot;;</span>
         }            
-<span class="fc" id="L63">        return &quot;ruleName/add&quot;;</span>
+<span class="fc" id="L62">        return &quot;ruleName/add&quot;;</span>
     }
 
     /**
@@ -72,10 +71,9 @@ public class RuleNameController {
      */
     @GetMapping(&quot;/ruleName/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
-<span class="fc" id="L76">        RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L77">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
-<span class="fc" id="L78">        return &quot;ruleName/update&quot;;</span>
+<span class="fc" id="L74">        RuleName ruleName = ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L75">        model.addAttribute(&quot;ruleName&quot;, ruleName);</span>
+<span class="fc" id="L76">        return &quot;ruleName/update&quot;;</span>
     }
 
     /**
@@ -90,12 +88,12 @@ public class RuleNameController {
     @PostMapping(&quot;/ruleName/update/{id}&quot;)
     public String updateRuleName(@PathVariable(&quot;id&quot;) Integer id, @Valid RuleName ruleName,
                              BindingResult result, Model model) {
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
-<span class="fc" id="L94">            ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L95">            ruleNameService.save(ruleName);</span>
-<span class="fc" id="L96">            return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if(!result.hasErrors()) {</span>
+<span class="fc" id="L92">            ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L93">            ruleNameService.save(ruleName);</span>
+<span class="fc" id="L94">            return &quot;redirect:/ruleName/list&quot;;</span>
         }
-<span class="fc" id="L98">        return &quot;redirect:/ruleName/update/{id}&quot;;</span>
+<span class="fc" id="L96">        return &quot;redirect:/ruleName/update/{id}&quot;;</span>
     }
 
     /**
@@ -107,10 +105,9 @@ public class RuleNameController {
      */
     @GetMapping(&quot;/ruleName/delete/{id}&quot;)
     public String deleteRuleName(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
-<span class="fc" id="L111">        ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
-<span class="fc" id="L112">        ruleNameService.deleteById(id);</span>
-<span class="fc" id="L113">        return &quot;redirect:/ruleName/list&quot;;</span>
+<span class="fc" id="L108">        ruleNameService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id)));</span>
+<span class="fc" id="L109">        ruleNameService.deleteById(id);</span>
+<span class="fc" id="L110">        return &quot;redirect:/ruleName/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

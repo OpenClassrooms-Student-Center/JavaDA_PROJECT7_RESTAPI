@@ -35,78 +35,76 @@ public class RuleName {
     @Size(max = 125, message = &quot;sqlPart should be less than 126 characters&quot;)
     private String sqlPart;
 
-    // TODO: Map columns in data table RULENAME with corresponding java fields
+<span class="fc" id="L38">    public RuleName() {}</span>
 
-<span class="fc" id="L40">    public RuleName() {}</span>
-
-<span class="fc" id="L42">    public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {</span>
-<span class="fc" id="L43">        this.name = name;</span>
-<span class="fc" id="L44">        this.description = description;</span>
-<span class="fc" id="L45">        this.json = json;</span>
-<span class="fc" id="L46">        this.template = template;</span>
-<span class="fc" id="L47">        this.sqlStr = sqlStr;</span>
-<span class="fc" id="L48">        this.sqlPart = sqlPart;</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L40">    public RuleName(String name, String description, String json, String template, String sqlStr, String sqlPart) {</span>
+<span class="fc" id="L41">        this.name = name;</span>
+<span class="fc" id="L42">        this.description = description;</span>
+<span class="fc" id="L43">        this.json = json;</span>
+<span class="fc" id="L44">        this.template = template;</span>
+<span class="fc" id="L45">        this.sqlStr = sqlStr;</span>
+<span class="fc" id="L46">        this.sqlPart = sqlPart;</span>
+<span class="fc" id="L47">    }</span>
 
     public Integer getId() {
-<span class="fc" id="L52">        return id;</span>
+<span class="fc" id="L50">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="fc" id="L56">        this.id = id;</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L54">        this.id = id;</span>
+<span class="fc" id="L55">    }</span>
 
     public String getName() {
-<span class="fc" id="L60">        return name;</span>
+<span class="fc" id="L58">        return name;</span>
     }
 
     public void setName(String name) {
-<span class="fc" id="L64">        this.name = name;</span>
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L62">        this.name = name;</span>
+<span class="fc" id="L63">    }</span>
 
     public String getDescription() {
-<span class="fc" id="L68">        return description;</span>
+<span class="fc" id="L66">        return description;</span>
     }
 
     public void setDescription(String description) {
-<span class="fc" id="L72">        this.description = description;</span>
-<span class="fc" id="L73">    }</span>
+<span class="fc" id="L70">        this.description = description;</span>
+<span class="fc" id="L71">    }</span>
 
     public String getJson() {
-<span class="fc" id="L76">        return json;</span>
+<span class="fc" id="L74">        return json;</span>
     }
 
     public void setJson(String json) {
-<span class="fc" id="L80">        this.json = json;</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L78">        this.json = json;</span>
+<span class="fc" id="L79">    }</span>
 
     public String getTemplate() {
-<span class="fc" id="L84">        return template;</span>
+<span class="fc" id="L82">        return template;</span>
     }
 
     public void setTemplate(String template) {
-<span class="fc" id="L88">        this.template = template;</span>
-<span class="fc" id="L89">    }</span>
+<span class="fc" id="L86">        this.template = template;</span>
+<span class="fc" id="L87">    }</span>
 
     public String getSqlStr() {
-<span class="fc" id="L92">        return sqlStr;</span>
+<span class="fc" id="L90">        return sqlStr;</span>
     }
 
     public void setSqlStr(String sqlStr) {
-<span class="fc" id="L96">        this.sqlStr = sqlStr;</span>
-<span class="fc" id="L97">    }</span>
+<span class="fc" id="L94">        this.sqlStr = sqlStr;</span>
+<span class="fc" id="L95">    }</span>
 
     public String getSqlPart() {
-<span class="fc" id="L100">        return sqlPart;</span>
+<span class="fc" id="L98">        return sqlPart;</span>
     }
 
     public void setSqlPart(String sqlPart) {
-<span class="fc" id="L104">        this.sqlPart = sqlPart;</span>
-<span class="fc" id="L105">    }</span>
+<span class="fc" id="L102">        this.sqlPart = sqlPart;</span>
+<span class="fc" id="L103">    }</span>
 
     @Override
     public String toString() {
-<span class="fc" id="L109">        return &quot;&amp;name=&quot; + this.name +</span>
+<span class="fc" id="L107">        return &quot;&amp;name=&quot; + this.name +</span>
                 &quot;&amp;description=&quot; + this.description +
                 &quot;&amp;json=&quot; + this.json +
                 &quot;&amp;template=&quot; + this.template +

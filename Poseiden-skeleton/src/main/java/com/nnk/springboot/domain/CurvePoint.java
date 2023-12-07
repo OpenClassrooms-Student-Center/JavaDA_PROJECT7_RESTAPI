@@ -2,6 +2,8 @@ package com.nnk.springboot.domain;
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.*;
+
 import java.util.Date;
 
 
@@ -14,6 +16,7 @@ public class CurvePoint {
     private Integer id;
 
     @Column(name = "CurveId")
+    @PositiveOrZero(message = "curveId should be a positive number or zero")
     private Integer curveId;
 
     private Date asOfDate;

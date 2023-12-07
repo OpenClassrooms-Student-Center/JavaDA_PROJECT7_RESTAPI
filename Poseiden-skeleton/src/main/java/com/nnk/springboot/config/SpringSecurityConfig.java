@@ -55,11 +55,11 @@ public class SpringSecurityConfig {
 
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+        auth.jdbcAuthentication()
+                .passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
                 .usersByUsernameQuery("select username, password, 'true' as enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from users where username=?")
-        ;
+                .authoritiesByUsernameQuery("select username, role from users where username=?");
     }
 
     /**
@@ -90,11 +90,12 @@ public class SpringSecurityConfig {
                 (login) -> login
                         .successForwardUrl("/")
                         .permitAll());
-        http.logout((logout) -> logout
-                .logoutUrl("/app-logout")
-                .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true)
-                .permitAll());
+        http.logout(
+                (logout) -> logout
+                        .logoutUrl("/app-logout")
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .permitAll());
         return http.build();
     }
 }

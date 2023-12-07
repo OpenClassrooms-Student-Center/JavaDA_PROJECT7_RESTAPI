@@ -57,7 +57,7 @@ public abstract class TestVariables {
     protected List<CurvePoint> curvePointList;
     protected Optional<CurvePoint> curvePointOptional;
 
-    protected String curvePointCreationDatePast;
+    protected String curvePointCurveIdPositiveOrZero;
     protected Integer curvePointId; // id of the curvePoint created for integration tests
     
     protected Rating rating;
@@ -675,7 +675,7 @@ public abstract class TestVariables {
         curvePointList = new ArrayList<>(List.of(curvePoint));
         curvePointOptional = Optional.of(curvePoint);
 
-        curvePointCreationDatePast = "creationDate should be in the past";
+        curvePointCurveIdPositiveOrZero = "curveId should be a positive number or zero";
 
         rating = new Rating("moodysRatingTestValue", "sandPRatingTestValue", "UsernameTestValue", 10);
         ratingList = new ArrayList<>(List.of(rating));

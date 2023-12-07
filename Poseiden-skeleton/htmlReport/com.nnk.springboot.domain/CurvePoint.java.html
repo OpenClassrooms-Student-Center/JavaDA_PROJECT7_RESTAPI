@@ -2,6 +2,8 @@
 
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.*;
+
 import java.util.Date;
 
 
@@ -14,6 +16,7 @@ public class CurvePoint {
     private Integer id;
 
     @Column(name = &quot;CurveId&quot;)
+    @PositiveOrZero(message = &quot;curveId should be a positive number or zero&quot;)
     private Integer curveId;
 
     private Date asOfDate;
@@ -24,46 +27,45 @@ public class CurvePoint {
 
     private Date creationDate;
 
-<span class="fc" id="L27">    public CurvePoint() {};</span>
+<span class="fc" id="L30">    public CurvePoint() {};</span>
 
-<span class="fc" id="L29">    public CurvePoint(int curveId, Double term, Double value) {</span>
-<span class="fc" id="L30">        this.curveId = curveId;</span>
-<span class="fc" id="L31">        this.term = term;</span>
-<span class="fc" id="L32">        this.value = value;</span>
-<span class="fc" id="L33">    }</span>
-    // TODO: Map columns in data table CURVEPOINT with corresponding java fields
+<span class="fc" id="L32">    public CurvePoint(int curveId, Double term, Double value) {</span>
+<span class="fc" id="L33">        this.curveId = curveId;</span>
+<span class="fc" id="L34">        this.term = term;</span>
+<span class="fc" id="L35">        this.value = value;</span>
+<span class="fc" id="L36">    }</span>
 
     public Integer getId() {
-<span class="fc" id="L37">        return id;</span>
+<span class="fc" id="L39">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="fc" id="L41">        this.id = id;</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L43">        this.id = id;</span>
+<span class="fc" id="L44">    }</span>
 
     public Integer getCurveId() {
-<span class="fc" id="L45">        return curveId;</span>
+<span class="fc" id="L47">        return curveId;</span>
     }
 
     public void setCurveId(Integer curveId) {
-<span class="fc" id="L49">        this.curveId = curveId;</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L51">        this.curveId = curveId;</span>
+<span class="fc" id="L52">    }</span>
 
     public Double getTerm() {
-<span class="fc" id="L53">        return term;</span>
+<span class="fc" id="L55">        return term;</span>
     }
 
     public Double getValue() {
-<span class="fc" id="L57">        return value;</span>
+<span class="fc" id="L59">        return value;</span>
     }
 
     public void setValue(Double value) {
-<span class="fc" id="L61">        this.value = value;</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L63">        this.value = value;</span>
+<span class="fc" id="L64">    }</span>
 
     @Override
     public String toString() {
-<span class="fc" id="L66">        return &quot;&amp;curveId=&quot; + this.curveId +</span>
+<span class="fc" id="L68">        return &quot;&amp;curveId=&quot; + this.curveId +</span>
                 &quot;&amp;term=&quot; + this.term +
                 &quot;&amp;value=&quot; + this.value;
     }

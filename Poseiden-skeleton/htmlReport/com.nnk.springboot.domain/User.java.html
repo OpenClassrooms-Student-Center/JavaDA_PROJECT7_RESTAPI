@@ -2,7 +2,6 @@
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-
 import jakarta.validation.constraints.NotBlank;
 
 /**
@@ -13,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = &quot;users&quot;)
-<span class="fc" id="L16">public class User {</span>
+<span class="fc" id="L15">public class User {</span>
     /**
      * An Integer corresponding to the id of the User in the database
      */
@@ -56,44 +55,44 @@ import jakarta.validation.constraints.NotBlank;
     private String role;
 
     public Integer getId() {
-<span class="fc" id="L59">        return id;</span>
+<span class="fc" id="L58">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="fc" id="L63">        this.id = id;</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L62">        this.id = id;</span>
+<span class="fc" id="L63">    }</span>
 
     public String getUsername() {
-<span class="fc" id="L67">        return username;</span>
+<span class="fc" id="L66">        return username;</span>
     }
 
     public void setUsername(String username) {
-<span class="fc" id="L71">        this.username = username;</span>
-<span class="fc" id="L72">    }</span>
+<span class="fc" id="L70">        this.username = username;</span>
+<span class="fc" id="L71">    }</span>
 
     public String getPassword() {
-<span class="fc" id="L75">        return password;</span>
+<span class="fc" id="L74">        return password;</span>
     }
 
     public void setPassword(String password) {
-<span class="fc" id="L79">        this.password = password;</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L78">        this.password = password;</span>
+<span class="fc" id="L79">    }</span>
 
     public String getFullname() {
-<span class="fc" id="L83">        return fullname;</span>
+<span class="fc" id="L82">        return fullname;</span>
     }
 
     public void setFullname(String fullname) {
-<span class="fc" id="L87">        this.fullname = fullname;</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L86">        this.fullname = fullname;</span>
+<span class="fc" id="L87">    }</span>
 
     public String getRole() {
-<span class="fc" id="L91">        return role;</span>
+<span class="fc" id="L90">        return role;</span>
     }
 
     public void setRole(String role) {
-<span class="fc" id="L95">        this.role = role;</span>
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L94">        this.role = role;</span>
+<span class="fc" id="L95">    }</span>
 
     /**
      * This method validates that the user's password :&lt;br&gt;
@@ -108,12 +107,12 @@ import jakarta.validation.constraints.NotBlank;
      * @return true if the password meets the requirements
      */
     public Boolean validatePassword() {
-<span class="fc" id="L111">        Boolean length = password.matches(&quot;\\S{8,}&quot;);</span>
-<span class="fc" id="L112">        Boolean digit = password.matches(&quot;.*\\d.*&quot;);</span>
-<span class="fc" id="L113">        Boolean nonword = password.matches(&quot;.*\\W.*&quot;);</span>
-<span class="fc" id="L114">        Boolean uppercase = password.matches(&quot;.*[A-Z].*&quot;);</span>
-<span class="fc" id="L115">        Boolean lowercase = password.matches(&quot;.*[a-z].*&quot;);</span>
-<span class="fc bfc" id="L116" title="All 10 branches covered.">        return length &amp;&amp; digit &amp;&amp; nonword &amp;&amp; uppercase &amp;&amp; lowercase;</span>
+<span class="fc" id="L110">        Boolean length = password.matches(&quot;\\S{8,}&quot;);</span>
+<span class="fc" id="L111">        Boolean digit = password.matches(&quot;.*\\d.*&quot;);</span>
+<span class="fc" id="L112">        Boolean nonword = password.matches(&quot;.*\\W.*&quot;);</span>
+<span class="fc" id="L113">        Boolean uppercase = password.matches(&quot;.*[A-Z].*&quot;);</span>
+<span class="fc" id="L114">        Boolean lowercase = password.matches(&quot;.*[a-z].*&quot;);</span>
+<span class="fc bfc" id="L115" title="All 10 branches covered.">        return length &amp;&amp; digit &amp;&amp; nonword &amp;&amp; uppercase &amp;&amp; lowercase;</span>
     }
 
     /**
@@ -124,7 +123,7 @@ import jakarta.validation.constraints.NotBlank;
      */
     @Override
     public String toString() {
-<span class="fc" id="L127">        return &quot;&amp;username=&quot; + this.username +</span>
+<span class="fc" id="L126">        return &quot;&amp;username=&quot; + this.username +</span>
                 &quot;&amp;password=&quot; + this.password +
                 &quot;&amp;fullname=&quot; + this.fullname +
                 &quot;&amp;role=&quot; + this.role;

@@ -7,8 +7,6 @@ import jakarta.validation.constraints.*;
 @Entity
 @Table(name = &quot;rating&quot;)
 public class Rating {
-    // TODO: Map columns in data table RATING with corresponding java fields
-
     @Column(length = 125)
     @Size(max = 125, message = &quot;fitchRating should be less than 126 characters&quot;)
     private String fitchRating;
@@ -31,58 +29,58 @@ public class Rating {
     @Size(max = 125, message = &quot;sandPRating should be less than 126 characters&quot;)
     private String sandPRating;
 
-<span class="fc" id="L34">    public Rating() {}</span>
+<span class="fc" id="L32">    public Rating() {}</span>
 
-<span class="fc" id="L36">    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer order) {</span>
-<span class="fc" id="L37">        this.fitchRating = fitchRating;</span>
-<span class="fc" id="L38">        this.moodysRating = moodysRating;</span>
-<span class="fc" id="L39">        this.order = order;</span>
-<span class="fc" id="L40">        this.sandPRating = sandPRating;</span>
-<span class="fc" id="L41">    }</span>
+<span class="fc" id="L34">    public Rating(String moodysRating, String sandPRating, String fitchRating, Integer order) {</span>
+<span class="fc" id="L35">        this.fitchRating = fitchRating;</span>
+<span class="fc" id="L36">        this.moodysRating = moodysRating;</span>
+<span class="fc" id="L37">        this.order = order;</span>
+<span class="fc" id="L38">        this.sandPRating = sandPRating;</span>
+<span class="fc" id="L39">    }</span>
 
     public String getFitchRating() {
-<span class="fc" id="L44">        return fitchRating;</span>
+<span class="fc" id="L42">        return fitchRating;</span>
     }
 
     public void setFitchRating(String fitchRating) {
-<span class="fc" id="L48">        this.fitchRating = fitchRating;</span>
-<span class="fc" id="L49">    }</span>
+<span class="fc" id="L46">        this.fitchRating = fitchRating;</span>
+<span class="fc" id="L47">    }</span>
 
     public Integer getId() {
-<span class="fc" id="L52">        return id;</span>
+<span class="fc" id="L50">        return id;</span>
     }
 
     public void setId(Integer id) {
-<span class="fc" id="L56">        this.id = id;</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L54">        this.id = id;</span>
+<span class="fc" id="L55">    }</span>
 
     public String getMoodysRating() {
-<span class="fc" id="L60">        return moodysRating;</span>
+<span class="fc" id="L58">        return moodysRating;</span>
     }
 
     public void setMoodysRating(String moodysRating) {
-<span class="fc" id="L64">        this.moodysRating = moodysRating;</span>
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L62">        this.moodysRating = moodysRating;</span>
+<span class="fc" id="L63">    }</span>
 
     public Integer getOrder() {
-<span class="fc" id="L68">        return order;</span>
+<span class="fc" id="L66">        return order;</span>
     }
 
     public void setOrder(Integer order) {
-<span class="fc" id="L72">        this.order = order;</span>
-<span class="fc" id="L73">    }</span>
+<span class="fc" id="L70">        this.order = order;</span>
+<span class="fc" id="L71">    }</span>
 
     public String getSandPRating() {
-<span class="fc" id="L76">        return sandPRating;</span>
+<span class="fc" id="L74">        return sandPRating;</span>
     }
 
     public void setSandPRating(String sandPRating) {
-<span class="fc" id="L80">        this.sandPRating = sandPRating;</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc" id="L78">        this.sandPRating = sandPRating;</span>
+<span class="fc" id="L79">    }</span>
 
     @Override
     public String toString() {
-<span class="fc" id="L85">        return &quot;&amp;moodysRating=&quot; + this.moodysRating +</span>
+<span class="fc" id="L83">        return &quot;&amp;moodysRating=&quot; + this.moodysRating +</span>
                 &quot;&amp;sandPRating=&quot; + this.sandPRating +
                 &quot;&amp;fitchRating=&quot; + this.fitchRating +
                 &quot;&amp;order=&quot; + this.order;
