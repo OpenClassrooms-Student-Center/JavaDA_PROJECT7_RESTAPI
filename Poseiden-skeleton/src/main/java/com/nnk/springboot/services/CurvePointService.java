@@ -26,6 +26,7 @@ public interface CurvePointService {
     Optional<CurvePoint> findCurvePointById(Integer id);
 
     /**
+     * find the curvePoint in db
      * @param id
      * @return
      */
@@ -38,6 +39,7 @@ public interface CurvePointService {
     boolean checkIfIdExists(int id);
 
     /**
+     * delete curvePoint in db
      * @param curvePoint
      */
     void deleteCurvePoint(CurvePoint curvePoint);
