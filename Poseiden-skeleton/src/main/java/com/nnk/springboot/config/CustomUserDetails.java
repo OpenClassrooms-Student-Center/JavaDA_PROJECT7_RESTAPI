@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * This class is a custom implementation of the UserDetails class.<br>
+ * It maps a User object to a UserDetails object,
+ * which can then be interpreted by Spring Boot Security
+ * for authentication and authorization purposes.
+ */
 public class CustomUserDetails implements UserDetails {
     /**
      * the domain User object that is mapped to a SpringSecurity UserDetails objects
@@ -19,6 +25,10 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
+    /**
+     * This methods returns the authorities of a user, based on its role attribute
+     * @return Collection<? extends GrantedAuthority>
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(!user.getRole().isBlank()) {
@@ -38,21 +48,37 @@ public class CustomUserDetails implements UserDetails {
         return user.getUsername();
     }
 
+    /**
+     * All accounts are considered non expired
+     * @return true
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * All accounts are considered non locked
+     * @return true
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * All credentials are considered non expired
+     * @return true
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    /**
+     * All accounts are considered enabled
+     * @return true
+     */
     @Override
     public boolean isEnabled() {
         return true;
