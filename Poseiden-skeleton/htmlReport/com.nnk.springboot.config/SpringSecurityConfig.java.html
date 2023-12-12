@@ -81,22 +81,21 @@ import javax.sql.DataSource;
      */
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-<span class="fc" id="L84">        http.authorizeHttpRequests( auth -&gt; { auth</span>
+<span class="fc" id="L84">        http.authorizeHttpRequests( auth -&gt; auth</span>
 <span class="fc" id="L85">                .requestMatchers(&quot;user/update/**&quot;, &quot;error&quot;, &quot;/&quot;).authenticated()</span>
 <span class="fc" id="L86">                .requestMatchers(&quot;user/**&quot;, &quot;home/admin&quot;, &quot;secure/article-details&quot;).hasAuthority(&quot;ADMIN&quot;)</span>
-<span class="fc" id="L87">                .anyRequest().hasAuthority(&quot;USER&quot;);</span>
-<span class="fc" id="L88">        });</span>
-<span class="fc" id="L89">        http.formLogin(</span>
-<span class="fc" id="L90">                (login) -&gt; login</span>
-<span class="fc" id="L91">                        .successForwardUrl(&quot;/&quot;)</span>
-<span class="fc" id="L92">                        .permitAll());</span>
-<span class="fc" id="L93">        http.logout(</span>
-<span class="fc" id="L94">                (logout) -&gt; logout</span>
-<span class="fc" id="L95">                        .logoutUrl(&quot;/app-logout&quot;)</span>
-<span class="fc" id="L96">                        .deleteCookies(&quot;JSESSIONID&quot;)</span>
-<span class="fc" id="L97">                        .invalidateHttpSession(true)</span>
-<span class="fc" id="L98">                        .permitAll());</span>
-<span class="fc" id="L99">        return http.build();</span>
+<span class="fc" id="L87">                .anyRequest().hasAuthority(&quot;USER&quot;));</span>
+<span class="fc" id="L88">        http.formLogin(</span>
+<span class="fc" id="L89">                (login) -&gt; login</span>
+<span class="fc" id="L90">                        .successForwardUrl(&quot;/&quot;)</span>
+<span class="fc" id="L91">                        .permitAll());</span>
+<span class="fc" id="L92">        http.logout(</span>
+<span class="fc" id="L93">                (logout) -&gt; logout</span>
+<span class="fc" id="L94">                        .logoutUrl(&quot;/app-logout&quot;)</span>
+<span class="fc" id="L95">                        .deleteCookies(&quot;JSESSIONID&quot;)</span>
+<span class="fc" id="L96">                        .invalidateHttpSession(true)</span>
+<span class="fc" id="L97">                        .permitAll());</span>
+<span class="fc" id="L98">        return http.build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

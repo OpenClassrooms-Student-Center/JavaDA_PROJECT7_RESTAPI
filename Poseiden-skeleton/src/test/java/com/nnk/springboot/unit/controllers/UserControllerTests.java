@@ -163,7 +163,7 @@ public class UserControllerTests extends TestVariables {
                     return "notTheRightUsername";
                 }
             };
-            assertEquals("403", userController.showUpdateForm(1, model, authentication));
+            assertEquals("error/403", userController.showUpdateForm(1, model, authentication));
             verify(userService, Mockito.times(1)).findById(any(Integer.class));
         }
     }
@@ -248,7 +248,7 @@ public class UserControllerTests extends TestVariables {
                     return "notTheRightUsername";
                 }
             };
-            assertEquals("403", userController.updateUser(1, user, bindingResult, model, authentication));
+            assertEquals("error/403", userController.updateUser(1, user, bindingResult, model, authentication));
             verify(userService, Mockito.times(1)).findById(any(Integer.class));
             verify(userService, Mockito.times(0)).save(any(User.class));
         }

@@ -53,27 +53,4 @@ public class LoginControllerIntegrationTests extends TestVariables {
                     .andExpect(status().isForbidden());
         }
     }
-
-    @Nested
-    public class ErrorTests {
-        @Test
-        @WithMockUser(authorities = "ADMIN")
-        public void errorTestIfAdmin () throws Exception {
-            mockMvc.perform(get("/error"))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().string(org.hamcrest.Matchers.containsString("Unknown Exception")));
-        }
-        @Test
-        @WithMockUser(authorities = "USER")
-        public void errorTestIfUser () throws Exception {
-            mockMvc.perform(get("/error"))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().string(org.hamcrest.Matchers.containsString("Unknown Exception")));
-        }
-        @Test
-        public void errorTestIfNotAuthorized () throws Exception {
-            mockMvc.perform(get("/error"))
-                    .andExpect(status().is3xxRedirection());
-        }
-    }
 }

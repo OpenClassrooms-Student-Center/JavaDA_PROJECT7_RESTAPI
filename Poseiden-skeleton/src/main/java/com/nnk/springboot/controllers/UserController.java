@@ -82,7 +82,7 @@ public class UserController {
             return "user/update";
         }
         else {
-            return "403";
+            return "error/403";
         }
     }
 
@@ -113,7 +113,7 @@ public class UserController {
             return "redirect:/user/list";
         }
         else {
-            return "403";
+            return "error/403";
         }
     }
 

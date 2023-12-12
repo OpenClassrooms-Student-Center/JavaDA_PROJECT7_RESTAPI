@@ -48,7 +48,7 @@ public class HomeControllerTests extends TestVariables {
         @Test
         public void homeTestIfNoRole () {
             user.setRole("");
-            assertEquals("403", homeController.home(model, request, authentication));
+            assertEquals("error/403", homeController.home(model, request, authentication));
         }
     }
 

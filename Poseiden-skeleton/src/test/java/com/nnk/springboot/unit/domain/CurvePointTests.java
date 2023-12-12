@@ -1,7 +1,6 @@
 package com.nnk.springboot.unit.domain;
 
 import com.nnk.springboot.TestVariables;
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

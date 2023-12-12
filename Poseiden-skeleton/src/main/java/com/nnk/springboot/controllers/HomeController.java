@@ -43,7 +43,7 @@ public class HomeController
 				return "redirect:/home/user";
 			}
 		}
-		return "403";
+		return "error/403";
 	}
 
 	/**

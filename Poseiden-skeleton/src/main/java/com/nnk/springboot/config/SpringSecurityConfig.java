@@ -81,11 +81,10 @@ public class SpringSecurityConfig {
      */
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests( auth -> { auth
+        http.authorizeHttpRequests( auth -> auth
                 .requestMatchers("user/update/**", "error", "/").authenticated()
                 .requestMatchers("user/**", "home/admin", "secure/article-details").hasAuthority("ADMIN")
-                .anyRequest().hasAuthority("USER");
-        });
+                .anyRequest().hasAuthority("USER"));
         http.formLogin(
                 (login) -> login
                         .successForwardUrl("/")

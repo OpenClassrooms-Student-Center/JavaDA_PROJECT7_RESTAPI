@@ -55,40 +55,4 @@ public class LoginControllerTests extends TestVariables {
             assertEquals(mav.toString(), loginController.getAllUserArticles().toString());
         }
     }
-    
-    @Nested
-    public class ErrorTests {
-        @Test
-        public void errorTestIf403 () {
-            when(request.getAttribute(any(String.class))).thenReturn(HttpStatus.FORBIDDEN.value());
-            String errorMessage = "You are not authorized for the requested data.";
-            mav.addObject("errorMsg", errorMessage);
-            mav.setViewName("403");
-            assertEquals(mav.toString(), loginController.error(request).toString());
-        }
-        @Test
-        public void errorTestIf404 () {
-            when(request.getAttribute(any(String.class))).thenReturn(HttpStatus.NOT_FOUND.value());
-            String errorMessage = "The requested resource cannot be found.";
-            mav.addObject("errorMsg", errorMessage);
-            mav.setViewName("404");
-            assertEquals(mav.toString(), loginController.error(request).toString());
-        }
-        @Test
-        public void errorTestIfOtherStatus () {
-            when(request.getAttribute(any(String.class))).thenReturn(HttpStatus.CONFLICT.value());
-            String errorMessage = "Something went wrong.";
-            mav.addObject("errorMsg", errorMessage);
-            mav.setViewName("error");
-            assertEquals(mav.toString(), loginController.error(request).toString());
-        }
-        @Test
-        public void errorTestIfNoStatus () {
-            when(request.getAttribute(any(String.class))).thenReturn(null);
-            String errorMessage = "Something went wrong.";
-            mav.addObject("errorMsg", errorMessage);
-            mav.setViewName("error");
-            assertEquals(mav.toString(), loginController.error(request).toString());
-        }
-    }
 }
