@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * This class is a custom implementation of the UserDetails class.<br>
  * It maps a User object to a UserDetails object,
- * which can then be interpreted by Spring Boot Security
+ * which can then be interpreted by SpringSecurity
  * for authentication and authorization purposes.
  */
 public class CustomUserDetails implements UserDetails {
@@ -26,7 +26,7 @@ public class CustomUserDetails implements UserDetails {
     }
 
     /**
-     * This methods returns the authorities of a user, based on its role attribute
+     * This method returns the authorities of a user, based on its role attribute
      * @return Collection<? extends GrantedAuthority>
      */
     @Override
