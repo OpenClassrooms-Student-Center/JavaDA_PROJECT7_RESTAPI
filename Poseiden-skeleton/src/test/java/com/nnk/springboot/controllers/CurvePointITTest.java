@@ -65,7 +65,6 @@ public class CurvePointITTest {
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     public void requestMappingHomeViewShouldReturnSuccess() throws Exception {
         //GIVEN
-        long millis=System.currentTimeMillis();
         LocalDateTime date = LocalDateTime.of(2025, Month.JANUARY, 8, 0,0);//LocalDateTime.parse("2025/01/01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         CurvePoint curvePoint = new CurvePoint();
@@ -98,8 +97,6 @@ public class CurvePointITTest {
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     public void postMappingValidateViewShouldReturnSuccess() throws Exception {
         //GIVEN
-
-        long millis=System.currentTimeMillis();
         LocalDateTime date = LocalDateTime.of(2025, Month.JANUARY, 8, 0,0);//LocalDateTime.parse("2025/01/01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         CurvePoint curvePoint = new CurvePoint();
@@ -137,7 +134,6 @@ public class CurvePointITTest {
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     public void getMappingShowUpdateFormViewShouldReturnSuccess() throws Exception {
         //GIVEN
-        long millis=System.currentTimeMillis();
         LocalDateTime date = LocalDateTime.of(2025, Month.JANUARY, 8, 0,0);//LocalDateTime.parse("2025/01/01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         CurvePoint curvePoint = new CurvePoint();
@@ -171,7 +167,6 @@ public class CurvePointITTest {
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     public void postMappingUpdateCurvePointViewShouldReturnSuccess() throws Exception {
         //GIVEN
-        long millis=System.currentTimeMillis();
         LocalDateTime date = LocalDateTime.of(2025, Month.JANUARY, 8, 0,0);//LocalDateTime.parse("2025/01/01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         CurvePoint curvePoint = new CurvePoint();
@@ -213,7 +208,6 @@ public class CurvePointITTest {
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
     public void getMappingDeleteBidViewShouldReturnSuccess() throws Exception {
         //GIVEN
-        long millis=System.currentTimeMillis();
         LocalDateTime date = LocalDateTime.of(2025, Month.JANUARY, 8, 0,0);//LocalDateTime.parse("2025/01/01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         CurvePoint curvePoint = new CurvePoint();
