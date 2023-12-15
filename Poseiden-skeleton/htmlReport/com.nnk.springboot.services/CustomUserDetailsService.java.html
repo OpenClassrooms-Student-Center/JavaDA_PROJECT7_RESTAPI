@@ -7,19 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-<span class="fc" id="L11">public class CustomUserDetailsService implements UserDetailsService {</span>
+@Service
+<span class="fc" id="L13">public class CustomUserDetailsService implements UserDetailsService {</span>
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-<span class="nc" id="L18">        User user = userRepository.findByUsername(username);</span>
-<span class="nc bnc" id="L19" title="All 2 branches missed.">        if(user==null) {</span>
-<span class="nc" id="L20">            throw new UsernameNotFoundException(&quot;User not found&quot;);</span>
+<span class="nc" id="L20">        User user = userRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if(user==null) {</span>
+<span class="nc" id="L22">            throw new UsernameNotFoundException(&quot;User not found&quot;);</span>
         }
-<span class="nc" id="L22">        return new CustomUserDetails(user);</span>
+<span class="nc" id="L24">        return new CustomUserDetails(user);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

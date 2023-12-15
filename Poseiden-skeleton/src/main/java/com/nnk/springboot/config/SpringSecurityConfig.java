@@ -46,23 +46,6 @@ public class SpringSecurityConfig {
     }
 
     /**
-     * Spring Security expects the table UserDetails is mapped to to have a column containing a boolean
-     * indicating if the user is enabled, but the table "users" in the database doesn't have one.<br>
-     * This is circumvented by the use "'true' as enabled" in the sql query.
-     * @param auth
-     * @throws Exception
-     */
-
-    @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .passwordEncoder(new BCryptPasswordEncoder())
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, 'true' as enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from users where username=?");
-    }
-
-    /**
      * This method controls the access to the different URLs based on the authenticated user<br><br>
      * The login and logout page are accessible to all<br>
      * The error page is accessible to all authenticated users<br>
