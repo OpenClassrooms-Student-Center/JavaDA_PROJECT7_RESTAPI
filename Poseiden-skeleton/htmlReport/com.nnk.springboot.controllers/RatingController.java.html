@@ -105,9 +105,8 @@ public class RatingController {
      */
     @GetMapping(&quot;/rating/delete/{id}&quot;)
     public String deleteRating(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L108">        ratingService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id)));</span>
-<span class="fc" id="L109">        ratingService.deleteById(id);</span>
-<span class="fc" id="L110">        return &quot;redirect:/rating/list&quot;;</span>
+<span class="fc" id="L108">        ratingService.deleteById(id);</span>
+<span class="fc" id="L109">        return &quot;redirect:/rating/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

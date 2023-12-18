@@ -34,11 +34,12 @@ public class RatingService {
 <span class="fc bfc" id="L34" title="All 2 branches covered.">        if (id == null) {</span>
 <span class="fc" id="L35">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L37">        ratingRepository.deleteById(id);</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L37">        findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid rating Id:&quot; + id)));</span>
+<span class="fc" id="L38">        ratingRepository.deleteById(id);</span>
+<span class="fc" id="L39">    }</span>
 
     public void save(Rating rating) {
-<span class="fc" id="L41">        ratingRepository.save(rating);</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L42">        ratingRepository.save(rating);</span>
+<span class="fc" id="L43">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

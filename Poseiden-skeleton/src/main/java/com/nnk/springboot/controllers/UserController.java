@@ -125,9 +125,7 @@ public class UserController {
      */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
-        userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.deleteById(id);
-        model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
 }

@@ -131,15 +131,7 @@ public class RatingControllerTests extends TestVariables {
         @Test
         public void deleteRatingTest () {
             assertEquals("redirect:/rating/list", ratingController.deleteRating(rating.getId(), model));
-            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));
             verify(ratingService, Mockito.times(1)).deleteById(any(Integer.class));
-        }
-        @Test
-        public void deleteRatingTestIfRatingNotInDB () {
-            when(ratingService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> ratingController.deleteRating(rating.getId(), model));
-            verify(ratingService, Mockito.times(1)).findById(any(Integer.class));
-            verify(ratingService, Mockito.times(0)).deleteById(any(Integer.class));
         }
     }
 }

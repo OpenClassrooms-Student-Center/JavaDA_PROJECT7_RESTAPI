@@ -34,6 +34,7 @@ public class RatingService {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
+        findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid rating Id:" + id)));
         ratingRepository.deleteById(id);
     }
 

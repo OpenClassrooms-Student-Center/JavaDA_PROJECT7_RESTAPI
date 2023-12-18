@@ -34,6 +34,7 @@ public class BidListService {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
+        findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid bidList Id:" + id)));
         bidListRepository.deleteById(id);
     }
 

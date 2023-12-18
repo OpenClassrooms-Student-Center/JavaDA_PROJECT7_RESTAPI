@@ -131,15 +131,7 @@ public class CurvePointControllerTests extends TestVariables {
         @Test
         public void deleteCurvePointTest () {
             assertEquals("redirect:/curvePoint/list", curvePointController.deleteCurvePoint(curvePoint.getId(), model));
-            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
             verify(curvePointService, Mockito.times(1)).deleteById(any(Integer.class));
-        }
-        @Test
-        public void deleteCurvePointTestIfCurvePointNotInDB () {
-            when(curvePointService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> curvePointController.deleteCurvePoint(curvePoint.getId(), model));
-            verify(curvePointService, Mockito.times(1)).findById(any(Integer.class));
-            verify(curvePointService, Mockito.times(0)).deleteById(any(Integer.class));
         }
     }
 }

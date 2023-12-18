@@ -40,6 +40,7 @@ public class UserService {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
+        findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.deleteById(id);
     }
 

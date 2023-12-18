@@ -105,9 +105,8 @@ public class CurvePointController {
      */
     @GetMapping(&quot;/curvePoint/delete/{id}&quot;)
     public String deleteCurvePoint(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L108">        curvePointService.findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id)));</span>
-<span class="fc" id="L109">        curvePointService.deleteById(id);</span>
-<span class="fc" id="L110">        return &quot;redirect:/curvePoint/list&quot;;</span>
+<span class="fc" id="L108">        curvePointService.deleteById(id);</span>
+<span class="fc" id="L109">        return &quot;redirect:/curvePoint/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

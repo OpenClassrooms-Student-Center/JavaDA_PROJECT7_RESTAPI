@@ -34,11 +34,12 @@ public class CurvePointService {
 <span class="fc bfc" id="L34" title="All 2 branches covered.">        if (id == null) {</span>
 <span class="fc" id="L35">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L37">        curvePointRepository.deleteById(id);</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L37">        findById(id).orElseThrow((() -&gt; new IllegalArgumentException(&quot;Invalid curvePoint Id:&quot; + id)));</span>
+<span class="fc" id="L38">        curvePointRepository.deleteById(id);</span>
+<span class="fc" id="L39">    }</span>
 
     public void save(CurvePoint curvePoint) {
-<span class="fc" id="L41">        curvePointRepository.save(curvePoint);</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L42">        curvePointRepository.save(curvePoint);</span>
+<span class="fc" id="L43">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

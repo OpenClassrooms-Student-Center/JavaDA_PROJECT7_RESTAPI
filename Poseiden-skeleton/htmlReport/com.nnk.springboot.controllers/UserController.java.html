@@ -125,10 +125,8 @@ import jakarta.validation.Valid;
      */
     @GetMapping(&quot;/user/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model) {
-<span class="fc" id="L128">        userService.findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L129">        userService.deleteById(id);</span>
-<span class="fc" id="L130">        model.addAttribute(&quot;users&quot;, userService.findAll());</span>
-<span class="fc" id="L131">        return &quot;redirect:/user/list&quot;;</span>
+<span class="fc" id="L128">        userService.deleteById(id);</span>
+<span class="fc" id="L129">        return &quot;redirect:/user/list&quot;;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

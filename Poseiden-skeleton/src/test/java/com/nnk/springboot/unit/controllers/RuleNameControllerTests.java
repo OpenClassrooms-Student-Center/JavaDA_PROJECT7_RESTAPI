@@ -132,15 +132,7 @@ public class RuleNameControllerTests extends TestVariables {
         @Test
         public void deleteRuleNameTest () {
             assertEquals("redirect:/ruleName/list", ruleNameController.deleteRuleName(ruleName.getId(), model));
-            verify(ruleNameService, Mockito.times(1)).findById(any(Integer.class));
             verify(ruleNameService, Mockito.times(1)).deleteById(any(Integer.class));
-        }
-        @Test
-        public void deleteRuleNameTestIfRuleNameNotInDB () {
-            when(ruleNameService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> ruleNameController.deleteRuleName(ruleName.getId(), model));
-            verify(ruleNameService, Mockito.times(1)).findById(any(Integer.class));
-            verify(ruleNameService, Mockito.times(0)).deleteById(any(Integer.class));
         }
     }
 }

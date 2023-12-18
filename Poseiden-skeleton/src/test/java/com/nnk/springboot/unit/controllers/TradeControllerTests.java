@@ -131,15 +131,7 @@ public class TradeControllerTests extends TestVariables {
         @Test
         public void deleteTradeTest () {
             assertEquals("redirect:/trade/list", tradeController.deleteTrade(trade.getId(), model));
-            verify(tradeService, Mockito.times(1)).findById(any(Integer.class));
             verify(tradeService, Mockito.times(1)).deleteById(any(Integer.class));
-        }
-        @Test
-        public void deleteTradeTestIfTradeNotInDB () {
-            when(tradeService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> tradeController.deleteTrade(trade.getId(), model));
-            verify(tradeService, Mockito.times(1)).findById(any(Integer.class));
-            verify(tradeService, Mockito.times(0)).deleteById(any(Integer.class));
         }
     }
 }

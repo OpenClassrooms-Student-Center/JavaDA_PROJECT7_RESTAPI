@@ -105,7 +105,6 @@ public class CurvePointController {
      */
     @GetMapping("/curvePoint/delete/{id}")
     public String deleteCurvePoint(@PathVariable("id") Integer id, Model model) {
-        curvePointService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid curvePoint Id:" + id)));
         curvePointService.deleteById(id);
         return "redirect:/curvePoint/list";
     }

@@ -105,7 +105,6 @@ public class BidListController {
      */
     @GetMapping("/bidList/delete/{id}")
     public String deleteBidList(@PathVariable("id") Integer id, Model model) {
-        bidListService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid bidList Id:" + id)));
         bidListService.deleteById(id);
         return "redirect:/bidList/list";
     }

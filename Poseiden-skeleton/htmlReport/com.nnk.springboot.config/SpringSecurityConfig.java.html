@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpringSecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java in spring-boot-skeleton Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.config</a> &gt; <span class="el_source">SpringSecurityConfig.java</span></div><h1>SpringSecurityConfig.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.config;
 
 import com.nnk.springboot.services.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
-<span class="fc" id="L19">public class SpringSecurityConfig {</span>
-    /**
-     * the persistence layer, defined in application.properties
-     */
-    @Autowired
-    private DataSource dataSource;
+<span class="fc" id="L15">public class SpringSecurityConfig {</span>
 
     /**
      * @return a CustomUserDetailsService that connects SpringSecurity UserDetails objects with domain User objects
@@ -29,20 +20,20 @@ import javax.sql.DataSource;
 
     @Bean
     public UserDetailsService userDetailsService() {
-<span class="fc" id="L32">        return new CustomUserDetailsService();</span>
+<span class="fc" id="L23">        return new CustomUserDetailsService();</span>
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-<span class="fc" id="L37">        return new BCryptPasswordEncoder();</span>
+<span class="fc" id="L28">        return new BCryptPasswordEncoder();</span>
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
-<span class="fc" id="L42">        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();</span>
-<span class="fc" id="L43">        authProvider.setUserDetailsService(userDetailsService());</span>
-<span class="fc" id="L44">        authProvider.setPasswordEncoder(passwordEncoder());</span>
-<span class="fc" id="L45">        return authProvider;</span>
+<span class="fc" id="L33">        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();</span>
+<span class="fc" id="L34">        authProvider.setUserDetailsService(userDetailsService());</span>
+<span class="fc" id="L35">        authProvider.setPasswordEncoder(passwordEncoder());</span>
+<span class="fc" id="L36">        return authProvider;</span>
     }
 
     /**
@@ -64,21 +55,21 @@ import javax.sql.DataSource;
      */
     @Bean
     SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-<span class="fc" id="L67">        http.authorizeHttpRequests( auth -&gt; auth</span>
-<span class="fc" id="L68">                .requestMatchers(&quot;user/update/**&quot;, &quot;/&quot;).authenticated()</span>
-<span class="fc" id="L69">                .requestMatchers(&quot;user/**&quot;, &quot;home/admin&quot;, &quot;secure/article-details&quot;).hasAuthority(&quot;ADMIN&quot;)</span>
-<span class="fc" id="L70">                .anyRequest().hasAuthority(&quot;USER&quot;));</span>
-<span class="fc" id="L71">        http.formLogin(</span>
-<span class="fc" id="L72">                (login) -&gt; login</span>
-<span class="fc" id="L73">                        .successForwardUrl(&quot;/&quot;)</span>
-<span class="fc" id="L74">                        .permitAll());</span>
-<span class="fc" id="L75">        http.logout(</span>
-<span class="fc" id="L76">                (logout) -&gt; logout</span>
-<span class="fc" id="L77">                        .logoutUrl(&quot;/app-logout&quot;)</span>
-<span class="fc" id="L78">                        .deleteCookies(&quot;JSESSIONID&quot;)</span>
-<span class="fc" id="L79">                        .invalidateHttpSession(true)</span>
-<span class="fc" id="L80">                        .permitAll());</span>
-<span class="fc" id="L81">        return http.build();</span>
+<span class="fc" id="L58">        http.authorizeHttpRequests( auth -&gt; auth</span>
+<span class="fc" id="L59">                .requestMatchers(&quot;user/update/**&quot;, &quot;/&quot;).authenticated()</span>
+<span class="fc" id="L60">                .requestMatchers(&quot;user/**&quot;, &quot;home/admin&quot;, &quot;secure/article-details&quot;).hasAuthority(&quot;ADMIN&quot;)</span>
+<span class="fc" id="L61">                .anyRequest().hasAuthority(&quot;USER&quot;));</span>
+<span class="fc" id="L62">        http.formLogin(</span>
+<span class="fc" id="L63">                (login) -&gt; login</span>
+<span class="fc" id="L64">                        .successForwardUrl(&quot;/&quot;)</span>
+<span class="fc" id="L65">                        .permitAll());</span>
+<span class="fc" id="L66">        http.logout(</span>
+<span class="fc" id="L67">                (logout) -&gt; logout</span>
+<span class="fc" id="L68">                        .logoutUrl(&quot;/app-logout&quot;)</span>
+<span class="fc" id="L69">                        .deleteCookies(&quot;JSESSIONID&quot;)</span>
+<span class="fc" id="L70">                        .invalidateHttpSession(true)</span>
+<span class="fc" id="L71">                        .permitAll());</span>
+<span class="fc" id="L72">        return http.build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -34,6 +34,7 @@ public class RuleNameService {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
+        findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
         ruleNameRepository.deleteById(id);
     }
 

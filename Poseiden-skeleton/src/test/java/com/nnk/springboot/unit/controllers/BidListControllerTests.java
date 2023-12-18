@@ -137,15 +137,7 @@ public class BidListControllerTests extends TestVariables {
         @Test
         public void deleteBidListTest () {
             assertEquals("redirect:/bidList/list", bidListController.deleteBidList(bidList.getId(), model));
-            verify(bidListService, Mockito.times(1)).findById(any(Integer.class));
             verify(bidListService, Mockito.times(1)).deleteById(any(Integer.class));
-        }
-        @Test
-        public void deleteBidListTestIfBidListNotInDB () {
-            when(bidListService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> bidListController.deleteBidList(bidList.getId(), model));
-            verify(bidListService, Mockito.times(1)).findById(any(Integer.class));
-            verify(bidListService, Mockito.times(0)).deleteById(any(Integer.class));
         }
     }
 }

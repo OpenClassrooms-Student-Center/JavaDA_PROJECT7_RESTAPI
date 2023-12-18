@@ -34,6 +34,7 @@ public class TradeService {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
+        findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid trade Id:" + id)));
         tradeRepository.deleteById(id);
     }
 

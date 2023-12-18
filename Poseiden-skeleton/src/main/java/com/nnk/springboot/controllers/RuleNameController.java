@@ -105,7 +105,6 @@ public class RuleNameController {
      */
     @GetMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        ruleNameService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid user Id:" + id)));
         ruleNameService.deleteById(id);
         return "redirect:/ruleName/list";
     }

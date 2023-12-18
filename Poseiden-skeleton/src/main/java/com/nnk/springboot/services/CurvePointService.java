@@ -34,6 +34,7 @@ public class CurvePointService {
         if (id == null) {
             throw new IllegalArgumentException("id is null");
         }
+        findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid curvePoint Id:" + id)));
         curvePointRepository.deleteById(id);
     }
 

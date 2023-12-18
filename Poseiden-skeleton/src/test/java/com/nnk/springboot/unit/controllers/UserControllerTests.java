@@ -259,18 +259,7 @@ public class UserControllerTests extends TestVariables {
         @Test
         public void deleteUserTest () {
             assertEquals("redirect:/user/list", userController.deleteUser(1, model));
-            verify(userService, Mockito.times(1)).findById(any(Integer.class));
             verify(userService, Mockito.times(1)).deleteById(any(Integer.class));
-            verify(userService, Mockito.times(1)).findAll();
-        }
-
-        @Test
-        public void deleteUserTestIfUserNotFound () {
-            when(userService.findById(any(Integer.class))).thenReturn(Optional.empty());
-            assertThrows(IllegalArgumentException.class, () -> userController.deleteUser(user.getId(), model));
-            verify(userService, Mockito.times(1)).findById(null);
-            verify(userService, Mockito.times(0)).deleteById(any(Integer.class));
-            verify(userService, Mockito.times(0)).findAll();
         }
     }
 }

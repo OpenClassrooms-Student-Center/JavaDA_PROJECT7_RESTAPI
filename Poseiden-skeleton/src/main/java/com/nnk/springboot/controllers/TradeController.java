@@ -105,7 +105,6 @@ public class TradeController {
      */
     @GetMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Integer id, Model model) {
-        tradeService.findById(id).orElseThrow((() -> new IllegalArgumentException("Invalid trade Id:" + id)));
         tradeService.deleteById(id);
         return "redirect:/trade/list";
     }

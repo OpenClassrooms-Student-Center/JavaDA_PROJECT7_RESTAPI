@@ -40,11 +40,12 @@ public class UserService {
 <span class="fc bfc" id="L40" title="All 2 branches covered.">        if (id == null) {</span>
 <span class="fc" id="L41">            throw new IllegalArgumentException(&quot;id is null&quot;);</span>
         }
-<span class="fc" id="L43">        userRepository.deleteById(id);</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L43">        findById(id).orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L44">        userRepository.deleteById(id);</span>
+<span class="fc" id="L45">    }</span>
 
     public void save(User user) {
-<span class="fc" id="L47">        userRepository.save(user);</span>
-<span class="fc" id="L48">    }</span>
+<span class="fc" id="L48">        userRepository.save(user);</span>
+<span class="fc" id="L49">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
