@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.thymeleaf:thymeleaf-spring5:unknown">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/unknown/thymeleaf-spring5-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/unknown/thymeleaf-spring5-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/thymeleaf/thymeleaf-spring5/unknown/thymeleaf-spring5-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
