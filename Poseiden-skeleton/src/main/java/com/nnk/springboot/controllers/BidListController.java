@@ -41,6 +41,7 @@ public class BidListController {
         }
         try {
             bidListService.saveBid(bid);
+            model.addAttribute("bidList",bidListService.findAllBid());
             return "redirect:/bidList/list";
         } catch (Exception e) {
             return "bidList/add";
