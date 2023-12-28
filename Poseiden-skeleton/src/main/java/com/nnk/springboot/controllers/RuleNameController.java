@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,9 @@ public class RuleNameController {
     @RequestMapping("/ruleName/list")
     public String home(Model model)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        model.addAttribute("username", username);
         // TODO DONE: find all RuleName, add to model
         List<RuleName> ruleName = ruleNameService.findAllRuleName();
         model.addAttribute("ruleName",ruleName);

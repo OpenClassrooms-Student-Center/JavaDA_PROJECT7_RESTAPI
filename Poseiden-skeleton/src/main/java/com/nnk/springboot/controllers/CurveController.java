@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurvePointService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,9 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        model.addAttribute("username", username);
         // TODO DONE: find all Curve Point, add to model
         List<CurvePoint> curvePoint = curvePointService.findAllCurvePoint();
         model.addAttribute("curvePoint",curvePoint);
