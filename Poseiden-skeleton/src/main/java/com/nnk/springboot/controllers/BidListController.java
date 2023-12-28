@@ -4,6 +4,8 @@ import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,10 @@ public class BidListController {
     @GetMapping("/bidList/list")
     public String home(Model model)
     {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        model.addAttribute("username", username);
+
         // TODO DONE: call services find all bids to show to the view
         List<BidList> bidList = bidListService.findAllBid();
         model.addAttribute("bidList",bidList);
