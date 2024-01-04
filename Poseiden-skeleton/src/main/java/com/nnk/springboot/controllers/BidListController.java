@@ -30,7 +30,7 @@ public class BidListController {
 
         // TODO DONE: call services find all bids to show to the view
         List<BidList> bidList = bidListService.findAllBid();
-        model.addAttribute("bidList",bidList);
+        model.addAttribute("bidLists",bidList);
         return "bidList/list";
     }
 
@@ -47,7 +47,7 @@ public class BidListController {
         }
         try {
             bidListService.saveBid(bid);
-            model.addAttribute("bidList",bidListService.findAllBid());
+            model.addAttribute("bidLists",bidListService.findAllBid());
             return "redirect:/bidList/list";
         } catch (Exception e) {
             return "bidList/add";
