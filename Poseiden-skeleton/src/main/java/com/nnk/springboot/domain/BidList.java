@@ -15,6 +15,7 @@ import java.util.Objects;
 public class BidList {
     // TODO DONE:  Map columns in data table BIDLIST with corresponding java fields
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bid_list_id")
     private Integer bidListId;
 
