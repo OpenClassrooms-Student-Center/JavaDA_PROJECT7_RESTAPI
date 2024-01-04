@@ -17,6 +17,7 @@ public class Trade {
 
     // TODO DONE: Map columns in data table TRADE with corresponding java fields
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trade_id")
     Integer tradeId;
 

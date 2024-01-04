@@ -1,12 +1,10 @@
 package com.nnk.springboot.config;
 
-import com.nnk.springboot.domain.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +27,7 @@ public class LoginSuccess extends SavedRequestAwareAuthenticationSuccessHandler 
         if (userDetails.hasRole("ADMIN")) {
             redirectURL = "/user/list";
         } else {
-            redirectURL = "/trade/list";
+            redirectURL = "/bidList/list";
         }
         response.sendRedirect(redirectURL);
 
