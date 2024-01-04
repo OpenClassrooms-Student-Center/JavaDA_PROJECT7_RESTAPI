@@ -29,7 +29,7 @@ public class TradeController {
         model.addAttribute("username", username);
         // TODO DONE: find all Trade, add to model
         List<Trade> trade = tradeService.findAllTrade();
-        model.addAttribute("trade",trade);
+        model.addAttribute("trades",trade);
         return "trade/list";
     }
 
