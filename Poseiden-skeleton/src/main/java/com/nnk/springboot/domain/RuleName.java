@@ -19,6 +19,7 @@ public class RuleName {
 
     // TODO DONE: Map columns in data table RULENAME with corresponding java fields
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

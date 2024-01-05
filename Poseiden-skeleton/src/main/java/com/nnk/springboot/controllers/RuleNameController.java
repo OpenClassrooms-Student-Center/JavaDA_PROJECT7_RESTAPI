@@ -32,7 +32,7 @@ public class RuleNameController {
         model.addAttribute("username", username);
         // TODO DONE: find all RuleName, add to model
         List<RuleName> ruleName = ruleNameService.findAllRuleName();
-        model.addAttribute("ruleName",ruleName);
+        model.addAttribute("ruleNames",ruleName);
         return "ruleName/list";
     }
 
@@ -93,7 +93,7 @@ public class RuleNameController {
         }
         RuleName ruleName = ruleNameService.findByRuleNameId(id);
         ruleNameService.deleteRuleName(ruleName);
-        model.addAttribute("ruleName", ruleNameService.findAllRuleName());
+        model.addAttribute("ruleNames", ruleNameService.findAllRuleName());
 
         return "redirect:/ruleName/list";
     }
