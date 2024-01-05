@@ -44,7 +44,7 @@
 					<td th:text="${rating.moodysRating}"></td>
 					<td th:text="${rating.sandPRating}"></td>
 					<td th:text="${rating.fitchRating}"></td>
-					<td th:text="${rating.order}"></td>
+					<td th:text="${rating.orderNumber}"></td>
 					<td style="width: 15%" class="text-center">
 						<a th:href="@{/rating/update/{id}(id=${rating.id})}">Edit</a>&nbsp;|&nbsp;
 						<a th:href="@{/rating/delete/{id}(id=${rating.id})}">Delete</a>
