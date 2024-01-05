@@ -32,7 +32,7 @@ public class RatingController {
         model.addAttribute("username", username);
         // TODO DONE: find all Rating, add to model
         List<Rating> rating = ratingService.findAllRating();
-        model.addAttribute("rating",rating);
+        model.addAttribute("ratings",rating);
         return "rating/list";
     }
 
@@ -93,7 +93,7 @@ public class RatingController {
         }
         Rating rating = ratingService.findByRatingId(id);
         ratingService.deleteRating(rating);
-        model.addAttribute("rating", ratingService.findAllRating());
+        model.addAttribute("ratings", ratingService.findAllRating());
 
         return "redirect:/rating/list";
     }

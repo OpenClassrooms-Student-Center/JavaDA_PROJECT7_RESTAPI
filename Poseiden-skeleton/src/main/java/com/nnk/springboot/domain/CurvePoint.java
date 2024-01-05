@@ -20,6 +20,7 @@ public class CurvePoint {
 
     // TODO DONE: Map columns in data table CURVEPOINT with corresponding java fields
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

@@ -92,7 +92,7 @@ public class BidListController {
         }
         BidList bid = bidListService.findByBidListId(id);
         bidListService.deleteBid(bid);
-        model.addAttribute("bidList", bidListService.findAllBid());
+        model.addAttribute("bidLists", bidListService.findAllBid());
 
         return "redirect:/bidList/list";
     }

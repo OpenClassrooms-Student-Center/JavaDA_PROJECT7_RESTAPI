@@ -90,7 +90,7 @@ public class TradeController {
         }
         Trade trade = tradeService.findTradeById(id);
         tradeService.deleteTrade(trade);
-        model.addAttribute("ruleName", tradeService.findAllTrade());
+        model.addAttribute("trades", tradeService.findAllTrade());
 
         return "redirect:/trade/list";
     }

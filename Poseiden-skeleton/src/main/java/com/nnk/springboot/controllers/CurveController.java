@@ -32,7 +32,7 @@ public class CurveController {
         model.addAttribute("username", username);
         // TODO DONE: find all Curve Point, add to model
         List<CurvePoint> curvePoint = curvePointService.findAllCurvePoint();
-        model.addAttribute("curvePoint",curvePoint);
+        model.addAttribute("curvePoints",curvePoint);
         return "curvePoint/list";
     }
 
@@ -93,7 +93,7 @@ public class CurveController {
         }
         CurvePoint curvePoint = curvePointService.findByCurvePointId(id);
         curvePointService.deleteCurvePoint(curvePoint);
-        model.addAttribute("curvePoint", curvePointService.findAllCurvePoint());
+        model.addAttribute("curvePoints", curvePointService.findAllCurvePoint());
 
         return "redirect:/curvePoint/list";
     }
