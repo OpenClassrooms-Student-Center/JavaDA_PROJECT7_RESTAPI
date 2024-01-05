@@ -44,7 +44,7 @@ public class CurvePointServiceImpl implements CurvePointService {
      */
     @Override
     public CurvePoint findByCurvePointId(Integer id){
-        return curvePointRepository.findByCurveId(id);
+        return curvePointRepository.findById(id).get();
     }
 
     /**

@@ -18,7 +18,7 @@
 		</div>
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"></b>
-			<span th:text="${username}"></span>
+			<b><span th:text="${username}"></span></b>
 			<form th:action="@{/app-logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
@@ -40,7 +40,7 @@
 			<tbody>
 				<tr th:each="curvePoint : ${curvePoints}">
 					<td style="width: 10%" th:text="${curvePoint.id}"></td>
-					<td th:text="${curvePoint.id}"></td>
+					<td th:text="${curvePoint.curveId}"></td>
 					<td th:text="${curvePoint.term}"></td>
 					<td th:text="${curvePoint.value}"></td>
 					<td style="width: 15%" class="text-center">
