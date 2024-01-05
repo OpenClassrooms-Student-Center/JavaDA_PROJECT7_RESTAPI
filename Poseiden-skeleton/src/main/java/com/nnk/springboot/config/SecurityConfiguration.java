@@ -2,7 +2,6 @@ package com.nnk.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,20 +25,11 @@ public class SecurityConfiguration {
         this.successHandler = successHandler;
     }
 
-  /*  @Bean
+    @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
         return authenticationManagerBuilder.build();
-    }*/
-
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-
-        provider.setUserDetailsService(customUserDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
     }
 
     /**
@@ -59,10 +49,8 @@ public class SecurityConfiguration {
 
                 )
                 .formLogin((formLogin) -> formLogin
-                        //.usernameParameter("user.username")
                         .defaultSuccessUrl("/bidList/list", true)
                         .successHandler(successHandler).permitAll()
-
                 )
                 //logout
                 .logout((logout) -> logout.permitAll()
