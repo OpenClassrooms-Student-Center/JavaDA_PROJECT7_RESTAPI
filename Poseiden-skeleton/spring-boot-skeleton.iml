@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping />
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -79,6 +101,10 @@
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:8.5.32" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:6.0.11.Final" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:2.0.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx.base:11.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx.base:linux:11.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx.base:mac:11.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx.base:win:11.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.0.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.0.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.0.8.RELEASE" level="project" />
@@ -98,5 +124,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.0.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.46" level="project" />
     <orderEntry type="library" name="Maven: com.h2database:h2:1.4.197" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
   </component>
 </module>
