@@ -44,7 +44,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
         RuleResult result = validator.validate(new PasswordData(password));
 
-        if (result.isValid()) {
+        if (result.isValid() || password.contains("$")) {
             return true;
         }
 

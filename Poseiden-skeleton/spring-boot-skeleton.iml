@@ -67,10 +67,10 @@
     <orderEntry type="library" name="Maven: org.hibernate.orm:hibernate-core:6.2.2.Final" level="project" />
     <orderEntry type="library" name="Maven: jakarta.persistence:jakarta.persistence-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: jakarta.transaction:jakarta.transaction-api:2.0.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.jboss.logging:jboss-logging:3.5.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.5.0.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.hibernate.common:hibernate-commons-annotations:6.0.6.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: io.smallrye:jandex:3.0.5" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.fasterxml:classmate:1.5.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.5.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.glassfish.jaxb:jaxb-runtime:4.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.glassfish.jaxb:jaxb-core:4.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.eclipse.angus:angus-activation:2.0.0" level="project" />
@@ -93,7 +93,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.15.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:10.1.8" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:10.1.8" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:10.1.8" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:6.0.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:6.0.9" level="project" />
@@ -114,6 +113,9 @@
     <orderEntry type="library" name="Maven: org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:2.0.7" level="project" />
     <orderEntry type="library" name="Maven: org.passay:passay:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-validation:3.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-el:10.1.8" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.validator:hibernate-validator:8.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf-spring6:3.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.thymeleaf:thymeleaf:3.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.attoparser:attoparser:2.0.6.RELEASE" level="project" />
