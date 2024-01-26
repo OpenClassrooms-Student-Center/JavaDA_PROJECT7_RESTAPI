@@ -10,9 +10,15 @@
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-
+			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
+			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
+			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
+			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
+			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
+			Logged in user: <b th:inline="text"  class="user"></b>
+			<b><span th:text="${username}"></span></b>&nbsp;|&nbsp;
 			<a href="/">Home</a>&nbsp;|&nbsp;<a href="/login">Login</a>
 		</div>
 	</div>

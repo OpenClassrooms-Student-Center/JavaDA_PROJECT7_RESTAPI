@@ -4,7 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b2b9a0d-92ca-41ec-b602-c7058c5532b1" name="Changes" comment="MHE - check data valid and save to db, after saving return bid list" />
+    <list default="true" id="24e3c9d7-c62e-483b-8e55-353725c412cd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_security_spring_security_test_6_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/BidListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/BidListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/CurveController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/CurveController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/RatingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/RatingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/RuleNameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/RuleNameController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/TradeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/TradeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/controllers/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/BidList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/BidList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/CurvePoint.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/CurvePoint.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/Rating.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/Rating.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/RuleName.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/RuleName.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/Trade.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/Trade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/domain/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/BidListRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/BidListRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/CurvePointRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/CurvePointRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/RatingRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/RatingRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/RuleNameRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/RuleNameRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/TradeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/TradeRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/repositories/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/services/BidListService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/services/BidListService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/nnk/springboot/services/impl/BidListServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/nnk/springboot/services/impl/BidListServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/bidList/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/bidList/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/bidList/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/bidList/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/bidList/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/bidList/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/curvePoint/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/curvePoint/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/curvePoint/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/curvePoint/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/curvePoint/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/curvePoint/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/rating/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/rating/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/rating/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/rating/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/rating/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/rating/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/ruleName/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ruleName/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/ruleName/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ruleName/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/ruleName/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/ruleName/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/trade/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/trade/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/trade/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/trade/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/user/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/user/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/nnk/springboot/services/BidTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/nnk/springboot/services/BidTests.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +66,17 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/nnk/springboot/controllers/UserController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/bidList/list.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/nnk/springboot/controllers/BidListController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/trade/list.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/nnk/springboot/domain/User.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/templates/403.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/nnk/springboot/Application.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/resources/application.properties" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -73,7 +125,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.12109375" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.notifications" />
+    <property name="settings.editor.selected.configurable" value="Shelf.Project.Settings" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -274,5 +326,10 @@
     <MESSAGE value="MHE - javax to jakarta for JAVA 17" />
     <MESSAGE value="MHE - check data valid and save to db, after saving return bid list" />
     <option name="LAST_COMMIT_MESSAGE" value="MHE - check data valid and save to db, after saving return bid list" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Poseiden_skeleton$Application.ic" NAME="Application Coverage Results" MODIFIED="1703779718545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.nnk.springboot.*</FILTER>
+    </SUITE>
   </component>
 </project>
