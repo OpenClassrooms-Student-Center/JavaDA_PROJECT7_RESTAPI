@@ -33,6 +33,7 @@ public interface CurvePointService {
     CurvePoint findByCurvePointId(Integer id);
 
     /**
+     * Check if ID exists
      * @param id
      * @return
      */

@@ -1,4 +1,4 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.integration;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurvePointService;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CurvePointITTest {
+public class CurvePointIT {
 
     private MockMvc mockMvc;
 
@@ -82,13 +82,13 @@ public class CurvePointITTest {
                 .findAllCurvePoint();
 
         //WHEN
-       /* mockMvc.perform(get("/curvePoint/list"))
+        mockMvc.perform(get("/curvePoint/list"))
 
                 //THEN
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("curvePoint/list"))
-                .andExpect(model().attributeExists("curvePoint"))
-                .andReturn();*/
+                .andExpect(model().attributeExists("curvePoints"))
+                .andReturn();
 
         assertEquals(10, (int) curvePointList.get(0).getCurveId());
     }

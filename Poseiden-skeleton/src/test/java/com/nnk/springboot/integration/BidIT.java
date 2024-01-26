@@ -1,4 +1,4 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.integration;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BidITTest {
+public class BidIT {
 
     private MockMvc mockMvc;
 
@@ -75,13 +75,13 @@ public class BidITTest {
                 .findAllBid();
 
         //WHEN
-        /*mockMvc.perform(get("/bidList/list"))
+        mockMvc.perform(get("/bidList/list"))
 
         //THEN
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("bidList/list"))
-                .andExpect(model().attributeExists("bidList"))
-                .andReturn();*/
+                .andExpect(model().attributeExists("bidLists"))
+                .andReturn();
         assertEquals("Account Test", bidList.get(0).getAccount());
     }
 

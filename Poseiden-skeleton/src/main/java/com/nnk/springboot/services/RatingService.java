@@ -33,6 +33,7 @@ public interface RatingService {
     Rating findByRatingId(Integer id);
 
     /**
+     * Check if ID exists
      * @param id
      * @return
      */

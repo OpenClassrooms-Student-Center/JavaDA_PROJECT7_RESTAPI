@@ -2,7 +2,6 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.services.BidListService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class BidListController {

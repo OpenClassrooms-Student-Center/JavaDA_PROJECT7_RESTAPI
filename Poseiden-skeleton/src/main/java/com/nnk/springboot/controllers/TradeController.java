@@ -1,6 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -33,6 +33,8 @@ public interface RuleNameService {
     RuleName findByRuleNameId(Integer id);
 
     /**
+     * Check if ID exists
+     *
      * @param id
      * @return
      */

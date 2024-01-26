@@ -1,10 +1,7 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.integration;
 
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.TradeService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TradeITTest {
+public class TradeIT {
     private MockMvc mockMvc;
 
     @Autowired
@@ -86,13 +83,13 @@ public class TradeITTest {
                 .findAllTrade();
 
         //WHEN
-        /*mockMvc.perform(get("/trade/list"))
+        mockMvc.perform(get("/trade/list"))
 
         //THEN
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("trade/list"))
-                .andExpect(model().attributeExists("trade"))
-                .andReturn();*/
+                .andExpect(model().attributeExists("trades"))
+                .andReturn();
         assertEquals("Type", tradeList.get(0).getType());
     }
 

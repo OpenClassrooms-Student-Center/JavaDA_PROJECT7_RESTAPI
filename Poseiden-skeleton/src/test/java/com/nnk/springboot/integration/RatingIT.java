@@ -1,4 +1,4 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.integration;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RatingITTest {
+public class RatingIT {
 
     private MockMvc mockMvc;
 
@@ -77,13 +77,13 @@ public class RatingITTest {
                 .findAllRating();
 
         //WHEN
-        /*mockMvc.perform(get("/rating/list"))
+        mockMvc.perform(get("/rating/list"))
 
                 //THEN
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("rating/list"))
-                .andExpect(model().attributeExists("rating"))
-                .andReturn();*/
+                .andExpect(model().attributeExists("ratings"))
+                .andReturn();
         assertEquals("Fitch Rating", ratingList.get(0).getFitchRating());
     }
 

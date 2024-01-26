@@ -28,18 +28,24 @@ public interface BidListService {
     Optional<BidList> findBidById(Integer id);
 
     /**
+     * find the bid in db with bid id
+     *
      * @param id
      * @return
      */
     BidList findByBidListId(Integer id);
 
     /**
+     * Check if ID exists
+     *
      * @param id
      * @return
      */
     boolean checkIfIdExists(int id);
 
     /**
+     * Delete the bid in db
+     *
      * @param bid
      */
     void deleteBid(BidList bid);
