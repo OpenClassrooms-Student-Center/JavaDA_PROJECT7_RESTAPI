@@ -1,16 +1,29 @@
 package com.nnk.springboot.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import com.nnk.springboot.validation.PasswordValueMatch;
+import com.nnk.springboot.validation.ValidPassword;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
+@PasswordValueMatch.List({
+        @PasswordValueMatch(
+                field = "password",
+                message = "Passwords do not match!"
+        )
+})
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Username is mandatory")
     private String username;
+    @ValidPassword
     @NotBlank(message = "Password is mandatory")
     private String password;
     @NotBlank(message = "FullName is mandatory")

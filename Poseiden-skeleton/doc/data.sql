@@ -1,33 +1,32 @@
 
-CREATE TABLE BidList (
-  BidListId tinyint(4) NOT NULL AUTO_INCREMENT,
-  account VARCHAR(30) NOT NULL,
-  type VARCHAR(30) NOT NULL,
-  bidQuantity DOUBLE,
-  askQuantity DOUBLE,
-  bid DOUBLE ,
-  ask DOUBLE,
-  benchmark VARCHAR(125),
-  bidListDate TIMESTAMP,
-  commentary VARCHAR(125),
-  security VARCHAR(125),
-  status VARCHAR(10),
-  trader VARCHAR(125),
-  book VARCHAR(125),
-  creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
-  revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
-  dealName VARCHAR(125),
-  dealType VARCHAR(125),
-  sourceListId VARCHAR(125),
-  side VARCHAR(125),
-
-  PRIMARY KEY (BidListId)
+CREATE TABLE `BidList` (
+  `BidListId` tinyint(4) NOT NULL AUTO_INCREMENT DEFAULT 0,
+  `account` VARCHAR(30) NOT NULL,
+  `type` VARCHAR(30) NOT NULL,
+  `bidQuantity` DOUBLE,
+  `askQuantity` DOUBLE,
+  `bid` DOUBLE,
+  `ask` DOUBLE,
+  `benchmark` VARCHAR(125),
+  `bidListDate` TIMESTAMP,
+  `commentary` VARCHAR(125),
+  `security` VARCHAR(125),
+  `status` VARCHAR(10),
+  `trader` VARCHAR(125),
+  `book` VARCHAR(125),
+  `creationName` VARCHAR(125),
+  `creationDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `revisionName` VARCHAR(125),
+  `revisionDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  `dealName` VARCHAR(125),
+  `dealType` VARCHAR(125),
+  `sourceListId` VARCHAR(125),
+  `side` VARCHAR(125),
+  PRIMARY KEY (`BidListId`)
 )
 
 CREATE TABLE Trade (
-  TradeId tinyint(4) NOT NULL AUTO_INCREMENT,
+  TradeId tinyint(4) NOT NULL AUTO_INCREMENT DEFAULT 0,
   account VARCHAR(30) NOT NULL,
   type VARCHAR(30) NOT NULL,
   buyQuantity DOUBLE,
@@ -41,9 +40,9 @@ CREATE TABLE Trade (
   benchmark VARCHAR(125),
   book VARCHAR(125),
   creationName VARCHAR(125),
-  creationDate TIMESTAMP ,
+  creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   revisionName VARCHAR(125),
-  revisionDate TIMESTAMP ,
+  revisionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   dealName VARCHAR(125),
   dealType VARCHAR(125),
   sourceListId VARCHAR(125),
@@ -53,18 +52,18 @@ CREATE TABLE Trade (
 )
 
 CREATE TABLE CurvePoint (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id tinyint(4) NOT NULL AUTO_INCREMENT DEFAULT 0,
   CurveId tinyint,
   asOfDate TIMESTAMP,
   term DOUBLE ,
   value DOUBLE ,
-  creationDate TIMESTAMP ,
+  creationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 
   PRIMARY KEY (Id)
 )
 
 CREATE TABLE Rating (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id tinyint(4) NOT NULL AUTO_INCREMENT DEFAULT 0,
   moodysRating VARCHAR(125),
   sandPRating VARCHAR(125),
   fitchRating VARCHAR(125),
@@ -74,7 +73,7 @@ CREATE TABLE Rating (
 )
 
 CREATE TABLE RuleName (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id tinyint(4) NOT NULL AUTO_INCREMENT DEFAULT 0,
   name VARCHAR(125),
   description VARCHAR(125),
   json VARCHAR(125),
@@ -86,7 +85,7 @@ CREATE TABLE RuleName (
 )
 
 CREATE TABLE Users (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  Id tinyint(4) NOT NULL AUTO_INCREMENT DEFAULT 0,
   username VARCHAR(125),
   password VARCHAR(125),
   fullname VARCHAR(125),
@@ -95,5 +94,5 @@ CREATE TABLE Users (
   PRIMARY KEY (Id)
 )
 
-insert into Users(fullname, username, password, role) values("Administrator", "admin", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "ADMIN")
-insert into Users(fullname, username, password, role) values("User", "user", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "USER")
+insert into Users(id, fullname, username, password, role) values(1 ,"Administrator", "admin", "$2a$10$rWiF5iaOSzHiJt29eHkiM.roj71s2g2vHufSok4402a7Cx9oRnbrm", "ADMIN")
+insert into Users(id, fullname, username, password, role) values(2 ,"User", "user", "$2a$10$nou/kIhl82X2OVwYBqHCy.iJdCoDV2rwkIltAjEv.vH3uyWXGCo2y", "USER")
