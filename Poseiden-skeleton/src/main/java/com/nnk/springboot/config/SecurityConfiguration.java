@@ -20,11 +20,25 @@ public class SecurityConfiguration {
 
     private final LoginSuccess successHandler;
 
+    /**
+     * Configure the login security with our custom login Service and authentification
+     *
+     * @param customUserDetailsService customUserDetailsService
+     * @param successHandler successHandler
+     */
     public SecurityConfiguration(CustomUserDetailsService customUserDetailsService, LoginSuccess successHandler) {
         this.customUserDetailsService = customUserDetailsService;
         this.successHandler = successHandler;
     }
 
+    /**
+     * Manage the right to authentication
+     *
+     * @param http http
+     * @param bCryptPasswordEncoder bCryptPasswordEncoder
+     * @return authenticationManagerBuilder.build()
+     * @throws Exception Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -68,7 +82,7 @@ public class SecurityConfiguration {
     }
 
     /**
-     *Bcrypt uses hash algorithm to store password
+     * Bcrypt uses hash algorithm to store password
      *
      * @return passwordEncoder
      */

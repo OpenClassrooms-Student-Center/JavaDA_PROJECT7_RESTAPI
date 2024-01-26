@@ -1,4 +1,4 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.integration;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RuleNameITTest {
+public class RuleNameIT {
 
     private MockMvc mockMvc;
 
@@ -79,13 +79,13 @@ public class RuleNameITTest {
                 .findAllRuleName();
 
         //WHEN
-        /*mockMvc.perform(get("/ruleName/list"))
+        mockMvc.perform(get("/ruleName/list"))
 
                 //THEN
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("ruleName/list"))
-                .andExpect(model().attributeExists("ruleName"))
-                .andReturn();*/
+                .andExpect(model().attributeExists("ruleNames"))
+                .andReturn();
         assertEquals("Template", ruleList.get(0).getTemplate());
     }
 
