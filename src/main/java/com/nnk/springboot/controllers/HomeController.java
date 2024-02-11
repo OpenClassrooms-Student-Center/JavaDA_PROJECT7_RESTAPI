@@ -21,11 +21,6 @@ public class HomeController {
 	@Autowired
 	private LoggerApi loggerApi;
 
-	/**
-	 * @param request
-	 * @param response
-	 * @return String
-	 */
 	@Secured({ "USER", "ADMIN" })
 	@RequestMapping("/")
 	public String home(HttpServletRequest request, HttpServletResponse response) {
@@ -36,11 +31,6 @@ public class HomeController {
 		return "home";
 	}
 
-	/**
-	 * @param request
-	 * @param response
-	 * @return String
-	 */
 	@Secured("ADMIN")
 	@RequestMapping("/admin/home")
 	public String adminHome(HttpServletRequest request, HttpServletResponse response) {

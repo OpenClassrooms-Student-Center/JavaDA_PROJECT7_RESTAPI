@@ -31,9 +31,6 @@ public class UsersService {
         this.userRepository = userRepository;
     }
 
-    /**
-     * @return List<Users>
-     */
     public List<Users> findAll() {
 
         if (LOGGER.isDebugEnabled()) {
@@ -44,10 +41,6 @@ public class UsersService {
         return userRepository.findAll();
     }
 
-    /**
-     * @param id
-     * @return Users
-     */
     public Users findById(Integer id) {
 
         if (LOGGER.isDebugEnabled()) {
@@ -59,10 +52,6 @@ public class UsersService {
         return userRepository.findById(id).orElse(null);
     }
 
-    /**
-     * @param userName
-     * @return Users
-     */
     public Users getUser(String userName) {
         List<Users> usersList = findAll();
         for (Users users : usersList) {
@@ -80,10 +69,6 @@ public class UsersService {
         return null;
     }
 
-    /**
-     * @param users
-     * @return Users
-     */
     public Users save(Users users) {
 
         if (LOGGER.isDebugEnabled()) {

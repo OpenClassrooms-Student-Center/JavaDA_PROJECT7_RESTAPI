@@ -1,8 +1,9 @@
 package com.nnk.springboot;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,9 +19,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.nnk.springboot.service.LoggerApi;
-
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -50,9 +48,6 @@ public class LoginControllerTests {
                 .build();
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
@@ -61,10 +56,6 @@ public class LoginControllerTests {
 
     }
 
-    
-    /** 
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "USER")
     public void testLoginOk() throws Exception {

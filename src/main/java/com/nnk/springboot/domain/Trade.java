@@ -1,12 +1,13 @@
 package com.nnk.springboot.domain;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "trade")
@@ -106,16 +107,10 @@ public class Trade {
         this.side = side;
     }
 
-    /**
-     * @return Integer
-     */
     public Integer getTradeId() {
         return this.tradeId;
     }
 
-    /**
-     * @param tradeId
-     */
     public void setTradeId(Integer tradeId) {
         this.tradeId = tradeId;
     }

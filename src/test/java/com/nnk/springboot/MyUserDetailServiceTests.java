@@ -1,5 +1,8 @@
 package com.nnk.springboot;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,14 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.nnk.springboot.domain.Users;
 import com.nnk.springboot.repositories.UsersRepository;
 import com.nnk.springboot.service.LoggerApi;
 import com.nnk.springboot.service.MyUserDetailService;
 import com.nnk.springboot.service.UsersService;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -49,9 +50,6 @@ public class MyUserDetailServiceTests {
 
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     public void testLoadUserByUsername() throws Exception {
 
@@ -73,10 +71,6 @@ public class MyUserDetailServiceTests {
 
     }
 
-    
-    /** 
-     * @throws Exception
-     */
     // @Test
     public void testLoadUserByUsernameUserNull() throws Exception {
 

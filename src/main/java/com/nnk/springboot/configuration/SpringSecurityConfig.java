@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -15,12 +14,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SpringSecurityConfig {
 
     /**
-     * @param http Il permet de configurer les demandes des http spécifiques basée
-     *             sur la sécurité
-     * @return SecurityFilterChain les règles de sécurité en spécifiant quels
-     *         filtres doivent être appliqués dans quel ordre pour chaque chemin
-     *         d'accès ou URL spécifique
-     * @throws Exception Exception gerée
+     * @param http
+     * @return SecurityFilterChain : pour .anyRequest() il faut être
+     *         .authenticated()
+     * @throws Exception
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -30,22 +27,20 @@ public class SpringSecurityConfig {
                         .requestMatchers("/css/**").permitAll()
                         .anyRequest()
                         .authenticated())
-                .formLogin()
-                .loginPage("/app/login")
-                .defaultSuccessUrl("/app/login/ok", true)
-                .permitAll()
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/app/app-logout"))
-                .logoutSuccessUrl("/app-logout")
-                .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true);
+                .formLogin(login -> login
+                        .loginPage("/app/login")
+                        .defaultSuccessUrl("/app/login/ok", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/app/app-logout")
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true));
 
         return http.build();
     }
 
     /**
-     * @return le mot de passe codé
+     * @return BCryptPasswordEncoder : mot de passe haché
      */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

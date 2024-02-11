@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nnk.springboot.service.LoggerApi;
@@ -14,38 +13,32 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
-<span class="fc" id="L17">public class HomeController {</span>
+<span class="fc" id="L16">public class HomeController {</span>
 
 	// Récupération de notre logger.
-<span class="fc" id="L20">	private static final Logger LOGGER = LogManager.getLogger(HomeController.class);</span>
+<span class="fc" id="L19">	private static final Logger LOGGER = LogManager.getLogger(HomeController.class);</span>
 
 	@Autowired
 	private LoggerApi loggerApi;
 
-	/**
-	 * @param model
-	 * @param request
-	 * @param response
-	 * @return String
-	 */
 	@Secured({ &quot;USER&quot;, &quot;ADMIN&quot; })
 	@RequestMapping(&quot;/&quot;)
-	public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String home(HttpServletRequest request, HttpServletResponse response) {
 
-<span class="nc" id="L35">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="nc" id="L36">		LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L28">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L29">		LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L38">		return &quot;home&quot;;</span>
+<span class="nc" id="L31">		return &quot;home&quot;;</span>
 	}
 
 	@Secured(&quot;ADMIN&quot;)
 	@RequestMapping(&quot;/admin/home&quot;)
-	public String adminHome(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public String adminHome(HttpServletRequest request, HttpServletResponse response) {
 
-<span class="fc" id="L45">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L46">		LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L38">		String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L39">		LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L48">		return &quot;redirect:/bidList/list&quot;;</span>
+<span class="fc" id="L41">		return &quot;redirect:/bidList/list&quot;;</span>
 	}
 
 }

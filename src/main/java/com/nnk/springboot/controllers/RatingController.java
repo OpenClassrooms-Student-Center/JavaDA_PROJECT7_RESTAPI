@@ -1,14 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.repositories.RatingRepository;
-import com.nnk.springboot.service.LoggerApi;
-import com.nnk.springboot.service.ValidInput;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 public class RatingController {
@@ -38,12 +38,6 @@ public class RatingController {
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(RatingController.class);
 
-    /**
-     * @param model
-     * @param request
-     * @param response
-     * @return String
-     */
     @RequestMapping("/rating/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(RATINGS, ratingRepository.findAll());
@@ -54,13 +48,6 @@ public class RatingController {
         return "rating/list";
     }
 
-    
-    /** 
-     * @param rating
-     * @param request
-     * @param response
-     * @return String
-     */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating, HttpServletRequest request, HttpServletResponse response) {
 

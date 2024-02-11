@@ -33,50 +33,47 @@ public class FormatDate {
 <span class="nc" id="L33">        this.timestampFromatDate = timestampFromatDate;</span>
 <span class="nc" id="L34">    }</span>
 
-    /**
-     * @return Date
-     */
     public Date getDateFromatDate() {
-<span class="nc" id="L40">        return this.dateFromatDate;</span>
+<span class="nc" id="L37">        return this.dateFromatDate;</span>
     }
 
     public void setDateFromatDate(Date dateFromatDate) {
-<span class="nc" id="L44">        this.dateFromatDate = dateFromatDate;</span>
-<span class="nc" id="L45">    }</span>
+<span class="nc" id="L41">        this.dateFromatDate = dateFromatDate;</span>
+<span class="nc" id="L42">    }</span>
 
     public String getStringFromatDate() {
-<span class="nc" id="L48">        return this.stringFromatDate;</span>
+<span class="nc" id="L45">        return this.stringFromatDate;</span>
     }
 
     public void setStringFromatDate(String stringFromatDate) {
-<span class="nc" id="L52">        this.stringFromatDate = stringFromatDate;</span>
-<span class="nc" id="L53">    }</span>
+<span class="nc" id="L49">        this.stringFromatDate = stringFromatDate;</span>
+<span class="nc" id="L50">    }</span>
 
     public Timestamp getTimestampFromatDate() {
-<span class="fc" id="L56">        return this.timestampFromatDate;</span>
+<span class="fc" id="L53">        return this.timestampFromatDate;</span>
     }
 
     public void setTimestampFromatDate(Timestamp timestampFromatDate) {
-<span class="nc" id="L60">        this.timestampFromatDate = timestampFromatDate;</span>
-<span class="nc" id="L61">    }</span>
+<span class="nc" id="L57">        this.timestampFromatDate = timestampFromatDate;</span>
+<span class="nc" id="L58">    }</span>
 
     public void setFromatDateStringToTimestamp(String tradeDate) throws ParseException {
 
-<span class="fc" id="L65">        String inDate = tradeDate.replace(&quot;T&quot;, &quot; &quot;);</span>
-<span class="fc" id="L66">        String motifPattern = &quot;yyyy-MM-dd HH:mm&quot;;</span>
-<span class="fc" id="L67">        DateFormat df = new SimpleDateFormat(motifPattern);</span>
-<span class="fc" id="L68">        Date date = df.parse(inDate);</span>
-<span class="fc" id="L69">        long time = date.getTime();</span>
-<span class="fc" id="L70">        Timestamp ts = new Timestamp(time);</span>
-<span class="fc" id="L71">        timestampFromatDate = ts;</span>
+<span class="fc" id="L62">        String inDate = tradeDate.replace(&quot;T&quot;, &quot; &quot;);</span>
+<span class="fc" id="L63">        String motifPattern = &quot;yyyy-MM-dd HH:mm&quot;;</span>
+<span class="fc" id="L64">        DateFormat df = new SimpleDateFormat(motifPattern);</span>
+<span class="fc" id="L65">        Date date = df.parse(inDate);</span>
+<span class="fc" id="L66">        long time = date.getTime();</span>
+<span class="fc" id="L67">        Timestamp ts = new Timestamp(time);</span>
+<span class="fc" id="L68">        timestampFromatDate = ts;</span>
 
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
-<span class="fc" id="L74">            String messageLoggerDebug = loggerApi</span>
-<span class="fc" id="L75">                    .loggerDebug(&quot;Set format date to &quot; + motifPattern + &quot; &quot; + timestampFromatDate);</span>
-<span class="fc" id="L76">            LOGGER.debug(messageLoggerDebug);</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="fc" id="L71">            String messageLoggerDebug = loggerApi</span>
+<span class="fc" id="L72">                    .loggerDebug(&quot;Set format date to &quot; + motifPattern + &quot; &quot; + timestampFromatDate);</span>
+<span class="fc" id="L73">            LOGGER.debug(messageLoggerDebug);</span>
         }
 
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L76">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

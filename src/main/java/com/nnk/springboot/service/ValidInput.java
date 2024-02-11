@@ -99,16 +99,10 @@ public class ValidInput {
         this.formatDateFormat = formatDateFormat;
     }
 
-    /**
-     * @return boolean
-     */
     public boolean isPswValidInput() {
         return this.pswValidInput;
     }
 
-    /**
-     * @return boolean
-     */
     public boolean getPswValidInput() {
         return this.pswValidInput;
     }

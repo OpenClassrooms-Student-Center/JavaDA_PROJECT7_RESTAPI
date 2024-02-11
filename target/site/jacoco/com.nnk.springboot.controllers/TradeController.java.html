@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.TradeRepository;
-import com.nnk.springboot.service.FormatDate;
-import com.nnk.springboot.service.LoggerApi;
-import com.nnk.springboot.service.ValidInput;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-
 import java.text.ParseException;
 
 import org.apache.logging.log4j.LogManager;
@@ -24,8 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
 @Controller
-<span class="fc" id="L28">public class TradeController {</span>
+<span class="fc" id="L27">public class TradeController {</span>
 
     private static final String REDIRECTTRADELIST = &quot;redirect:/trade/list&quot;;
     private static final String TRADES = &quot;trades&quot;;
@@ -40,33 +39,27 @@ import org.springframework.web.bind.annotation.RequestParam;
     private LoggerApi loggerApi;
 
     // Récupération de notre logger.
-<span class="fc" id="L43">    private static final Logger LOGGER = LogManager.getLogger(TradeController.class);</span>
+<span class="fc" id="L42">    private static final Logger LOGGER = LogManager.getLogger(TradeController.class);</span>
 
-    /**
-     * @param model
-     * @param request
-     * @param response
-     * @return String
-     */
     @RequestMapping(&quot;/trade/list&quot;)
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
-<span class="fc" id="L53">        model.addAttribute(TRADES, tradeRepository.findAll());</span>
+<span class="fc" id="L46">        model.addAttribute(TRADES, tradeRepository.findAll());</span>
 
-<span class="fc" id="L55">        model.addAttribute(&quot;httpServletRequest&quot;, request);</span>
+<span class="fc" id="L48">        model.addAttribute(&quot;httpServletRequest&quot;, request);</span>
 
-<span class="fc" id="L57">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L58">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L50">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L51">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L60">        return &quot;trade/list&quot;;</span>
+<span class="fc" id="L53">        return &quot;trade/list&quot;;</span>
     }
 
     @GetMapping(&quot;/trade/add&quot;)
     public String addUser(Trade bid, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="nc" id="L66">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="nc" id="L67">        LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L59">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L60">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L69">        return &quot;trade/add&quot;;</span>
+<span class="nc" id="L62">        return &quot;trade/add&quot;;</span>
     }
 
     @PostMapping(&quot;/trade/validate&quot;)
@@ -75,44 +68,44 @@ import org.springframework.web.bind.annotation.RequestParam;
             @RequestParam String revisionDateString, HttpServletRequest request,
             HttpServletResponse response) throws ParseException {
 
-<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
 
-<span class="fc" id="L80">            validInput.addTrade(trade, tradeDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L73">            validInput.addTrade(trade, tradeDateString, creationDateString, revisionDateString);</span>
 
-<span class="pc bpc" id="L82" title="1 of 2 branches missed.">            if (validInput.getAddTrade()) {</span>
-<span class="fc" id="L83">                model.addAttribute(TRADES, tradeRepository.findAll());</span>
-<span class="fc" id="L84">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if (validInput.getAddTrade()) {</span>
+<span class="fc" id="L76">                model.addAttribute(TRADES, tradeRepository.findAll());</span>
+<span class="fc" id="L77">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L86">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L87">                LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L79">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L80">                LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L89">                return REDIRECTTRADELIST;</span>
+<span class="fc" id="L82">                return REDIRECTTRADELIST;</span>
             } else {
-<span class="nc" id="L91">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Trade not added!&quot;);</span>
-<span class="nc" id="L92">                LOGGER.info(messageLoggerInfo);</span>
-<span class="nc" id="L93">                return &quot;trade/add&quot;;</span>
+<span class="nc" id="L84">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Trade not added!&quot;);</span>
+<span class="nc" id="L85">                LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L86">                return &quot;trade/add&quot;;</span>
             }
 
         }
-<span class="fc" id="L97">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L90">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L99">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L100">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L92">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L93">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L102">        return &quot;trade/add&quot;;</span>
+<span class="fc" id="L95">        return &quot;trade/add&quot;;</span>
     }
 
     @GetMapping(&quot;/trade/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L108">        Trade trade = tradeRepository.findById(id)</span>
-<span class="pc" id="L109">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L110">        model.addAttribute(&quot;trade&quot;, trade);</span>
+<span class="fc" id="L101">        Trade trade = tradeRepository.findById(id)</span>
+<span class="pc" id="L102">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L103">        model.addAttribute(&quot;trade&quot;, trade);</span>
 
-<span class="fc" id="L112">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L113">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L105">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L106">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L115">        return &quot;trade/update&quot;;</span>
+<span class="fc" id="L108">        return &quot;trade/update&quot;;</span>
     }
 
     @PostMapping(&quot;/trade/update/{id}&quot;)
@@ -121,29 +114,29 @@ import org.springframework.web.bind.annotation.RequestParam;
             @RequestParam String creationDateString,
             @RequestParam String revisionDateString, HttpServletRequest request,
             HttpServletResponse response) throws ParseException {
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L125">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L118">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L127">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L128">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L120">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L121">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L130">            return &quot;trade/update&quot;;</span>
+<span class="fc" id="L123">            return &quot;trade/update&quot;;</span>
         }
 
-<span class="fc" id="L133">        validInput.updateTrade(trade, id, tradeDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L126">        validInput.updateTrade(trade, id, tradeDateString, creationDateString, revisionDateString);</span>
 
-<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (validInput.getUpdateTrade()) {</span>
-<span class="fc" id="L136">            model.addAttribute(&quot;users&quot;, tradeRepository.findAll());</span>
-<span class="fc" id="L137">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        if (validInput.getUpdateTrade()) {</span>
+<span class="fc" id="L129">            model.addAttribute(&quot;users&quot;, tradeRepository.findAll());</span>
+<span class="fc" id="L130">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L139">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L140">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L132">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L133">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L142">            return REDIRECTTRADELIST;</span>
+<span class="fc" id="L135">            return REDIRECTTRADELIST;</span>
         } else {
-<span class="nc" id="L144">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Trade not updated!&quot;);</span>
-<span class="nc" id="L145">            LOGGER.info(messageLoggerInfo);</span>
-<span class="nc" id="L146">            return &quot;trade/update&quot;;</span>
+<span class="nc" id="L137">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Trade not updated!&quot;);</span>
+<span class="nc" id="L138">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L139">            return &quot;trade/update&quot;;</span>
         }
 
     }
@@ -151,15 +144,15 @@ import org.springframework.web.bind.annotation.RequestParam;
     @GetMapping(&quot;/trade/delete/{id}&quot;)
     public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L154">        Trade trade = tradeRepository.findById(id)</span>
-<span class="pc" id="L155">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L156">        tradeRepository.delete(trade);</span>
-<span class="fc" id="L157">        model.addAttribute(TRADES, tradeRepository.findAll());</span>
+<span class="fc" id="L147">        Trade trade = tradeRepository.findById(id)</span>
+<span class="pc" id="L148">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L149">        tradeRepository.delete(trade);</span>
+<span class="fc" id="L150">        model.addAttribute(TRADES, tradeRepository.findAll());</span>
 
-<span class="fc" id="L159">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L160">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L152">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L153">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L162">        return REDIRECTTRADELIST;</span>
+<span class="fc" id="L155">        return REDIRECTTRADELIST;</span>
     }
 
 }
