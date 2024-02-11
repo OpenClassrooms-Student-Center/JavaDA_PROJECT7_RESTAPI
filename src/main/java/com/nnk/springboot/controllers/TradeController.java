@@ -1,15 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.TradeRepository;
-import com.nnk.springboot.service.FormatDate;
-import com.nnk.springboot.service.LoggerApi;
-import com.nnk.springboot.service.ValidInput;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-
 import java.text.ParseException;
 
 import org.apache.logging.log4j.LogManager;
@@ -23,6 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 public class TradeController {
@@ -42,12 +41,6 @@ public class TradeController {
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(TradeController.class);
 
-    /**
-     * @param model
-     * @param request
-     * @param response
-     * @return String
-     */
     @RequestMapping("/trade/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(TRADES, tradeRepository.findAll());
@@ -60,13 +53,6 @@ public class TradeController {
         return "trade/list";
     }
 
-    
-    /** 
-     * @param bid
-     * @param request
-     * @param response
-     * @return String
-     */
     @GetMapping("/trade/add")
     public String addUser(Trade bid, HttpServletRequest request, HttpServletResponse response) {
 

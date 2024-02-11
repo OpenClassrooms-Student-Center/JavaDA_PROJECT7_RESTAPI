@@ -1,14 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.Users;
-import com.nnk.springboot.repositories.UsersRepository;
-import com.nnk.springboot.service.LoggerApi;
-import com.nnk.springboot.service.ValidInput;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nnk.springboot.domain.Users;
+import com.nnk.springboot.repositories.UsersRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -39,12 +39,6 @@ public class UserController {
     @Autowired
     private ValidInput validInput;
 
-    /**
-     * @param model
-     * @param request
-     * @param response
-     * @return String
-     */
     @Secured("ADMIN")
     @RequestMapping("/user/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -56,12 +50,6 @@ public class UserController {
         return "user/list";
     }
 
-    /**
-     * @param bid
-     * @param request
-     * @param response
-     * @return String
-     */
     @Secured("ADMIN")
     @GetMapping("/user/add")
     public String addUser(Users bid, HttpServletRequest request, HttpServletResponse response) {

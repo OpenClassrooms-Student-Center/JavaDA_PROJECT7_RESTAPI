@@ -1,14 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RuleNameRepository;
-import com.nnk.springboot.service.LoggerApi;
-import com.nnk.springboot.service.ValidInput;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.ValidInput;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 public class RuleNameController {
@@ -38,12 +38,6 @@ public class RuleNameController {
     // Récupération de notre logger.
     private static final Logger LOGGER = LogManager.getLogger(RuleNameController.class);
 
-    /**
-     * @param model
-     * @param request
-     * @param response
-     * @return String
-     */
     @RequestMapping("/ruleName/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(RULES, ruleNameRepository.findAll());
@@ -54,12 +48,6 @@ public class RuleNameController {
         return "ruleName/list";
     }
 
-    /**
-     * @param bid
-     * @param request
-     * @param response
-     * @return String
-     */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName bid, HttpServletRequest request, HttpServletResponse response) {
 

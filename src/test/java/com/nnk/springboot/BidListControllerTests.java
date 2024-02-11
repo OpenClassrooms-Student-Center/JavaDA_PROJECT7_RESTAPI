@@ -1,12 +1,11 @@
 package com.nnk.springboot;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Optional;
 
@@ -62,9 +61,6 @@ public class BidListControllerTests {
                 .build();
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testHome() throws Exception {
@@ -73,10 +69,6 @@ public class BidListControllerTests {
 
     }
 
-    
-    /** 
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test")
     public void testValidate() throws Exception {

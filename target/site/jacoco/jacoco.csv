@@ -7,7 +7,7 @@ poseidon,com.nnk.springboot.controllers,BidListController,50,187,2,6,9,43,5,9,3,
 poseidon,com.nnk.springboot.controllers,RatingController,50,181,2,6,9,43,5,9,3,7
 poseidon,com.nnk.springboot.controllers,TradeController,50,192,2,6,9,44,5,9,3,7
 poseidon,com.nnk.springboot.controllers,RuleNameController,50,181,2,6,9,43,5,9,3,7
-poseidon,com.nnk.springboot.configuration,SpringSecurityConfig,0,57,0,0,0,18,0,4,0,4
+poseidon,com.nnk.springboot.configuration,SpringSecurityConfig,0,60,0,0,0,17,0,6,0,6
 poseidon,com.nnk.springboot.service,LoggerApi,44,68,5,3,14,22,6,5,2,5
 poseidon,com.nnk.springboot.service,MyUserDetailService,31,73,4,4,6,20,4,4,0,4
 poseidon,com.nnk.springboot.service,FormatDate,30,53,1,1,13,16,7,4,6,4

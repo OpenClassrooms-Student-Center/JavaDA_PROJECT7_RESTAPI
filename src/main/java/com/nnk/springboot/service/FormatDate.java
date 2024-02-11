@@ -33,17 +33,10 @@ public class FormatDate {
         this.timestampFromatDate = timestampFromatDate;
     }
 
-    /**
-     * @return Date
-     */
     public Date getDateFromatDate() {
         return this.dateFromatDate;
     }
 
-    
-    /** 
-     * @param dateFromatDate
-     */
     public void setDateFromatDate(Date dateFromatDate) {
         this.dateFromatDate = dateFromatDate;
     }

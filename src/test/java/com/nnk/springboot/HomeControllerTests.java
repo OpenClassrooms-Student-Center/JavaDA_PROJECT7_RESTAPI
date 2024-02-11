@@ -1,8 +1,8 @@
 package com.nnk.springboot;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -47,9 +47,6 @@ public class HomeControllerTests {
                 .build();
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testHome() throws Exception {

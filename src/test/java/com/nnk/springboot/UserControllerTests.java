@@ -1,11 +1,10 @@
 package com.nnk.springboot;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Optional;
 
@@ -74,9 +73,6 @@ public class UserControllerTests {
                 .build();
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testHome() throws Exception {
@@ -97,10 +93,6 @@ public class UserControllerTests {
 
     }
 
-    
-    /** 
-     * @throws Exception
-     */
     @Test
     @WithMockUser(username = "user", password = "test", authorities = "ADMIN")
     public void testValidate() throws Exception {

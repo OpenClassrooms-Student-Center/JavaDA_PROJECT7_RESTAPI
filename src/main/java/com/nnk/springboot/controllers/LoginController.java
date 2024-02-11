@@ -1,13 +1,5 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.configuration.SpringSecurityConfig;
-import com.nnk.springboot.repositories.UsersRepository;
-import com.nnk.springboot.service.LoggerApi;
-import com.nnk.springboot.service.UsersService;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import java.security.Principal;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.nnk.springboot.configuration.SpringSecurityConfig;
+import com.nnk.springboot.repositories.UsersRepository;
+import com.nnk.springboot.service.LoggerApi;
+import com.nnk.springboot.service.UsersService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("app")
@@ -55,17 +55,10 @@ public class LoginController {
         this.loggerApi = loggerApi;
     }
 
-    /**
-     * @return ModelAndView
-     */
     public ModelAndView getMav() {
         return this.mav;
     }
 
-    
-    /** 
-     * @param mav
-     */
     public void setMav(ModelAndView mav) {
         this.mav = mav;
     }
@@ -136,6 +129,7 @@ public class LoginController {
         return mav;
     }
 
+    // use PostMapping for redirect the page
     @Secured({ "USER", "ADMIN" })
     @PostMapping("app-logout")
     public ModelAndView appLogout(Model model, Principal principal, HttpServletRequest request,
