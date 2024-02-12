@@ -66,6 +66,8 @@ public class UserController {
             HttpServletResponse response) {
         if (!result.hasErrors()) {
 
+            String wrongPassword = "";
+
             validInput.addUser(user);
 
             if (validInput.getAddUser()) {
@@ -80,6 +82,10 @@ public class UserController {
             } else {
                 String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "User not added!");
                 LOGGER.info(messageLoggerInfo);
+
+                wrongPassword = "Password ! au moins une lettre majuscule, au moins 8 caractères, au moins un chiffre et un symbole";
+                model.addAttribute("wrongPassword", wrongPassword);
+
                 return "user/add";
             }
 
