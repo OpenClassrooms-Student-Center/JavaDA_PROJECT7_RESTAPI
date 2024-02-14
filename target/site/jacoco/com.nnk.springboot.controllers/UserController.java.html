@@ -66,77 +66,83 @@ import jakarta.validation.Valid;
             HttpServletResponse response) {
 <span class="fc bfc" id="L67" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
 
-<span class="fc" id="L69">            validInput.addUser(user);</span>
+<span class="fc" id="L69">            String wrongPassword = &quot;&quot;;</span>
 
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">            if (validInput.getAddUser()) {</span>
-<span class="fc" id="L72">                model.addAttribute(USERS, userRepository.findAll());</span>
-<span class="fc" id="L73">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="fc" id="L71">            validInput.addUser(user);</span>
 
-<span class="fc" id="L75">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L76">                LOGGER.info(messageLoggerInfo);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">            if (validInput.getAddUser()) {</span>
+<span class="fc" id="L74">                model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L75">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L78">                return REDIRECTUSERLIST;</span>
+<span class="fc" id="L77">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L78">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L80">                return REDIRECTUSERLIST;</span>
 
             } else {
-<span class="nc" id="L81">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;User not added!&quot;);</span>
-<span class="nc" id="L82">                LOGGER.info(messageLoggerInfo);</span>
-<span class="nc" id="L83">                return &quot;user/add&quot;;</span>
+<span class="nc" id="L83">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;User not added!&quot;);</span>
+<span class="nc" id="L84">                LOGGER.info(messageLoggerInfo);</span>
+
+<span class="nc" id="L86">                wrongPassword = &quot;Password ! au moins une lettre majuscule, au moins 8 caractères, au moins un chiffre et un symbole&quot;;</span>
+<span class="nc" id="L87">                model.addAttribute(&quot;wrongPassword&quot;, wrongPassword);</span>
+
+<span class="nc" id="L89">                return &quot;user/add&quot;;</span>
             }
 
         }
-<span class="fc" id="L87">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L93">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L89">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L90">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L95">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L96">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L92">        return &quot;user/add&quot;;</span>
+<span class="fc" id="L98">        return &quot;user/add&quot;;</span>
     }
 
     @Secured(&quot;ADMIN&quot;)
     @GetMapping(&quot;/user/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L99">        Users users = userRepository.findById(id)</span>
-<span class="pc" id="L100">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L101">        users.setPassword(&quot;&quot;);</span>
-<span class="fc" id="L102">        model.addAttribute(&quot;users&quot;, users);</span>
+<span class="fc" id="L105">        Users users = userRepository.findById(id)</span>
+<span class="pc" id="L106">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L107">        users.setPassword(&quot;&quot;);</span>
+<span class="fc" id="L108">        model.addAttribute(&quot;users&quot;, users);</span>
 
-<span class="fc" id="L104">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L105">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L110">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L111">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L107">        return &quot;user/update&quot;;</span>
+<span class="fc" id="L113">        return &quot;user/update&quot;;</span>
     }
 
     @Secured(&quot;ADMIN&quot;)
     @PostMapping(&quot;/user/update/{id}&quot;)
     public String updateUser(@PathVariable(&quot;id&quot;) Integer id, @Valid Users user,
             BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
-<span class="fc bfc" id="L114" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L115">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L121">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L117">            model.addAttribute(&quot;user&quot;, user);</span>
+<span class="fc" id="L123">            model.addAttribute(&quot;user&quot;, user);</span>
 
-<span class="fc" id="L119">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L120">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L125">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L126">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L122">            return &quot;user/update&quot;;</span>
+<span class="fc" id="L128">            return &quot;user/update&quot;;</span>
         }
 
-<span class="fc" id="L125">        validInput.pswValidInputs(user, id);</span>
+<span class="fc" id="L131">        validInput.pswValidInputs(user, id);</span>
 
-<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if (validInput.getPswValidInput()) {</span>
-<span class="fc" id="L128">            model.addAttribute(USERS, userRepository.findAll());</span>
-<span class="fc" id="L129">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (validInput.getPswValidInput()) {</span>
+<span class="fc" id="L134">            model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L135">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L131">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L132">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L137">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L138">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L134">            return REDIRECTUSERLIST;</span>
+<span class="fc" id="L140">            return REDIRECTUSERLIST;</span>
 
         } else {
-<span class="nc" id="L137">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;User not updated!&quot;);</span>
-<span class="nc" id="L138">            LOGGER.info(messageLoggerInfo);</span>
-<span class="nc" id="L139">            return &quot;user/update&quot;;</span>
+<span class="nc" id="L143">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;User not updated!&quot;);</span>
+<span class="nc" id="L144">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L145">            return &quot;user/update&quot;;</span>
         }
 
     }
@@ -145,15 +151,15 @@ import jakarta.validation.Valid;
     @GetMapping(&quot;/user/delete/{id}&quot;)
     public String deleteUser(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L148">        Users user = userRepository.findById(id)</span>
-<span class="pc" id="L149">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L150">        userRepository.delete(user);</span>
-<span class="fc" id="L151">        model.addAttribute(USERS, userRepository.findAll());</span>
+<span class="fc" id="L154">        Users user = userRepository.findById(id)</span>
+<span class="pc" id="L155">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L156">        userRepository.delete(user);</span>
+<span class="fc" id="L157">        model.addAttribute(USERS, userRepository.findAll());</span>
 
-<span class="fc" id="L153">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L154">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L159">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L160">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L156">        return REDIRECTUSERLIST;</span>
+<span class="fc" id="L162">        return REDIRECTUSERLIST;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

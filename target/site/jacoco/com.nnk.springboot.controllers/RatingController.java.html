@@ -40,109 +40,111 @@ import jakarta.validation.Valid;
 
     @RequestMapping(&quot;/rating/list&quot;)
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
-<span class="fc" id="L43">        model.addAttribute(RATINGS, ratingRepository.findAll());</span>
 
-<span class="fc" id="L45">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L46">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L44">        model.addAttribute(&quot;httpServletRequest&quot;, request);</span>
+<span class="fc" id="L45">        model.addAttribute(RATINGS, ratingRepository.findAll());</span>
 
-<span class="fc" id="L48">        return &quot;rating/list&quot;;</span>
+<span class="fc" id="L47">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L48">        LOGGER.info(messageLoggerInfo);</span>
+
+<span class="fc" id="L50">        return &quot;rating/list&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/add&quot;)
     public String addRatingForm(Rating rating, HttpServletRequest request, HttpServletResponse response) {
 
-<span class="nc" id="L54">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="nc" id="L55">        LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L56">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="nc" id="L57">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L57">        return &quot;rating/add&quot;;</span>
+<span class="nc" id="L59">        return &quot;rating/add&quot;;</span>
     }
 
     @PostMapping(&quot;/rating/validate&quot;)
     public String validate(@Valid Rating rating, BindingResult result, Model model, HttpServletRequest request,
             HttpServletResponse response) {
 
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!result.hasErrors()) {</span>
 
-<span class="fc" id="L66">            validInput.addRatings(rating);</span>
+<span class="fc" id="L68">            validInput.addRatings(rating);</span>
 
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            if (validInput.getAddRatings()) {</span>
-<span class="fc" id="L69">                model.addAttribute(RATINGS, ratingRepository.findAll());</span>
-<span class="fc" id="L70">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">            if (validInput.getAddRatings()) {</span>
+<span class="fc" id="L71">                model.addAttribute(RATINGS, ratingRepository.findAll());</span>
+<span class="fc" id="L72">                response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L72">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L73">                LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L74">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L75">                LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L75">                return REDIRECTRATINGLIST;</span>
+<span class="fc" id="L77">                return REDIRECTRATINGLIST;</span>
             } else {
-<span class="nc" id="L77">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Ratings not added!&quot;);</span>
-<span class="nc" id="L78">                LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L79">                String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Ratings not added!&quot;);</span>
+<span class="nc" id="L80">                LOGGER.info(messageLoggerInfo);</span>
 
-<span class="nc" id="L80">                return &quot;rating/add&quot;;</span>
+<span class="nc" id="L82">                return &quot;rating/add&quot;;</span>
             }
 
         }
-<span class="fc" id="L84">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc" id="L86">        response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L86">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L87">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L88">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L89">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L89">        return &quot;rating/add&quot;;</span>
+<span class="fc" id="L91">        return &quot;rating/add&quot;;</span>
     }
 
     @GetMapping(&quot;/rating/update/{id}&quot;)
     public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L95">        Rating rating = ratingRepository.findById(id)</span>
-<span class="pc" id="L96">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L97">        model.addAttribute(&quot;rating&quot;, rating);</span>
+<span class="fc" id="L97">        Rating rating = ratingRepository.findById(id)</span>
+<span class="pc" id="L98">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L99">        model.addAttribute(&quot;rating&quot;, rating);</span>
 
-<span class="fc" id="L99">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L100">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L101">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L102">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L102">        return &quot;rating/update&quot;;</span>
+<span class="fc" id="L104">        return &quot;rating/update&quot;;</span>
     }
 
     @PostMapping(&quot;/rating/update/{id}&quot;)
     public String updateRating(@PathVariable(&quot;id&quot;) Integer id, @Valid Rating rating,
             BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) {
-<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
-<span class="fc" id="L109">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L111">            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // response 400</span>
 
-<span class="fc" id="L111">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L112">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L113">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L114">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L114">            return &quot;rating/update&quot;;</span>
+<span class="fc" id="L116">            return &quot;rating/update&quot;;</span>
         }
 
-<span class="fc" id="L117">        validInput.updateRatings(id, rating);</span>
+<span class="fc" id="L119">        validInput.updateRatings(id, rating);</span>
 
-<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if (validInput.getUpdateRatings()) {</span>
-<span class="fc" id="L120">            model.addAttribute(&quot;users&quot;, ratingRepository.findAll());</span>
-<span class="fc" id="L121">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        if (validInput.getUpdateRatings()) {</span>
+<span class="fc" id="L122">            model.addAttribute(&quot;users&quot;, ratingRepository.findAll());</span>
+<span class="fc" id="L123">            response.setStatus(HttpServletResponse.SC_CREATED); // response 201</span>
 
-<span class="fc" id="L123">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L124">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L125">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L126">            LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L126">            return REDIRECTRATINGLIST;</span>
+<span class="fc" id="L128">            return REDIRECTRATINGLIST;</span>
         } else {
-<span class="nc" id="L128">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Ratings not updated!&quot;);</span>
-<span class="nc" id="L129">            LOGGER.info(messageLoggerInfo);</span>
-<span class="nc" id="L130">            return &quot;rating/update&quot;;</span>
+<span class="nc" id="L130">            String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;Ratings not updated!&quot;);</span>
+<span class="nc" id="L131">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L132">            return &quot;rating/update&quot;;</span>
         }
     }
 
     @GetMapping(&quot;/rating/delete/{id}&quot;)
     public String deleteRating(@PathVariable(&quot;id&quot;) Integer id, Model model, HttpServletRequest request,
             HttpServletResponse response) {
-<span class="fc" id="L137">        Rating rating = ratingRepository.findById(id)</span>
-<span class="pc" id="L138">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
-<span class="fc" id="L139">        ratingRepository.delete(rating);</span>
-<span class="fc" id="L140">        model.addAttribute(RATINGS, ratingRepository.findAll());</span>
+<span class="fc" id="L139">        Rating rating = ratingRepository.findById(id)</span>
+<span class="pc" id="L140">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Invalid user Id:&quot; + id));</span>
+<span class="fc" id="L141">        ratingRepository.delete(rating);</span>
+<span class="fc" id="L142">        model.addAttribute(RATINGS, ratingRepository.findAll());</span>
 
-<span class="fc" id="L142">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
-<span class="fc" id="L143">        LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L144">        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, &quot;&quot;);</span>
+<span class="fc" id="L145">        LOGGER.info(messageLoggerInfo);</span>
 
-<span class="fc" id="L145">        return REDIRECTRATINGLIST;</span>
+<span class="fc" id="L147">        return REDIRECTRATINGLIST;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

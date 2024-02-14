@@ -44,8 +44,7 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
 
-        String remoteUserString = request.getRemoteUser();
-        model.addAttribute("remoteUserString", remoteUserString);
+        model.addAttribute("httpServletRequest", request);
         model.addAttribute(CURVES, curvePointRepository.findAll());
 
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");

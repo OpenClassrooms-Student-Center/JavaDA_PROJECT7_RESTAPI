@@ -71,12 +71,12 @@ public class ValidInput {
 <span class="fc" id="L71">    public ValidInput() {</span>
 <span class="fc" id="L72">    }</span>
 
-<span class="nc" id="L74">    public ValidInput(boolean pswValidInput, boolean addUser, boolean updateBid, boolean addBid, boolean addCurvePoint,</span>
+    public ValidInput(boolean pswValidInput, boolean addUser, boolean updateBid, boolean addBid, boolean addCurvePoint,
             boolean updateCurvePoint, boolean addTrade, boolean updateTrade, boolean addRatings, boolean updateRatings,
             boolean addRule, boolean updateRule, LoggerApi loggerApi, UsersRepository userRepository,
             BidListRepository bidListRepository, CurvePointRepository curvePointRepository,
             TradeRepository tradeRepository, RuleNameRepository ruleNameRepository, RatingRepository ratingRepository,
-            FormatDate formatDateFormat) {
+<span class="nc" id="L79">            FormatDate formatDateFormat) {</span>
 <span class="nc" id="L80">        this.pswValidInput = pswValidInput;</span>
 <span class="nc" id="L81">        this.addUser = addUser;</span>
 <span class="nc" id="L82">        this.updateBid = updateBid;</span>
@@ -351,13 +351,13 @@ public class ValidInput {
 <span class="fc" id="L351">        long compteurChiffreCase = user.getPassword().chars().filter(Character::isDigit).count();</span>
 <span class="fc" id="L352">        long compteurLetterCase = user.getPassword().chars().filter(Character::isLetter).count();</span>
 
-<span class="pc bpc" id="L354" title="3 of 6 branches missed.">        if ((longPassword &gt;= 8) &amp;&amp; (compteurUpperCase &gt;= 1) &amp;&amp; (compteurChiffreCase &gt;= 1)</span>
-<span class="pc bpc" id="L355" title="1 of 2 branches missed.">                &amp;&amp; (compteurChiffreCase + compteurLetterCase &lt; longPassword)) {</span>
+<span class="pc bpc" id="L354" title="4 of 8 branches missed.">        if ((longPassword &gt;= 8) &amp;&amp; (compteurUpperCase &gt;= 1) &amp;&amp; (compteurChiffreCase &gt;= 1)</span>
+                &amp;&amp; (compteurChiffreCase + compteurLetterCase &lt; longPassword)) {
 
 <span class="fc" id="L357">            String messageLoggerInfo = loggerApi</span>
 <span class="fc" id="L358">                    .loggerStrings(&quot;Le mot de passe a au moins 8 caractères ; &quot;,</span>
-<span class="fc" id="L359">                            &quot;il comporte au moins 1 majuscule et 1 chiffre&quot;,</span>
-<span class="fc" id="L360">                            &quot;et il a au moins un symbole (les chiffres + les lettres font moins que la totalité des caractères)&quot;);</span>
+                            &quot;il comporte au moins 1 majuscule et 1 chiffre&quot;,
+                            &quot;et il a au moins un symbole (les chiffres + les lettres font moins que la totalité des caractères)&quot;);
 
 <span class="fc" id="L362">            LOGGER.info(messageLoggerInfo);</span>
 <span class="fc" id="L363">            return true;</span>
@@ -366,8 +366,8 @@ public class ValidInput {
 
 <span class="nc" id="L367">            String messageLoggerInfo = loggerApi</span>
 <span class="nc" id="L368">                    .loggerStrings(&quot;Le mot de passe ne respecte pas les consignes&quot;,</span>
-<span class="nc" id="L369">                            &quot;&quot;,</span>
-<span class="nc" id="L370">                            &quot;&quot;);</span>
+                            &quot;&quot;,
+                            &quot;&quot;);
 
 <span class="nc" id="L372">            LOGGER.info(messageLoggerInfo);</span>
 <span class="nc" id="L373">            return false;</span>

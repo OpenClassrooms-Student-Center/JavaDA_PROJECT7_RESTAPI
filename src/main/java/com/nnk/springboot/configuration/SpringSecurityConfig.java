@@ -1,3 +1,15 @@
+/**
+ * This module is about impact of the final keyword on performance
+ * <p>
+ * This module explores  if there are any performance benefits from
+ * using the final keyword in our code. This module examines the performance
+ * implications of using final on a variable, method, and class level.
+ * </p>
+ *
+ * @since 1.0
+ * @author baeldung
+ * @version 1.1
+ */
 package com.nnk.springboot.configuration;
 
 import org.springframework.context.annotation.Bean;
@@ -8,16 +20,26 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Cette classe permet de préconfigurer et de personnaliser les fonctions de
+ * sécurité
+ * 
+ * @author Claudiu VILAU
+ * 
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SpringSecurityConfig {
 
     /**
-     * @param http
-     * @return SecurityFilterChain : pour .anyRequest() il faut être
-     *         .authenticated()
-     * @throws Exception
+     * Cette méthode sert à construire la chaîne de filtres selon notre
+     * configuration
+     * 
+     * @param http la classe HttpSecurity est sollicitée pour appliquer la chaîne de
+     *             filtres de sécurité aux requêtes HTTP
+     * @return la requête HTTP avec les filtres de
+     *         sécurité appliqués
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,7 +62,9 @@ public class SpringSecurityConfig {
     }
 
     /**
-     * @return BCryptPasswordEncoder : mot de passe haché
+     * Algorithme de hachage
+     * 
+     * @return le mot de passe haché
      */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

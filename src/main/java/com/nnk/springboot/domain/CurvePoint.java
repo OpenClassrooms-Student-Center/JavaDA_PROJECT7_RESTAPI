@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "curvepoint")
@@ -18,6 +19,7 @@ public class CurvePoint {
     private Integer id;
 
     @Column(name = "CurveId")
+    @NotNull(message = "must not be null")
     private Integer curveId;
 
     @Column(name = "asOfDate")

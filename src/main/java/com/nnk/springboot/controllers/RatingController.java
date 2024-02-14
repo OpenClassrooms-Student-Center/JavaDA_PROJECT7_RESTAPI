@@ -40,6 +40,8 @@ public class RatingController {
 
     @RequestMapping("/rating/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        model.addAttribute("httpServletRequest", request);
         model.addAttribute(RATINGS, ratingRepository.findAll());
 
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");

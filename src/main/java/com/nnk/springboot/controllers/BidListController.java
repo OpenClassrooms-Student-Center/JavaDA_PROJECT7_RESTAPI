@@ -44,6 +44,8 @@ public class BidListController {
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute(BIDS, bidListRepository.findAll());
 
+        model.addAttribute("httpServletRequest", request);
+
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
         LOGGER.info(messageLoggerInfo);
 
