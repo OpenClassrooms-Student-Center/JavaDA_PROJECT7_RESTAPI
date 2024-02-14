@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsersService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">UsersService.java</span></div><h1>UsersService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.nnk.springboot.domain.Users;
+import com.nnk.springboot.repositories.UsersRepository;
+
+@Service
+@Component
+public class UsersService {
+
+    // Récupération de notre logger.
+<span class="fc" id="L19">    private static final Logger LOGGER = LogManager.getLogger(UsersService.class);</span>
+
+    @Autowired
+    private LoggerApi loggerApi;
+
+    @Autowired
+    private UsersRepository userRepository;
+
+<span class="fc" id="L27">    public UsersService() {</span>
+<span class="fc" id="L28">    }</span>
+
+<span class="nc" id="L30">    public UsersService(UsersRepository userRepository) {</span>
+<span class="nc" id="L31">        this.userRepository = userRepository;</span>
+<span class="nc" id="L32">    }</span>
+
+    public List&lt;Users&gt; findAll() {
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="nc" id="L37">            String messageLoggerDebug = loggerApi.loggerDebug(&quot;List of users is : &quot; + userRepository.findAll());</span>
+<span class="nc" id="L38">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+
+<span class="nc" id="L41">        return userRepository.findAll();</span>
+    }
+
+    public Users findById(Integer id) {
+
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="nc" id="L47">            String messageLoggerDebug = loggerApi</span>
+<span class="nc" id="L48">                    .loggerDebug(&quot;User with ID &quot; + id + &quot; is : &quot; + userRepository.findById(id).orElse(null));</span>
+<span class="nc" id="L49">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+
+<span class="nc" id="L52">        return userRepository.findById(id).orElse(null);</span>
+    }
+
+    public Users getUser(String userName) {
+<span class="nc" id="L56">        List&lt;Users&gt; usersList = findAll();</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        for (Users users : usersList) {</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">            if (users.getUsername().equals(userName)) {</span>
+
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                if (LOGGER.isDebugEnabled()) {</span>
+<span class="nc" id="L61">                    String messageLoggerDebug = loggerApi</span>
+<span class="nc" id="L62">                            .loggerDebug(&quot;User name is : &quot; + users.getUsername() + &quot; &quot; + users.getFullname());</span>
+<span class="nc" id="L63">                    LOGGER.debug(messageLoggerDebug);</span>
+                }
+
+<span class="nc" id="L66">                return users;</span>
+            }
+<span class="nc" id="L68">        }</span>
+<span class="nc" id="L69">        return null;</span>
+    }
+
+    public Users save(Users users) {
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="nc" id="L75">            String messageLoggerDebug = loggerApi</span>
+<span class="nc" id="L76">                    .loggerDebug(&quot;User saved is : &quot; + users.getUsername() + &quot; &quot; + users.getFullname());</span>
+<span class="nc" id="L77">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+
+<span class="nc" id="L80">        return userRepository.save(users);</span>
+    }
+
+    public void delete(Integer id) {
+
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="nc" id="L86">            String messageLoggerDebug = loggerApi</span>
+<span class="nc" id="L87">                    .loggerDebug(&quot;ID of user deleted is : &quot; + id);</span>
+<span class="nc" id="L88">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+
+<span class="nc" id="L91">        userRepository.deleteById(id);</span>
+<span class="nc" id="L92">    }</span>
+
+    public Users update(Users users) {
+
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (LOGGER.isDebugEnabled()) {</span>
+<span class="nc" id="L97">            String messageLoggerDebug = loggerApi</span>
+<span class="nc" id="L98">                    .loggerDebug(&quot;User updated is : &quot; + users.getUsername() + &quot; &quot; + users.getFullname());</span>
+<span class="nc" id="L99">            LOGGER.debug(messageLoggerDebug);</span>
+        }
+
+<span class="nc" id="L102">        return userRepository.save(users);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

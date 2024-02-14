@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidInput.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">poseidon</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.service</a> &gt; <span class="el_source">ValidInput.java</span></div><h1>ValidInput.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.service;
+
+import java.text.ParseException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.nnk.springboot.domain.BidList;
+import com.nnk.springboot.domain.CurvePoint;
+import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.domain.Users;
+import com.nnk.springboot.repositories.BidListRepository;
+import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.repositories.RuleNameRepository;
+import com.nnk.springboot.repositories.TradeRepository;
+import com.nnk.springboot.repositories.UsersRepository;
+
+import jakarta.validation.Valid;
+
+@Service
+@Component
+public class ValidInput {
+
+    private boolean pswValidInput;
+    private boolean addUser;
+    private boolean updateBid;
+    private boolean addBid;
+    private boolean addCurvePoint;
+    private boolean updateCurvePoint;
+    private boolean addRatings;
+    private boolean updateRatings;
+    private boolean addTrade;
+    private boolean updateTrade;
+    private boolean addRule;
+    private boolean updateRule;
+
+    // Récupération de notre logger.
+<span class="fc" id="L45">    private static final Logger LOGGER = LogManager.getLogger(ValidInput.class);</span>
+
+    @Autowired
+    private LoggerApi loggerApi;
+
+    @Autowired
+    private UsersRepository userRepository;
+
+    @Autowired
+    private BidListRepository bidListRepository;
+
+    @Autowired
+    private CurvePointRepository curvePointRepository;
+
+    @Autowired
+    private TradeRepository tradeRepository;
+
+    @Autowired
+    private RuleNameRepository ruleNameRepository;
+
+    @Autowired
+    private RatingRepository ratingRepository;
+
+    @Autowired
+    private FormatDate formatDateFormat;
+
+<span class="fc" id="L71">    public ValidInput() {</span>
+<span class="fc" id="L72">    }</span>
+
+    public ValidInput(boolean pswValidInput, boolean addUser, boolean updateBid, boolean addBid, boolean addCurvePoint,
+            boolean updateCurvePoint, boolean addTrade, boolean updateTrade, boolean addRatings, boolean updateRatings,
+            boolean addRule, boolean updateRule, LoggerApi loggerApi, UsersRepository userRepository,
+            BidListRepository bidListRepository, CurvePointRepository curvePointRepository,
+            TradeRepository tradeRepository, RuleNameRepository ruleNameRepository, RatingRepository ratingRepository,
+<span class="nc" id="L79">            FormatDate formatDateFormat) {</span>
+<span class="nc" id="L80">        this.pswValidInput = pswValidInput;</span>
+<span class="nc" id="L81">        this.addUser = addUser;</span>
+<span class="nc" id="L82">        this.updateBid = updateBid;</span>
+<span class="nc" id="L83">        this.addBid = addBid;</span>
+<span class="nc" id="L84">        this.addCurvePoint = addCurvePoint;</span>
+<span class="nc" id="L85">        this.updateCurvePoint = updateCurvePoint;</span>
+<span class="nc" id="L86">        this.addTrade = addTrade;</span>
+<span class="nc" id="L87">        this.updateTrade = updateTrade;</span>
+<span class="nc" id="L88">        this.addRatings = addRatings;</span>
+<span class="nc" id="L89">        this.updateRatings = updateRatings;</span>
+<span class="nc" id="L90">        this.addRule = addRule;</span>
+<span class="nc" id="L91">        this.updateRule = updateRule;</span>
+<span class="nc" id="L92">        this.loggerApi = loggerApi;</span>
+<span class="nc" id="L93">        this.userRepository = userRepository;</span>
+<span class="nc" id="L94">        this.bidListRepository = bidListRepository;</span>
+<span class="nc" id="L95">        this.curvePointRepository = curvePointRepository;</span>
+<span class="nc" id="L96">        this.tradeRepository = tradeRepository;</span>
+<span class="nc" id="L97">        this.ruleNameRepository = ruleNameRepository;</span>
+<span class="nc" id="L98">        this.ratingRepository = ratingRepository;</span>
+<span class="nc" id="L99">        this.formatDateFormat = formatDateFormat;</span>
+<span class="nc" id="L100">    }</span>
+
+    public boolean isPswValidInput() {
+<span class="nc" id="L103">        return this.pswValidInput;</span>
+    }
+
+    public boolean getPswValidInput() {
+<span class="fc" id="L107">        return this.pswValidInput;</span>
+    }
+
+    public void setPswValidInput(boolean pswValidInput) {
+<span class="fc" id="L111">        this.pswValidInput = pswValidInput;</span>
+<span class="fc" id="L112">    }</span>
+
+    public boolean isUpdateBid() {
+<span class="nc" id="L115">        return this.updateBid;</span>
+    }
+
+    public boolean getUpdateBid() {
+<span class="fc" id="L119">        return this.updateBid;</span>
+    }
+
+    public void setUpdateBid(boolean updateBid) {
+<span class="fc" id="L123">        this.updateBid = updateBid;</span>
+<span class="fc" id="L124">    }</span>
+
+    public LoggerApi getLoggerApi() {
+<span class="nc" id="L127">        return this.loggerApi;</span>
+    }
+
+    public void setLoggerApi(LoggerApi loggerApi) {
+<span class="nc" id="L131">        this.loggerApi = loggerApi;</span>
+<span class="nc" id="L132">    }</span>
+
+    public UsersRepository getUserRepository() {
+<span class="nc" id="L135">        return this.userRepository;</span>
+    }
+
+    public void setUserRepository(UsersRepository userRepository) {
+<span class="nc" id="L139">        this.userRepository = userRepository;</span>
+<span class="nc" id="L140">    }</span>
+
+    public BidListRepository getBidListRepository() {
+<span class="nc" id="L143">        return this.bidListRepository;</span>
+    }
+
+    public void setBidListRepository(BidListRepository bidListRepository) {
+<span class="nc" id="L147">        this.bidListRepository = bidListRepository;</span>
+<span class="nc" id="L148">    }</span>
+
+    public FormatDate getFormatDateFormat() {
+<span class="nc" id="L151">        return this.formatDateFormat;</span>
+    }
+
+    public void setFormatDateFormat(FormatDate formatDateFormat) {
+<span class="nc" id="L155">        this.formatDateFormat = formatDateFormat;</span>
+<span class="nc" id="L156">    }</span>
+
+    public boolean isAddBid() {
+<span class="nc" id="L159">        return this.addBid;</span>
+    }
+
+    public boolean getAddBid() {
+<span class="fc" id="L163">        return this.addBid;</span>
+    }
+
+    public void setAddBid(boolean addBid) {
+<span class="fc" id="L167">        this.addBid = addBid;</span>
+<span class="fc" id="L168">    }</span>
+
+    public boolean isAddUser() {
+<span class="nc" id="L171">        return this.addUser;</span>
+    }
+
+    public boolean getAddUser() {
+<span class="fc" id="L175">        return this.addUser;</span>
+    }
+
+    public void setAddUser(boolean addUser) {
+<span class="fc" id="L179">        this.addUser = addUser;</span>
+<span class="fc" id="L180">    }</span>
+
+    public boolean isAddCurvePoint() {
+<span class="nc" id="L183">        return this.addCurvePoint;</span>
+    }
+
+    public boolean getAddCurvePoint() {
+<span class="fc" id="L187">        return this.addCurvePoint;</span>
+    }
+
+    public void setAddCurvePoint(boolean addCurvePoint) {
+<span class="fc" id="L191">        this.addCurvePoint = addCurvePoint;</span>
+<span class="fc" id="L192">    }</span>
+
+    public boolean isUpdateCurvePoint() {
+<span class="nc" id="L195">        return this.updateCurvePoint;</span>
+    }
+
+    public boolean getUpdateCurvePoint() {
+<span class="fc" id="L199">        return this.updateCurvePoint;</span>
+    }
+
+    public void setUpdateCurvePoint(boolean updateCurvePoint) {
+<span class="fc" id="L203">        this.updateCurvePoint = updateCurvePoint;</span>
+<span class="fc" id="L204">    }</span>
+
+    public CurvePointRepository getCurvePointRepository() {
+<span class="nc" id="L207">        return this.curvePointRepository;</span>
+    }
+
+    public void setCurvePointRepository(CurvePointRepository curvePointRepository) {
+<span class="nc" id="L211">        this.curvePointRepository = curvePointRepository;</span>
+<span class="nc" id="L212">    }</span>
+
+    public boolean isAddRatings() {
+<span class="nc" id="L215">        return this.addRatings;</span>
+    }
+
+    public boolean getAddRatings() {
+<span class="fc" id="L219">        return this.addRatings;</span>
+    }
+
+    public void setAddRatings(boolean addRatings) {
+<span class="fc" id="L223">        this.addRatings = addRatings;</span>
+<span class="fc" id="L224">    }</span>
+
+    public boolean isUpdateRatings() {
+<span class="nc" id="L227">        return this.updateRatings;</span>
+    }
+
+    public boolean getUpdateRatings() {
+<span class="fc" id="L231">        return this.updateRatings;</span>
+    }
+
+    public void setUpdateRatings(boolean updateRatings) {
+<span class="fc" id="L235">        this.updateRatings = updateRatings;</span>
+<span class="fc" id="L236">    }</span>
+
+    public RuleNameRepository getRuleNameRepository() {
+<span class="nc" id="L239">        return this.ruleNameRepository;</span>
+    }
+
+    public void setRuleNameRepository(RuleNameRepository ruleNameRepository) {
+<span class="nc" id="L243">        this.ruleNameRepository = ruleNameRepository;</span>
+<span class="nc" id="L244">    }</span>
+
+    public RatingRepository getRatingRepository() {
+<span class="nc" id="L247">        return this.ratingRepository;</span>
+    }
+
+    public void setRatingRepository(RatingRepository ratingRepository) {
+<span class="nc" id="L251">        this.ratingRepository = ratingRepository;</span>
+<span class="nc" id="L252">    }</span>
+
+    public boolean isAddTrade() {
+<span class="nc" id="L255">        return this.addTrade;</span>
+    }
+
+    public boolean getAddTrade() {
+<span class="fc" id="L259">        return this.addTrade;</span>
+    }
+
+    public void setAddTrade(boolean addTrade) {
+<span class="fc" id="L263">        this.addTrade = addTrade;</span>
+<span class="fc" id="L264">    }</span>
+
+    public boolean isUpdateTrade() {
+<span class="nc" id="L267">        return this.updateTrade;</span>
+    }
+
+    public boolean getUpdateTrade() {
+<span class="fc" id="L271">        return this.updateTrade;</span>
+    }
+
+    public void setUpdateTrade(boolean updateTrade) {
+<span class="fc" id="L275">        this.updateTrade = updateTrade;</span>
+<span class="fc" id="L276">    }</span>
+
+    public boolean isAddRule() {
+<span class="nc" id="L279">        return this.addRule;</span>
+    }
+
+    public boolean getAddRule() {
+<span class="fc" id="L283">        return this.addRule;</span>
+    }
+
+    public void setAddRule(boolean addRule) {
+<span class="fc" id="L287">        this.addRule = addRule;</span>
+<span class="fc" id="L288">    }</span>
+
+    public boolean isUpdateRule() {
+<span class="nc" id="L291">        return this.updateRule;</span>
+    }
+
+    public boolean getUpdateRule() {
+<span class="fc" id="L295">        return this.updateRule;</span>
+    }
+
+    public void setUpdateRule(boolean updateRule) {
+<span class="fc" id="L299">        this.updateRule = updateRule;</span>
+<span class="fc" id="L300">    }</span>
+
+    public TradeRepository getTradeRepository() {
+<span class="nc" id="L303">        return this.tradeRepository;</span>
+    }
+
+    public void setTradeRepository(TradeRepository tradeRepository) {
+<span class="nc" id="L307">        this.tradeRepository = tradeRepository;</span>
+<span class="nc" id="L308">    }</span>
+
+    public void pswValidInputs(@Valid Users user, Integer id) {
+
+<span class="fc" id="L312">        boolean contraintsPswd = false;</span>
+
+<span class="fc" id="L314">        contraintsPswd = verifyContraintsPassword(user);</span>
+
+<span class="pc bpc" id="L316" title="1 of 2 branches missed.">        if (contraintsPswd) {</span>
+<span class="fc" id="L317">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L318">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L319">            user.setId(id);</span>
+<span class="fc" id="L320">            userRepository.save(user);</span>
+
+<span class="fc" id="L322">            setPswValidInput(true);</span>
+
+<span class="fc" id="L324">        } else</span>
+<span class="nc" id="L325">            setPswValidInput(false);</span>
+
+<span class="fc" id="L327">    }</span>
+
+    public void addUser(@Valid Users user) {
+
+<span class="fc" id="L331">        boolean contraintsPswd = false;</span>
+
+<span class="fc" id="L333">        contraintsPswd = verifyContraintsPassword(user);</span>
+
+<span class="pc bpc" id="L335" title="1 of 2 branches missed.">        if (contraintsPswd) {</span>
+<span class="fc" id="L336">            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();</span>
+<span class="fc" id="L337">            user.setPassword(encoder.encode(user.getPassword()));</span>
+<span class="fc" id="L338">            userRepository.save(user);</span>
+
+<span class="fc" id="L340">            setAddUser(true);</span>
+
+<span class="fc" id="L342">        } else</span>
+<span class="nc" id="L343">            setAddUser(false);</span>
+
+<span class="fc" id="L345">    }</span>
+
+    private boolean verifyContraintsPassword(@Valid Users user) {
+
+<span class="fc" id="L349">        long longPassword = user.getPassword().length();</span>
+<span class="fc" id="L350">        long compteurUpperCase = user.getPassword().chars().filter(Character::isUpperCase).count();</span>
+<span class="fc" id="L351">        long compteurChiffreCase = user.getPassword().chars().filter(Character::isDigit).count();</span>
+<span class="fc" id="L352">        long compteurLetterCase = user.getPassword().chars().filter(Character::isLetter).count();</span>
+
+<span class="pc bpc" id="L354" title="4 of 8 branches missed.">        if ((longPassword &gt;= 8) &amp;&amp; (compteurUpperCase &gt;= 1) &amp;&amp; (compteurChiffreCase &gt;= 1)</span>
+                &amp;&amp; (compteurChiffreCase + compteurLetterCase &lt; longPassword)) {
+
+<span class="fc" id="L357">            String messageLoggerInfo = loggerApi</span>
+<span class="fc" id="L358">                    .loggerStrings(&quot;Le mot de passe a au moins 8 caractères ; &quot;,</span>
+                            &quot;il comporte au moins 1 majuscule et 1 chiffre&quot;,
+                            &quot;et il a au moins un symbole (les chiffres + les lettres font moins que la totalité des caractères)&quot;);
+
+<span class="fc" id="L362">            LOGGER.info(messageLoggerInfo);</span>
+<span class="fc" id="L363">            return true;</span>
+
+        } else {
+
+<span class="nc" id="L367">            String messageLoggerInfo = loggerApi</span>
+<span class="nc" id="L368">                    .loggerStrings(&quot;Le mot de passe ne respecte pas les consignes&quot;,</span>
+                            &quot;&quot;,
+                            &quot;&quot;);
+
+<span class="nc" id="L372">            LOGGER.info(messageLoggerInfo);</span>
+<span class="nc" id="L373">            return false;</span>
+
+        }
+    }
+
+    public void updateBid(@Valid BidList bidList, Integer id, String bidListDateString, String creationDateString,
+            String revisionDateString) throws ParseException {
+
+<span class="fc" id="L381">        setDateToFormat(bidList, bidListDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L382">        bidList.setBidlistId(id);</span>
+<span class="fc" id="L383">        bidListRepository.save(bidList);</span>
+
+<span class="fc" id="L385">        setUpdateBid(true);</span>
+
+<span class="fc" id="L387">    }</span>
+
+    public void addBid(@Valid BidList bid, String bidListDateString, String creationDateString,
+            String revisionDateString) throws ParseException {
+
+<span class="fc" id="L392">        setDateToFormat(bid, bidListDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L393">        bidListRepository.save(bid);</span>
+
+<span class="fc" id="L395">        setAddBid(true);</span>
+
+<span class="fc" id="L397">    }</span>
+
+    private void setDateToFormat(@Valid BidList bid, String bidListDateString, String creationDateString,
+            String revisionDateString) throws ParseException {
+
+<span class="fc bfc" id="L402" title="All 2 branches covered.">        if (!bidListDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L403">            formatDateFormat.setFromatDateStringToTimestamp(bidListDateString);</span>
+<span class="fc" id="L404">            bid.setBidListDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="fc bfc" id="L406" title="All 2 branches covered.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L407">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
+<span class="fc" id="L408">            bid.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="fc bfc" id="L410" title="All 2 branches covered.">        if (!revisionDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L411">            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
+<span class="fc" id="L412">            bid.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+
+<span class="fc" id="L415">    }</span>
+
+    public void addCurvePoint(@Valid CurvePoint curvePoint, String asOfDateString, String creationDateString)
+            throws ParseException {
+
+<span class="fc" id="L420">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
+<span class="fc" id="L421">        curvePointRepository.save(curvePoint);</span>
+
+<span class="fc" id="L423">        setAddCurvePoint(true);</span>
+
+<span class="fc" id="L425">    }</span>
+
+    public void updateCurvePoint(@Valid CurvePoint curvePoint, Integer id, String asOfDateString,
+            String creationDateString) throws ParseException {
+
+<span class="fc" id="L430">        setDateToFormat(curvePoint, asOfDateString, creationDateString);</span>
+<span class="fc" id="L431">        curvePoint.setId(id);</span>
+<span class="fc" id="L432">        curvePointRepository.save(curvePoint);</span>
+
+<span class="fc" id="L434">        setUpdateCurvePoint(true);</span>
+
+<span class="fc" id="L436">    }</span>
+
+    private void setDateToFormat(@Valid CurvePoint curvePoint, String asOfDateString, String creationDateString)
+            throws ParseException {
+
+<span class="fc bfc" id="L441" title="All 2 branches covered.">        if (!asOfDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L442">            formatDateFormat.setFromatDateStringToTimestamp(asOfDateString);</span>
+<span class="fc" id="L443">            curvePoint.setAsOfDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="fc bfc" id="L445" title="All 2 branches covered.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L446">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
+<span class="fc" id="L447">            curvePoint.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="fc" id="L449">    }</span>
+
+    public void addTrade(@Valid Trade trade, String tradeDateString, String creationDateString,
+            String revisionDateString) throws ParseException {
+
+<span class="fc" id="L454">        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);</span>
+<span class="fc" id="L455">        tradeRepository.save(trade);</span>
+
+<span class="fc" id="L457">        setAddTrade(true);</span>
+
+<span class="fc" id="L459">    }</span>
+
+    public void updateTrade(@Valid Trade trade, Integer id, String tradeDateString, String creationDateString,
+            String revisionDateString) throws ParseException {
+
+<span class="fc" id="L464">        setDateToFormat(trade, tradeDateString, creationDateString, revisionDateString);</span>
+
+<span class="fc" id="L466">        trade.setTradeId(id);</span>
+<span class="fc" id="L467">        tradeRepository.save(trade);</span>
+
+<span class="fc" id="L469">        setUpdateTrade(true);</span>
+
+<span class="fc" id="L471">    }</span>
+
+    private void setDateToFormat(@Valid Trade trade, String tradeDateString, String creationDateString,
+            String revisionDateString) throws ParseException {
+
+<span class="pc bpc" id="L476" title="1 of 2 branches missed.">        if (!tradeDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L477">            formatDateFormat.setFromatDateStringToTimestamp(tradeDateString);</span>
+<span class="fc" id="L478">            trade.setTradeDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="pc bpc" id="L480" title="1 of 2 branches missed.">        if (!creationDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L481">            formatDateFormat.setFromatDateStringToTimestamp(creationDateString);</span>
+<span class="fc" id="L482">            trade.setCreationDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+<span class="pc bpc" id="L484" title="1 of 2 branches missed.">        if (!revisionDateString.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L485">            formatDateFormat.setFromatDateStringToTimestamp(revisionDateString);</span>
+<span class="fc" id="L486">            trade.setRevisionDate(formatDateFormat.getTimestampFromatDate());</span>
+        }
+
+<span class="fc" id="L489">    }</span>
+
+    public void addRule(@Valid RuleName ruleName) {
+
+<span class="fc" id="L493">        ruleNameRepository.save(ruleName);</span>
+<span class="fc" id="L494">        setAddRule(true);</span>
+<span class="fc" id="L495">    }</span>
+
+    public void updateRule(@Valid RuleName ruleName, Integer id) {
+
+<span class="fc" id="L499">        ruleName.setId(id);</span>
+<span class="fc" id="L500">        ruleNameRepository.save(ruleName);</span>
+
+<span class="fc" id="L502">        setUpdateRule(true);</span>
+<span class="fc" id="L503">    }</span>
+
+    public void addRatings(@Valid Rating rating) {
+
+<span class="fc" id="L507">        ratingRepository.save(rating);</span>
+
+<span class="fc" id="L509">        setAddRatings(true);</span>
+<span class="fc" id="L510">    }</span>
+
+    public void updateRatings(Integer id, @Valid Rating rating) {
+
+<span class="fc" id="L514">        rating.setId(id);</span>
+<span class="fc" id="L515">        ratingRepository.save(rating);</span>
+
+<span class="fc" id="L517">        setUpdateRatings(true);</span>
+<span class="fc" id="L518">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
