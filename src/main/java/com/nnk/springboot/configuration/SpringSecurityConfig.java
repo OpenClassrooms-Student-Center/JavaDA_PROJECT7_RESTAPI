@@ -53,6 +53,7 @@ public class SpringSecurityConfig {
      * Algorithme de hachage
      * 
      * @return le mot de passe haché
+     * 
      */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
