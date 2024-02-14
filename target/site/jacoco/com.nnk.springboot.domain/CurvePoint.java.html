@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = &quot;curvepoint&quot;)
@@ -18,6 +19,7 @@ public class CurvePoint {
     private Integer id;
 
     @Column(name = &quot;CurveId&quot;)
+    @NotNull(message = &quot;must not be null&quot;)
     private Integer curveId;
 
     @Column(name = &quot;asOfDate&quot;)
@@ -32,66 +34,66 @@ public class CurvePoint {
     @Column(name = &quot;creationDate&quot;)
     private Timestamp creationDate;
 
-<span class="fc" id="L35">    public CurvePoint() {</span>
-<span class="fc" id="L36">    }</span>
+<span class="fc" id="L37">    public CurvePoint() {</span>
+<span class="fc" id="L38">    }</span>
 
     public CurvePoint(Integer id, Integer curveId, Timestamp asOfDate, Double term, Double value,
-<span class="nc" id="L39">            Timestamp creationDate) {</span>
-<span class="nc" id="L40">        this.id = id;</span>
-<span class="nc" id="L41">        this.curveId = curveId;</span>
-<span class="nc" id="L42">        this.asOfDate = asOfDate;</span>
-<span class="nc" id="L43">        this.term = term;</span>
-<span class="nc" id="L44">        this.value = value;</span>
-<span class="nc" id="L45">        this.creationDate = creationDate;</span>
-<span class="nc" id="L46">    }</span>
+<span class="nc" id="L41">            Timestamp creationDate) {</span>
+<span class="nc" id="L42">        this.id = id;</span>
+<span class="nc" id="L43">        this.curveId = curveId;</span>
+<span class="nc" id="L44">        this.asOfDate = asOfDate;</span>
+<span class="nc" id="L45">        this.term = term;</span>
+<span class="nc" id="L46">        this.value = value;</span>
+<span class="nc" id="L47">        this.creationDate = creationDate;</span>
+<span class="nc" id="L48">    }</span>
 
     public Integer getId() {
-<span class="fc" id="L49">        return this.id;</span>
+<span class="fc" id="L51">        return this.id;</span>
     }
 
     public void setId(Integer id) {
-<span class="fc" id="L53">        this.id = id;</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L55">        this.id = id;</span>
+<span class="fc" id="L56">    }</span>
 
     public Integer getCurveId() {
-<span class="fc" id="L57">        return this.curveId;</span>
+<span class="fc" id="L59">        return this.curveId;</span>
     }
 
     public void setCurveId(Integer curveId) {
-<span class="fc" id="L61">        this.curveId = curveId;</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L63">        this.curveId = curveId;</span>
+<span class="fc" id="L64">    }</span>
 
     public Timestamp getAsOfDate() {
-<span class="fc" id="L65">        return this.asOfDate;</span>
+<span class="fc" id="L67">        return this.asOfDate;</span>
     }
 
     public void setAsOfDate(Timestamp asOfDate) {
-<span class="fc" id="L69">        this.asOfDate = asOfDate;</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L71">        this.asOfDate = asOfDate;</span>
+<span class="fc" id="L72">    }</span>
 
     public Double getTerm() {
-<span class="fc" id="L73">        return this.term;</span>
+<span class="fc" id="L75">        return this.term;</span>
     }
 
     public void setTerm(Double term) {
-<span class="fc" id="L77">        this.term = term;</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L79">        this.term = term;</span>
+<span class="fc" id="L80">    }</span>
 
     public Double getValue() {
-<span class="fc" id="L81">        return this.value;</span>
+<span class="fc" id="L83">        return this.value;</span>
     }
 
     public void setValue(Double value) {
-<span class="fc" id="L85">        this.value = value;</span>
-<span class="fc" id="L86">    }</span>
+<span class="fc" id="L87">        this.value = value;</span>
+<span class="fc" id="L88">    }</span>
 
     public Timestamp getCreationDate() {
-<span class="fc" id="L89">        return this.creationDate;</span>
+<span class="fc" id="L91">        return this.creationDate;</span>
     }
 
     public void setCreationDate(Timestamp creationDate) {
-<span class="fc" id="L93">        this.creationDate = creationDate;</span>
-<span class="fc" id="L94">    }</span>
+<span class="fc" id="L95">        this.creationDate = creationDate;</span>
+<span class="fc" id="L96">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
