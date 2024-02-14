@@ -325,3 +325,95 @@ Response Code :  200 OK
 Request Method: <[GET]> /bidList/list
 Request URL: http://localhost:8080/bidList/list
 Response Code :  200 OK
+2024-02-12 07:31:23 [background-preinit] INFO  o.h.v.i.u.Version                                  - HV000001: Hibernate Validator 8.0.0.Final
+2024-02-12 07:31:23 [main] INFO  c.n.s.Application                                  - Starting Application using Java 17.0.9 with PID 20752 (C:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\target\classes started by kls_k in C:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers)
+2024-02-12 07:31:23 [main] INFO  c.n.s.Application                                  - No active profile set, falling back to 1 default profile: "default"
+2024-02-12 07:31:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-12 07:31:24 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Finished Spring Data repository scanning in 91 ms. Found 6 JPA repository interfaces.
+2024-02-12 07:31:24 [main] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat initialized with port(s): 8080 (http)
+2024-02-12 07:31:24 [main] INFO  o.a.c.h.Http11NioProtocol                          - Initializing ProtocolHandler ["http-nio-8080"]
+2024-02-12 07:31:24 [main] INFO  o.a.c.c.StandardService                            - Starting service [Tomcat]
+2024-02-12 07:31:24 [main] INFO  o.a.c.c.StandardEngine                             - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-02-12 07:31:25 [main] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring embedded WebApplicationContext
+2024-02-12 07:31:25 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext     - Root WebApplicationContext: initialization completed in 1808 ms
+2024-02-12 07:31:25 [main] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Starting...
+2024-02-12 07:31:25 [main] INFO  c.z.h.p.HikariPool                                 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7871d261
+2024-02-12 07:31:25 [main] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Start completed.
+2024-02-12 07:31:25 [main] INFO  o.h.j.i.u.LogHelper                                - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-12 07:31:25 [main] INFO  o.h.Version                                        - HHH000412: Hibernate ORM core version 6.1.7.Final
+2024-02-12 07:31:26 [main] INFO  SQL dialect                                        - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2024-02-12 07:31:27 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator                 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-02-12 07:31:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-12 07:31:28 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-12 07:31:29 [main] INFO  o.s.s.w.DefaultSecurityFilterChain                 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@49bf5ec8, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18174bd9, org.springframework.security.web.context.SecurityContextHolderFilter@61c11339, org.springframework.security.web.header.HeaderWriterFilter@356cb230, org.springframework.security.web.csrf.CsrfFilter@768f2398, org.springframework.security.web.authentication.logout.LogoutFilter@5af47414, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@48e3017a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5d3d5242, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1a5c0b8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3af6d7a7, org.springframework.security.web.access.ExceptionTranslationFilter@33efa7d4, org.springframework.security.web.access.intercept.AuthorizationFilter@54fbaa65]
+2024-02-12 07:31:29 [main] INFO  o.a.c.h.Http11NioProtocol                          - Starting ProtocolHandler ["http-nio-8080"]
+2024-02-12 07:31:29 [main] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat started on port(s): 8080 (http) with context path ''
+2024-02-12 07:31:29 [main] INFO  c.n.s.Application                                  - Started Application in 7.036 seconds (process running for 12.185)
+2024-02-12 07:31:39 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-12 07:31:39 [http-nio-8080-exec-3] INFO  o.s.w.s.DispatcherServlet                          - Initializing Servlet 'dispatcherServlet'
+2024-02-12 07:31:39 [http-nio-8080-exec-3] INFO  o.s.w.s.DispatcherServlet                          - Completed initialization in 6 ms
+2024-02-12 07:31:39 [http-nio-8080-exec-1] INFO  c.n.s.c.LoginController                            - URI active : /login Code response : 200 OK
+2024-02-12 07:31:40 [http-nio-8080-exec-4] INFO  c.n.s.c.LoginController                            - URI active : /login Code response : 200 OK
+2024-02-12 07:31:47 [http-nio-8080-exec-7] DEBUG c.n.s.s.UsersService                               - Request URL: http://localhost:8080/app/login List of users is : [com.nnk.springboot.domain.Users@4ea38d0e, com.nnk.springboot.domain.Users@7117a6f4, com.nnk.springboot.domain.Users@621d2837]
+2024-02-12 07:31:47 [http-nio-8080-exec-7] DEBUG c.n.s.s.UsersService                               - Request URL: http://localhost:8080/app/login User name is : admin Administrator demo9
+2024-02-12 07:31:47 [http-nio-8080-exec-7] DEBUG c.n.s.s.MyUserDetailService                        - Request URL: http://localhost:8080/app/login User Name is : admin
+2024-02-12 07:31:47 [http-nio-8080-exec-7] DEBUG c.n.s.s.MyUserDetailService                        - Request URL: http://localhost:8080/app/login The user name : admin Administrator demo9 has the authoritie ADMIN
+2024-02-12 07:31:47 [http-nio-8080-exec-5] INFO  c.n.s.c.LoginController                            - User name : admin
+Request Method: <[GET]> /app/login/ok
+Request URL: http://localhost:8080/app/login/ok
+Response Code :  200 OK
+2024-02-12 07:31:51 [http-nio-8080-exec-10] INFO  c.n.s.c.UserController                             - User name : admin
+Request Method: <[GET]> /user/list
+Request URL: http://localhost:8080/user/list
+Response Code :  200 OK
+2024-02-12 07:32:00 [http-nio-8080-exec-1] INFO  c.n.s.c.UserController                             - User name : admin
+Request Method: <[GET]> /user/add
+Request URL: http://localhost:8080/user/add
+Response Code :  200 OK
+2024-02-12 07:32:17 [http-nio-8080-exec-6] INFO  c.n.s.s.ValidInput                                 - Le mot de passe ne respecte pas les consignes
+2024-02-12 07:32:17 [http-nio-8080-exec-6] INFO  c.n.s.c.UserController                             - User name : admin
+Request Method: <[POST]> /user/validate
+Request URL: http://localhost:8080/user/validate
+Response Code :  200 OK
+2024-02-12 07:32:47 [http-nio-8080-exec-7] INFO  c.n.s.s.ValidInput                                 - Le mot de passe a au moins 8 caractères ; il comporte au moins 1 majuscule et 1 chiffreet il a au moins un symbole (les chiffres + les lettres font moins que la totalité des caractères)
+2024-02-12 07:32:47 [http-nio-8080-exec-7] INFO  c.n.s.c.UserController                             - User name : admin
+Request Method: <[POST]> /user/validate
+Request URL: http://localhost:8080/user/validate
+Response Code :  201 CREATED
+2024-02-12 07:32:47 [http-nio-8080-exec-5] INFO  c.n.s.c.UserController                             - User name : admin
+Request Method: <[GET]> /user/list
+Request URL: http://localhost:8080/user/list
+Response Code :  200 OK
+2024-02-12 18:14:51 [background-preinit] INFO  o.h.v.i.u.Version                                  - HV000001: Hibernate Validator 8.0.0.Final
+2024-02-12 18:14:51 [main] INFO  c.n.s.Application                                  - Starting Application using Java 17.0.9 with PID 20836 (C:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\target\classes started by kls_k in C:\Users\kls_k\OneDrive\Claudiu - hors connexion\WorkJavaVisualCode\CompletBackend\JavaDA_PROJECT7_RESTAPI\Poseiden-skeleton\src\main\java\com\nnk\springboot\controllers)
+2024-02-12 18:14:51 [main] INFO  c.n.s.Application                                  - No active profile set, falling back to 1 default profile: "default"
+2024-02-12 18:14:52 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-12 18:14:52 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Finished Spring Data repository scanning in 88 ms. Found 6 JPA repository interfaces.
+2024-02-12 18:14:53 [main] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat initialized with port(s): 8080 (http)
+2024-02-12 18:14:53 [main] INFO  o.a.c.h.Http11NioProtocol                          - Initializing ProtocolHandler ["http-nio-8080"]
+2024-02-12 18:14:53 [main] INFO  o.a.c.c.StandardService                            - Starting service [Tomcat]
+2024-02-12 18:14:53 [main] INFO  o.a.c.c.StandardEngine                             - Starting Servlet engine: [Apache Tomcat/10.1.8]
+2024-02-12 18:14:53 [main] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring embedded WebApplicationContext
+2024-02-12 18:14:53 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext     - Root WebApplicationContext: initialization completed in 2040 ms
+2024-02-12 18:14:54 [main] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Starting...
+2024-02-12 18:14:54 [main] INFO  c.z.h.p.HikariPool                                 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5fb7ab9c
+2024-02-12 18:14:54 [main] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Start completed.
+2024-02-12 18:14:54 [main] INFO  o.h.j.i.u.LogHelper                                - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-12 18:14:54 [main] INFO  o.h.Version                                        - HHH000412: Hibernate ORM core version 6.1.7.Final
+2024-02-12 18:14:55 [main] INFO  SQL dialect                                        - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2024-02-12 18:14:56 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator                 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-02-12 18:14:56 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-12 18:14:56 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-12 18:14:57 [main] INFO  o.s.s.w.DefaultSecurityFilterChain                 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4446a191, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2ef812b, org.springframework.security.web.context.SecurityContextHolderFilter@10264cb0, org.springframework.security.web.header.HeaderWriterFilter@54fbaa65, org.springframework.security.web.csrf.CsrfFilter@7f97e963, org.springframework.security.web.authentication.logout.LogoutFilter@62eb918, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3c7f8c25, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49bf5ec8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@18174bd9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5e0602ff, org.springframework.security.web.access.ExceptionTranslationFilter@7acf07b2, org.springframework.security.web.access.intercept.AuthorizationFilter@46e38c28]
+2024-02-12 18:14:57 [main] INFO  o.a.c.h.Http11NioProtocol                          - Starting ProtocolHandler ["http-nio-8080"]
+2024-02-12 18:14:57 [main] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat started on port(s): 8080 (http) with context path ''
+2024-02-12 18:14:57 [main] INFO  c.n.s.Application                                  - Started Application in 6.313 seconds (process running for 9.528)
+2024-02-12 18:15:04 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-12 18:15:04 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet                          - Initializing Servlet 'dispatcherServlet'
+2024-02-12 18:15:04 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet                          - Completed initialization in 1 ms
+2024-02-12 18:15:04 [http-nio-8080-exec-3] INFO  c.n.s.c.LoginController                            - URI active : /login Code response : 200 OK
+2024-02-12 18:15:05 [http-nio-8080-exec-4] INFO  c.n.s.c.LoginController                            - URI active : /login Code response : 200 OK
+2024-02-12 18:15:12 [http-nio-8080-exec-6] DEBUG c.n.s.s.UsersService                               - Request URL: http://localhost:8080/app/login List of users is : [com.nnk.springboot.domain.Users@53c521d7, com.nnk.springboot.domain.Users@5326bb4e, com.nnk.springboot.domain.Users@30509b4a, com.nnk.springboot.domain.Users@5e73a228, com.nnk.springboot.domain.Users@47f9630f]
+2024-02-12 18:15:12 [http-nio-8080-exec-6] DEBUG c.n.s.s.UsersService                               - Request URL: http://localhost:8080/app/login User name is : admin Administrator demo9
+2024-02-12 18:15:12 [http-nio-8080-exec-6] DEBUG c.n.s.s.MyUserDetailService                        - Request URL: http://localhost:8080/app/login User Name is : admin
+2024-02-12 18:15:12 [http-nio-8080-exec-6] DEBUG c.n.s.s.MyUserDetailService                        - Request URL: http://localhost:8080/app/login The user name : admin Administrator demo9 has the authoritie ADMIN

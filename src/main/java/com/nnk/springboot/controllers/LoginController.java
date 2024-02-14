@@ -22,6 +22,12 @@ import com.nnk.springboot.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Cette classe permet de logger un utilisateurs selon son rôle et son logout
+ * 
+ * @author Claudiu VILAU
+ * 
+ */
 @Controller
 @RequestMapping("app")
 public class LoginController {
@@ -95,16 +101,18 @@ public class LoginController {
         this.securityConfig = securityConfig;
     }
 
-    @Secured({ "USER", "ADMIN" })
-    @RequestMapping("/")
-    public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
-
-        String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
-        LOGGER.info(messageLoggerInfo);
-
-        return "home";
-    }
-
+    /**
+     * 
+     * Cette méthode affiche la page Login d'authentification
+     * 
+     * @param principal est un objet qui est transmis vers l'application web client
+     *                  et qui contient divers détails sur l'utilisateur
+     * @param request   cet objet contient les données de la requête et des
+     *                  informations sur le client une requête selon le protocole
+     *                  http
+     * @param response  la réponse de la servlet selon le protocole http
+     * @return des valeurs à la vue
+     */
     @GetMapping("login")
     public ModelAndView login(Principal principal, HttpServletRequest request, HttpServletResponse response) {
 
@@ -117,6 +125,18 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * 
+     * Cette méthode affiche la page HOME si l'utilisateur a été authentifié avec
+     * succès
+     * 
+     * @param model    fournit des attributs utilisés pour le rendu de la vue
+     * @param request  cet objet contient les données de la requête et des
+     *                 informations sur le client une requête selon le protocole
+     *                 http
+     * @param response la réponse de la servlet selon le protocole http
+     * @return des valeurs à la vue
+     */
     @Secured({ "USER", "ADMIN" })
     @GetMapping("login/ok")
     public ModelAndView loginOk(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -129,7 +149,20 @@ public class LoginController {
         return mav;
     }
 
-    // use PostMapping for redirect the page
+    /**
+     * 
+     * Cette méthode déconnecte l'utilisateur de l'application. Elle doit être de
+     * type POST
+     * 
+     * @param model     fournit des attributs utilisés pour le rendu de la vue
+     * @param principal est un objet qui est transmis vers l'application web client
+     *                  et qui contient divers détails sur l'utilisateur *
+     * @param request   cet objet contient les données de la requête et des
+     *                  informations sur le client une requête selon le protocole
+     *                  http
+     * @param response  la réponse de la servlet selon le protocole http
+     * @return des valeurs à la vue
+     */
     @Secured({ "USER", "ADMIN" })
     @PostMapping("app-logout")
     public ModelAndView appLogout(Model model, Principal principal, HttpServletRequest request,
@@ -143,6 +176,16 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     * 
+     * Cette méthode modifie, supprime, ajoute et affiche des utilisateurs
+     * 
+     * @param request  cet objet contient les données de la requête et des
+     *                 informations sur le client une requête selon le protocole
+     *                 http
+     * @param response la réponse de la servlet selon le protocole http
+     * @return des valeurs à la vue
+     */
     @Secured("ADMIN")
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles(HttpServletRequest request, HttpServletResponse response) {

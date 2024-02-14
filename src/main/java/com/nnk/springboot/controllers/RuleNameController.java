@@ -40,6 +40,8 @@ public class RuleNameController {
 
     @RequestMapping("/ruleName/list")
     public String home(Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        model.addAttribute("httpServletRequest", request);
         model.addAttribute(RULES, ruleNameRepository.findAll());
 
         String messageLoggerInfo = loggerApi.loggerInfoController(request, response, "");
