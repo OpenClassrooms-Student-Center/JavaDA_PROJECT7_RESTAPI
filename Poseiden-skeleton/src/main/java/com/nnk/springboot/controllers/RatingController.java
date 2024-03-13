@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.sql.Timestamp;
 
 
 @Controller
 public class RatingController {
     private RatingService ratingService;
-
     public RatingController(RatingService ratingService) {
         this.ratingService = ratingService;
     }
@@ -39,7 +37,7 @@ public class RatingController {
             ratingService.saveRating(rating);
             return "redirect:list";
         }
-        return "curvePoint/add";
+        return "rating/add";
     }
 
     @GetMapping("/rating/update/{id}")
