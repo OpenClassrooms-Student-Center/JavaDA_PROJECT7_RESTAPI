@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.services</a> &gt; <span class="el_source">TradeService.java</span></div><h1>TradeService.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.services;
+
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.repositories.TradeRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class TradeService {
+    private TradeRepository tradeRepository;
+<span class="fc" id="L13">    public TradeService(TradeRepository tradeRepository) {this.tradeRepository = tradeRepository;}</span>
+
+<span class="fc" id="L15">    public void saveTrade(Trade trade){tradeRepository.save(trade);}</span>
+<span class="fc" id="L16">    public List&lt;Trade&gt; findAll(){return tradeRepository.findAll();}</span>
+    public Trade findTradeById(Integer id){
+<span class="fc" id="L18">        Optional&lt;Trade&gt; trade = tradeRepository.findById(id);</span>
+<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if(trade.isPresent()){</span>
+<span class="fc" id="L20">            return trade.get();</span>
+        }
+<span class="nc" id="L22">        return null;</span>
+    }
+<span class="fc" id="L24">    public void deleteTrade(Trade trade){tradeRepository.delete(trade);}</span>
+<span class="fc" id="L25">    public void deleteAllTrade(){tradeRepository.deleteAll();}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

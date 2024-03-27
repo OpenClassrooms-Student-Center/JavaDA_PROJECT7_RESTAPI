@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.repositories.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,11 @@ public class LoginController {
     private UserRepository userRepository;
 
     @GetMapping("login")
-    public ModelAndView login() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("login");
-        return mav;
+    public ModelAndView login(HttpServletRequest request) {
+        if (!request.getRemoteUser().isEmpty()) {
+            return new ModelAndView("redirect:logout");
+        }
+        return new ModelAndView("login");
     }
 
     @GetMapping("secure/article-details")

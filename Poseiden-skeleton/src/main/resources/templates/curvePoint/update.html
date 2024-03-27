@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<meta charset="utf-8"/>
+	<title>Home</title>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -32,6 +32,7 @@
 			<div class="form-group">
 				<div class="col-sm-12">
 					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{curveId}">
 					<a class="btn btn-danger btn-sm" href="/curvePoint/list">Cancel</a>
 					<input class="btn btn-primary btn-sm" type="submit" value="Update Curve Point">
 				</div>

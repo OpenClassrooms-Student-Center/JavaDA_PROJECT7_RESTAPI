@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Rating.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.domain</a> &gt; <span class="el_source">Rating.java</span></div><h1>Rating.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.domain;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+@Table(name = &quot;rating&quot;)
+<span class="fc" id="L8">public class Rating {</span>
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = &quot;id&quot;)
+    private Integer id;
+    @NotNull(message = &quot;Must not be null&quot;)
+    @Column(name = &quot;moodys_rating&quot;)
+    private String moodysRating;
+    @NotNull(message = &quot;Must not be null&quot;)
+    @Column(name = &quot;sand_p_rating&quot;)
+    private String sandPRating;
+    @NotNull(message = &quot;Must not be null&quot;)
+    @Column(name = &quot;fitch_rating&quot;)
+    private String fitchRating;
+    @NotNull(message = &quot;Must not be null&quot;)
+    @Column(name = &quot;order_number&quot;)
+    private Integer orderNumber;
+
+    public Integer getId() {
+<span class="fc" id="L27">        return id;</span>
+    }
+
+    public void setId(Integer id) {
+<span class="fc" id="L31">        this.id = id;</span>
+<span class="fc" id="L32">    }</span>
+
+    public String getMoodysRating() {
+<span class="fc" id="L35">        return moodysRating;</span>
+    }
+
+    public void setMoodysRating(String moodysRating) {
+<span class="fc" id="L39">        this.moodysRating = moodysRating;</span>
+<span class="fc" id="L40">    }</span>
+
+    public String getSandPRating() {
+<span class="fc" id="L43">        return sandPRating;</span>
+    }
+
+    public void setSandPRating(String sandPRating) {
+<span class="fc" id="L47">        this.sandPRating = sandPRating;</span>
+<span class="fc" id="L48">    }</span>
+
+    public String getFitchRating() {
+<span class="fc" id="L51">        return fitchRating;</span>
+    }
+
+    public void setFitchRating(String fitchRating) {
+<span class="fc" id="L55">        this.fitchRating = fitchRating;</span>
+<span class="fc" id="L56">    }</span>
+
+    public Integer getOrderNumber() {
+<span class="fc" id="L59">        return orderNumber;</span>
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+<span class="fc" id="L63">        this.orderNumber = orderNumber;</span>
+<span class="fc" id="L64">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

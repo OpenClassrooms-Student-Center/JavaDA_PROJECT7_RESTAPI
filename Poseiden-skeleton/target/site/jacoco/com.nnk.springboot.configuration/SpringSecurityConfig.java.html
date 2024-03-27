@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SpringSecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.configuration</a> &gt; <span class="el_source">SpringSecurityConfig.java</span></div><h1>SpringSecurityConfig.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.configuration;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+<span class="fc" id="L16">public class SpringSecurityConfig {</span>
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+<span class="fc" id="L21">        return http.authorizeHttpRequests(auth -&gt; {</span>
+<span class="fc" id="L22">            auth.requestMatchers(&quot;/user/add&quot;).permitAll();</span>
+<span class="fc" id="L23">            auth.requestMatchers(&quot;/user/validate&quot;).permitAll();</span>
+<span class="fc" id="L24">            auth.requestMatchers(&quot;/user/validate&quot;).permitAll();</span>
+
+<span class="fc" id="L26">            auth.requestMatchers(&quot;/user/list&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L27">            auth.requestMatchers(&quot;/user/update/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L28">            auth.requestMatchers(&quot;/user/delete/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+
+<span class="fc" id="L30">            auth.requestMatchers(&quot;/bidList/update/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L31">            auth.requestMatchers(&quot;/bidList/delete/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+
+<span class="fc" id="L33">            auth.requestMatchers(&quot;/curvePoint/update/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L34">            auth.requestMatchers(&quot;/curvePoint/delete/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+
+<span class="fc" id="L36">            auth.requestMatchers(&quot;/rating/update/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L37">            auth.requestMatchers(&quot;/rating/delete/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+
+<span class="fc" id="L39">            auth.requestMatchers(&quot;/ruleName/update/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L40">            auth.requestMatchers(&quot;/ruleName/delete/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+
+<span class="fc" id="L42">            auth.requestMatchers(&quot;/trade/update/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+<span class="fc" id="L43">            auth.requestMatchers(&quot;/trade/delete/*&quot;).hasRole(&quot;ADMIN&quot;);</span>
+
+<span class="fc" id="L45">            auth.anyRequest().authenticated();</span>
+
+<span class="fc" id="L47">        }).formLogin(Customizer.withDefaults()).build();</span>
+    }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+<span class="fc" id="L51">        return new BCryptPasswordEncoder();</span>
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+<span class="fc" id="L56">        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);</span>
+<span class="fc" id="L57">        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);</span>
+<span class="fc" id="L58">        return authenticationManagerBuilder.build();</span>
+    }
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
