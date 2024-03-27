@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.services.CurvePointService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,9 @@ public class CurveController {
     }
 
     @RequestMapping("/curvePoint/list")
-    public String home(Model model){  // find all Curve Point, add to model
+    public String home(Model model, HttpServletRequest request){  // find all Curve Point, add to model
         model.addAttribute("curvePoints", curvePointService.findAll());
+        model.addAttribute("request", request);
         return "curvePoint/list";
     }
 

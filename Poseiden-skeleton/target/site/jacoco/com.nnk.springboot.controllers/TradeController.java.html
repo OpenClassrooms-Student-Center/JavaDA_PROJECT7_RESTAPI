@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TradeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spring-boot-skeleton</a> &gt; <a href="index.source.html" class="el_package">com.nnk.springboot.controllers</a> &gt; <span class="el_source">TradeController.java</span></div><h1>TradeController.java</h1><pre class="source lang-java linenums">package com.nnk.springboot.controllers;
+
+import com.nnk.springboot.domain.Trade;
+import com.nnk.springboot.services.TradeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
+public class TradeController {
+    private TradeService tradeService;
+<span class="fc" id="L19">    public TradeController(TradeService tradeService) { this.tradeService = tradeService; }</span>
+
+    @RequestMapping(&quot;/trade/list&quot;)
+    public String home(Model model, HttpServletRequest request) {
+<span class="fc" id="L23">        model.addAttribute(&quot;trades&quot;, tradeService.findAll());</span>
+<span class="fc" id="L24">        model.addAttribute(&quot;request&quot;, request);</span>
+<span class="fc" id="L25">        return &quot;trade/list&quot;;</span>
+    }
+
+    @GetMapping(&quot;/trade/add&quot;)
+    public String addUser(Trade trade) {
+<span class="fc" id="L30">        return &quot;trade/add&quot;;</span>
+    }
+
+    @PostMapping(&quot;/trade/validate&quot;)
+    public String validate(@Valid Trade trade, BindingResult result, Model model) {
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L36">            tradeService.saveTrade(trade);</span>
+<span class="fc" id="L37">            return &quot;redirect:list&quot;;</span>
+        }
+<span class="nc" id="L39">        return &quot;trade/add&quot;;</span>
+    }
+
+    @GetMapping(&quot;/trade/update/{id}&quot;)
+    public String showUpdateForm(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<span class="fc" id="L44">        model.addAttribute(&quot;trade&quot;, tradeService.findTradeById(id));</span>
+<span class="fc" id="L45">        return &quot;trade/update&quot;;</span>
+    }
+
+    @PostMapping(&quot;/trade/update/{id}&quot;)
+    public String updateTrade(@PathVariable(&quot;id&quot;) Integer id, @Valid Trade trade,
+                             BindingResult result, Model model) {
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        if (!result.hasErrors()) {</span>
+<span class="fc" id="L52">            tradeService.saveTrade(trade);</span>
+        }
+<span class="fc" id="L54">        return &quot;redirect:/trade/list&quot;;</span>
+    }
+
+    @GetMapping(&quot;/trade/delete/{id}&quot;)
+    public String deleteTrade(@PathVariable(&quot;id&quot;) Integer id, Model model) {
+<span class="fc" id="L59">        tradeService.deleteTrade(tradeService.findTradeById(id));</span>
+<span class="fc" id="L60">        return &quot;redirect:/trade/list&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

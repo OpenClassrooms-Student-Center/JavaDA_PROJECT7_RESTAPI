@@ -30,4 +30,7 @@ public class BidListService {
     public void deleteBidList(BidList bidList){
         bidListRepository.delete(bidList);
     }
+    public void deleteAllBidList(){
+        bidListRepository.deleteAll();
+    }
 }

@@ -22,6 +22,6 @@ public class TradeService {
         return null;
     }
     public void deleteTrade(Trade trade){tradeRepository.delete(trade);}
-
+    public void deleteAllTrade(){tradeRepository.deleteAll();}
 
 }

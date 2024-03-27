@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.RuleNameService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,13 +22,14 @@ public class RuleNameController {
     }
 
     @RequestMapping("/ruleName/list")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
         model.addAttribute("ruleNames", ruleNameService.findAll());
+        model.addAttribute("request", request);
         return "ruleName/list";
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    public String addRuleForm(RuleName ruleName) {
         return "ruleName/add";
     }
 

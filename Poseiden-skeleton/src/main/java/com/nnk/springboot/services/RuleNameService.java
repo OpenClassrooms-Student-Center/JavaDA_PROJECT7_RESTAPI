@@ -30,4 +30,7 @@ public class RuleNameService {
     public void deleteRuleName(RuleName ruleName){
         ruleNameRepository.delete(ruleName);
     }
+    public void deleteAllRuleName(){
+        ruleNameRepository.deleteAll();
+    }
 }

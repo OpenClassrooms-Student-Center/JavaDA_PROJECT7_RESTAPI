@@ -30,4 +30,5 @@ public class RatingService {
     public void deleteRating(Rating rating){
         ratingRepository.delete(rating);
     }
+    public void deleteAllRating(){ratingRepository.deleteAll();}
 }

@@ -11,7 +11,7 @@ public class BidList {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "bidListId")
-    private Integer bidListId;
+    private int bidListId;
     @NotNull(message = "Must not be null")
     @Column(name = "account")
     private String account;
@@ -58,10 +58,12 @@ public class BidList {
     @Column(name = "side")
     private String side;
 
-    public Integer getBidListId() {
+    public BidList() {}
+
+    public int getBidListId() {
         return bidListId;
     }
-    public void setBidListId(Integer bidListId) {
+    public void setBidListId(int bidListId) {
         this.bidListId = bidListId;
     }
     public String getAccount() {

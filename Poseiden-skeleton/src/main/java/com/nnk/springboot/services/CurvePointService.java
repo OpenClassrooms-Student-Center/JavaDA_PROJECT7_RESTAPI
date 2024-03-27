@@ -29,5 +29,6 @@ public class CurvePointService {
     public void deleteCurve(CurvePoint curvePoint){
         curvePointRepository.delete(curvePoint);
     }
+    public void deleteAllCurve(){curvePointRepository.deleteAll();}
 
 }

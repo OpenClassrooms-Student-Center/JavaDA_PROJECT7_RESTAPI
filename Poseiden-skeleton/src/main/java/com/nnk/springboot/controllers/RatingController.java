@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.RatingService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +22,9 @@ public class RatingController {
     }
 
     @RequestMapping("/rating/list")
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request) {
         model.addAttribute("ratings", ratingService.findAll());
+        model.addAttribute("request", request);
         return "rating/list";
     }
 
