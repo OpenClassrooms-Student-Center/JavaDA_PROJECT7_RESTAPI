@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.id})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/ruleName/update/{id}(id=${ruleName.rulenameid})}" th:object="${ruleName}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label for="name" class="col-sm-2 control-label">Name</label>
 				<div class="col-sm-10">
@@ -61,7 +61,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-12">
-					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{rulenameid}">
 					<a class="btn btn-danger btn-sm" href="/rule/list">Cancel</a>
 					<input class="btn btn-primary btn-sm" type="submit" value="Update Rule">
 				</div>

@@ -1,8 +1,20 @@
 package com.nnk.springboot.repositories;
 
 import com.nnk.springboot.domain.Trade;
-import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+import java.util.Optional;
 
-public interface TradeRepository extends JpaRepository<Trade, Integer> {
+import org.springframework.data.repository.RepositoryDefinition;
+
+@RepositoryDefinition(domainClass = Trade.class, idClass = Integer.class)
+public interface TradeRepository {
+
+    List<Trade> findAll();
+
+    Optional<Trade> findByTradeid(int id);
+
+    Trade save(Trade trade);
+
+    void deleteByTradeid(int trade);
 }

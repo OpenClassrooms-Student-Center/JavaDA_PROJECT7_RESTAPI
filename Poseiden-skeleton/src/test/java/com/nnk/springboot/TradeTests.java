@@ -1,46 +1,55 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.TradeRepository;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.nnk.springboot.exceptions.RequestedObjectNotFoundException;
+import com.nnk.springboot.services.TradeService;
+
+import jakarta.transaction.Transactional;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-import java.util.Optional;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class TradeTests {
 
 	@Autowired
-	private TradeRepository tradeRepository;
+	private TradeService tradeService;
 
 	@Test
+	@Transactional
 	public void tradeTest() {
 		Trade trade = new Trade("Trade Account", "Type");
 
 		// Save
-		trade = tradeRepository.save(trade);
-		Assert.assertNotNull(trade.getTradeId());
-		Assert.assertTrue(trade.getAccount().equals("Trade Account"));
+		trade = tradeService.save(trade);
+		assertNotNull(trade.getTradeid());
+		assertTrue(trade.getAccount().equals("Trade Account"));
 
 		// Update
 		trade.setAccount("Trade Account Update");
-		trade = tradeRepository.save(trade);
-		Assert.assertTrue(trade.getAccount().equals("Trade Account Update"));
+		trade = tradeService.save(trade);
+		assertTrue(trade.getAccount().equals("Trade Account Update"));
 
 		// Find
-		List<Trade> listResult = tradeRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+		List<Trade> listResult = tradeService.findAll();
+		assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = trade.getTradeId();
-		tradeRepository.delete(trade);
-		Optional<Trade> tradeList = tradeRepository.findById(id);
-		Assert.assertFalse(tradeList.isPresent());
+		Integer id = trade.getTradeid();
+		tradeService.delete(id);
+		Trade tradeList;
+		try {
+			tradeList =tradeService.findById(id);
+		} catch (RequestedObjectNotFoundException e) {
+			tradeList = null;
+		}
+		assertNull(tradeList);
 	}
 }

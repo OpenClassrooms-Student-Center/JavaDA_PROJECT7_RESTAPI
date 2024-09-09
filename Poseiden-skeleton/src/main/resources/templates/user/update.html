@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/user/update/{id}(id=${user.id})}" th:object="${user}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/user/update/{id}(id=${user.userid})}" th:object="${user}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label for="fullname" class="col-sm-2 control-label">Full Name</label>
 				<div class="col-sm-10">
@@ -47,7 +47,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-12">
-					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{userid}">
 					<a class="btn btn-danger btn-sm" href="/user/list">Cancel</a>
 					<input class="btn btn-primary btn-sm" type="submit" value="Update User">
 				</div>

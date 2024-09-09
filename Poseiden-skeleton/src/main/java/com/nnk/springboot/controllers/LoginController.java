@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,15 +11,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("app")
+@RequiredArgsConstructor
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("login")
     public ModelAndView login() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("login");
+        mav.setViewName("loginPage");
         return mav;
     }
 

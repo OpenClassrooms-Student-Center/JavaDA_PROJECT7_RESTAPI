@@ -13,7 +13,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidListId})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/bidList/update/{id}(id=${bidList.bidlistid})}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
 			<div class="form-group">
 				<label for="account" class="col-sm-2 control-label">Account</label>
 				<div class="col-sm-10">
@@ -39,7 +39,7 @@
 
 			<div class="form-group">
 				<div class="col-sm-12">
-					<input type="hidden" th:field="*{id}">
+					<input type="hidden" th:field="*{bidlistid}">
 					<a class="btn btn-danger btn-sm" href="/bidList/list">Cancel</a>
 					<input class="btn btn-primary btn-sm" type="submit" value="Update Bid List">
 				</div>

@@ -1,46 +1,54 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.RuleName;
-import com.nnk.springboot.repositories.RuleNameRepository;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.nnk.springboot.exceptions.RequestedObjectNotFoundException;
+import com.nnk.springboot.services.RuleNameService;
+
+import jakarta.transaction.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Optional;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 public class RuleTests {
 
 	@Autowired
-	private RuleNameRepository ruleNameRepository;
+	private RuleNameService ruleNameService;
 
 	@Test
+	@Transactional
 	public void ruleTest() {
 		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
-		rule = ruleNameRepository.save(rule);
-		Assert.assertNotNull(rule.getId());
-		Assert.assertTrue(rule.getName().equals("Rule Name"));
+		rule = ruleNameService.save(rule);
+		assertNotNull(rule.getRulenameid());
+		assertTrue(rule.getName().equals("Rule Name"));
 
 		// Update
 		rule.setName("Rule Name Update");
-		rule = ruleNameRepository.save(rule);
-		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
+		rule = ruleNameService.save(rule);
+		assertTrue(rule.getName().equals("Rule Name Update"));
 
 		// Find
-		List<RuleName> listResult = ruleNameRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+		List<RuleName> listResult = ruleNameService.findAll();
+		assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = rule.getId();
-		ruleNameRepository.delete(rule);
-		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		Assert.assertFalse(ruleList.isPresent());
+		Integer id = rule.getRulenameid();
+		ruleNameService.delete(id);
+		RuleName ruleList;
+		try {
+			ruleList = ruleNameService.findById(id);
+		} catch (RequestedObjectNotFoundException e) {
+			ruleList = null;
+		} 
+		assertNull(ruleList);
 	}
 }

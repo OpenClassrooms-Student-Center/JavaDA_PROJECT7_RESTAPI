@@ -17,7 +17,7 @@
 			<a href="/trade/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+			Logged in user: <b th:inline="text"  class="user"> [[${remoteUser}]] </b>
 			<form th:action="@{/app-logout}" method="POST">
 				<input type="submit" value="Logout"/>
 			</form>
@@ -38,13 +38,13 @@
 			</thead>
 			<tbody>
 				<tr th:each="trade : ${trades}">
-					<td style="width: 10%" th:text="${trade.id}"></td>
+					<td style="width: 10%" th:text="${trade.tradeid}"></td>
 					<td th:text="${trade.account}"></td>
 					<td th:text="${trade.type}"></td>
 					<td th:text="${trade.buyQuantity}"></td>
 					<td style="width: 15%" class="text-center">
-						<a th:href="@{/trade/update/{id}(id=${trade.id})}">Edit</a>&nbsp;|&nbsp;
-						<a th:href="@{/trade/delete/{id}(id=${trade.id})}">Delete</a>
+						<a th:href="@{/trade/update/{id}(id=${trade.tradeid})}">Edit</a>&nbsp;|&nbsp;
+						<a th:href="@{/trade/delete/{id}(id=${trade.tradeid})}">Delete</a>
 					</td>
 				</tr>
 			</tbody>

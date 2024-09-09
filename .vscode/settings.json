@@ -1,0 +1,8 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "disabled",
+    "java.configuration.runtimes": [],
+    "debug.javascript.defaultRuntimeExecutable": {
+        "pwa-node": "node"
+    }
+}

@@ -1,16 +1,21 @@
 package com.nnk.springboot.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nnk.springboot.domain.User;
+
 @Controller
-public class HomeController
-{
+public class HomeController{
 	@RequestMapping("/")
-	public String home(Model model)
+	public String home(Model model,@AuthenticationPrincipal User user)
 	{
-		return "home";
+		if(user.getRole().equals("ADMIN"))
+			return "redirect:/admin/home";
+		else
+			return "home";
 	}
 
 	@RequestMapping("/admin/home")

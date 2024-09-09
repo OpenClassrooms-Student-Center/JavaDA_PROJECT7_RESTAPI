@@ -1,46 +1,57 @@
 package com.nnk.springboot;
 
 import com.nnk.springboot.domain.BidList;
-import com.nnk.springboot.repositories.BidListRepository;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.nnk.springboot.exceptions.RequestedObjectNotFoundException;
+import com.nnk.springboot.services.BidListService;
+
+import jakarta.transaction.Transactional;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
-import java.util.Optional;
 
-@RunWith(SpringRunner.class)
+
+
 @SpringBootTest
 public class BidTests {
 
 	@Autowired
-	private BidListRepository bidListRepository;
+	private BidListService bidListService;
 
 	@Test
-	public void bidListTest() {
+	@Transactional
+	public void bidListSaveTest() throws Exception {
 		BidList bid = new BidList("Account Test", "Type Test", 10d);
 
 		// Save
-		bid = bidListRepository.save(bid);
-		Assert.assertNotNull(bid.getBidListId());
-		Assert.assertEquals(bid.getBidQuantity(), 10d, 10d);
+		bid = bidListService.addBidList(bid);
+		
+		assertNotNull(bid.getBidlistid());
+		assertEquals(bid.getBidQuantity(), 10d);
 
 		// Update
 		bid.setBidQuantity(20d);
-		bid = bidListRepository.save(bid);
-		Assert.assertEquals(bid.getBidQuantity(), 20d, 20d);
+		bid = bidListService.addBidList(bid);
+		assertEquals(bid.getBidQuantity(), 20d, 20d);
 
 		// Find
-		List<BidList> listResult = bidListRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+		List<BidList> listResult = bidListService.findAll();
+		assertEquals(true,listResult.size() > 0);
 
 		// Delete
-		Integer id = bid.getBidListId();
-		bidListRepository.delete(bid);
-		Optional<BidList> bidList = bidListRepository.findById(id);
-		Assert.assertFalse(bidList.isPresent());
+		Integer id = bid.getBidlistid();
+		bidListService.deleteBidList(bid.getBidlistid());
+		BidList bidList;
+		try {
+			bidList = bidListService.findById(id);
+		} catch (RequestedObjectNotFoundException e) {
+			bidList=null;
+		}
+		assertNull(bidList);
 	}
 }

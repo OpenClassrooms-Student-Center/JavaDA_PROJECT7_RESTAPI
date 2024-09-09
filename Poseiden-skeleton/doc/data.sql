@@ -53,28 +53,27 @@ CREATE TABLE Trade (
 )
 
 CREATE TABLE CurvePoint (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  CurvePointId tinyint(4) NOT NULL AUTO_INCREMENT,
   CurveId tinyint,
   asOfDate TIMESTAMP,
   term DOUBLE ,
   value DOUBLE ,
-  creationDate TIMESTAMP ,
-
-  PRIMARY KEY (Id)
+  creationDate TIMESTAMP,
+  PRIMARY KEY(CurvePointId) 
 )
 
 CREATE TABLE Rating (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  RatingId tinyint(4) NOT NULL AUTO_INCREMENT,
   moodysRating VARCHAR(125),
   sandPRating VARCHAR(125),
   fitchRating VARCHAR(125),
   orderNumber tinyint,
 
-  PRIMARY KEY (Id)
+  PRIMARY KEY (RatingId)
 )
 
 CREATE TABLE RuleName (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  RuleNameId tinyint(4) NOT NULL AUTO_INCREMENT,
   name VARCHAR(125),
   description VARCHAR(125),
   json VARCHAR(125),
@@ -82,18 +81,18 @@ CREATE TABLE RuleName (
   sqlStr VARCHAR(125),
   sqlPart VARCHAR(125),
 
-  PRIMARY KEY (Id)
+  PRIMARY KEY (RuleNameId)
 )
 
 CREATE TABLE Users (
-  Id tinyint(4) NOT NULL AUTO_INCREMENT,
+  UsersId tinyint(4) NOT NULL AUTO_INCREMENT,
   username VARCHAR(125),
   password VARCHAR(125),
   fullname VARCHAR(125),
   role VARCHAR(125),
 
-  PRIMARY KEY (Id)
+  PRIMARY KEY (UsersId)
 )
 
-insert into Users(fullname, username, password, role) values("Administrator", "admin", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "ADMIN")
-insert into Users(fullname, username, password, role) values("User", "user", "$2a$10$pBV8ILO/s/nao4wVnGLrh.sa/rnr5pDpbeC4E.KNzQWoy8obFZdaa", "USER")
+insert into Users(fullname, username, password, role) values("Administrator", "admin", "$2a$10$6n4h0PROT81sEhthIcc5R.y6BonwFkdIgrKvrHY60oPfPpO040KyW", "ADMIN")
+insert into Users(fullname, username, password, role) values("User", "user", "$2a$10$K1eHIGsrBTjgtJpv/zAxeeAxz0iua92iY7g/gN0YlxNVZusUb.lD.", "USER")
