@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Bid List</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+
+	<div class="row mt-3">
+		<div class="col-6">
+			<a href="/bidList/list">Bid List</a> |
+			<a href="/curvePoint/list">Curve Points</a> |
+			<a href="/rating/list">Ratings</a> |
+			<a href="/trade/list">Trade</a> |
+			<a href="/ruleName/list">Rule</a>
+		</div>
+		<div style="font-family: Arial, sans-serif;">
+			<span>Logged in user: <span th:text="${username}"></span></span>
+			<form th:action="@{/logout}" method="post" style="display: inline;">
+				<button type="submit" style="margin-left: 10px; padding: 2px 8px;">Logout</button>
+			</form>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<h2>Bid List</h2>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<a href="/bidList/add" class="btn btn-primary btn-sm">Add New</a>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<table class="table table-bordered">
+				<thead>
+				<tr>
+					<th>Id</th>
+					<th>Account</th>
+					<th>Type</th>
+					<th>Bid Quantity</th>
+					<th>Action</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr th:each="bidList : ${bidLists}">
+					<td th:text="${bidList.bidListId != null ? bidList.bidListId : 'N/A'}"></td>
+					<td th:text="${bidList.account != null ? bidList.account : 'N/A'}"></td>
+					<td th:text="${bidList.type != null ? bidList.type : 'N/A'}"></td>
+					<td th:text="${bidList.bidQuantity != null ? bidList.bidQuantity : 'N/A'}"></td>
+					<td class="text-center">
+						<a th:href="@{/bidList/update/{id}(id=${bidList.bidListId})}">Edit</a> |
+						<a th:href="@{/bidList/delete/{id}(id=${bidList.bidListId})}">Delete</a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

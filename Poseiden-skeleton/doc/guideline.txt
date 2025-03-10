@@ -23,6 +23,7 @@
 3. Create controller class and place in package com.nnk.springboot.controllers
 4. Create view files and place in src/main/resource/templates
 
+
 ## Write unit test
 1. Create unit test and place in package com.nnk.springboot in folder test > java
 

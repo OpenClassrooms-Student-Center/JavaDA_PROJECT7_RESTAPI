@@ -1,33 +1,46 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<meta charset="UTF-8"/>
+	<title>Trade List</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
-	<div class="row">
+
+	<div class="row mt-3">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Rule</a>
+			<a href="/bidList/list">Bid List</a> |
+			<a href="/curvePoint/list">Curve Points</a> |
+			<a href="/rating/list">Ratings</a> |
+			<a href="/trade/list">Trade</a> |
+			<a href="/ruleName/list">Rule</a>
 		</div>
-		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
-				<input type="submit" value="Logout"/>
+		<div style="font-family: Arial, sans-serif;">
+			<span>Logged in user: <span th:text="${username}"></span></span>
+			<form th:action="@{/logout}" method="post" style="display: inline;">
+				<button type="submit" style="margin-left: 10px; padding: 2px 8px;">Logout</button>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Trade List</h2></div>
-	<div class="row">
-		<a href="/trade/add" class="btn btn-primary btn-sm">Add New</a>
-		<table class="table table-bordered">
-			<thead>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<h2>Trade List</h2>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<a href="/trade/add" class="btn btn-primary btn-sm">Add New</a>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<table class="table table-bordered">
+				<thead>
 				<tr>
 					<th>Id</th>
 					<th>Account</th>
@@ -35,21 +48,23 @@
 					<th>Buy Quantity</th>
 					<th>Action</th>
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				<tr th:each="trade : ${trades}">
-					<td style="width: 10%" th:text="${trade.id}"></td>
+					<td th:text="${trade.tradeId}"></td>
 					<td th:text="${trade.account}"></td>
 					<td th:text="${trade.type}"></td>
 					<td th:text="${trade.buyQuantity}"></td>
-					<td style="width: 15%" class="text-center">
-						<a th:href="@{/trade/update/{id}(id=${trade.id})}">Edit</a>&nbsp;|&nbsp;
-						<a th:href="@{/trade/delete/{id}(id=${trade.id})}">Delete</a>
+					<td class="text-center">
+						<a th:href="@{/trade/update/{id}(id=${trade.tradeId})}">Edit</a> |
+						<a th:href="@{/trade/delete/{id}(id=${trade.tradeId})}">Delete</a>
 					</td>
 				</tr>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
+
 </div>
 </body>
 </html>

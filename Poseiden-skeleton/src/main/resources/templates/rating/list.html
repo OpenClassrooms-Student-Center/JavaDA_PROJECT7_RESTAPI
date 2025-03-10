@@ -1,57 +1,72 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<meta charset="UTF-8"/>
+	<title>Rating List</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
-	<div class="row">
+
+	<div class="row mt-3">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
+			<a href="/bidList/list">Bid List</a> |
+			<a href="/curvePoint/list">Curve Points</a> |
+			<a href="/rating/list">Ratings</a> |
+			<a href="/trade/list">Trade</a> |
 			<a href="/ruleName/list">Rule</a>
 		</div>
-		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
-				<input type="submit" value="Logout"/>
+		<div style="font-family: Arial, sans-serif;">
+			<span>Logged in user: <span th:text="${username}"></span></span>
+			<form th:action="@{/logout}" method="post" style="display: inline;">
+				<button type="submit" style="margin-left: 10px; padding: 2px 8px;">Logout</button>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Rating List</h2></div>
-	<div class="row">
-		<a href="/rating/add" class="btn btn-primary btn-sm">Add New</a>
-		<table class="table table-bordered">
-			<thead>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<h2>Rating List</h2>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<a href="/rating/add" class="btn btn-primary btn-sm">Add New</a>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<table class="table table-bordered">
+				<thead>
 				<tr>
 					<th>Id</th>
-					<th>MoodysRating</th>
-					<th>SandPRating</th>
-					<th>FitchRating</th>
+					<th>Moodys Rating</th>
+					<th>S&P Rating</th>
+					<th>Fitch Rating</th>
 					<th>Order</th>
 					<th>Action</th>
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				<tr th:each="rating : ${ratings}">
-					<td style="width: 10%" th:text="${rating.id}"></td>
+					<td th:text="${rating.id}"></td>
 					<td th:text="${rating.moodysRating}"></td>
 					<td th:text="${rating.sandPRating}"></td>
 					<td th:text="${rating.fitchRating}"></td>
-					<td th:text="${rating.order}"></td>
-					<td style="width: 15%" class="text-center">
-						<a th:href="@{/rating/update/{id}(id=${rating.id})}">Edit</a>&nbsp;|&nbsp;
+					<td th:text="${rating.orderNumber}"></td>
+					<td class="text-center">
+						<a th:href="@{/rating/update/{id}(id=${rating.id})}">Edit</a> |
 						<a th:href="@{/rating/delete/{id}(id=${rating.id})}">Delete</a>
 					</td>
 				</tr>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
+
 </div>
 </body>
 </html>

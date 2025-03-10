@@ -1,61 +1,77 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<meta charset="UTF-8"/>
+	<title>Rule List</title>
+	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
-	<div class="row">
+
+	<div class="row mt-3">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">ruleNames</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
+			<a href="/bidList/list">Bid List</a> |
+			<a href="/curvePoint/list">Curve Points</a> |
+			<a href="/rating/list">Ratings</a> |
+			<a href="/trade/list">Trade</a> |
 			<a href="/ruleName/list">Rule</a>
 		</div>
-		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
-				<input type="submit" value="Logout"/>
+
+		<div style="font-family: Arial, sans-serif;">
+			<span>Logged in user: <span th:text="${username}"></span></span>
+			<form th:action="@{/logout}" method="post" style="display: inline;">
+				<button type="submit" style="margin-left: 10px; padding: 2px 8px;">Logout</button>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Rule List</h2></div>
-	<div class="row">
-		<a href="/ruleName/add" class="btn btn-primary btn-sm">Add New</a>
-		<table class="table table-bordered">
-			<thead>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<h2>Rule List</h2>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<a href="/ruleName/add" class="btn btn-primary btn-sm">Add New</a>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<table class="table table-bordered">
+				<thead>
 				<tr>
 					<th>Id</th>
 					<th>Name</th>
 					<th>Description</th>
-					<th>json</th>
-					<th>template</th>
-					<th>sql</th>
-					<th>sqlPart</th>
+					<th>Json</th>
+					<th>Template</th>
+					<th>SQL</th>
+					<th>SQL Part</th>
 					<th>Action</th>
 				</tr>
-			</thead>
-			<tbody>
+				</thead>
+				<tbody>
 				<tr th:each="ruleName : ${ruleNames}">
-					<td style="width: 10%" th:text="${ruleName.id}"></td>
+					<td th:text="${ruleName.id}"></td>
 					<td th:text="${ruleName.name}"></td>
 					<td th:text="${ruleName.description}"></td>
 					<td th:text="${ruleName.json}"></td>
 					<td th:text="${ruleName.template}"></td>
-					<td th:text="${ruleName.sql}"></td>
+					<td th:text="${ruleName.sqlStr}"></td>
 					<td th:text="${ruleName.sqlPart}"></td>
-					<td style="width: 15%" class="text-center">
-						<a th:href="@{/ruleName/update/{id}(id=${ruleName.id})}">Edit</a>&nbsp;|&nbsp;
+					<td class="text-center">
+						<a th:href="@{/ruleName/update/{id}(id=${ruleName.id})}">Edit</a> |
 						<a th:href="@{/ruleName/delete/{id}(id=${ruleName.id})}">Delete</a>
 					</td>
 				</tr>
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
+
 </div>
 </body>
 </html>

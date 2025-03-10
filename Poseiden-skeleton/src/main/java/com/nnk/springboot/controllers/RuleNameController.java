@@ -1,6 +1,12 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.RuleName;
+import com.nnk.springboot.services.RuleNameService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,46 +15,113 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
+import java.util.List;
 
+/**
+ * Controller to manage RuleName entities.
+ */
 @Controller
+@RequestMapping("/ruleName")
 public class RuleNameController {
-    // TODO: Inject RuleName service
 
-    @RequestMapping("/ruleName/list")
-    public String home(Model model)
-    {
-        // TODO: find all RuleName, add to model
+    private final RuleNameService ruleNameService;
+
+    /**
+     * Constructor-based dependency injection.
+     *
+     * @param ruleNameService the rule name service
+     */
+    public RuleNameController(RuleNameService ruleNameService) {
+        this.ruleNameService = ruleNameService;
+    }
+
+    /**
+     * Displays the list of rule names.
+     *
+     * @param model the model
+     * @return the rule name list view
+     */
+    @RequestMapping("/list")
+    public String home(Model model) {
+        model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = ( UserDetails) authentication.getPrincipal();
+        model.addAttribute("username", userDetails.getUsername() );
         return "ruleName/list";
     }
 
-    @GetMapping("/ruleName/add")
-    public String addRuleForm(RuleName bid) {
+    /**
+     * Displays the form to add a new rule name.
+     *
+     * @return the add rule name view
+     */
+    @GetMapping("/add")
+    public String addRuleNameForm(RuleName bid) {
         return "ruleName/add";
     }
 
-    @PostMapping("/ruleName/validate")
+    /**
+     * Validates and saves a new rule name.
+     *
+     * @param ruleName the rule name object
+     * @param result   validation result
+     * @return the redirect path
+     */
+    @PostMapping("/validate")
     public String validate(@Valid RuleName ruleName, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
-        return "ruleName/add";
-    }
-
-    @GetMapping("/ruleName/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
-        return "ruleName/update";
-    }
-
-    @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
-                             BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+        if (result.hasErrors()){
+            return "ruleName/add";
+        }
+        ruleNameService.saveRuleName(ruleName);
+        model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
         return "redirect:/ruleName/list";
     }
 
-    @GetMapping("/ruleName/delete/{id}")
+    /**
+     * Displays the form to update an existing rule name.
+     *
+     * @param id    the rule name id
+     * @param model the model
+     * @return the update rule name view
+     */
+    @GetMapping("/update/{id}")
+    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        RuleName ruleName = ruleNameService.getRuleNameById(id).orElseThrow(()-> new IllegalArgumentException("Invalid RuleName Id:" + id));
+        model.addAttribute("ruleName", ruleName);
+        return "ruleName/update";
+    }
+
+    /**
+     * Updates an existing rule name.
+     *
+     * @param id       the rule name id
+     * @param ruleName the updated rule name object
+     * @param result   validation result
+     * @return the redirect path
+     */
+    @PostMapping("/update/{id}")
+    public String updateRuleName(@PathVariable("id") Integer id, @Valid RuleName ruleName,
+                             BindingResult result, Model model) {
+        if(result.hasErrors()){
+            return "ruleName/update";
+        }
+        ruleName.setId(id);
+        ruleNameService.saveRuleName(ruleName);
+        model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
+        return "redirect:/ruleName/list";
+    }
+
+    /**
+     * Deletes a rule name.
+     *
+     * @param id the rule name id
+     * @return the redirect path
+     */
+    @GetMapping("/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find RuleName by Id and delete the RuleName, return to Rule list
+        RuleName ruleName = ruleNameService.getRuleNameById(id).orElseThrow(()-> new IllegalArgumentException("Invalid RuleName Id:" + id));
+        ruleNameService.deleteRuleNameById(id);
+        model.addAttribute("ruleNames", ruleNameService.getAllRuleNames());
         return "redirect:/ruleName/list";
     }
 }

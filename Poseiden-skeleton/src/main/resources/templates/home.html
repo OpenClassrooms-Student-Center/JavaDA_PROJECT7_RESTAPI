@@ -1,13 +1,36 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title> Spring Boot </title>
-    <link rel="stylesheet" href="/css/styles.css"/>
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
 </head>
 <body>
-<h3> HOME PAGE </h3>
-<p>
-    <a href="/login">Login</a> or create one <a href="/user/list">User management</a>
-</p>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <h1>Welcome to Poseidon Capital Solutions</h1>
+            <p class="lead">Manage your bids, curve points, ratings, trades, and rules efficiently.</p>
+        </div>
+    </div>
+
+    <div style="font-family: Arial, sans-serif;">
+        <span>Logged in user: <span th:text="${username}"></span></span>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" style="margin-left: 10px; padding: 2px 8px;">Logout</button>
+        </form>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a href="/bidList/list" class="btn btn-primary btn-lg">Bid List</a>
+            <a href="/curvePoint/list" class="btn btn-secondary btn-lg">Curve Points</a>
+            <a href="/rating/list" class="btn btn-success btn-lg">Ratings</a>
+            <a href="/trade/list" class="btn btn-danger btn-lg">Trades</a>
+            <a href="/ruleName/list" class="btn btn-warning btn-lg">Rules</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
